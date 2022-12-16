@@ -1,0 +1,33 @@
+From: Joel Selvaraj <joelselvaraj.oss@gmail.com>
+Date: Fri, 9 Dec 2022 23:37:09 -0600
+Subject: scsi: core: Add BLIST_SKIP_VPD_PAGES for SKhynix H28U74301AMR
+
+Xiaomi Poco F1(qcom/sdm845-xiaomi-beryllium*.dts) comes with a SKhynix
+H28U74301AMR UFS. sd_read_cpr operation leads to a 120 seconds timeout
+making the device bootup very slow.
+[  121.457736] sd 0:0:0:1: [sdb] tag#23 timing out command, waited 120s
+[  121.457754] sd 0:0:0:0: [sda] tag#24 timing out command, waited 120s
+...
+
+Able to reproduce it on multiple devices.
+
+Setting the BLIST_SKIP_VPD_PAGES allows the device to skip the failing
+sd_read_cpr operation.
+
+Signed-off-by: Joel Selvaraj <joelselvaraj.oss@gmail.com>
+---
+ drivers/scsi/scsi_devinfo.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/scsi/scsi_devinfo.c b/drivers/scsi/scsi_devinfo.c
+index c708045..bd110a9 100644
+--- a/drivers/scsi/scsi_devinfo.c
++++ b/drivers/scsi/scsi_devinfo.c
+@@ -233,6 +233,7 @@ static struct {
+ 	{"SGI", "RAID5", "*", BLIST_SPARSELUN},
+ 	{"SGI", "TP9100", "*", BLIST_REPORTLUN2},
+ 	{"SGI", "Universal Xport", "*", BLIST_NO_ULD_ATTACH},
++	{"SKhynix", "H28U74301AMR", NULL, BLIST_SKIP_VPD_PAGES},
+ 	{"IBM", "Universal Xport", "*", BLIST_NO_ULD_ATTACH},
+ 	{"SUN", "Universal Xport", "*", BLIST_NO_ULD_ATTACH},
+ 	{"DELL", "Universal Xport", "*", BLIST_NO_ULD_ATTACH},

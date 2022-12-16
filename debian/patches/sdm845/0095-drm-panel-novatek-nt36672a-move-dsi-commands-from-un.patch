@@ -1,0 +1,45 @@
+From: Joel Selvaraj <joelselvaraj.oss@gmail.com>
+Date: Sat, 10 Dec 2022 00:05:48 -0600
+Subject: drm/panel: novatek-nt36672a: move dsi commands from unprepare to
+ disable
+
+---
+ drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+index 80994b0..9b05899 100644
+--- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
++++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+@@ -115,7 +115,7 @@ static int nt36672a_panel_power_off(struct drm_panel *panel)
+ 	return ret;
+ }
+ 
+-static int nt36672a_panel_unprepare(struct drm_panel *panel)
++static int nt36672a_panel_disable(struct drm_panel *panel)
+ {
+ 	struct nt36672a_panel *pinfo = to_nt36672a_panel(panel);
+ 	int ret;
+@@ -146,6 +146,14 @@ static int nt36672a_panel_unprepare(struct drm_panel *panel)
+ 	/* 0x3C = 60ms delay */
+ 	msleep(60);
+ 
++	return ret;
++}
++
++static int nt36672a_panel_unprepare(struct drm_panel *panel)
++{
++	struct nt36672a_panel *pinfo = to_nt36672a_panel(panel);
++	int ret;
++
+ 	ret = nt36672a_panel_power_off(panel);
+ 	if (ret < 0)
+ 		dev_err(panel->dev, "power_off failed ret = %d\n", ret);
+@@ -259,6 +267,7 @@ static int nt36672a_panel_get_modes(struct drm_panel *panel,
+ }
+ 
+ static const struct drm_panel_funcs panel_funcs = {
++	.disable = nt36672a_panel_disable,
+ 	.unprepare = nt36672a_panel_unprepare,
+ 	.prepare = nt36672a_panel_prepare,
+ 	.get_modes = nt36672a_panel_get_modes,

@@ -1,0 +1,30 @@
+From: Dylan Van Assche <dylan.vanassche@ugent.be>
+Date: Mon, 21 Nov 2022 15:32:49 +0100
+Subject: gpu: drm: panel: panel-visionox-rm69299: configure default
+ brightness
+
+The Visionox RM69299 panel can set its brightness between 0 and 255,
+255 is really bright as default. Reduce this to 50 as default brightness
+to avoid burning in the screen when keeping the display on for a long
+time.
+
+Signed-off-by: Dylan Van Assche <me@dylanvanassche.be>
+
+Part-of: <https://gitlab.com/sdm845-mainline/linux/-/merge_requests/54>
+---
+ drivers/gpu/drm/panel/panel-visionox-rm69299.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/panel/panel-visionox-rm69299.c b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
+index fc08c62..8175385 100644
+--- a/drivers/gpu/drm/panel/panel-visionox-rm69299.c
++++ b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
+@@ -362,7 +362,7 @@ visionox_rm69299_create_backlight(struct mipi_dsi_device *dsi)
+ 	struct device *dev = &dsi->dev;
+ 	const struct backlight_properties props = {
+ 		.type = BACKLIGHT_PLATFORM,
+-		.brightness = 255,
++		.brightness = 50,
+ 		.max_brightness = 255,
+ 	};
+ 

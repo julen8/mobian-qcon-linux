@@ -1,0 +1,59 @@
+From: Caleb Connolly <caleb.connolly@linaro.org>
+Date: Thu, 8 Dec 2022 19:52:20 +0000
+Subject: drm/panel: visionox-rm69299: move dsi commands from unprepare to
+ disable
+
+The commit 007ac0262b0d ("drm/msm/dsi: switch to DRM_PANEL_BRIDGE")
+breaks panels which send DSI commands in their .unprepare callbacks.
+Migrate to using .disable for that.
+
+Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
+---
+ drivers/gpu/drm/panel/panel-visionox-rm69299.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/panel/panel-visionox-rm69299.c b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
+index 8175385..cc35c5a 100644
+--- a/drivers/gpu/drm/panel/panel-visionox-rm69299.c
++++ b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
+@@ -92,7 +92,7 @@ static int visionox_rm69299_power_off(struct visionox_rm69299 *ctx)
+ 	return regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
+ }
+ 
+-static int visionox_rm69299_unprepare(struct drm_panel *panel)
++static int visionox_rm69299_disable(struct drm_panel *panel)
+ {
+ 	struct visionox_rm69299 *ctx = panel_to_ctx(panel);
+ 	int ret;
+@@ -113,6 +113,14 @@ static int visionox_rm69299_unprepare(struct drm_panel *panel)
+ 			ret);
+ 	}
+ 
++	return ret;
++}
++
++static int visionox_rm69299_unprepare(struct drm_panel *panel)
++{
++	struct visionox_rm69299 *ctx = panel_to_ctx(panel);
++	int ret;
++
+ 	ret = visionox_rm69299_power_off(ctx);
+ 
+ 	ctx->prepared = false;
+@@ -308,7 +316,7 @@ static int visionox_rm69299_prepare(struct drm_panel *panel)
+ 	}
+ 
+ 	/* Per DSI spec wait 120ms after sending set_display_on DCS command */
+-	msleep(120);
++	msleep(160);
+ 
+ 	ctx->prepared = true;
+ 
+@@ -334,6 +342,7 @@ static int visionox_rm69299_get_modes(struct drm_panel *panel,
+ }
+ 
+ static const struct drm_panel_funcs visionox_rm69299_drm_funcs = {
++	.disable = visionox_rm69299_disable,
+ 	.unprepare = visionox_rm69299_unprepare,
+ 	.prepare = visionox_rm69299_prepare,
+ 	.get_modes = visionox_rm69299_get_modes,
