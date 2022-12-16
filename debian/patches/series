@@ -95,3 +95,4 @@ sdm845/0094-drm-panel-ebbg-ft8719-move-dsi-commands-from-unprepa.patch
 sdm845/0095-drm-panel-novatek-nt36672a-move-dsi-commands-from-un.patch
 sdm845/0096-scsi-core-Add-BLIST_SKIP_VPD_PAGES-for-SKhynix-H28U7.patch
 sdm845/0097-Revert-drm-panel-Add-novatek-nt35596s-panel-driver.patch
+sdm845/0092-arch-arm64-qcom-sdm845-xiaomi-polaris-add-missing-no.patch
