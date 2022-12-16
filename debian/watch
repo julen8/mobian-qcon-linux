@@ -1,0 +1,3 @@
+version=4
+opts="dversionmangle=s/\+sdm845$//," \
+    https://www.kernel.org/pub/linux/kernel/v6.x/ linux-(6.1\.?\d*)@ARCHIVE_EXT@
