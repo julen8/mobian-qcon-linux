@@ -1,3 +1,9 @@
+linux-6.1-sdm845 (6.1.2+sdm845-1) unstable; urgency=medium
+
+  * d/patches: rebase on 6.1.2
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Mon, 02 Jan 2023 14:46:50 +0100
+
 linux-6.1-sdm845 (6.1+sdm845-1) unstable; urgency=medium
 
   * Initial 6.1 release
