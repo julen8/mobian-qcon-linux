@@ -18,7 +18,7 @@ Signed-off-by: Caleb Connolly <caleb@connolly.tech>
  create mode 100644 drivers/input/misc/qcom-spmi-haptics.c
 
 diff --git a/drivers/input/misc/Kconfig b/drivers/input/misc/Kconfig
-index 9f088900..52cafcc 100644
+index fa94265..1f6db8c 100644
 --- a/drivers/input/misc/Kconfig
 +++ b/drivers/input/misc/Kconfig
 @@ -186,6 +186,18 @@ config INPUT_PMIC8XXX_PWRKEY

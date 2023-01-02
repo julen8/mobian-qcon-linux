@@ -30,10 +30,10 @@ index 00000000..6b05983
 +
 +#endif /* __DT_BINDINGS_Q6_VOICE_H__ */
 diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-index ee60dcf..492da66 100644
+index 1f74b81..d30cceb 100644
 --- a/sound/soc/qcom/Kconfig
 +++ b/sound/soc/qcom/Kconfig
-@@ -137,9 +137,13 @@ config SND_SOC_QDSP6
+@@ -139,9 +139,13 @@ config SND_SOC_QDSP6
  	 audio drivers. This includes q6asm, q6adm,
  	 q6afe interfaces to DSP using apr.
  

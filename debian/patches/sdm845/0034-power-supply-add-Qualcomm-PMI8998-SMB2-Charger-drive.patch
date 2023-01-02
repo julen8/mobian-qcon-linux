@@ -7,26 +7,6 @@ and PM660.
 
 Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
 ---
-Changes since v1:
- * Renamed from qcom_smb2 to qcom_pmi8998_charger
-
-power: supply: pmi8998_charger: actually do call changed in interrupt context
-
-All the IRQ handlers are registered as threaded handlers, so it's safe
-to call power_supply_changed()
-
-Without this call, userspace is never notified when we unplug the
-charger, oops
-
-power: supply: pmi8998_charger: drop in v5, fix slow charging
-
-Update to the latest version of the charger from my upstreaming efforts.
-Includes the typo fix to now properly configure the fast charge current
-and finally fix the slow charging issue on the OnePlus 6. I reduced the
-fast charge current to 1A but nonetheless your device may get HOT while
-charging, do NOT leave it charging unsupervised, this charger is
-experimental.
----
  drivers/power/supply/Kconfig                |    9 +
  drivers/power/supply/Makefile               |    2 +-
  drivers/power/supply/qcom_pmi8998_charger.c | 1043 +++++++++++++++++++++++++++

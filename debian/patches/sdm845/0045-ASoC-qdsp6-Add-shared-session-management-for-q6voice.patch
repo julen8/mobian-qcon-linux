@@ -12,10 +12,10 @@ Subject: ASoC: qdsp6: Add shared session management for q6voice services
  create mode 100644 sound/soc/qcom/qdsp6/q6voice-common.h
 
 diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-index 8c7398bc..ee60dcf 100644
+index 96a6d47..1f74b81 100644
 --- a/sound/soc/qcom/Kconfig
 +++ b/sound/soc/qcom/Kconfig
-@@ -137,6 +137,10 @@ config SND_SOC_QDSP6
+@@ -139,6 +139,10 @@ config SND_SOC_QDSP6
  	 audio drivers. This includes q6asm, q6adm,
  	 q6afe interfaces to DSP using apr.
  

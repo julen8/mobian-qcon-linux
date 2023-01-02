@@ -8,10 +8,10 @@ Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
  1 file changed, 18 insertions(+)
 
 diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-index 6afd094..980f710 100644
+index dc6f07c..6e7313c 100644
 --- a/drivers/remoteproc/qcom_q6v5_pas.c
 +++ b/drivers/remoteproc/qcom_q6v5_pas.c
-@@ -850,6 +850,23 @@ static const struct adsp_data slpi_resource_init = {
+@@ -854,6 +854,23 @@ static const struct adsp_data slpi_resource_init = {
  		.ssctl_id = 0x16,
  };
  
@@ -35,7 +35,7 @@ index 6afd094..980f710 100644
  static const struct adsp_data sm8150_slpi_resource = {
  		.crash_reason_smem = 424,
  		.firmware_name = "slpi.mdt",
-@@ -967,6 +984,7 @@ static const struct of_device_id adsp_of_match[] = {
+@@ -971,6 +988,7 @@ static const struct of_device_id adsp_of_match[] = {
  	{ .compatible = "qcom,sdm660-adsp-pas", .data = &adsp_resource_init},
  	{ .compatible = "qcom,sdm845-adsp-pas", .data = &sdm845_adsp_resource_init},
  	{ .compatible = "qcom,sdm845-cdsp-pas", .data = &sdm845_cdsp_resource_init},
