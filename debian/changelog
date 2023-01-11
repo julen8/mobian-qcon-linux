@@ -1,3 +1,10 @@
+linux-6.1-sdm845 (6.1.4+sdm845-2) unstable; urgency=medium
+
+  * d/patches: fix audio not working since 6.1.3
+  * d/patches: add panel for xiaomi,polaris and cleanup defconfig
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Wed, 11 Jan 2023 23:12:59 +0100
+
 linux-6.1-sdm845 (6.1.4+sdm845-1) unstable; urgency=medium
 
   * d/patches: rebase on 6.1.4
