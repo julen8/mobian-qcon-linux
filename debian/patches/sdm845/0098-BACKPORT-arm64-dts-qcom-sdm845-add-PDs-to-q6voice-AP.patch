@@ -1,0 +1,37 @@
+From: Caleb Connolly <caleb.connolly@linaro.org>
+Date: Wed, 11 Jan 2023 16:55:45 +0000
+Subject: BACKPORT arm64: dts: qcom: sdm845: add PDs to q6voice APR
+
+Fixes: 6d7860f5750d ("soc: qcom: apr: Add check for idr_alloc and of_property_read_string_index")
+Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
+---
+ arch/arm64/boot/dts/qcom/sdm845.dtsi | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
+index 18ec90a..82c4178 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
+@@ -811,6 +811,7 @@ q6routing: routing {
+ 				q6mvm: apr-service@9 {
+ 					compatible = "qcom,q6mvm";
+ 					reg = <APR_SVC_ADSP_MVM>;
++					qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";
+ 					status = "disabled";
+ 
+ 					q6voicedai: dais {
+@@ -822,12 +823,14 @@ q6voicedai: dais {
+ 				q6cvs: apr-service@a {
+ 					compatible = "qcom,q6cvs";
+ 					reg = <APR_SVC_ADSP_CVS>;
++					qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";
+ 					status = "disabled";
+ 				};
+ 
+ 				q6cvp: apr-service@b {
+ 					compatible = "qcom,q6cvp";
+ 					reg = <APR_SVC_ADSP_CVP>;
++					qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";
+ 					status = "disabled";
+ 				};
+ 			};
