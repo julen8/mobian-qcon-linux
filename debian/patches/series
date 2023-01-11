@@ -97,7 +97,8 @@ sdm845/0096-scsi-core-Add-BLIST_SKIP_VPD_PAGES-for-SKhynix-H28U7.patch
 sdm845/0097-Revert-drm-panel-Add-novatek-nt35596s-panel-driver.patch
 sdm845/0098-BACKPORT-arm64-dts-qcom-sdm845-add-PDs-to-q6voice-AP.patch
 sdm845/0099-arch-arm64-qcom-sdm845-xiaomi-polaris-add-missing-no.patch
+sdm845/0100-drm-panel-add-Novatek-NT35596S-panel-driver.patch
 
-mobian/0100-arm64-configs-add-sdm845_defconfig.patch
-mobian/0101-builddeb-don-t-build-linux-libc-dev-package.patch
-debian/0102-wireless-add-debian-wireless-regdb-certificates.patch
+mobian/0101-arm64-configs-add-sdm845_defconfig.patch
+mobian/0102-builddeb-don-t-build-linux-libc-dev-package.patch
+debian/0103-wireless-add-debian-wireless-regdb-certificates.patch
