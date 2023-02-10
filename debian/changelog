@@ -1,3 +1,9 @@
+linux-6.1-sdm845 (6.1.11+sdm845-1) unstable; urgency=medium
+
+  * Rebase on 6.1.11
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Fri, 10 Feb 2023 16:47:59 +0100
+
 linux-6.1-sdm845 (6.1.10+sdm845-2) unstable; urgency=medium
 
   * d/patches: fix kernel config options for modem
