@@ -7,3 +7,6 @@ upstream-vcs-tag = v%(version)s
 
 [tag]
 sign-tags = true
+
+[dch]
+commit-msg = d/changelog: release version %(version)s
