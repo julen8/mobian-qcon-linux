@@ -95,7 +95,7 @@ Signed-off-by: David Heidelberg <david@ixit.cz>
  create mode 100644 sound/soc/codecs/tfa98xx-downstream/tfa_service.h
 
 diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 4a24cc3..52df7d2 100644
+index e7086af..ecaf736 100644
 --- a/sound/soc/codecs/Kconfig
 +++ b/sound/soc/codecs/Kconfig
 @@ -227,6 +227,7 @@ config SND_SOC_ALL_CODECS

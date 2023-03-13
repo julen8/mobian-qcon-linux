@@ -29,7 +29,7 @@ tas2559: use gpiod and specifiy legacy_dai_naming
  create mode 100644 sound/soc/codecs/tas2559.h
 
 diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 7022e62..4a24cc3 100644
+index 3f16ad1..e7086af 100644
 --- a/sound/soc/codecs/Kconfig
 +++ b/sound/soc/codecs/Kconfig
 @@ -313,6 +313,7 @@ config SND_SOC_ALL_CODECS
@@ -40,7 +40,7 @@ index 7022e62..4a24cc3 100644
  	help
  	  Normally ASoC codec drivers are only built if a machine driver which
  	  uses them is also built since they are only usable with a machine
-@@ -2148,6 +2149,9 @@ config SND_SOC_LPASS_VA_MACRO
+@@ -2149,6 +2150,9 @@ config SND_SOC_LPASS_VA_MACRO
  	select REGMAP_MMIO
  	select SND_SOC_LPASS_MACRO_COMMON
  	tristate "Qualcomm VA Macro in LPASS(Low Power Audio SubSystem)"
