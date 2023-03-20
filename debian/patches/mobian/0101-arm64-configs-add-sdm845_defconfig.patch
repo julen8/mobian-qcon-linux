@@ -3,16 +3,16 @@ Date: Mon, 26 Apr 2021 12:17:19 +0200
 Subject: arm64: configs: add sdm845_defconfig
 
 ---
- arch/arm64/configs/sdm845_defconfig | 925 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 925 insertions(+)
+ arch/arm64/configs/sdm845_defconfig | 922 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 922 insertions(+)
  create mode 100644 arch/arm64/configs/sdm845_defconfig
 
 diff --git a/arch/arm64/configs/sdm845_defconfig b/arch/arm64/configs/sdm845_defconfig
 new file mode 100644
-index 00000000..c828db5
+index 00000000..b1aa2cc
 --- /dev/null
 +++ b/arch/arm64/configs/sdm845_defconfig
-@@ -0,0 +1,925 @@
+@@ -0,0 +1,922 @@
 +CONFIG_SYSVIPC=y
 +CONFIG_POSIX_MQUEUE=y
 +CONFIG_AUDIT=y
@@ -62,7 +62,6 @@ index 00000000..c828db5
 +CONFIG_SCHED_MC=y
 +CONFIG_SCHED_CLUSTER=y
 +CONFIG_SCHED_SMT=y
-+CONFIG_NR_CPUS=8
 +CONFIG_NUMA=y
 +CONFIG_KEXEC=y
 +CONFIG_KEXEC_FILE=y
@@ -528,8 +527,6 @@ index 00000000..c828db5
 +CONFIG_VIDEO_QCOM_CAMSS=m
 +CONFIG_VIDEO_QCOM_VENUS=m
 +CONFIG_DRM=y
-+CONFIG_DRM_I2C_CH7006=m
-+CONFIG_DRM_I2C_SIL164=m
 +CONFIG_DRM_MSM=y
 +CONFIG_DRM_PANEL_SIMPLE=m
 +CONFIG_DRM_PANEL_EBBG_FT8719=y
