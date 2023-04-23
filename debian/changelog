@@ -1,3 +1,9 @@
+linux-6.1-sdm845 (6.1.25+sdm845-1) unstable; urgency=medium
+
+  * Rebase on 6.1.25
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Sun, 23 Apr 2023 13:31:36 +0200
+
 linux-6.1-sdm845 (6.1.20+sdm845-1) unstable; urgency=medium
 
   * d/patches: remove useless defconfig items and re-generate
