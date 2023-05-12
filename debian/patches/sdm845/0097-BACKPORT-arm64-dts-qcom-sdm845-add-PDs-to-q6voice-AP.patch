@@ -9,7 +9,7 @@ Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
  1 file changed, 3 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-index 18ec90a..82c4178 100644
+index fc718a3..f040466 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
 @@ -811,6 +811,7 @@ q6routing: routing {
