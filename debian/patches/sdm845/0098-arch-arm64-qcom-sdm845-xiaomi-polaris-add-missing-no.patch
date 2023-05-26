@@ -9,7 +9,7 @@ Signed-off-by: Molly Sophia <mollysophia379@gmail.com>
  1 file changed, 149 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
-index f982594..f23d5d3 100644
+index 74c6832..bdebc1b 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
 +++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
 @@ -12,6 +12,9 @@

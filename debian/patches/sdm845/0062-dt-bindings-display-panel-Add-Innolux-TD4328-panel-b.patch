@@ -12,7 +12,7 @@ Signed-off-by: Teguh Sobirin <teguh@sobir.in>
 
 diff --git a/Documentation/devicetree/bindings/display/panel/innolux,td4328.yaml b/Documentation/devicetree/bindings/display/panel/innolux,td4328.yaml
 new file mode 100755
-index 00000000..d4773ad
+index 0000000..d4773ad
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/display/panel/innolux,td4328.yaml
 @@ -0,0 +1,83 @@

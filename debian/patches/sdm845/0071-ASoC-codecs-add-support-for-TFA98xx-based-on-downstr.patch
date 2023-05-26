@@ -95,10 +95,10 @@ Signed-off-by: David Heidelberg <david@ixit.cz>
  create mode 100644 sound/soc/codecs/tfa98xx-downstream/tfa_service.h
 
 diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index e7086af..ecaf736 100644
+index 46ee8c2..6759bb0 100644
 --- a/sound/soc/codecs/Kconfig
 +++ b/sound/soc/codecs/Kconfig
-@@ -227,6 +227,7 @@ config SND_SOC_ALL_CODECS
+@@ -228,6 +228,7 @@ config SND_SOC_ALL_CODECS
  	imply SND_SOC_TAS5720
  	imply SND_SOC_TAS6424
  	imply SND_SOC_TDA7419
@@ -106,7 +106,7 @@ index e7086af..ecaf736 100644
  	imply SND_SOC_TFA9879
  	imply SND_SOC_TFA989X
  	imply SND_SOC_TLV320ADC3XXX
-@@ -1613,6 +1614,14 @@ config SND_SOC_TDA7419
+@@ -1619,6 +1620,14 @@ config SND_SOC_TDA7419
  	depends on I2C
  	select REGMAP_I2C
  
@@ -122,10 +122,10 @@ index e7086af..ecaf736 100644
  	tristate "NXP Semiconductors TFA9879 amplifier"
  	depends on I2C
 diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index 4f3c36e..2c78d07 100644
+index 7c39d7d..2514192 100644
 --- a/sound/soc/codecs/Makefile
 +++ b/sound/soc/codecs/Makefile
-@@ -254,6 +254,10 @@ snd-soc-tas5805m-objs := tas5805m.o
+@@ -255,6 +255,10 @@ snd-soc-tas5805m-objs := tas5805m.o
  snd-soc-tas6424-objs := tas6424.o
  snd-soc-tda7419-objs := tda7419.o
  snd-soc-tas2770-objs := tas2770.o
@@ -136,7 +136,7 @@ index 4f3c36e..2c78d07 100644
  snd-soc-tfa9879-objs := tfa9879.o
  snd-soc-tfa989x-objs := tfa989x.o
  snd-soc-tlv320adc3xxx-objs := tlv320adc3xxx.o
-@@ -615,6 +619,7 @@ obj-$(CONFIG_SND_SOC_TAS5805M)	+= snd-soc-tas5805m.o
+@@ -617,6 +621,7 @@ obj-$(CONFIG_SND_SOC_TAS5805M)	+= snd-soc-tas5805m.o
  obj-$(CONFIG_SND_SOC_TAS6424)	+= snd-soc-tas6424.o
  obj-$(CONFIG_SND_SOC_TDA7419)	+= snd-soc-tda7419.o
  obj-$(CONFIG_SND_SOC_TAS2770) += snd-soc-tas2770.o
@@ -146,7 +146,7 @@ index 4f3c36e..2c78d07 100644
  obj-$(CONFIG_SND_SOC_TLV320ADC3XXX)	+= snd-soc-tlv320adc3xxx.o
 diff --git a/sound/soc/codecs/tfa98xx-downstream/config.h b/sound/soc/codecs/tfa98xx-downstream/config.h
 new file mode 100644
-index 00000000..847608f
+index 0000000..847608f
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/config.h
 @@ -0,0 +1,37 @@
@@ -189,7 +189,7 @@ index 00000000..847608f
 +
 diff --git a/sound/soc/codecs/tfa98xx-downstream/dbgprint.h b/sound/soc/codecs/tfa98xx-downstream/dbgprint.h
 new file mode 100644
-index 00000000..c0886fb
+index 0000000..c0886fb
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/dbgprint.h
 @@ -0,0 +1,160 @@
@@ -355,7 +355,7 @@ index 00000000..c0886fb
 +#endif				/* _DBGPRINT_H --------------- */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa.h b/sound/soc/codecs/tfa98xx-downstream/tfa.h
 new file mode 100644
-index 00000000..71faf32
+index 0000000..71faf32
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa.h
 @@ -0,0 +1,45 @@
@@ -406,7 +406,7 @@ index 00000000..71faf32
 +#endif /* TFA_H_ */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa1_tfafieldnames.h b/sound/soc/codecs/tfa98xx-downstream/tfa1_tfafieldnames.h
 new file mode 100644
-index 00000000..400716d
+index 0000000..400716d
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa1_tfafieldnames.h
 @@ -0,0 +1,911 @@
@@ -1323,7 +1323,7 @@ index 00000000..400716d
 +};
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa2_tfafieldnames_N1C.h b/sound/soc/codecs/tfa98xx-downstream/tfa2_tfafieldnames_N1C.h
 new file mode 100644
-index 00000000..ac0bb04
+index 0000000..ac0bb04
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa2_tfafieldnames_N1C.h
 @@ -0,0 +1,1533 @@
@@ -2862,7 +2862,7 @@ index 00000000..ac0bb04
 +};
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa9872_device_genregs_POR.h b/sound/soc/codecs/tfa98xx-downstream/tfa9872_device_genregs_POR.h
 new file mode 100644
-index 00000000..9dee345
+index 0000000..9dee345
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa9872_device_genregs_POR.h
 @@ -0,0 +1,131 @@
@@ -2999,7 +2999,7 @@ index 00000000..9dee345
 +#endif /* _TFA9872_DEVICE_GENREGS_H */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa9872_tfafieldnames.h b/sound/soc/codecs/tfa98xx-downstream/tfa9872_tfafieldnames.h
 new file mode 100644
-index 00000000..db9929d
+index 0000000..db9929d
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa9872_tfafieldnames.h
 @@ -0,0 +1,1228 @@
@@ -4233,7 +4233,7 @@ index 00000000..db9929d
 +#endif /* _TFA9872_TFAFIELDNAMES_H */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa9873_tfafieldnames.h b/sound/soc/codecs/tfa98xx-downstream/tfa9873_tfafieldnames.h
 new file mode 100644
-index 00000000..726ffe0
+index 0000000..726ffe0
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa9873_tfafieldnames.h
 @@ -0,0 +1,934 @@
@@ -5173,7 +5173,7 @@ index 00000000..726ffe0
 +#endif /* _TFA9873_TFAFIELDNAMES_H */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa9873_tfafieldnames_B0.h b/sound/soc/codecs/tfa98xx-downstream/tfa9873_tfafieldnames_B0.h
 new file mode 100644
-index 00000000..7bd0a99
+index 0000000..7bd0a99
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa9873_tfafieldnames_B0.h
 @@ -0,0 +1,933 @@
@@ -6112,7 +6112,7 @@ index 00000000..7bd0a99
 +#endif /* _TFA9873_TFAFIELDNAMES_B0_H */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa9874_tfafieldnames.h b/sound/soc/codecs/tfa98xx-downstream/tfa9874_tfafieldnames.h
 new file mode 100644
-index 00000000..7fba0d68
+index 0000000..7fba0d68
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa9874_tfafieldnames.h
 @@ -0,0 +1,843 @@
@@ -6961,7 +6961,7 @@ index 00000000..7fba0d68
 +#endif /* _TFA9874_TFAFIELDNAMES_H */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa9875_tfafieldnames.h b/sound/soc/codecs/tfa98xx-downstream/tfa9875_tfafieldnames.h
 new file mode 100644
-index 00000000..6f053bf
+index 0000000..6f053bf
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa9875_tfafieldnames.h
 @@ -0,0 +1,936 @@
@@ -7903,7 +7903,7 @@ index 00000000..6f053bf
 +#endif /* _TFA9875_TFAFIELDNAMES_H */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa9875_tfafieldnames_A1.h b/sound/soc/codecs/tfa98xx-downstream/tfa9875_tfafieldnames_A1.h
 new file mode 100644
-index 00000000..df919af
+index 0000000..df919af
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa9875_tfafieldnames_A1.h
 @@ -0,0 +1,939 @@
@@ -8848,7 +8848,7 @@ index 00000000..df919af
 +#endif /* _TFA9875_TFAFIELDNAMES_H */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa9878_tfafieldnames.h b/sound/soc/codecs/tfa98xx-downstream/tfa9878_tfafieldnames.h
 new file mode 100644
-index 00000000..f015fe7
+index 0000000..f015fe7
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa9878_tfafieldnames.h
 @@ -0,0 +1,980 @@
@@ -9834,7 +9834,7 @@ index 00000000..f015fe7
 +#endif /* _TFA9878_TFAFIELDNAMES_H */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa9887_tfafieldnames.h b/sound/soc/codecs/tfa98xx-downstream/tfa9887_tfafieldnames.h
 new file mode 100644
-index 00000000..ace43485
+index 0000000..ace43485
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa9887_tfafieldnames.h
 @@ -0,0 +1,72 @@
@@ -9912,7 +9912,7 @@ index 00000000..ace43485
 +
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa9890_tfafieldnames.h b/sound/soc/codecs/tfa98xx-downstream/tfa9890_tfafieldnames.h
 new file mode 100644
-index 00000000..4bdeff6
+index 0000000..4bdeff6
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa9890_tfafieldnames.h
 @@ -0,0 +1,87 @@
@@ -10005,7 +10005,7 @@ index 00000000..4bdeff6
 +
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa9891_genregs.h b/sound/soc/codecs/tfa98xx-downstream/tfa9891_genregs.h
 new file mode 100644
-index 00000000..7e5de58
+index 0000000..7e5de58
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa9891_genregs.h
 @@ -0,0 +1,1136 @@
@@ -11147,7 +11147,7 @@ index 00000000..7e5de58
 +#endif /* TFA9891_GENREGS_H */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa9891_tfafieldnames.h b/sound/soc/codecs/tfa98xx-downstream/tfa9891_tfafieldnames.h
 new file mode 100644
-index 00000000..99cb5ab
+index 0000000..99cb5ab
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa9891_tfafieldnames.h
 @@ -0,0 +1,526 @@
@@ -11679,7 +11679,7 @@ index 00000000..99cb5ab
 +#endif /* TFA_INC_TFA9891_TFAFIELDNAMES_H_ */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa9894_tfafieldnames.h b/sound/soc/codecs/tfa98xx-downstream/tfa9894_tfafieldnames.h
 new file mode 100644
-index 00000000..afdf6f5
+index 0000000..afdf6f5
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa9894_tfafieldnames.h
 @@ -0,0 +1,1079 @@
@@ -12764,7 +12764,7 @@ index 00000000..afdf6f5
 +#endif /* _TFA9894_TFAFIELDNAMES_H */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa9894_tfafieldnames_N2.h b/sound/soc/codecs/tfa98xx-downstream/tfa9894_tfafieldnames_N2.h
 new file mode 100644
-index 00000000..ff9ed8a
+index 0000000..ff9ed8a
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa9894_tfafieldnames_N2.h
 @@ -0,0 +1,1130 @@
@@ -13900,7 +13900,7 @@ index 00000000..ff9ed8a
 +#endif /* _TFA9894_TFAFIELDNAMES_H */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa9896_tfafieldnames.h b/sound/soc/codecs/tfa98xx-downstream/tfa9896_tfafieldnames.h
 new file mode 100644
-index 00000000..e1583a0
+index 0000000..e1583a0
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa9896_tfafieldnames.h
 @@ -0,0 +1,930 @@
@@ -14836,7 +14836,7 @@ index 00000000..e1583a0
 +#endif /* _TFA9896_TFAFIELDNAMES_H */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa98xx.c b/sound/soc/codecs/tfa98xx-downstream/tfa98xx.c
 new file mode 100644
-index 00000000..8a8b165
+index 0000000..8a8b165
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa98xx.c
 @@ -0,0 +1,3392 @@
@@ -18234,7 +18234,7 @@ index 00000000..8a8b165
 +
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa98xx.h b/sound/soc/codecs/tfa98xx-downstream/tfa98xx.h
 new file mode 100644
-index 00000000..cedb116
+index 0000000..cedb116
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa98xx.h
 @@ -0,0 +1,137 @@
@@ -18377,7 +18377,7 @@ index 00000000..cedb116
 +
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa98xx_genregs_N1C.h b/sound/soc/codecs/tfa98xx-downstream/tfa98xx_genregs_N1C.h
 new file mode 100644
-index 00000000..5ccc2db
+index 0000000..5ccc2db
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa98xx_genregs_N1C.h
 @@ -0,0 +1,3864 @@
@@ -22247,7 +22247,7 @@ index 00000000..5ccc2db
 +#endif /* TFA98XX_GENREGS_H */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa98xx_parameters.h b/sound/soc/codecs/tfa98xx-downstream/tfa98xx_parameters.h
 new file mode 100644
-index 00000000..4b5c7bd
+index 0000000..4b5c7bd
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa98xx_parameters.h
 @@ -0,0 +1,736 @@
@@ -22989,7 +22989,7 @@ index 00000000..4b5c7bd
 +#endif /* TFA98XXPARAMETERS_H_ */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa98xx_tfafieldnames.h b/sound/soc/codecs/tfa98xx-downstream/tfa98xx_tfafieldnames.h
 new file mode 100644
-index 00000000..d5b397b
+index 0000000..d5b397b
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa98xx_tfafieldnames.h
 @@ -0,0 +1,148 @@
@@ -23143,7 +23143,7 @@ index 00000000..d5b397b
 +#define TFA1_BF_TDMERR -1
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa9912_device_genregs.h b/sound/soc/codecs/tfa98xx-downstream/tfa9912_device_genregs.h
 new file mode 100644
-index 00000000..99bd0de
+index 0000000..99bd0de
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa9912_device_genregs.h
 @@ -0,0 +1,266 @@
@@ -23415,7 +23415,7 @@ index 00000000..99bd0de
 +#endif /* _TFA9912_DEVICE_GENREGS_H */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa9912_tfafieldnames.h b/sound/soc/codecs/tfa98xx-downstream/tfa9912_tfafieldnames.h
 new file mode 100644
-index 00000000..9e5a166
+index 0000000..9e5a166
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa9912_tfafieldnames.h
 @@ -0,0 +1,1776 @@
@@ -25197,7 +25197,7 @@ index 00000000..9e5a166
 +#endif /* _TFA9912_TFAFIELDNAMES_H */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa_container.c b/sound/soc/codecs/tfa98xx-downstream/tfa_container.c
 new file mode 100644
-index 00000000..44ba073
+index 0000000..44ba073
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa_container.c
 @@ -0,0 +1,2428 @@
@@ -27631,7 +27631,7 @@ index 00000000..44ba073
 +}
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa_container.h b/sound/soc/codecs/tfa98xx-downstream/tfa_container.h
 new file mode 100644
-index 00000000..477a926
+index 0000000..477a926
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa_container.h
 @@ -0,0 +1,366 @@
@@ -28003,7 +28003,7 @@ index 00000000..477a926
 +#endif /* TFACONTAINER_H_ */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa_device.h b/sound/soc/codecs/tfa98xx-downstream/tfa_device.h
 new file mode 100644
-index 00000000..a529b43
+index 0000000..a529b43
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa_device.h
 @@ -0,0 +1,315 @@
@@ -28324,7 +28324,7 @@ index 00000000..a529b43
 +
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa_dsp.c b/sound/soc/codecs/tfa98xx-downstream/tfa_dsp.c
 new file mode 100644
-index 00000000..894fd04
+index 0000000..894fd04
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa_dsp.c
 @@ -0,0 +1,4376 @@
@@ -32706,7 +32706,7 @@ index 00000000..894fd04
 +#endif//__KERNEL__
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa_dsp_fw.h b/sound/soc/codecs/tfa98xx-downstream/tfa_dsp_fw.h
 new file mode 100644
-index 00000000..1621bcb
+index 0000000..1621bcb
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa_dsp_fw.h
 @@ -0,0 +1,162 @@
@@ -32874,7 +32874,7 @@ index 00000000..1621bcb
 +#endif /* TFA98XX_INTERNALS_H */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa_ext.h b/sound/soc/codecs/tfa98xx-downstream/tfa_ext.h
 new file mode 100644
-index 00000000..72c6559
+index 0000000..72c6559
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa_ext.h
 @@ -0,0 +1,52 @@
@@ -32932,7 +32932,7 @@ index 00000000..72c6559
 +#endif /* TFA_SRC_TFA_EXT_H_ */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa_init.c b/sound/soc/codecs/tfa98xx-downstream/tfa_init.c
 new file mode 100644
-index 00000000..6dc4e9c
+index 0000000..6dc4e9c
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa_init.c
 @@ -0,0 +1,2148 @@
@@ -35086,7 +35086,7 @@ index 00000000..6dc4e9c
 +}
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa_internal.h b/sound/soc/codecs/tfa98xx-downstream/tfa_internal.h
 new file mode 100644
-index 00000000..39ecacf
+index 0000000..39ecacf
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa_internal.h
 @@ -0,0 +1,33 @@
@@ -35125,7 +35125,7 @@ index 00000000..39ecacf
 +
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa_service.h b/sound/soc/codecs/tfa98xx-downstream/tfa_service.h
 new file mode 100644
-index 00000000..0e57893
+index 0000000..0e57893
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa_service.h
 @@ -0,0 +1,1020 @@

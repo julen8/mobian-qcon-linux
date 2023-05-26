@@ -44,7 +44,7 @@ index 34e7173..6d493b9 100644
  obj-$(CONFIG_DRM_PANEL_KHADAS_TS050) += panel-khadas-ts050.o
 diff --git a/drivers/gpu/drm/panel/panel-innolux-td4328.c b/drivers/gpu/drm/panel/panel-innolux-td4328.c
 new file mode 100644
-index 00000000..9de9b744
+index 0000000..9de9b744
 --- /dev/null
 +++ b/drivers/gpu/drm/panel/panel-innolux-td4328.c
 @@ -0,0 +1,337 @@

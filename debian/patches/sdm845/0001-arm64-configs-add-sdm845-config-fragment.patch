@@ -62,7 +62,7 @@ fixup: sdm845.config: enable nintendo controller drivers
 
 diff --git a/arch/arm64/configs/sdm845.config b/arch/arm64/configs/sdm845.config
 new file mode 100644
-index 00000000..45730ef
+index 0000000..45730ef
 --- /dev/null
 +++ b/arch/arm64/configs/sdm845.config
 @@ -0,0 +1,921 @@

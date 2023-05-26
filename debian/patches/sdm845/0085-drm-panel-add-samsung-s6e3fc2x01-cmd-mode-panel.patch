@@ -16,7 +16,7 @@ Signed-off-by: Caleb Connolly <caleb@connolly.tech>
  create mode 100644 drivers/gpu/drm/panel/panel-samsung-s6e3fc2x01.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 350d7e3..6d6a66e 100644
+index 301b9ba..28ba0a9 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
 @@ -6671,6 +6671,11 @@ S:	Maintained
@@ -68,7 +68,7 @@ index 6d493b9..b54de88 100644
  obj-$(CONFIG_DRM_PANEL_SHARP_LS037V7DW01) += panel-sharp-ls037v7dw01.o
 diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3fc2x01.c b/drivers/gpu/drm/panel/panel-samsung-s6e3fc2x01.c
 new file mode 100644
-index 00000000..ebd8e3d
+index 0000000..ebd8e3d
 --- /dev/null
 +++ b/drivers/gpu/drm/panel/panel-samsung-s6e3fc2x01.c
 @@ -0,0 +1,388 @@
