@@ -1,3 +1,13 @@
+linux-6.1-sdm845 (6.1.30+sdm845-1) unstable; urgency=medium
+
+  [ Arnaud Ferraris ]
+  * d/gbp.conf: update to current template
+
+  [ Mobot ]
+  * Rebase on 6.1.30
+
+ -- Mobot <group_9279_bot_63f8e5239ee997bddf744fbb961e9cce@noreply.salsa.debian.org>  Fri, 26 May 2023 11:36:27 +0000
+
 linux-6.1-sdm845 (6.1.28+sdm845-1) unstable; urgency=medium
 
   [ undef ]
