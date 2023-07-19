@@ -1,21 +1,69 @@
-From: MollySophia <mollysophia379@gmail.com>
-Date: Thu, 7 Jul 2022 10:37:10 +0800
+From: Molly Sophia <mollysophia379@gmail.com>
+Date: Thu, 28 Jul 2022 10:35:55 +0800
 Subject: drm: panel: Add novatek nt35596s panel driver
 
 Novatek NT35596s is a generic DSI IC that drives command and video mode
 panels. Add the driver for it. Currently add support for the LCD panel
 from JDI connected with this IC, as found on Xiaomi Mi Mix2s phones.
 
-Signed-off-by: MollySophia <mollysophia379@gmail.com>
+Signed-off-by: Molly Sophia <mollysophia379@gmail.com>
+Signed-off-by: Arnaud Ferraris <arnaud.ferraris@collabora.com>
 ---
- drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 237 +++++++++++++++++++++++--
- 1 file changed, 222 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/panel/Kconfig                  |   7 +-
+ drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 251 +++++++++++++++++++++++--
+ 2 files changed, 237 insertions(+), 21 deletions(-)
 
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index 15d4008..8bc79e3 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -348,14 +348,15 @@ config DRM_PANEL_NOVATEK_NT35950
+ 	  mobile phones.
+ 
+ config DRM_PANEL_NOVATEK_NT36672A
+-	tristate "Novatek NT36672A DSI panel"
++	tristate "Novatek NT36672A/NT35596S DSI panel"
+ 	depends on OF
+ 	depends on DRM_MIPI_DSI
+ 	depends on BACKLIGHT_CLASS_DEVICE
+ 	help
+ 	  Say Y here if you want to enable support for the panels built
+-	  around the Novatek NT36672A display controller, such as some
+-	  Tianma panels used in a few Xiaomi Poco F1 mobile phones.
++	  around the Novatek NT36672A or NT35596S display controller, such
++	  as some Tianma panels used in a few Xiaomi Poco F1 mobile phones
++	  or the JDI panels used in Xiaomi Mi Mix2S mobile phones.
+ 
+ config DRM_PANEL_NOVATEK_NT39016
+ 	tristate "Novatek NT39016 RGB/SPI panel"
 diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-index 73bcffa..80994b0 100644
+index 2e1a870..17e56c3 100644
 --- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
 +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-@@ -123,12 +123,14 @@ static int nt36672a_panel_unprepare(struct drm_panel *panel)
+@@ -3,13 +3,16 @@
+  * Copyright (C) 2020 Linaro Ltd
+  * Author: Sumit Semwal <sumit.semwal@linaro.org>
+  *
+- * This driver is for the DSI interface to panels using the NT36672A display driver IC
+- * from Novatek.
+- * Currently supported are the Tianma FHD+ panels found in some Xiaomi phones, including
+- * some variants of the Poco F1 phone.
++ * Copyright (C) 2022 Molly Sophia <mollysophia379@gmail.com>
+  *
+- * Panels using the Novatek NT37762A IC should add appropriate configuration per-panel and
+- * use this driver.
++ * This driver is for the DSI interface to panels using the NT36672A/NT35596S
++ * display driver IC from Novatek.
++ * Currently supported are the Tianma FHD+ panels found in some Xiaomi phones,
++ * including some variants of the Poco F1 phone, and the JDI FHD+ panels found
++ * in Xiaomi Mi Mix2S phones.
++ *
++ * Panels using the Novatek NT37762A or NT35596S IC should add appropriate
++ * configuration per-panel and use this driver.
+  */
+ 
+ #include <linux/delay.h>
+@@ -123,12 +126,14 @@ static int nt36672a_panel_disable(struct drm_panel *panel)
  	if (!pinfo->prepared)
  		return 0;
  
@@ -35,7 +83,7 @@ index 73bcffa..80994b0 100644
  
  	ret = mipi_dsi_dcs_set_display_off(pinfo->link);
  	if (ret < 0)
-@@ -211,13 +213,15 @@ static int nt36672a_panel_prepare(struct drm_panel *panel)
+@@ -219,13 +224,15 @@ static int nt36672a_panel_prepare(struct drm_panel *panel)
  		goto poweroff;
  	}
  
@@ -57,7 +105,7 @@ index 73bcffa..80994b0 100644
  	}
  
  	msleep(120);
-@@ -601,6 +605,212 @@ static const struct nt36672a_panel_desc tianma_fhd_video_panel_desc = {
+@@ -610,6 +617,212 @@ static const struct nt36672a_panel_desc tianma_fhd_video_panel_desc = {
  	.num_off_cmds = ARRAY_SIZE(tianma_fhd_video_off_cmds),
  };
  
@@ -270,18 +318,7 @@ index 73bcffa..80994b0 100644
  static int nt36672a_panel_add(struct nt36672a_panel *pinfo)
  {
  	struct device *dev = &pinfo->link->dev;
-@@ -628,10 +838,6 @@ static int nt36672a_panel_add(struct nt36672a_panel *pinfo)
- 
- 	drm_panel_init(&pinfo->base, dev, &panel_funcs, DRM_MODE_CONNECTOR_DSI);
- 
--	ret = drm_panel_of_backlight(&pinfo->base);
--	if (ret)
--		return dev_err_probe(dev, ret, "Failed to get backlight\n");
--
- 	drm_panel_add(&pinfo->base);
- 
- 	return 0;
-@@ -699,6 +905,7 @@ static void nt36672a_panel_shutdown(struct mipi_dsi_device *dsi)
+@@ -708,6 +921,7 @@ static void nt36672a_panel_shutdown(struct mipi_dsi_device *dsi)
  
  static const struct of_device_id tianma_fhd_video_of_match[] = {
  	{ .compatible = "tianma,fhd-video", .data = &tianma_fhd_video_panel_desc },
@@ -289,3 +326,11 @@ index 73bcffa..80994b0 100644
  	{ },
  };
  MODULE_DEVICE_TABLE(of, tianma_fhd_video_of_match);
+@@ -724,5 +938,6 @@ static struct mipi_dsi_driver nt36672a_panel_driver = {
+ module_mipi_dsi_driver(nt36672a_panel_driver);
+ 
+ MODULE_AUTHOR("Sumit Semwal <sumit.semwal@linaro.org>");
+-MODULE_DESCRIPTION("NOVATEK NT36672A based MIPI-DSI LCD panel driver");
++MODULE_AUTHOR("Molly Sophia <mollysophia379@gmail.com>");
++MODULE_DESCRIPTION("NOVATEK NT36672A/NT35596S based MIPI-DSI LCD panel driver");
+ MODULE_LICENSE("GPL");
