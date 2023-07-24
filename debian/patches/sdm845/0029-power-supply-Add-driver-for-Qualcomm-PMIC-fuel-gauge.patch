@@ -63,7 +63,7 @@ index 0ee8653..72e1d88 100644
 +obj-$(CONFIG_CHARGER_QCOM_SMB2)	+= qcom_smb2.o
 diff --git a/drivers/power/supply/qcom_fg.c b/drivers/power/supply/qcom_fg.c
 new file mode 100644
-index 00000000..f8dd93a
+index 0000000..f8dd93a
 --- /dev/null
 +++ b/drivers/power/supply/qcom_fg.c
 @@ -0,0 +1,1320 @@

@@ -9,7 +9,7 @@ Signed-off-by: Molly Sophia <mollysophia379@gmail.com>
  1 file changed, 149 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
-index 74c6832..bdebc1b 100644
+index 093b0435..0901309 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
 +++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
 @@ -12,6 +12,9 @@
@@ -59,7 +59,7 @@ index 74c6832..bdebc1b 100644
  &i2c14 {
  	clock-frequency = <400000>;
  	dmas = <&gpi_dma1 0 6 QCOM_GPI_I2C>,
-@@ -510,6 +536,26 @@ &mss_pil {
+@@ -511,6 +537,26 @@ &mss_pil {
  	status = "okay";
  };
  
@@ -86,7 +86,7 @@ index 74c6832..bdebc1b 100644
  &pmi8998_wled {
  	qcom,current-limit-microamp = <20000>;
  	qcom,current-boost-limit = <970>;
-@@ -564,6 +610,18 @@ dai@2 {
+@@ -565,6 +611,18 @@ dai@2 {
  	};
  };
  
@@ -105,7 +105,7 @@ index 74c6832..bdebc1b 100644
  &qupv3_id_0 {
  	status = "okay";
  };
-@@ -580,6 +638,97 @@ pinconf {
+@@ -581,6 +639,97 @@ pinconf {
  	};
  };
  
