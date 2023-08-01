@@ -1,3 +1,9 @@
+linux-6.1-sdm845 (6.1.42+sdm845-1) unstable; urgency=medium
+
+  * Rebase on 6.1.42
+
+ -- Mobot <group_9279_bot_63f8e5239ee997bddf744fbb961e9cce@noreply.salsa.debian.org>  Tue, 01 Aug 2023 10:47:50 +0000
+
 linux-6.1-sdm845 (6.1.40+sdm845-1) unstable; urgency=medium
 
   [ Arnaud Ferraris ]
