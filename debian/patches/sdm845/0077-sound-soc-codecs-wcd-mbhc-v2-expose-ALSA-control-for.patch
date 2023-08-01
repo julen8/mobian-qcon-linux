@@ -16,7 +16,7 @@ Signed-off-by: Dylan Van Assche <me@dylanvanassche.be>
  1 file changed, 5 insertions(+)
 
 diff --git a/sound/soc/codecs/wcd-mbhc-v2.c b/sound/soc/codecs/wcd-mbhc-v2.c
-index 1911750..27c2a3b 100644
+index 5da1934..b44fad9 100644
 --- a/sound/soc/codecs/wcd-mbhc-v2.c
 +++ b/sound/soc/codecs/wcd-mbhc-v2.c
 @@ -725,6 +725,11 @@ static int wcd_mbhc_initialise(struct wcd_mbhc *mbhc)
