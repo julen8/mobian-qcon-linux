@@ -1,3 +1,9 @@
+linux-6.1-sdm845 (6.1.54+sdm845-1) unstable; urgency=medium
+
+  * Rebase on 6.1.54
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Thu, 21 Sep 2023 23:18:39 +0200
+
 linux-6.1-sdm845 (6.1.52+sdm845-1) unstable; urgency=medium
 
   * Rebase on 6.1.52
