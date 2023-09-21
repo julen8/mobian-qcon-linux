@@ -1,0 +1,20 @@
+From: Arnaud Ferraris <aferraris@debian.org>
+Date: Thu, 21 Sep 2023 17:16:49 +0200
+Subject: Revert "arm64: dts: qcom: sdm845-shift-axolotl: add ath10k
+ calibration variant"
+
+This reverts commit 843c85c358a1237d391db44b5dfc39bda9ef1692.
+---
+ arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+index 3fd0d3f..3a98c3f3 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+@@ -1091,5 +1091,4 @@ &wifi {
+ 	vdd-3.3-ch1-supply = <&vreg_l23a_3p3>;
+ 
+ 	qcom,snoc-host-cap-8bit-quirk;
+-	qcom,ath10k-calibration-variant = "shift_axolotl";
+ };
