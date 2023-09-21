@@ -215,3 +215,6 @@ sc7280/0214-arm64-dts-qcom-qcm6490-fairphone-fp5-Add-PM7250B-the.patch
 sc7280/0215-arm64-dts-qcom-qcm6490-fairphone-fp5-Add-PMK7325-the.patch
 sc7280/0216-iio-adc-Add-PM7325-PMIC7-ADC-bindings.patch
 sc7280/0217-arm64-dts-qcom-qcm6490-fairphone-fp5-Add-PM7325-ther.patch
+ath10k/0218-Revert-arm64-dts-qcom-sdm845-oneplus-common-add-ath1.patch
+ath10k/0219-Revert-arm64-dts-qcom-sdm845-xiaomi-beryllium-common.patch
+ath10k/0220-Revert-arm64-dts-qcom-sdm845-shift-axolotl-add-ath10.patch
