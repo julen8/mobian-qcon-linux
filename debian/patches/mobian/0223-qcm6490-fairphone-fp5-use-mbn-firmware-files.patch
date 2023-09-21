@@ -1,0 +1,57 @@
+From: Arnaud Ferraris <arnaud.ferraris@collabora.com>
+Date: Fri, 12 Jan 2024 12:10:55 +0100
+Subject: qcm6490-fairphone-fp5: use mbn firmware files
+
+---
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+index 0d4d9d0..8a76aa8 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+@@ -611,7 +611,7 @@ &gpu {
+ };
+ 
+ &gpu_zap_shader {
+-	firmware-name = "qcom/qcm6490/fairphone5/a660_zap.mdt";
++	firmware-name = "qcom/qcm6490/fairphone5/a660_zap.mbn";
+ };
+ 
+ &i2c1 {
+@@ -707,7 +707,7 @@ &i2c9 {
+ &ipa {
+ 	qcom,gsi-loader = "self";
+ 	memory-region = <&ipa_fw_mem>;
+-	firmware-name = "qcom/qcm6490/fairphone5/ipa_fws.mdt";
++	firmware-name = "qcom/qcm6490/fairphone5/ipa_fws.mbn";
+ 	status = "okay";
+ };
+ 
+@@ -1020,22 +1020,22 @@ &qupv3_id_1 {
+ };
+ 
+ &remoteproc_adsp {
+-	firmware-name = "qcom/qcm6490/fairphone5/adsp.mdt";
++	firmware-name = "qcom/qcm6490/fairphone5/adsp.mbn";
+ 	status = "okay";
+ };
+ 
+ &remoteproc_cdsp {
+-	firmware-name = "qcom/qcm6490/fairphone5/cdsp.mdt";
++	firmware-name = "qcom/qcm6490/fairphone5/cdsp.mbn";
+ 	status = "okay";
+ };
+ 
+ &remoteproc_mpss {
+-	firmware-name = "qcom/qcm6490/fairphone5/modem.mdt";
++	firmware-name = "qcom/qcm6490/fairphone5/modem.mbn";
+ 	status = "okay";
+ };
+ 
+ &remoteproc_wpss {
+-	firmware-name = "qcom/qcm6490/fairphone5/wpss.mdt";
++	firmware-name = "qcom/qcm6490/fairphone5/wpss.mbn";
+ 	status = "okay";
+ };
+ 
