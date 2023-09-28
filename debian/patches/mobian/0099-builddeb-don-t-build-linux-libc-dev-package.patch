@@ -7,7 +7,7 @@ Subject: builddeb: don't build linux-libc-dev package
  1 file changed, 3 deletions(-)
 
 diff --git a/scripts/package/builddeb b/scripts/package/builddeb
-index 67cd420..42bfe239 100755
+index 67cd420..42bfe23 100755
 --- a/scripts/package/builddeb
 +++ b/scripts/package/builddeb
 @@ -213,9 +213,6 @@ if [ "$ARCH" != "um" ]; then

@@ -43,7 +43,7 @@ index 72e1d88..fcff66d 100644
 +obj-$(CONFIG_CHARGER_QCOM_SMB2)	+= qcom_pmi8998_charger.o
 diff --git a/drivers/power/supply/qcom_pmi8998_charger.c b/drivers/power/supply/qcom_pmi8998_charger.c
 new file mode 100644
-index 00000000..e57b960
+index 0000000..e57b960
 --- /dev/null
 +++ b/drivers/power/supply/qcom_pmi8998_charger.c
 @@ -0,0 +1,1043 @@
