@@ -11,10 +11,10 @@ Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
  1 file changed, 18 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
-index 6eba3b5..89ff84b 100644
+index 1cbfa52..cee587e 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
 +++ b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
-@@ -254,6 +254,18 @@ vph_pwr: vph-pwr-regulator {
+@@ -262,6 +262,18 @@ vph_pwr: vph-pwr-regulator {
  
  		vin-supply = <&vbat_som>;
  	};
@@ -33,7 +33,7 @@ index 6eba3b5..89ff84b 100644
  };
  
  &adsp_pas {
-@@ -653,6 +665,12 @@ led@5 {
+@@ -662,6 +674,12 @@ led@5 {
  	};
  };
  

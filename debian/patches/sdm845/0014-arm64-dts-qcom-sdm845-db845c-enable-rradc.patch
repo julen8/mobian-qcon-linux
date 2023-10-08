@@ -10,10 +10,10 @@ Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
  1 file changed, 4 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
-index c289bf0..6eba3b5 100644
+index c9efcb8..1cbfa52 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
 +++ b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
-@@ -619,6 +619,10 @@ resin {
+@@ -628,6 +628,10 @@ resin {
  	};
  };
  
