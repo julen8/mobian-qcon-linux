@@ -1,0 +1,5 @@
+linux-6.6-qcom (6.6.11+qcom-1) UNRELEASED; urgency=medium
+
+  * Initial 6.6 release
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Fri, 12 Jan 2024 15:16:28 +0100
