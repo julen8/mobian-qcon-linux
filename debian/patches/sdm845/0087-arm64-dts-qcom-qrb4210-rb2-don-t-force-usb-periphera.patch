@@ -1,0 +1,26 @@
+From: Caleb Connolly <caleb.connolly@linaro.org>
+Date: Tue, 10 Oct 2023 11:34:42 +0100
+Subject: arm64: dts: qcom: qrb4210-rb2: don't force usb peripheral mode
+
+The rb2 only has a single USB controller, it can be switched between a
+type-c port and an internal USB hub via a DIP switch. Until dynamic
+role switching is available it's preferable to put the USB controller
+in host mode so that the type-A ports and ethernet are available.
+
+Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
+---
+ arch/arm64/boot/dts/qcom/qrb4210-rb2.dts | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/qrb4210-rb2.dts b/arch/arm64/boot/dts/qcom/qrb4210-rb2.dts
+index a7278a9..9738c0d 100644
+--- a/arch/arm64/boot/dts/qcom/qrb4210-rb2.dts
++++ b/arch/arm64/boot/dts/qcom/qrb4210-rb2.dts
+@@ -518,7 +518,6 @@ &usb {
+ 
+ &usb_dwc3 {
+ 	maximum-speed = "super-speed";
+-	dr_mode = "peripheral";
+ };
+ 
+ &usb_hsphy {
