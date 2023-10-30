@@ -1,0 +1,52 @@
+From: Dylan Van Assche <me@dylanvanassche.be>
+Date: Thu, 11 May 2023 16:11:45 +0200
+Subject: misc: fastrpc: support complete DMA pool access to the DSP
+
+To support FastRPC Context Banks which aren't mapped via the SMMU,
+make the whole reserved memory region available to the DSP to allow
+access to coherent buffers.
+
+This is performed by assigning the memory to the DSP via a hypervisor
+call to set the correct permissions for the Virtual Machines on the DSP.
+This is only necessary when a memory region is provided for SLPI DSPs
+so guard this with a domain ID check.
+
+Signed-off-by: Dylan Van Assche <me@dylanvanassche.be>
+Reviewed-by: Caleb Connolly <caleb.connolly@linaro.org>
+---
+ drivers/misc/fastrpc.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index 1c6c62a..41c2146 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -2254,6 +2254,8 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 	int i, err, domain_id = -1, vmcount;
+ 	const char *domain;
+ 	bool secure_dsp;
++	struct device_node *rmem_node;
++	struct reserved_mem *rmem;
+ 	unsigned int vmids[FASTRPC_MAX_VMIDS];
+ 
+ 	err = of_property_read_string(rdev->of_node, "label", &domain);
+@@ -2297,6 +2299,19 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 		}
+ 	}
+ 
++	rmem_node = of_parse_phandle(rdev->of_node, "memory-region", 0);
++	if (domain_id == SDSP_DOMAIN_ID && rmem_node) {
++		rmem = of_reserved_mem_lookup(rmem_node);
++		if (!rmem) {
++			err = -EINVAL;
++			goto fdev_error;
++		}
++
++		qcom_scm_assign_mem(rmem->base, rmem->size, &data->perms,
++				    data->vmperms, data->vmcount);
++
++	}
++
+ 	secure_dsp = !(of_property_read_bool(rdev->of_node, "qcom,non-secure-domain"));
+ 	data->secure = secure_dsp;
+ 
