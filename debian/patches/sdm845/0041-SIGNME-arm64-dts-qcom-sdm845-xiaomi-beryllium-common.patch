@@ -1,0 +1,27 @@
+From: Joel Selvaraj <joelselvaraj.oss@gmail.com>
+Date: Fri, 10 Mar 2023 02:42:33 -0600
+Subject: SIGNME! arm64: dts: qcom: sdm845-xiaomi-beryllium-common: enable
+ fuel guage
+
+---
+ arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+index 1274dee..8f47323 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+@@ -383,6 +383,13 @@ &pmi8998_charger {
+ 	status = "okay";
+ };
+ 
++&pmi8998_fg {
++	status = "okay";
++
++	power-supplies = <&pmi8998_charger>;
++	monitored-battery = <&battery>;
++};
++
+ &pm8998_resin {
+ 	linux,code = <KEY_VOLUMEDOWN>;
+ 	status = "okay";
