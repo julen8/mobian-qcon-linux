@@ -1,0 +1,28 @@
+From: Caleb Connolly <caleb.connolly@linaro.org>
+Date: Sat, 14 Oct 2023 20:48:53 +0100
+Subject: arm64: dts: qcom: sdm845-db845c: mark pcie0_3p3v_dual always on
+
+This regulator is also required to enable the USB type-A VBUS. The dwc3
+driver doesn't support any regulator supplies, and as this is a dev
+board we don't need to worry about power consumption. Mark this
+regulator as always-on so that the left USB port (which is connected
+directly to the secondary USB controller) is functional even when PCIe
+is disabled.
+
+Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
+---
+ arch/arm64/boot/dts/qcom/sdm845-db845c.dts | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
+index c7eba6c..c58b57e 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
+@@ -194,6 +194,7 @@ pcie0_3p3v_dual: vldo-3v3-regulator {
+ 		regulator-max-microvolt = <3300000>;
+ 
+ 		gpio = <&tlmm 90 GPIO_ACTIVE_HIGH>;
++		regulator-always-on;
+ 		enable-active-high;
+ 
+ 		pinctrl-names = "default";
