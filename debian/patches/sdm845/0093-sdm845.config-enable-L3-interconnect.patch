@@ -1,0 +1,21 @@
+From: Caleb Connolly <caleb.connolly@linaro.org>
+Date: Tue, 7 Nov 2023 16:21:40 +0000
+Subject: sdm845.config: enable L3 interconnect
+
+Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
+---
+ arch/arm64/configs/sdm845.config | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/configs/sdm845.config b/arch/arm64/configs/sdm845.config
+index d859beb..c400a59 100644
+--- a/arch/arm64/configs/sdm845.config
++++ b/arch/arm64/configs/sdm845.config
+@@ -60,6 +60,7 @@ CONFIG_SND_SOC_QDSP6_Q6VOICE=m
+ CONFIG_SCSI_UFS_BSG=y
+ CONFIG_PHY_QCOM_QMP_PCIE=y
+ CONFIG_BACKLIGHT_CLASS_DEVICE=y
++CONFIG_INTERCONNECT_QCOM_OSM_L3=y
+ 
+ # Notification LED
+ # Must be builtin as it won't be automatically modprobed
