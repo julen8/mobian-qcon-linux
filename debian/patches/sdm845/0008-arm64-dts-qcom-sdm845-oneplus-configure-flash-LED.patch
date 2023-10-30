@@ -1,0 +1,54 @@
+From: Caleb Connolly <caleb.connolly@linaro.org>
+Date: Sat, 27 May 2023 21:12:33 +0100
+Subject: arm64: dts: qcom: sdm845-oneplus: configure flash LED
+
+Both the 6 and 6T feature a dual tone flash, define it.
+
+EDITME: depends on Dylans series.
+
+Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
+---
+ .../arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 23 ++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+index ada09fc..4f4d1c1 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+@@ -8,6 +8,7 @@
+ /dts-v1/;
+ 
+ #include <dt-bindings/input/linux-event-codes.h>
++#include <dt-bindings/leds/common.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ #include <dt-bindings/sound/qcom,q6afe.h>
+ #include <dt-bindings/sound/qcom,q6asm.h>
+@@ -519,6 +520,28 @@ &pmi8998_charger {
+ 	status = "okay";
+ };
+ 
++&pmi8998_flash {
++	status = "okay";
++
++	led-0 {
++		function = LED_FUNCTION_FLASH;
++		color = <LED_COLOR_ID_WHITE>;
++		led-sources = <1>;
++		led-max-microamp = <500000>;
++		flash-max-microamp = <1500000>;
++		flash-max-timeout-us = <1280000>;
++	};
++
++	led-1 {
++		function = LED_FUNCTION_FLASH;
++		color = <LED_COLOR_ID_YELLOW>;
++		led-sources = <2>;
++		led-max-microamp = <500000>;
++		flash-max-microamp = <1500000>;
++		flash-max-timeout-us = <1280000>;
++	};
++};
++
+ &q6afedai {
+ 	qi2s@22 {
+ 		reg = <22>;
