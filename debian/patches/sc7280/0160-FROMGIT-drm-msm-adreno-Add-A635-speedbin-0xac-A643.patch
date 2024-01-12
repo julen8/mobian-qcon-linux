@@ -1,0 +1,26 @@
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Date: Tue, 26 Sep 2023 20:24:38 +0200
+Subject: FROMGIT drm/msm/adreno: Add A635 speedbin 0xac (A643)
+
+Downstream calls this the "speedbin 1", but that number is already
+occupied. Use index two.
+
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Patchwork: https://patchwork.freedesktop.org/patch/559607/
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/adreno/adreno_device.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index 1fbc1fd..4e9e2ce 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -460,6 +460,7 @@ static const struct adreno_info gpulist[] = {
+ 		.speedbins = ADRENO_SPEEDBINS(
+ 			{ 0,   0 },
+ 			{ 117, 0 },
++			{ 172, 2 }, /* Called speedbin 1 downstream, but let's not break things! */
+ 			{ 190, 1 },
+ 		),
+ 	}, {
