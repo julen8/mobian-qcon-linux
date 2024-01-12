@@ -1,0 +1,46 @@
+From: Satya Priya <quic_c_skakit@quicinc.com>
+Date: Fri, 19 Nov 2021 15:12:31 +0530
+Subject: FROMLIST v4 regulator: Add a regulator driver for the PM8008 PMIC
+
+Qualcomm Technologies, Inc. PM8008 is an I2C controlled PMIC
+containing 7 LDO regulators.  Add a PM8008 regulator driver to
+support PMIC regulator management via the regulator framework.
+
+Signed-off-by: Satya Priya <quic_c_skakit@quicinc.com>
+---
+ drivers/regulator/Kconfig  | 9 +++++++++
+ drivers/regulator/Makefile | 1 +
+ 2 files changed, 10 insertions(+)
+
+diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
+index 6e4ca77..c165ea8 100644
+--- a/drivers/regulator/Kconfig
++++ b/drivers/regulator/Kconfig
+@@ -1007,6 +1007,15 @@ config REGULATOR_PWM
+ 	  This driver supports PWM controlled voltage regulators. PWM
+ 	  duty cycle can increase or decrease the voltage.
+ 
++config REGULATOR_QCOM_PM8008
++	tristate "Qualcomm Technologies, Inc. PM8008 PMIC regulators"
++	depends on MFD_QCOM_PM8008
++	help
++	  Select this option to get support for the voltage regulators
++	  of Qualcomm Technologies, Inc. PM8008 PMIC chip. PM8008 has 7 LDO
++	  regulators. This driver provides support for basic operations like
++	  set/get voltage and enable/disable.
++
+ config REGULATOR_QCOM_REFGEN
+ 	tristate "Qualcomm REFGEN regulator driver"
+ 	depends on ARCH_QCOM || COMPILE_TEST
+diff --git a/drivers/regulator/Makefile b/drivers/regulator/Makefile
+index a40b833..6e6f2f5 100644
+--- a/drivers/regulator/Makefile
++++ b/drivers/regulator/Makefile
+@@ -110,6 +110,7 @@ obj-$(CONFIG_REGULATOR_MT6380)	+= mt6380-regulator.o
+ obj-$(CONFIG_REGULATOR_MT6397)	+= mt6397-regulator.o
+ obj-$(CONFIG_REGULATOR_MTK_DVFSRC) += mtk-dvfsrc-regulator.o
+ obj-$(CONFIG_REGULATOR_QCOM_LABIBB) += qcom-labibb-regulator.o
++obj-$(CONFIG_REGULATOR_QCOM_PM8008) += qcom-pm8008-regulator.o
+ obj-$(CONFIG_REGULATOR_QCOM_REFGEN) += qcom-refgen-regulator.o
+ obj-$(CONFIG_REGULATOR_QCOM_PM8008) += qcom-pm8008-regulator.o
+ obj-$(CONFIG_REGULATOR_QCOM_RPM) += qcom_rpm-regulator.o

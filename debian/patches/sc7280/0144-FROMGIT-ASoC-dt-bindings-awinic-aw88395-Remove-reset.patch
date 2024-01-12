@@ -1,0 +1,55 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Mon, 2 Oct 2023 16:00:11 +0200
+Subject: FROMGIT ASoC: dt-bindings: awinic,aw88395: Remove reset-gpios from
+ AW88261
+
+The AW88261 chip doesn't have a reset GPIO, so disallow providing
+reset-gpios.
+
+At the same time also don't keep reset-gpios required for AW88395. This
+is both because the Linux driver has it optional, and it also simplifies
+the bindings by not introducing another conditional.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Link: https://lore.kernel.org/r/20231002-aw88261-reset-v2-1-837cb1e7b95c@fairphone.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ .../devicetree/bindings/sound/awinic,aw88395.yaml        | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/awinic,aw88395.yaml b/Documentation/devicetree/bindings/sound/awinic,aw88395.yaml
+index b977d3d..5d5ebc7 100644
+--- a/Documentation/devicetree/bindings/sound/awinic,aw88395.yaml
++++ b/Documentation/devicetree/bindings/sound/awinic,aw88395.yaml
+@@ -14,9 +14,6 @@ description:
+   digital Smart K audio amplifier with an integrated 10.25V
+   smart boost convert.
+ 
+-allOf:
+-  - $ref: dai-common.yaml#
+-
+ properties:
+   compatible:
+     enum:
+@@ -49,9 +46,20 @@ required:
+   - compatible
+   - reg
+   - '#sound-dai-cells'
+-  - reset-gpios
+   - awinic,audio-channel
+ 
++allOf:
++  - $ref: dai-common.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - awinic,aw88261
++    then:
++      properties:
++        reset-gpios: false
++
+ unevaluatedProperties: false
+ 
+ examples:
