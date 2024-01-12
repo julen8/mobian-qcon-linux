@@ -1,0 +1,33 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 27 Oct 2023 14:50:05 +0200
+Subject: FROMLIST v1 dt-bindings: remoteproc: qcom: sc7180-pas: Fix SC7280
+ MPSS PD-names
+
+The power domains for MPSS on SC7280 are actually named CX and MSS, and
+not CX and MX. Adjust the name which also aligns the bindings with the
+dts and fixes validation.
+
+Fixes: 8bb92d6fd0b3 ("dt-bindings: remoteproc: qcom,sc7180-pas: split into separate file")
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ Documentation/devicetree/bindings/remoteproc/qcom,sc7180-pas.yaml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sc7180-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sc7180-pas.yaml
+index f10f3296..6f0bd6f 100644
+--- a/Documentation/devicetree/bindings/remoteproc/qcom,sc7180-pas.yaml
++++ b/Documentation/devicetree/bindings/remoteproc/qcom,sc7180-pas.yaml
+@@ -114,11 +114,11 @@ allOf:
+         power-domains:
+           items:
+             - description: CX power domain
+-            - description: MX power domain
++            - description: MSS power domain
+         power-domain-names:
+           items:
+             - const: cx
+-            - const: mx
++            - const: mss
+ 
+ unevaluatedProperties: false
+ 
