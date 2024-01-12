@@ -1,0 +1,65 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Mon, 2 Oct 2023 14:30:41 +0200
+Subject: FROMLIST v2 arm64: dts: qcom: qcm6490-fairphone-fp5: Enable UFS
+
+Enable the UFS phy and controller so that we can access the internal
+storage of the phone.
+
+At the same time we need to bump the minimum voltage used for UFS VCC,
+otherwise it doesn't initialize properly. The 2.952V is taken from the
+vcc-voltage-level property downstream.
+
+See also the following link for more information about the VCCQ/VCCQ2:
+https://gerrit-public.fairphone.software/plugins/gitiles/kernel/msm-extra/devicetree/+/1590a3739e7dc29d2597307881553236d492f188/fp5/yupik-idp-pm7250b.dtsi#207
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 27 ++++++++++++++++++++--
+ 1 file changed, 25 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+index d29f10f..cc09273 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+@@ -182,8 +182,9 @@ vreg_l6b: ldo6 {
+ 		};
+ 
+ 		vreg_l7b: ldo7 {
+-			regulator-min-microvolt = <2400000>;
+-			regulator-max-microvolt = <3544000>;
++			/* Constrained for UFS VCC, at least until UFS driver scales voltage */
++			regulator-min-microvolt = <2952000>;
++			regulator-max-microvolt = <2952000>;
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+ 		};
+ 
+@@ -632,6 +633,28 @@ bluetooth: bluetooth {
+ 	};
+ };
+ 
++&ufs_mem_hc {
++	reset-gpios = <&tlmm 175 GPIO_ACTIVE_LOW>;
++
++	vcc-supply = <&vreg_l7b>;
++	vcc-max-microamp = <800000>;
++	/*
++	 * Technically l9b enables an eLDO (supplied by s1b) which then powers
++	 * VCCQ2 of the UFS.
++	 */
++	vccq-supply = <&vreg_l9b>;
++	vccq-max-microamp = <900000>;
++
++	status = "okay";
++};
++
++&ufs_mem_phy {
++	vdda-phy-supply = <&vreg_l10c>;
++	vdda-pll-supply = <&vreg_l6b>;
++
++	status = "okay";
++};
++
+ &usb_1 {
+ 	status = "okay";
+ };
