@@ -1,0 +1,43 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Mon, 21 Aug 2023 14:33:31 +0200
+Subject: FROMLIST wifi: ath11k: Defer on rproc_get failure
+
+If we already have gotten the rproc_handle (meaning the "qcom,rproc"
+property is defined in the devicetree), it's a valid state that the
+remoteproc module hasn't probed yet so we should defer probing instead
+of just failing to probe.
+
+This resolves a race condition when the ath11k driver probes and fails
+before the wpss remoteproc driver has probed, like the following:
+
+  [    6.232360] ath11k 17a10040.wifi: failed to get rproc
+  [    6.232366] ath11k 17a10040.wifi: failed to get rproc: -22
+  [    6.232478] ath11k: probe of 17a10040.wifi failed with error -22
+       ...
+  [    6.252415] remoteproc remoteproc2: 8a00000.remoteproc is available
+  [    6.252776] remoteproc remoteproc2: powering up 8a00000.remoteproc
+  [    6.252781] remoteproc remoteproc2: Booting fw image qcom/qcm6490/fairphone5/wpss.mdt, size 7188
+
+So, defer the probe if we hit that so we can retry later once the wpss
+remoteproc is available.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ drivers/net/wireless/ath/ath11k/ahb.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/wireless/ath/ath11k/ahb.c b/drivers/net/wireless/ath/ath11k/ahb.c
+index 1215ebd..ef11c13 100644
+--- a/drivers/net/wireless/ath/ath11k/ahb.c
++++ b/drivers/net/wireless/ath/ath11k/ahb.c
+@@ -802,8 +802,8 @@ static int ath11k_core_get_rproc(struct ath11k_base *ab)
+ 
+ 	prproc = rproc_get_by_phandle(rproc_phandle);
+ 	if (!prproc) {
+-		ath11k_err(ab, "failed to get rproc\n");
+-		return -EINVAL;
++		ath11k_dbg(ab, ATH11K_DBG_AHB, "failed to get rproc, deferring\n");
++		return -EPROBE_DEFER;
+ 	}
+ 	ab_ahb->tgt_rproc = prproc;
+ 
