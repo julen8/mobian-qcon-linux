@@ -1,0 +1,54 @@
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Date: Tue, 26 Sep 2023 20:24:39 +0200
+Subject: FROMLIST v1 arm64: dts: qcom: sc7280: Add ZAP shader support
+
+Non-Chrome SC7280-family platforms ship a ZAP shader with the Adreno GPU.
+Describe that and make sure it doesn't interfere with Chrome devices.
+
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+---
+ arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi |  2 ++
+ arch/arm64/boot/dts/qcom/sc7280.dtsi               | 10 ++++++++++
+ 2 files changed, 12 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi b/arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi
+index cd491e4..186aa82 100644
+--- a/arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi
+@@ -17,6 +17,8 @@
+  * required by the setup for Chrome boards.
+  */
+ 
++/delete-node/ &gpu_zap_mem;
++/delete-node/ &gpu_zap_shader;
+ /delete-node/ &hyp_mem;
+ /delete-node/ &xbl_mem;
+ /delete-node/ &reserved_xbl_uefi_log;
+diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+index 7abf34b..b250d0c 100644
+--- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+@@ -152,6 +152,11 @@ ipa_fw_mem: memory@8b700000 {
+ 			no-map;
+ 		};
+ 
++		gpu_zap_mem: zap@8b71a000 {
++			reg = <0 0x8b71a000 0 0x2000>;
++			no-map;
++		};
++
+ 		rmtfs_mem: memory@9c900000 {
+ 			compatible = "qcom,rmtfs-mem";
+ 			reg = <0x0 0x9c900000 0x0 0x280000>;
+@@ -2677,6 +2682,11 @@ gpu: gpu@3d00000 {
+ 			nvmem-cells = <&gpu_speed_bin>;
+ 			nvmem-cell-names = "speed_bin";
+ 
++			gpu_zap_shader: zap-shader {
++				memory-region = <&gpu_zap_mem>;
++				firmware-name = "qcom/a660_zap.mdt";
++			};
++
+ 			gpu_opp_table: opp-table {
+ 				compatible = "operating-points-v2";
+ 
