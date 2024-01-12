@@ -1,0 +1,32 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Thu, 21 Sep 2023 08:34:02 +0200
+Subject: FROMGIT ARM: dts: qcom: sdx65-mtp: Specify PM7250B SID to use
+
+Now that the pm7250b.dtsi can be configured to be on a different SID, we
+also need to specify it for this dts file. Set it to the SID 2/3 like it
+was before commit 8e2d56f64572 ("arm64: dts: qcom: pm7250b: make SID
+configurable").
+
+Fixes: 8e2d56f64572 ("arm64: dts: qcom: pm7250b: make SID configurable")
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Link: https://lore.kernel.org/r/20230921-pm7250b-sid-fixup-v1-1-231c1a65471f@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm/boot/dts/qcom/qcom-sdx65-mtp.dts | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/arm/boot/dts/qcom/qcom-sdx65-mtp.dts b/arch/arm/boot/dts/qcom/qcom-sdx65-mtp.dts
+index fcf1c51..9649c85 100644
+--- a/arch/arm/boot/dts/qcom/qcom-sdx65-mtp.dts
++++ b/arch/arm/boot/dts/qcom/qcom-sdx65-mtp.dts
+@@ -4,6 +4,10 @@
+  */
+ /dts-v1/;
+ 
++/* PM7250B is configured to use SID2/3 */
++#define PM7250B_SID 2
++#define PM7250B_SID1 3
++
+ #include "qcom-sdx65.dtsi"
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ #include <arm64/qcom/pmk8350.dtsi>
