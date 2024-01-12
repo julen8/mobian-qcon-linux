@@ -1,0 +1,26 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Wed, 30 Aug 2023 11:58:33 +0200
+Subject: FROMGIT soc: qcom: socinfo: Add SoC ID for QCM6490
+
+Add SoC ID table entries for Qualcomm QCM6490.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Link: https://lore.kernel.org/r/20230830-fp5-initial-v1-8-5a954519bbad@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ drivers/soc/qcom/socinfo.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/soc/qcom/socinfo.c b/drivers/soc/qcom/socinfo.c
+index 497cfb7..649732b 100644
+--- a/drivers/soc/qcom/socinfo.c
++++ b/drivers/soc/qcom/socinfo.c
+@@ -389,6 +389,7 @@ static const struct soc_id soc_id[] = {
+ 	{ qcom_board_id_named(SM8450_3, "SM8450") },
+ 	{ qcom_board_id(SC7280) },
+ 	{ qcom_board_id(SC7180P) },
++	{ qcom_board_id(QCM6490) },
+ 	{ qcom_board_id(IPQ5000) },
+ 	{ qcom_board_id(IPQ0509) },
+ 	{ qcom_board_id(IPQ0518) },
