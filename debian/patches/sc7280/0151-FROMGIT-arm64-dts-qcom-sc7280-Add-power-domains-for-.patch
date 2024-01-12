@@ -1,0 +1,198 @@
+From: Maulik Shah <quic_mkshah@quicinc.com>
+Date: Mon, 3 Jul 2023 14:25:55 +0530
+Subject: FROMGIT arm64: dts: qcom: sc7280: Add power-domains for cpuidle
+ states
+
+Add power-domains for cpuidle states to use psci os-initiated idle states.
+
+Cc: devicetree@vger.kernel.org
+Reviewed-by: Ulf Hansson <ulf.hansson@linaro.org>
+Signed-off-by: Maulik Shah <quic_mkshah@quicinc.com>
+Link: https://lore.kernel.org/r/20230703085555.30285-4-quic_mkshah@quicinc.com
+[bjorn: Corrected psci child node names to match binding]
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/sc7280.dtsi | 98 +++++++++++++++++++++++++++---------
+ 1 file changed, 73 insertions(+), 25 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+index e54d908..66f1eb8 100644
+--- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+@@ -172,9 +172,8 @@ CPU0: cpu@0 {
+ 			reg = <0x0 0x0>;
+ 			clocks = <&cpufreq_hw 0>;
+ 			enable-method = "psci";
+-			cpu-idle-states = <&LITTLE_CPU_SLEEP_0
+-					   &LITTLE_CPU_SLEEP_1
+-					   &CLUSTER_SLEEP_0>;
++			power-domains = <&CPU_PD0>;
++			power-domain-names = "psci";
+ 			next-level-cache = <&L2_0>;
+ 			operating-points-v2 = <&cpu0_opp_table>;
+ 			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
+@@ -200,9 +199,8 @@ CPU1: cpu@100 {
+ 			reg = <0x0 0x100>;
+ 			clocks = <&cpufreq_hw 0>;
+ 			enable-method = "psci";
+-			cpu-idle-states = <&LITTLE_CPU_SLEEP_0
+-					   &LITTLE_CPU_SLEEP_1
+-					   &CLUSTER_SLEEP_0>;
++			power-domains = <&CPU_PD1>;
++			power-domain-names = "psci";
+ 			next-level-cache = <&L2_100>;
+ 			operating-points-v2 = <&cpu0_opp_table>;
+ 			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
+@@ -223,9 +221,8 @@ CPU2: cpu@200 {
+ 			reg = <0x0 0x200>;
+ 			clocks = <&cpufreq_hw 0>;
+ 			enable-method = "psci";
+-			cpu-idle-states = <&LITTLE_CPU_SLEEP_0
+-					   &LITTLE_CPU_SLEEP_1
+-					   &CLUSTER_SLEEP_0>;
++			power-domains = <&CPU_PD2>;
++			power-domain-names = "psci";
+ 			next-level-cache = <&L2_200>;
+ 			operating-points-v2 = <&cpu0_opp_table>;
+ 			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
+@@ -246,9 +243,8 @@ CPU3: cpu@300 {
+ 			reg = <0x0 0x300>;
+ 			clocks = <&cpufreq_hw 0>;
+ 			enable-method = "psci";
+-			cpu-idle-states = <&LITTLE_CPU_SLEEP_0
+-					   &LITTLE_CPU_SLEEP_1
+-					   &CLUSTER_SLEEP_0>;
++			power-domains = <&CPU_PD3>;
++			power-domain-names = "psci";
+ 			next-level-cache = <&L2_300>;
+ 			operating-points-v2 = <&cpu0_opp_table>;
+ 			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
+@@ -269,9 +265,8 @@ CPU4: cpu@400 {
+ 			reg = <0x0 0x400>;
+ 			clocks = <&cpufreq_hw 1>;
+ 			enable-method = "psci";
+-			cpu-idle-states = <&BIG_CPU_SLEEP_0
+-					   &BIG_CPU_SLEEP_1
+-					   &CLUSTER_SLEEP_0>;
++			power-domains = <&CPU_PD4>;
++			power-domain-names = "psci";
+ 			next-level-cache = <&L2_400>;
+ 			operating-points-v2 = <&cpu4_opp_table>;
+ 			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
+@@ -292,9 +287,8 @@ CPU5: cpu@500 {
+ 			reg = <0x0 0x500>;
+ 			clocks = <&cpufreq_hw 1>;
+ 			enable-method = "psci";
+-			cpu-idle-states = <&BIG_CPU_SLEEP_0
+-					   &BIG_CPU_SLEEP_1
+-					   &CLUSTER_SLEEP_0>;
++			power-domains = <&CPU_PD5>;
++			power-domain-names = "psci";
+ 			next-level-cache = <&L2_500>;
+ 			operating-points-v2 = <&cpu4_opp_table>;
+ 			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
+@@ -315,9 +309,8 @@ CPU6: cpu@600 {
+ 			reg = <0x0 0x600>;
+ 			clocks = <&cpufreq_hw 1>;
+ 			enable-method = "psci";
+-			cpu-idle-states = <&BIG_CPU_SLEEP_0
+-					   &BIG_CPU_SLEEP_1
+-					   &CLUSTER_SLEEP_0>;
++			power-domains = <&CPU_PD6>;
++			power-domain-names = "psci";
+ 			next-level-cache = <&L2_600>;
+ 			operating-points-v2 = <&cpu4_opp_table>;
+ 			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
+@@ -338,9 +331,8 @@ CPU7: cpu@700 {
+ 			reg = <0x0 0x700>;
+ 			clocks = <&cpufreq_hw 2>;
+ 			enable-method = "psci";
+-			cpu-idle-states = <&BIG_CPU_SLEEP_0
+-					   &BIG_CPU_SLEEP_1
+-					   &CLUSTER_SLEEP_0>;
++			power-domains = <&CPU_PD7>;
++			power-domain-names = "psci";
+ 			next-level-cache = <&L2_700>;
+ 			operating-points-v2 = <&cpu7_opp_table>;
+ 			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
+@@ -433,9 +425,11 @@ BIG_CPU_SLEEP_1: cpu-sleep-1-1 {
+ 				min-residency-us = <5555>;
+ 				local-timer-stop;
+ 			};
++		};
+ 
++		domain-idle-states {
+ 			CLUSTER_SLEEP_0: cluster-sleep-0 {
+-				compatible = "arm,idle-state";
++				compatible = "domain-idle-state";
+ 				idle-state-name = "cluster-power-down";
+ 				arm,psci-suspend-param = <0x40003444>;
+ 				entry-latency-us = <3263>;
+@@ -801,6 +795,59 @@ pmu {
+ 	psci {
+ 		compatible = "arm,psci-1.0";
+ 		method = "smc";
++
++		CPU_PD0: power-domain-cpu0 {
++			#power-domain-cells = <0>;
++			power-domains = <&CLUSTER_PD>;
++			domain-idle-states = <&LITTLE_CPU_SLEEP_0 &LITTLE_CPU_SLEEP_1>;
++		};
++
++		CPU_PD1: power-domain-cpu1 {
++			#power-domain-cells = <0>;
++			power-domains = <&CLUSTER_PD>;
++			domain-idle-states = <&LITTLE_CPU_SLEEP_0 &LITTLE_CPU_SLEEP_1>;
++		};
++
++		CPU_PD2: power-domain-cpu2 {
++			#power-domain-cells = <0>;
++			power-domains = <&CLUSTER_PD>;
++			domain-idle-states = <&LITTLE_CPU_SLEEP_0 &LITTLE_CPU_SLEEP_1>;
++		};
++
++		CPU_PD3: power-domain-cpu3 {
++			#power-domain-cells = <0>;
++			power-domains = <&CLUSTER_PD>;
++			domain-idle-states = <&LITTLE_CPU_SLEEP_0 &LITTLE_CPU_SLEEP_1>;
++		};
++
++		CPU_PD4: power-domain-cpu4 {
++			#power-domain-cells = <0>;
++			power-domains = <&CLUSTER_PD>;
++			domain-idle-states = <&BIG_CPU_SLEEP_0 &BIG_CPU_SLEEP_1>;
++		};
++
++		CPU_PD5: power-domain-cpu5 {
++			#power-domain-cells = <0>;
++			power-domains = <&CLUSTER_PD>;
++			domain-idle-states = <&BIG_CPU_SLEEP_0 &BIG_CPU_SLEEP_1>;
++		};
++
++		CPU_PD6: power-domain-cpu6 {
++			#power-domain-cells = <0>;
++			power-domains = <&CLUSTER_PD>;
++			domain-idle-states = <&BIG_CPU_SLEEP_0 &BIG_CPU_SLEEP_1>;
++		};
++
++		CPU_PD7: power-domain-cpu7 {
++			#power-domain-cells = <0>;
++			power-domains = <&CLUSTER_PD>;
++			domain-idle-states = <&BIG_CPU_SLEEP_0 &BIG_CPU_SLEEP_1>;
++		};
++
++		CLUSTER_PD: power-domain-cluster {
++			#power-domain-cells = <0>;
++			domain-idle-states = <&CLUSTER_SLEEP_0>;
++		};
+ 	};
+ 
+ 	qspi_opp_table: opp-table-qspi {
+@@ -5252,6 +5299,7 @@ apps_rsc: rsc@18200000 {
+ 					  <SLEEP_TCS   3>,
+ 					  <WAKE_TCS    3>,
+ 					  <CONTROL_TCS 1>;
++			power-domains = <&CLUSTER_PD>;
+ 
+ 			apps_bcm_voter: bcm-voter {
+ 				compatible = "qcom,bcm-voter";

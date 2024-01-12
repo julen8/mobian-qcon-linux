@@ -1,0 +1,54 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Mon, 2 Oct 2023 16:00:12 +0200
+Subject: FROMGIT ASoC: codecs: aw88261: Remove non-existing reset gpio
+
+According to the AW88261 datasheet (V1.1) and device schematics I have
+access to, there is no reset gpio present on the AW88261. Remove it.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Link: https://lore.kernel.org/r/20231002-aw88261-reset-v2-2-837cb1e7b95c@fairphone.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/codecs/aw88261.c | 15 ---------------
+ 1 file changed, 15 deletions(-)
+
+diff --git a/sound/soc/codecs/aw88261.c b/sound/soc/codecs/aw88261.c
+index 45eaf93..e7683f7 100644
+--- a/sound/soc/codecs/aw88261.c
++++ b/sound/soc/codecs/aw88261.c
+@@ -10,7 +10,6 @@
+ 
+ #include <linux/i2c.h>
+ #include <linux/firmware.h>
+-#include <linux/of_gpio.h>
+ #include <linux/regmap.h>
+ #include <sound/soc.h>
+ #include "aw88261.h"
+@@ -1175,14 +1174,6 @@ static const struct snd_soc_component_driver soc_codec_dev_aw88261 = {
+ 	.remove = aw88261_codec_remove,
+ };
+ 
+-static void aw88261_hw_reset(struct aw88261 *aw88261)
+-{
+-	gpiod_set_value_cansleep(aw88261->reset_gpio, 0);
+-	usleep_range(AW88261_1000_US, AW88261_1000_US + 10);
+-	gpiod_set_value_cansleep(aw88261->reset_gpio, 1);
+-	usleep_range(AW88261_1000_US, AW88261_1000_US + 10);
+-}
+-
+ static void aw88261_parse_channel_dt(struct aw88261 *aw88261)
+ {
+ 	struct aw_device *aw_dev = aw88261->aw_pa;
+@@ -1254,12 +1245,6 @@ static int aw88261_i2c_probe(struct i2c_client *i2c)
+ 
+ 	i2c_set_clientdata(i2c, aw88261);
+ 
+-	aw88261->reset_gpio = devm_gpiod_get_optional(&i2c->dev, "reset", GPIOD_OUT_LOW);
+-	if (IS_ERR(aw88261->reset_gpio))
+-		dev_info(&i2c->dev, "reset gpio not defined\n");
+-	else
+-		aw88261_hw_reset(aw88261);
+-
+ 	aw88261->regmap = devm_regmap_init_i2c(i2c, &aw88261_remap_config);
+ 	if (IS_ERR(aw88261->regmap)) {
+ 		ret = PTR_ERR(aw88261->regmap);

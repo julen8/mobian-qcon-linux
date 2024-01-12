@@ -1,0 +1,97 @@
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Sun, 20 Aug 2023 17:20:28 +0300
+Subject: FROMGIT arm64: dts: qcom: sc7280: switch PCIe QMP PHY to new style
+ of bindings
+
+Change the PCIe QMP PHY to use newer style of QMP PHY bindings (single
+resource region, no per-PHY subnodes).
+
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Link: https://lore.kernel.org/r/20230820142035.89903-12-dmitry.baryshkov@linaro.org
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/sc7280.dtsi | 40 +++++++++++++++---------------------
+ 1 file changed, 16 insertions(+), 24 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+index 91855fc..e54d908 100644
+--- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+@@ -858,7 +858,7 @@ gcc: clock-controller@100000 {
+ 			reg = <0 0x00100000 0 0x1f0000>;
+ 			clocks = <&rpmhcc RPMH_CXO_CLK>,
+ 				 <&rpmhcc RPMH_CXO_CLK_A>, <&sleep_clk>,
+-				 <0>, <&pcie1_lane>,
++				 <0>, <&pcie1_phy>,
+ 				 <0>, <0>, <0>,
+ 				 <&usb_1_qmpphy QMP_USB43DP_USB3_PIPE_CLK>;
+ 			clock-names = "bi_tcxo", "bi_tcxo_ao", "sleep_clk",
+@@ -2110,7 +2110,7 @@ pcie1: pci@1c08000 {
+ 
+ 			clocks = <&gcc GCC_PCIE_1_PIPE_CLK>,
+ 				 <&gcc GCC_PCIE_1_PIPE_CLK_SRC>,
+-				 <&pcie1_lane>,
++				 <&pcie1_phy>,
+ 				 <&rpmhcc RPMH_CXO_CLK>,
+ 				 <&gcc GCC_PCIE_1_AUX_CLK>,
+ 				 <&gcc GCC_PCIE_1_CFG_AHB_CLK>,
+@@ -2144,7 +2144,7 @@ pcie1: pci@1c08000 {
+ 
+ 			power-domains = <&gcc GCC_PCIE_1_GDSC>;
+ 
+-			phys = <&pcie1_lane>;
++			phys = <&pcie1_phy>;
+ 			phy-names = "pciephy";
+ 
+ 			pinctrl-names = "default";
+@@ -2160,15 +2160,22 @@ pcie1: pci@1c08000 {
+ 
+ 		pcie1_phy: phy@1c0e000 {
+ 			compatible = "qcom,sm8250-qmp-gen3x2-pcie-phy";
+-			reg = <0 0x01c0e000 0 0x1c0>;
+-			#address-cells = <2>;
+-			#size-cells = <2>;
+-			ranges;
++			reg = <0 0x01c0e000 0 0x1000>;
+ 			clocks = <&gcc GCC_PCIE_1_AUX_CLK>,
+ 				 <&gcc GCC_PCIE_1_CFG_AHB_CLK>,
+ 				 <&gcc GCC_PCIE_CLKREF_EN>,
+-				 <&gcc GCC_PCIE1_PHY_RCHNG_CLK>;
+-			clock-names = "aux", "cfg_ahb", "ref", "refgen";
++				 <&gcc GCC_PCIE1_PHY_RCHNG_CLK>,
++				 <&gcc GCC_PCIE_1_PIPE_CLK>;
++			clock-names = "aux",
++				      "cfg_ahb",
++				      "ref",
++				      "refgen",
++				      "pipe";
++
++			clock-output-names = "pcie_1_pipe_clk";
++			#clock-cells = <0>;
++
++			#phy-cells = <0>;
+ 
+ 			resets = <&gcc GCC_PCIE_1_PHY_BCR>;
+ 			reset-names = "phy";
+@@ -2177,21 +2184,6 @@ pcie1_phy: phy@1c0e000 {
+ 			assigned-clock-rates = <100000000>;
+ 
+ 			status = "disabled";
+-
+-			pcie1_lane: phy@1c0e200 {
+-				reg = <0 0x01c0e200 0 0x170>,
+-				      <0 0x01c0e400 0 0x200>,
+-				      <0 0x01c0ea00 0 0x1f0>,
+-				      <0 0x01c0e600 0 0x170>,
+-				      <0 0x01c0e800 0 0x200>,
+-				      <0 0x01c0ee00 0 0xf4>;
+-				clocks = <&gcc GCC_PCIE_1_PIPE_CLK>;
+-				clock-names = "pipe0";
+-
+-				#phy-cells = <0>;
+-				#clock-cells = <0>;
+-				clock-output-names = "pcie_1_pipe_clk";
+-			};
+ 		};
+ 
+ 		ipa: ipa@1e40000 {
