@@ -1,0 +1,25 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Wed, 30 Aug 2023 11:58:34 +0200
+Subject: FROMGIT cpufreq: Add QCM6490 to cpufreq-dt-platdev blocklist
+
+The Qualcomm QCM6490 platform uses the qcom-cpufreq-hw driver, so add it
+to the cpufreq-dt-platdev driver's blocklist.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+---
+ drivers/cpufreq/cpufreq-dt-platdev.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/cpufreq/cpufreq-dt-platdev.c b/drivers/cpufreq/cpufreq-dt-platdev.c
+index fb2875c..02ec58a 100644
+--- a/drivers/cpufreq/cpufreq-dt-platdev.c
++++ b/drivers/cpufreq/cpufreq-dt-platdev.c
+@@ -145,6 +145,7 @@ static const struct of_device_id blocklist[] __initconst = {
+ 	{ .compatible = "qcom,msm8996", },
+ 	{ .compatible = "qcom,msm8998", },
+ 	{ .compatible = "qcom,qcm2290", },
++	{ .compatible = "qcom,qcm6490", },
+ 	{ .compatible = "qcom,qcs404", },
+ 	{ .compatible = "qcom,qdu1000", },
+ 	{ .compatible = "qcom,sa8155p" },
