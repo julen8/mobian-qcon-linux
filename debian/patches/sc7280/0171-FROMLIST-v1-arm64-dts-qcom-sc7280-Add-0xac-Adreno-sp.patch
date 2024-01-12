@@ -1,0 +1,69 @@
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Date: Tue, 26 Sep 2023 20:24:42 +0200
+Subject: FROMLIST v1 arm64: dts: qcom: sc7280: Add 0xac Adreno speed bin
+
+A643 (A635 speedbin 0xac) tops out at 812 MHz. Fill in the
+opp-supported-hw appropriately.
+
+Note that fuseval 0xac is referred to as speedbin 1 downstream, but
+that was already in use upstream, so 2 was chosen instead.
+
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+---
+ arch/arm64/boot/dts/qcom/sc7280.dtsi | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+index 8c4fbc4..8755f11 100644
+--- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+@@ -2695,14 +2695,14 @@ opp-315000000 {
+ 					opp-hz = /bits/ 64 <315000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
+ 					opp-peak-kBps = <1804000>;
+-					opp-supported-hw = <0x03>;
++					opp-supported-hw = <0x07>;
+ 				};
+ 
+ 				opp-450000000 {
+ 					opp-hz = /bits/ 64 <450000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
+ 					opp-peak-kBps = <4068000>;
+-					opp-supported-hw = <0x03>;
++					opp-supported-hw = <0x07>;
+ 				};
+ 
+ 				/* Only applicable for SKUs which has 550Mhz as Fmax */
+@@ -2717,28 +2717,28 @@ opp-550000000-1 {
+ 					opp-hz = /bits/ 64 <550000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
+ 					opp-peak-kBps = <6832000>;
+-					opp-supported-hw = <0x02>;
++					opp-supported-hw = <0x06>;
+ 				};
+ 
+ 				opp-608000000 {
+ 					opp-hz = /bits/ 64 <608000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L2>;
+ 					opp-peak-kBps = <8368000>;
+-					opp-supported-hw = <0x02>;
++					opp-supported-hw = <0x06>;
+ 				};
+ 
+ 				opp-700000000 {
+ 					opp-hz = /bits/ 64 <700000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
+ 					opp-peak-kBps = <8532000>;
+-					opp-supported-hw = <0x02>;
++					opp-supported-hw = <0x06>;
+ 				};
+ 
+ 				opp-812000000 {
+ 					opp-hz = /bits/ 64 <812000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
+ 					opp-peak-kBps = <8532000>;
+-					opp-supported-hw = <0x02>;
++					opp-supported-hw = <0x06>;
+ 				};
+ 
+ 				opp-840000000 {
