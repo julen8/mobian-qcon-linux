@@ -1,0 +1,23 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Wed, 23 Aug 2023 11:32:45 +0200
+Subject: WIP dispcc-sc7280: set PARENT_ENABLE on mdss_pclk0_clk_src
+
+Makes the warning go away
+disp_cc_mdss_pclk0_clk_src: rcg didn't update its configuration.
+---
+ drivers/clk/qcom/dispcc-sc7280.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/clk/qcom/dispcc-sc7280.c b/drivers/clk/qcom/dispcc-sc7280.c
+index ad596d5..15d06aa 100644
+--- a/drivers/clk/qcom/dispcc-sc7280.c
++++ b/drivers/clk/qcom/dispcc-sc7280.c
+@@ -319,7 +319,7 @@ static struct clk_rcg2 disp_cc_mdss_pclk0_clk_src = {
+ 		.name = "disp_cc_mdss_pclk0_clk_src",
+ 		.parent_data = disp_cc_parent_data_6,
+ 		.num_parents = ARRAY_SIZE(disp_cc_parent_data_6),
+-		.flags = CLK_SET_RATE_PARENT,
++		.flags = CLK_SET_RATE_PARENT | CLK_OPS_PARENT_ENABLE,
+ 		.ops = &clk_pixel_ops,
+ 	},
+ };

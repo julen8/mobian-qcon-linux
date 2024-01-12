@@ -1,0 +1,24 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 27 Oct 2023 10:27:30 +0200
+Subject: usb: typec: ucsi: Add qcm6490-pmic-glink as needing PDOS quirk
+
+The QCM6490 Linux Android firmware needs this workaround as well. Add it
+to the list.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ drivers/usb/typec/ucsi/ucsi_glink.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/usb/typec/ucsi/ucsi_glink.c b/drivers/usb/typec/ucsi/ucsi_glink.c
+index f7ae1aa..e1c862a 100644
+--- a/drivers/usb/typec/ucsi/ucsi_glink.c
++++ b/drivers/usb/typec/ucsi/ucsi_glink.c
+@@ -298,6 +298,7 @@ static void pmic_glink_ucsi_destroy(void *data)
+ }
+ 
+ static const struct of_device_id pmic_glink_ucsi_of_quirks[] = {
++	{ .compatible = "qcom,qcm6490-pmic-glink", .data = (void *)UCSI_NO_PARTNER_PDOS, },
+ 	{ .compatible = "qcom,sc8180x-pmic-glink", .data = (void *)UCSI_NO_PARTNER_PDOS, },
+ 	{ .compatible = "qcom,sc8280xp-pmic-glink", .data = (void *)UCSI_NO_PARTNER_PDOS, },
+ 	{ .compatible = "qcom,sm8350-pmic-glink", .data = (void *)UCSI_NO_PARTNER_PDOS, },
