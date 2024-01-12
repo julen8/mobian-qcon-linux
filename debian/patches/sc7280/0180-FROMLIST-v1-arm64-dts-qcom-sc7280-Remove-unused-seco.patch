@@ -1,0 +1,44 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 27 Oct 2023 14:33:28 +0200
+Subject: FROMLIST v1 arm64: dts: qcom: sc7280: Remove unused second MPSS reg
+
+The bindings for sc7280-mpss-pas neither expects a second reg nor a
+reg-names property, which is only required by the sc7280-mss-pil
+bindings.
+
+Move it to sc7280-herobrine-lte-sku.dtsi, the only place where that
+other compatible is used.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi | 2 ++
+ arch/arm64/boot/dts/qcom/sc7280.dtsi                   | 3 +--
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi b/arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi
+index 9550554..203274c 100644
+--- a/arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi
+@@ -33,6 +33,8 @@ &ipa {
+ 
+ &remoteproc_mpss {
+ 	compatible = "qcom,sc7280-mss-pil";
++	reg = <0 0x04080000 0 0x10000>, <0 0x04180000 0 0x48>;
++	reg-names = "qdsp6", "rmb";
+ 
+ 	clocks = <&gcc GCC_MSS_CFG_AHB_CLK>,
+ 		 <&gcc GCC_MSS_OFFLINE_AXI_CLK>,
+diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+index 8755f11..d4d4f2ae 100644
+--- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+@@ -2857,8 +2857,7 @@ adreno_smmu: iommu@3da0000 {
+ 
+ 		remoteproc_mpss: remoteproc@4080000 {
+ 			compatible = "qcom,sc7280-mpss-pas";
+-			reg = <0 0x04080000 0 0x10000>, <0 0x04180000 0 0x48>;
+-			reg-names = "qdsp6", "rmb";
++			reg = <0 0x04080000 0 0x10000>;
+ 
+ 			interrupts-extended = <&intc GIC_SPI 264 IRQ_TYPE_EDGE_RISING>,
+ 					      <&modem_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
