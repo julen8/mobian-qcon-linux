@@ -1,0 +1,28 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Mon, 2 Oct 2023 09:00:12 +0200
+Subject: FROMGIT arm64: dts: qcom: pm7250b: Use correct node name for gpios
+
+Use gpio@ instead of pinctrl@ as that's the name expected by the
+qcom,spmi-pmic.yaml schema. Update it to fix dt validation.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Link: https://lore.kernel.org/r/20231002-pm7250b-gpio-fixup-v2-2-debb8b599989@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/pm7250b.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/pm7250b.dtsi b/arch/arm64/boot/dts/qcom/pm7250b.dtsi
+index d125457..c9faa51 100644
+--- a/arch/arm64/boot/dts/qcom/pm7250b.dtsi
++++ b/arch/arm64/boot/dts/qcom/pm7250b.dtsi
+@@ -184,7 +184,7 @@ pm7250b_adc_tm: adc-tm@3500 {
+ 			status = "disabled";
+ 		};
+ 
+-		pm7250b_gpios: pinctrl@c000 {
++		pm7250b_gpios: gpio@c000 {
+ 			compatible = "qcom,pm7250b-gpio", "qcom,spmi-gpio";
+ 			reg = <0xc000>;
+ 			gpio-controller;

@@ -1,0 +1,41 @@
+From: Weidong Wang <wangweidong.a@awinic.com>
+Date: Thu, 28 Sep 2023 18:57:23 +0800
+Subject: FROMGIT ASoC: codecs: Modify i2c driver name
+
+Change the name of the i2c driver, this is to
+be consistent with the "awinic,aw88395.yaml" file
+
+Signed-off-by: Weidong Wang <wangweidong.a@awinic.com>
+Link: https://lore.kernel.org/r/20230928105727.47273-7-wangweidong.a@awinic.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/codecs/aw88261.h         | 2 +-
+ sound/soc/codecs/aw88395/aw88395.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/codecs/aw88261.h b/sound/soc/codecs/aw88261.h
+index 4f3dbf4..bd0841f 100644
+--- a/sound/soc/codecs/aw88261.h
++++ b/sound/soc/codecs/aw88261.h
+@@ -370,7 +370,7 @@
+ #define AW88261_START_RETRIES		(5)
+ #define AW88261_START_WORK_DELAY_MS	(0)
+ 
+-#define AW88261_I2C_NAME		"aw88261_smartpa"
++#define AW88261_I2C_NAME		"aw88261"
+ 
+ #define AW88261_RATES (SNDRV_PCM_RATE_8000_48000 | \
+ 			SNDRV_PCM_RATE_96000)
+diff --git a/sound/soc/codecs/aw88395/aw88395.h b/sound/soc/codecs/aw88395/aw88395.h
+index 8036ba2..c2a4f0c 100644
+--- a/sound/soc/codecs/aw88395/aw88395.h
++++ b/sound/soc/codecs/aw88395/aw88395.h
+@@ -16,7 +16,7 @@
+ 
+ #define AW88395_DSP_16_DATA_MASK		(0x0000ffff)
+ 
+-#define AW88395_I2C_NAME			"aw88395_smartpa"
++#define AW88395_I2C_NAME			"aw88395"
+ 
+ #define AW88395_RATES (SNDRV_PCM_RATE_8000_48000 | \
+ 			SNDRV_PCM_RATE_96000)
