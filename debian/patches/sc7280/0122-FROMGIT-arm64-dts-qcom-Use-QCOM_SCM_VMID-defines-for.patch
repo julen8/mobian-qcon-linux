@@ -1,0 +1,377 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 18 Aug 2023 10:06:09 +0200
+Subject: FROMGIT arm64: dts: qcom: Use QCOM_SCM_VMID defines for qcom,vmid
+
+Since we have those defines available in a header, let's use them
+everywhere where qcom,vmid property is used.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Link: https://lore.kernel.org/r/20230818-qcom-vmid-defines-v1-1-45b610c96b13@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/msm8996-xiaomi-common.dtsi          | 2 +-
+ arch/arm64/boot/dts/qcom/msm8996.dtsi                        | 3 ++-
+ arch/arm64/boot/dts/qcom/msm8998.dtsi                        | 3 ++-
+ arch/arm64/boot/dts/qcom/sc7180.dtsi                         | 3 ++-
+ arch/arm64/boot/dts/qcom/sc7280.dtsi                         | 3 ++-
+ arch/arm64/boot/dts/qcom/sc8180x-lenovo-flex-5g.dts          | 3 ++-
+ arch/arm64/boot/dts/qcom/sc8180x-primus.dts                  | 3 ++-
+ arch/arm64/boot/dts/qcom/sdm630.dtsi                         | 3 ++-
+ arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi               | 2 +-
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi          | 2 +-
+ arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi | 2 +-
+ arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts           | 2 +-
+ arch/arm64/boot/dts/qcom/sdm845.dtsi                         | 2 +-
+ arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts            | 3 ++-
+ arch/arm64/boot/dts/qcom/sm8150.dtsi                         | 3 ++-
+ arch/arm64/boot/dts/qcom/sm8350.dtsi                         | 3 ++-
+ arch/arm64/boot/dts/qcom/sm8450-sony-xperia-nagara.dtsi      | 2 +-
+ arch/arm64/boot/dts/qcom/sm8450.dtsi                         | 3 ++-
+ arch/arm64/boot/dts/qcom/sm8550.dtsi                         | 3 ++-
+ 19 files changed, 31 insertions(+), 19 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/msm8996-xiaomi-common.dtsi b/arch/arm64/boot/dts/qcom/msm8996-xiaomi-common.dtsi
+index 06f8ff6..8fda251 100644
+--- a/arch/arm64/boot/dts/qcom/msm8996-xiaomi-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/msm8996-xiaomi-common.dtsi
+@@ -115,7 +115,7 @@ rmtfs@f6c00000 {
+ 			no-map;
+ 
+ 			qcom,client-id = <1>;
+-			qcom,vmid = <15>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
+ 		};
+ 
+ 		/delete-node/ mba@91500000;
+diff --git a/arch/arm64/boot/dts/qcom/msm8996.dtsi b/arch/arm64/boot/dts/qcom/msm8996.dtsi
+index c8e0986..6ba9da9 100644
+--- a/arch/arm64/boot/dts/qcom/msm8996.dtsi
++++ b/arch/arm64/boot/dts/qcom/msm8996.dtsi
+@@ -9,6 +9,7 @@
+ #include <dt-bindings/clock/qcom,rpmcc.h>
+ #include <dt-bindings/interconnect/qcom,msm8996.h>
+ #include <dt-bindings/interconnect/qcom,msm8996-cbf.h>
++#include <dt-bindings/firmware/qcom,scm.h>
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/power/qcom-rpmpd.h>
+ #include <dt-bindings/soc/qcom,apr.h>
+@@ -538,7 +539,7 @@ rmtfs_mem: rmtfs {
+ 			no-map;
+ 
+ 			qcom,client-id = <1>;
+-			qcom,vmid = <15>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
+ 		};
+ 
+ 		mpss_mem: mpss@88800000 {
+diff --git a/arch/arm64/boot/dts/qcom/msm8998.dtsi b/arch/arm64/boot/dts/qcom/msm8998.dtsi
+index f180047..aac23a8 100644
+--- a/arch/arm64/boot/dts/qcom/msm8998.dtsi
++++ b/arch/arm64/boot/dts/qcom/msm8998.dtsi
+@@ -6,6 +6,7 @@
+ #include <dt-bindings/clock/qcom,gpucc-msm8998.h>
+ #include <dt-bindings/clock/qcom,mmcc-msm8998.h>
+ #include <dt-bindings/clock/qcom,rpmcc.h>
++#include <dt-bindings/firmware/qcom,scm.h>
+ #include <dt-bindings/power/qcom-rpmpd.h>
+ #include <dt-bindings/gpio/gpio.h>
+ 
+@@ -56,7 +57,7 @@ rmtfs_mem: memory@88f00000 {
+ 			no-map;
+ 
+ 			qcom,client-id = <1>;
+-			qcom,vmid = <15>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
+ 		};
+ 
+ 		spss_mem: memory@8ab00000 {
+diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+index a79c0f2e..d574181 100644
+--- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+@@ -11,6 +11,7 @@
+ #include <dt-bindings/clock/qcom,lpasscorecc-sc7180.h>
+ #include <dt-bindings/clock/qcom,rpmh.h>
+ #include <dt-bindings/clock/qcom,videocc-sc7180.h>
++#include <dt-bindings/firmware/qcom,scm.h>
+ #include <dt-bindings/interconnect/qcom,icc.h>
+ #include <dt-bindings/interconnect/qcom,osm-l3.h>
+ #include <dt-bindings/interconnect/qcom,sc7180.h>
+@@ -687,7 +688,7 @@ rmtfs_mem: memory@94600000 {
+ 			no-map;
+ 
+ 			qcom,client-id = <1>;
+-			qcom,vmid = <15>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
+ 		};
+ 	};
+ 
+diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+index 91bb58c..76b0702 100644
+--- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+@@ -13,6 +13,7 @@
+ #include <dt-bindings/clock/qcom,rpmh.h>
+ #include <dt-bindings/clock/qcom,videocc-sc7280.h>
+ #include <dt-bindings/dma/qcom-gpi.h>
++#include <dt-bindings/firmware/qcom,scm.h>
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/interconnect/qcom,osm-l3.h>
+ #include <dt-bindings/interconnect/qcom,sc7280.h>
+@@ -156,7 +157,7 @@ rmtfs_mem: memory@9c900000 {
+ 			no-map;
+ 
+ 			qcom,client-id = <1>;
+-			qcom,vmid = <15>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
+ 		};
+ 	};
+ 
+diff --git a/arch/arm64/boot/dts/qcom/sc8180x-lenovo-flex-5g.dts b/arch/arm64/boot/dts/qcom/sc8180x-lenovo-flex-5g.dts
+index abc6661..3ea07d0 100644
+--- a/arch/arm64/boot/dts/qcom/sc8180x-lenovo-flex-5g.dts
++++ b/arch/arm64/boot/dts/qcom/sc8180x-lenovo-flex-5g.dts
+@@ -6,6 +6,7 @@
+ 
+ /dts-v1/;
+ 
++#include <dt-bindings/firmware/qcom,scm.h>
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/input/gpio-keys.h>
+ #include <dt-bindings/input/input.h>
+@@ -130,7 +131,7 @@ rmtfs_mem: rmtfs-region@85500000 {
+ 			no-map;
+ 
+ 			qcom,client-id = <1>;
+-			qcom,vmid = <15>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
+ 		};
+ 
+ 		wlan_mem: wlan-region@8bc00000 {
+diff --git a/arch/arm64/boot/dts/qcom/sc8180x-primus.dts b/arch/arm64/boot/dts/qcom/sc8180x-primus.dts
+index 834e6f9..fd2fab4 100644
+--- a/arch/arm64/boot/dts/qcom/sc8180x-primus.dts
++++ b/arch/arm64/boot/dts/qcom/sc8180x-primus.dts
+@@ -6,6 +6,7 @@
+ 
+ /dts-v1/;
+ 
++#include <dt-bindings/firmware/qcom,scm.h>
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/input/gpio-keys.h>
+ #include <dt-bindings/input/input.h>
+@@ -135,7 +136,7 @@ rmtfs_mem: rmtfs-region@85500000 {
+ 			no-map;
+ 
+ 			qcom,client-id = <1>;
+-			qcom,vmid = <15>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
+ 		};
+ 
+ 		wlan_mem: wlan-region@8bc00000 {
+diff --git a/arch/arm64/boot/dts/qcom/sdm630.dtsi b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+index ec60032..c177190 100644
+--- a/arch/arm64/boot/dts/qcom/sdm630.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+@@ -8,6 +8,7 @@
+ #include <dt-bindings/clock/qcom,gpucc-sdm660.h>
+ #include <dt-bindings/clock/qcom,mmcc-sdm660.h>
+ #include <dt-bindings/clock/qcom,rpmcc.h>
++#include <dt-bindings/firmware/qcom,scm.h>
+ #include <dt-bindings/interconnect/qcom,sdm660.h>
+ #include <dt-bindings/power/qcom-rpmpd.h>
+ #include <dt-bindings/gpio/gpio.h>
+@@ -453,7 +454,7 @@ rmtfs_mem: memory@85e00000 {
+ 			no-map;
+ 
+ 			qcom,client-id = <1>;
+-			qcom,vmid = <15>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
+ 		};
+ 
+ 		smem_region: smem-mem@86000000 {
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+index 6a1c674..57ed447 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+@@ -105,7 +105,7 @@ rmtfs_mem: memory@f0801000 {
+ 			no-map;
+ 
+ 			qcom,client-id = <1>;
+-			qcom,vmid = <15>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
+ 		};
+ 
+ 		/* rmtfs upper guard */
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+index 17ae11f..3d98568 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+@@ -127,7 +127,7 @@ rmtfs_mem: rmtfs-mem@f5b01000 {
+ 			no-map;
+ 
+ 			qcom,client-id = <1>;
+-			qcom,vmid = <15>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
+ 		};
+ 		rmtfs_upper_guard: rmtfs-upper-guard@f5d01000 {
+ 			no-map;
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+index c9583156..3b2177b 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+@@ -108,7 +108,7 @@ rmtfs_mem: memory@f6301000 {
+ 			no-map;
+ 
+ 			qcom,client-id = <1>;
+-			qcom,vmid = <15>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
+ 		};
+ 	};
+ 
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
+index 6db12ab..e386b50 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
+@@ -108,7 +108,7 @@ rmtfs_mem: memory@f6301000 {
+ 			no-map;
+ 
+ 			qcom,client-id = <1>;
+-			qcom,vmid = <15>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
+ 		};
+ 	};
+ 
+diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
+index 81b0be8..154c850 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
+@@ -813,7 +813,7 @@ rmtfs_mem: rmtfs@88f00000 {
+ 			no-map;
+ 
+ 			qcom,client-id = <1>;
+-			qcom,vmid = <15>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
+ 		};
+ 
+ 		qseecom_mem: qseecom@8ab00000 {
+diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+index f9f397c..1b08ff1 100644
+--- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
++++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+@@ -8,6 +8,7 @@
+ /* PMK8350 (in reality a PMK8003) is configured to use SID6 instead of 0 */
+ #define PMK8350_SID 6
+ 
++#include <dt-bindings/firmware/qcom,scm.h>
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/iio/qcom,spmi-adc7-pmk8350.h>
+ #include <dt-bindings/input/input.h>
+@@ -66,7 +67,7 @@ memory@efe01000 {
+ 			no-map;
+ 
+ 			qcom,client-id = <1>;
+-			qcom,vmid = <15>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
+ 		};
+ 	};
+ 
+diff --git a/arch/arm64/boot/dts/qcom/sm8150.dtsi b/arch/arm64/boot/dts/qcom/sm8150.dtsi
+index 19c6003..7d458fb 100644
+--- a/arch/arm64/boot/dts/qcom/sm8150.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8150.dtsi
+@@ -5,6 +5,7 @@
+  */
+ 
+ #include <dt-bindings/dma/qcom-gpi.h>
++#include <dt-bindings/firmware/qcom,scm.h>
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include <dt-bindings/power/qcom-rpmpd.h>
+ #include <dt-bindings/soc/qcom,rpmh-rsc.h>
+@@ -720,7 +721,7 @@ rmtfs_mem: memory@89b00000 {
+ 			no-map;
+ 
+ 			qcom,client-id = <1>;
+-			qcom,vmid = <15>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
+ 		};
+ 
+ 		camera_mem: memory@8b700000 {
+diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+index a94e069..b462362 100644
+--- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+@@ -10,6 +10,7 @@
+ #include <dt-bindings/clock/qcom,gpucc-sm8350.h>
+ #include <dt-bindings/clock/qcom,rpmh.h>
+ #include <dt-bindings/dma/qcom-gpi.h>
++#include <dt-bindings/firmware/qcom,scm.h>
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/interconnect/qcom,sm8350.h>
+ #include <dt-bindings/mailbox/qcom-ipcc.h>
+@@ -503,7 +504,7 @@ rmtfs_mem: memory@9b800000 {
+ 			no-map;
+ 
+ 			qcom,client-id = <1>;
+-			qcom,vmid = <15>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
+ 		};
+ 
+ 		hyp_reserved_mem: memory@d0000000 {
+diff --git a/arch/arm64/boot/dts/qcom/sm8450-sony-xperia-nagara.dtsi b/arch/arm64/boot/dts/qcom/sm8450-sony-xperia-nagara.dtsi
+index 001fb27..8b29fcf 100644
+--- a/arch/arm64/boot/dts/qcom/sm8450-sony-xperia-nagara.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8450-sony-xperia-nagara.dtsi
+@@ -80,7 +80,7 @@ rmtfs_mem: memory@f3300000 {
+ 			no-map;
+ 
+ 			qcom,client-id = <1>;
+-			qcom,vmid = <15>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
+ 		};
+ 
+ 		ramoops@ffc00000 {
+diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+index 2a60cf8..09a0c35 100644
+--- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+@@ -10,6 +10,7 @@
+ #include <dt-bindings/clock/qcom,sm8450-dispcc.h>
+ #include <dt-bindings/clock/qcom,sm8450-videocc.h>
+ #include <dt-bindings/dma/qcom-gpi.h>
++#include <dt-bindings/firmware/qcom,scm.h>
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/mailbox/qcom-ipcc.h>
+ #include <dt-bindings/phy/phy-qcom-qmp.h>
+@@ -540,7 +541,7 @@ rmtfs_mem: memory@9fd00000 {
+ 			no-map;
+ 
+ 			qcom,client-id = <1>;
+-			qcom,vmid = <15>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
+ 		};
+ 
+ 		xbl_sc_mem2: memory@a6e00000 {
+diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+index d115960..1a3bbd6 100644
+--- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+@@ -10,6 +10,7 @@
+ #include <dt-bindings/clock/qcom,sm8550-tcsr.h>
+ #include <dt-bindings/clock/qcom,sm8550-dispcc.h>
+ #include <dt-bindings/dma/qcom-gpi.h>
++#include <dt-bindings/firmware/qcom,scm.h>
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include <dt-bindings/interconnect/qcom,sm8550-rpmh.h>
+@@ -570,7 +571,7 @@ rmtfs_mem: rmtfs-region@d4a80000 {
+ 			no-map;
+ 
+ 			qcom,client-id = <1>;
+-			qcom,vmid = <15>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
+ 		};
+ 
+ 		mpss_dsm_mem: mpss-dsm-region@d4d00000 {
