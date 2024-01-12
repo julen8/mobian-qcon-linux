@@ -1,0 +1,31 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Tue, 19 Sep 2023 14:45:59 +0200
+Subject: FROMGIT dt-bindings: pinctrl: qcom,sc7280: Allow
+ gpio-reserved-ranges
+
+Allow the gpio-reserved-ranges property on SC7280 TLMM.
+
+Acked-by: Linus Walleij <linus.walleij@linaro.org>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Link: https://lore.kernel.org/r/20230919-fp5-initial-v2-5-14bb7cedadf5@fairphone.com
+Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+---
+ Documentation/devicetree/bindings/pinctrl/qcom,sc7280-pinctrl.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,sc7280-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,sc7280-pinctrl.yaml
+index 368d44f..c8735ab 100644
+--- a/Documentation/devicetree/bindings/pinctrl/qcom,sc7280-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/qcom,sc7280-pinctrl.yaml
+@@ -41,6 +41,10 @@ properties:
+   gpio-ranges:
+     maxItems: 1
+ 
++  gpio-reserved-ranges:
++    minItems: 1
++    maxItems: 88
++
+   gpio-line-names:
+     maxItems: 175
+ 

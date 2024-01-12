@@ -1,0 +1,77 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 13 Oct 2023 12:12:47 +0200
+Subject: FROMLIST v2 dt-bindings: usb: fsa4480: Add data-lanes property to
+ endpoint
+
+Allow specifying data-lanes to reverse the muxing orientation between
+AUX+/- and SBU1/2 where necessary by the hardware design.
+
+In the mux there's a switch that needs to be controlled from the OS, and
+it either connects AUX+ -> SBU1 and AUX- -> SBU2, or the reverse: AUX+
+-> SBU2 and AUX- -> SBU1, depending on the orientation of how the USB-C
+connector is plugged in.
+
+With this data-lanes property we can now specify that AUX+ and AUX-
+connections are swapped between the SoC and the mux, therefore the OS
+needs to consider this and reverse the direction of this switch in the
+mux.
+
+_______          _______
+      |          |     |
+      |-- HP   --|     |
+      |-- MIC  --|     |or
+SoC   |          | MUX |-- SBU1 --->  To the USB-C
+Codec |-- AUX+ --|     |-- SBU2 --->  connected
+      |-- AUX- --|     |
+______|          |_____|
+
+(thanks to Neil Armstrong for this ASCII art)
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ .../devicetree/bindings/usb/fcs,fsa4480.yaml       | 29 +++++++++++++++++++++-
+ 1 file changed, 28 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/usb/fcs,fsa4480.yaml b/Documentation/devicetree/bindings/usb/fcs,fsa4480.yaml
+index f6e7a5c..86f6d63 100644
+--- a/Documentation/devicetree/bindings/usb/fcs,fsa4480.yaml
++++ b/Documentation/devicetree/bindings/usb/fcs,fsa4480.yaml
+@@ -32,10 +32,37 @@ properties:
+     type: boolean
+ 
+   port:
+-    $ref: /schemas/graph.yaml#/properties/port
++    $ref: /schemas/graph.yaml#/$defs/port-base
+     description:
+       A port node to link the FSA4480 to a TypeC controller for the purpose of
+       handling altmode muxing and orientation switching.
++    unevaluatedProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/graph.yaml#/$defs/endpoint-base
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            $ref: /schemas/types.yaml#/definitions/uint32-array
++            description:
++              Specifies how the AUX+/- lines are connected to SBU1/2.
++            oneOf:
++              - items:
++                  - const: 0
++                  - const: 1
++                description: |
++                  Default AUX/SBU layout
++                  - AUX+ connected to SBU2
++                  - AUX- connected to SBU1
++              - items:
++                  - const: 1
++                  - const: 0
++                description: |
++                  Swapped AUX/SBU layout
++                  - AUX+ connected to SBU1
++                  - AUX- connected to SBU2
+ 
+ required:
+   - compatible
