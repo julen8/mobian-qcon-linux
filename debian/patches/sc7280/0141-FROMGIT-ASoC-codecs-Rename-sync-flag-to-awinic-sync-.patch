@@ -1,0 +1,47 @@
+From: Weidong Wang <wangweidong.a@awinic.com>
+Date: Thu, 28 Sep 2023 18:57:25 +0800
+Subject: FROMGIT ASoC: codecs: Rename "sync-flag" to "awinic,sync-flag"
+
+Rename "sync-flag" to "awinic,sync-flag", this is to be
+consistent with the "awinic,aw88395.yaml" file
+
+Signed-off-by: Weidong Wang <wangweidong.a@awinic.com>
+Link: https://lore.kernel.org/r/20230928105727.47273-9-wangweidong.a@awinic.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/codecs/aw88261.c | 4 +---
+ sound/soc/codecs/aw88261.h | 2 +-
+ 2 files changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/sound/soc/codecs/aw88261.c b/sound/soc/codecs/aw88261.c
+index 7df6415..61179e23 100644
+--- a/sound/soc/codecs/aw88261.c
++++ b/sound/soc/codecs/aw88261.c
+@@ -1187,13 +1187,11 @@ static void aw88261_parse_channel_dt(struct aw88261 *aw88261)
+ 	struct aw_device *aw_dev = aw88261->aw_pa;
+ 	struct device_node *np = aw_dev->dev->of_node;
+ 	u32 channel_value = AW88261_DEV_DEFAULT_CH;
+-	u32 sync_enable = false;
+ 
+ 	of_property_read_u32(np, "awinic,audio-channel", &channel_value);
+-	of_property_read_u32(np, "sync-flag", &sync_enable);
++	aw88261->phase_sync = of_property_read_bool(np, "awinic,sync-flag");
+ 
+ 	aw_dev->channel = channel_value;
+-	aw88261->phase_sync = sync_enable;
+ }
+ 
+ static int aw88261_init(struct aw88261 **aw88261, struct i2c_client *i2c, struct regmap *regmap)
+diff --git a/sound/soc/codecs/aw88261.h b/sound/soc/codecs/aw88261.h
+index bd0841f..734d0f9 100644
+--- a/sound/soc/codecs/aw88261.h
++++ b/sound/soc/codecs/aw88261.h
+@@ -453,7 +453,7 @@ struct aw88261 {
+ 	unsigned int mute_st;
+ 	unsigned int amppd_st;
+ 
+-	unsigned char phase_sync;
++	bool phase_sync;
+ };
+ 
+ #endif
