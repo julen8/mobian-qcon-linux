@@ -1,0 +1,35 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Mon, 2 Oct 2023 08:55:30 +0200
+Subject: FROMGIT dt-bindings: i2c: qcom-cci: Document SC7280 compatible
+
+Document the compatible for the CCI block found on SC7280 SoC.
+
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Wolfram Sang <wsa@kernel.org>
+---
+ Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml b/Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml
+index 042d4dc..8386cfe 100644
+--- a/Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml
++++ b/Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml
+@@ -25,6 +25,7 @@ properties:
+ 
+       - items:
+           - enum:
++              - qcom,sc7280-cci
+               - qcom,sdm845-cci
+               - qcom,sm6350-cci
+               - qcom,sm8250-cci
+@@ -159,6 +160,7 @@ allOf:
+         compatible:
+           contains:
+             enum:
++              - qcom,sc7280-cci
+               - qcom,sm8250-cci
+               - qcom,sm8450-cci
+     then:

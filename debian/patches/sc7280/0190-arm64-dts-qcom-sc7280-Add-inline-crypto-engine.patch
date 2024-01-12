@@ -1,0 +1,38 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Thu, 5 Oct 2023 16:30:40 +0200
+Subject: arm64: dts: qcom: sc7280: Add inline crypto engine
+
+Add the ICE found on sc7280 and link it to the UFS node.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/sc7280.dtsi | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+index bac4168..2c7d97d 100644
+--- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+@@ -2285,6 +2285,8 @@ ufs_mem_hc: ufs@1d84000 {
+ 				<0 0>,
+ 				<0 0>,
+ 				<0 0>;
++			qcom,ice = <&ice>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -2307,6 +2309,13 @@ ufs_mem_phy: phy@1d87000 {
+ 			status = "disabled";
+ 		};
+ 
++		ice: crypto@1d88000 {
++			compatible = "qcom,sc7280-inline-crypto-engine",
++				     "qcom,inline-crypto-engine";
++			reg = <0 0x01d88000 0 0x8000>;
++			clocks = <&gcc GCC_UFS_PHY_ICE_CORE_CLK>;
++		};
++
+ 		ipa: ipa@1e40000 {
+ 			compatible = "qcom,sc7280-ipa";
+ 
