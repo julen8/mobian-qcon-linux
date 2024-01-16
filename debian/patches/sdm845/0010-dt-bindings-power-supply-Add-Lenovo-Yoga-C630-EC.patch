@@ -13,7 +13,7 @@ Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 
 diff --git a/Documentation/devicetree/bindings/power/supply/lenovo,yoga-c630-ec.yaml b/Documentation/devicetree/bindings/power/supply/lenovo,yoga-c630-ec.yaml
 new file mode 100644
-index 00000000..2dceb57a
+index 0000000..2dceb57a
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/power/supply/lenovo,yoga-c630-ec.yaml
 @@ -0,0 +1,88 @@
