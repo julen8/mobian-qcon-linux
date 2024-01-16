@@ -19,7 +19,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 diff --git a/Documentation/devicetree/bindings/usb/nxp,ptn36502.yaml b/Documentation/devicetree/bindings/usb/nxp,ptn36502.yaml
 new file mode 100644
-index 00000000..eee548a
+index 0000000..eee548a
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/usb/nxp,ptn36502.yaml
 @@ -0,0 +1,94 @@
