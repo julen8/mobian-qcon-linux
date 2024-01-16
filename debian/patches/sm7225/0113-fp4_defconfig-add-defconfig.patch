@@ -9,7 +9,7 @@ Subject: fp4_defconfig: add defconfig
 
 diff --git a/arch/arm64/configs/fp4_defconfig b/arch/arm64/configs/fp4_defconfig
 new file mode 100644
-index 00000000..60adf81
+index 0000000..60adf81
 --- /dev/null
 +++ b/arch/arm64/configs/fp4_defconfig
 @@ -0,0 +1,332 @@
