@@ -14,7 +14,7 @@ Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
  1 file changed, 9 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/soc/qcom/pmic_glink.c b/drivers/soc/qcom/pmic_glink.c
-index 61c89dd..16d3c36c 100644
+index 61c89dd..16d3c36 100644
 --- a/drivers/soc/qcom/pmic_glink.c
 +++ b/drivers/soc/qcom/pmic_glink.c
 @@ -18,9 +18,6 @@ enum {
