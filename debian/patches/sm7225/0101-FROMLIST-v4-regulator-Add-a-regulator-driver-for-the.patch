@@ -48,7 +48,7 @@ index bd4efd9..a40b833 100644
  obj-$(CONFIG_REGULATOR_QCOM_SMD_RPM) += qcom_smd-regulator.o
 diff --git a/drivers/regulator/qcom-pm8008-regulator.c b/drivers/regulator/qcom-pm8008-regulator.c
 new file mode 100644
-index 00000000..38d258e
+index 0000000..38d258e
 --- /dev/null
 +++ b/drivers/regulator/qcom-pm8008-regulator.c
 @@ -0,0 +1,258 @@
