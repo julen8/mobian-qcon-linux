@@ -1,0 +1,26 @@
+From: Om Prakash Singh <quic_omprsing@quicinc.com>
+Date: Thu, 14 Dec 2023 16:05:59 +0530
+Subject: FROMGIT dt-bindings: crypto: qcom-qce: document the SC7280 crypto
+ engine
+
+Document the crypto engine on the SM7280 Platform.
+
+Signed-off-by: Om Prakash Singh <quic_omprsing@quicinc.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+---
+ Documentation/devicetree/bindings/crypto/qcom-qce.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/crypto/qcom-qce.yaml b/Documentation/devicetree/bindings/crypto/qcom-qce.yaml
+index 69d1c49..58603dc 100644
+--- a/Documentation/devicetree/bindings/crypto/qcom-qce.yaml
++++ b/Documentation/devicetree/bindings/crypto/qcom-qce.yaml
+@@ -44,6 +44,7 @@ properties:
+ 
+       - items:
+           - enum:
++              - qcom,sc7280-qce
+               - qcom,sm6350-qce
+               - qcom,sm8250-qce
+               - qcom,sm8350-qce

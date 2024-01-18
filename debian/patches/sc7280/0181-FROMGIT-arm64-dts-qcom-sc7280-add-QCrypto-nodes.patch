@@ -1,0 +1,46 @@
+From: Om Prakash Singh <quic_omprsing@quicinc.com>
+Date: Thu, 14 Dec 2023 16:06:00 +0530
+Subject: FROMGIT arm64: dts: qcom: sc7280: add QCrypto nodes
+
+Add the QCE and Crypto BAM DMA nodes.
+
+Signed-off-by: Om Prakash Singh <quic_omprsing@quicinc.com>
+Link: https://lore.kernel.org/r/20231214103600.2613988-3-quic_omprsing@quicinc.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/sc7280.dtsi | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+index 24240e3..3add1ae 100644
+--- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+@@ -2316,6 +2316,28 @@ ufs_mem_phy: phy@1d87000 {
+ 			status = "disabled";
+ 		};
+ 
++		cryptobam: dma-controller@1dc4000 {
++			compatible = "qcom,bam-v1.7.4", "qcom,bam-v1.7.0";
++			reg = <0x0 0x01dc4000 0x0 0x28000>;
++			interrupts = <GIC_SPI 272 IRQ_TYPE_LEVEL_HIGH>;
++			#dma-cells = <1>;
++			iommus = <&apps_smmu 0x4e4 0x0011>,
++				 <&apps_smmu 0x4e6 0x0011>;
++			qcom,ee = <0>;
++			qcom,controlled-remotely;
++		};
++
++		crypto: crypto@1dfa000 {
++			compatible = "qcom,sc7280-qce", "qcom,sm8150-qce", "qcom,qce";
++			reg = <0x0 0x01dfa000 0x0 0x6000>;
++			dmas = <&cryptobam 4>, <&cryptobam 5>;
++			dma-names = "rx", "tx";
++			iommus = <&apps_smmu 0x4e4 0x0011>,
++				 <&apps_smmu 0x4e4 0x0011>;
++			interconnects = <&aggre2_noc MASTER_CRYPTO 0 &mc_virt SLAVE_EBI1 0>;
++			interconnect-names = "memory";
++		};
++
+ 		ipa: ipa@1e40000 {
+ 			compatible = "qcom,sc7280-ipa";
+ 

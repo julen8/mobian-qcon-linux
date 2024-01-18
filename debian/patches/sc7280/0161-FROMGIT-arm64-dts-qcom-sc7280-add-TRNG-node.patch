@@ -1,0 +1,31 @@
+From: Om Prakash Singh <quic_omprsing@quicinc.com>
+Date: Mon, 16 Oct 2023 01:09:01 +0530
+Subject: FROMGIT arm64: dts: qcom: sc7280: add TRNG node
+
+The sc7280 SoC has a True Random Number Generator, add the node with
+the correct compatible set.
+
+Signed-off-by: Om Prakash Singh <quic_omprsing@quicinc.com>
+Link: https://lore.kernel.org/r/20231015193901.2344590-5-quic_omprsing@quicinc.com
+[bjorn: Padded address to 8 digits, moved hunk to maintain sort order]
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/sc7280.dtsi | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+index 66f1eb8..3585fa3 100644
+--- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+@@ -2034,6 +2034,11 @@ uart15: serial@a9c000 {
+ 			};
+ 		};
+ 
++		rng: rng@10d3000 {
++			compatible = "qcom,sc7280-trng", "qcom,trng";
++			reg = <0 0x010d3000 0 0x1000>;
++		};
++
+ 		cnoc2: interconnect@1500000 {
+ 			reg = <0 0x01500000 0 0x1000>;
+ 			compatible = "qcom,sc7280-cnoc2";

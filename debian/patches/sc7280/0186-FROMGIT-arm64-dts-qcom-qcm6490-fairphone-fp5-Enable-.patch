@@ -1,0 +1,27 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 8 Dec 2023 16:08:07 +0100
+Subject: FROMGIT arm64: dts: qcom: qcm6490-fairphone-fp5: Enable WiFi
+
+Now that the WPSS remoteproc is enabled, enable wifi so we can use it.
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Link: https://lore.kernel.org/r/20231208-sc7280-remoteprocs-v3-11-6aa394d33edf@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+index f69aeb4..fc228f2 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+@@ -924,3 +924,8 @@ &usb_1_qmpphy {
+ 
+ 	status = "okay";
+ };
++
++&wifi {
++	qcom,ath11k-calibration-variant = "Fairphone_5";
++	status = "okay";
++};

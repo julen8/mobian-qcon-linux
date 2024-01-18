@@ -1,0 +1,107 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 8 Dec 2023 16:08:00 +0100
+Subject: FROMGIT arm64: dts: qcom: sc7280*: move MPSS and WPSS memory to dtsi
+
+It appears that all SC7280-based devices so far have mpss_mem and
+wpss_mem on the same reg with the same size.
+
+Also these memory regions are referenced already in sc7280.dtsi so
+that's where they should also be defined.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Link: https://lore.kernel.org/r/20231208-sc7280-remoteprocs-v3-4-6aa394d33edf@fairphone.com
+[bjorn: delete-node &wpss_mem in qcs6490 rb3gen2, and qcm6490 idp]
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts      | 10 ----------
+ arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi      |  5 -----
+ arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi  |  5 -----
+ arch/arm64/boot/dts/qcom/sc7280-herobrine-wifi-sku.dtsi |  1 +
+ arch/arm64/boot/dts/qcom/sc7280.dtsi                    | 10 ++++++++++
+ 5 files changed, 11 insertions(+), 20 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+index fc228f2..176898c 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+@@ -82,16 +82,6 @@ cdsp_mem: cdsp@88f00000 {
+ 			no-map;
+ 		};
+ 
+-		mpss_mem: mpss@8b800000 {
+-			reg = <0x0 0x8b800000 0x0 0xf600000>;
+-			no-map;
+-		};
+-
+-		wpss_mem: wpss@9ae00000 {
+-			reg = <0x0 0x9ae00000 0x0 0x1900000>;
+-			no-map;
+-		};
+-
+ 		rmtfs_mem: memory@f8500000 {
+ 			compatible = "qcom,rmtfs-mem";
+ 			reg = <0x0 0xf8500000 0x0 0x600000>;
+diff --git a/arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi b/arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi
+index 854a16e..c4d00a8 100644
+--- a/arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi
+@@ -36,11 +36,6 @@ venus_mem: memory@8b200000 {
+ 			reg = <0x0 0x8b200000 0x0 0x500000>;
+ 			no-map;
+ 		};
+-
+-		wpss_mem: memory@9ae00000 {
+-			reg = <0x0 0x9ae00000 0x0 0x1900000>;
+-			no-map;
+-		};
+ 	};
+ };
+ 
+diff --git a/arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi b/arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi
+index 203274c..b721a85 100644
+--- a/arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi
+@@ -8,11 +8,6 @@
+ 
+ / {
+ 	reserved-memory {
+-		mpss_mem: memory@8b800000 {
+-			reg = <0x0 0x8b800000 0x0 0xf600000>;
+-			no-map;
+-		};
+-
+ 		mba_mem: memory@9c700000 {
+ 			reg = <0x0 0x9c700000 0x0 0x200000>;
+ 			no-map;
+diff --git a/arch/arm64/boot/dts/qcom/sc7280-herobrine-wifi-sku.dtsi b/arch/arm64/boot/dts/qcom/sc7280-herobrine-wifi-sku.dtsi
+index 2febd61..3ebc915 100644
+--- a/arch/arm64/boot/dts/qcom/sc7280-herobrine-wifi-sku.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7280-herobrine-wifi-sku.dtsi
+@@ -7,5 +7,6 @@
+ 
+ /* WIFI SKUs save 256M by not having modem/mba/rmtfs memory regions defined. */
+ 
++/delete-node/ &mpss_mem;
+ /delete-node/ &remoteproc_mpss;
+ /delete-node/ &rmtfs_mem;
+diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+index 25656c8..6b5eea8 100644
+--- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+@@ -168,6 +168,16 @@ gpu_zap_mem: zap@8b71a000 {
+ 			no-map;
+ 		};
+ 
++		mpss_mem: mpss@8b800000 {
++			reg = <0x0 0x8b800000 0x0 0xf600000>;
++			no-map;
++		};
++
++		wpss_mem: wpss@9ae00000 {
++			reg = <0x0 0x9ae00000 0x0 0x1900000>;
++			no-map;
++		};
++
+ 		rmtfs_mem: rmtfs@9c900000 {
+ 			compatible = "qcom,rmtfs-mem";
+ 			reg = <0x0 0x9c900000 0x0 0x280000>;

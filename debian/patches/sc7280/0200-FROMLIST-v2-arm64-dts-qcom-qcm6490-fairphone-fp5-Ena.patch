@@ -1,0 +1,31 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Mon, 2 Oct 2023 16:20:31 +0200
+Subject: FROMLIST v2 arm64: dts: qcom: qcm6490-fairphone-fp5: Enable venus
+ node
+
+Enable the venus node so that the video encoder/decoder will start
+working.
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+index 176898c..ab6e735 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+@@ -915,6 +915,11 @@ &usb_1_qmpphy {
+ 	status = "okay";
+ };
+ 
++&venus {
++	firmware-name = "qcom/qcm6490/fairphone5/venus.mbn";
++	status = "okay";
++};
++
+ &wifi {
+ 	qcom,ath11k-calibration-variant = "Fairphone_5";
+ 	status = "okay";
