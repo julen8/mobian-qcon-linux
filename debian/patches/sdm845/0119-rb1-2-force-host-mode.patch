@@ -1,0 +1,37 @@
+From: Caleb Connolly <caleb.connolly@linaro.org>
+Date: Thu, 21 Dec 2023 15:01:51 +0000
+Subject: rb1/2: force host mode
+
+Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
+---
+ arch/arm64/boot/dts/qcom/qrb2210-rb1.dts | 4 ++++
+ arch/arm64/boot/dts/qcom/qrb4210-rb2.dts | 1 +
+ 2 files changed, 5 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/qrb2210-rb1.dts b/arch/arm64/boot/dts/qcom/qrb2210-rb1.dts
+index b85339a..941935d 100644
+--- a/arch/arm64/boot/dts/qcom/qrb2210-rb1.dts
++++ b/arch/arm64/boot/dts/qcom/qrb2210-rb1.dts
+@@ -549,6 +549,10 @@ &usb {
+ 	status = "okay";
+ };
+ 
++&usb_dwc3 {
++	dr_mode = "host";
++};
++
+ &usb_qmpphy {
+ 	vdda-phy-supply = <&pm2250_l12>;
+ 	vdda-pll-supply = <&pm2250_l13>;
+diff --git a/arch/arm64/boot/dts/qcom/qrb4210-rb2.dts b/arch/arm64/boot/dts/qcom/qrb4210-rb2.dts
+index 0372551..8b3e820 100644
+--- a/arch/arm64/boot/dts/qcom/qrb4210-rb2.dts
++++ b/arch/arm64/boot/dts/qcom/qrb4210-rb2.dts
+@@ -524,6 +524,7 @@ &usb {
+ 
+ &usb_dwc3 {
+ 	maximum-speed = "super-speed";
++	dr_mode = "host";
+ };
+ 
+ &usb_hsphy {

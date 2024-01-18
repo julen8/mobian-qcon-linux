@@ -1,0 +1,54 @@
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Date: Tue, 4 Apr 2023 15:32:37 +0200
+Subject: arm64: dts: qcom: qrb2210-rb1: Add GPIO LEDs
+
+Add the three LEDs (blue/yellow/green) connected to TLMM GPIOs.
+
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+---
+ arch/arm64/boot/dts/qcom/qrb2210-rb1.dts | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/qrb2210-rb1.dts b/arch/arm64/boot/dts/qcom/qrb2210-rb1.dts
+index 626bc3a..83de11d 100644
+--- a/arch/arm64/boot/dts/qcom/qrb2210-rb1.dts
++++ b/arch/arm64/boot/dts/qcom/qrb2210-rb1.dts
+@@ -83,6 +83,38 @@ hdmi_con: endpoint {
+ 		};
+ 	};
+ 
++	leds {
++		compatible = "gpio-leds";
++
++		led-bt {
++			label = "blue:bt";
++			function = LED_FUNCTION_BLUETOOTH;
++			color = <LED_COLOR_ID_BLUE>;
++			gpios = <&tlmm 45 GPIO_ACTIVE_HIGH>;
++			linux,default-trigger = "bluetooth-power";
++			default-state = "off";
++		};
++
++		led-user0 {
++			label = "green:user0";
++			function = LED_FUNCTION_INDICATOR;
++			color = <LED_COLOR_ID_GREEN>;
++			gpios = <&tlmm 52 GPIO_ACTIVE_HIGH>;
++			linux,default-trigger = "none";
++			default-state = "off";
++			panic-indicator;
++		};
++
++		led-wlan {
++			label = "yellow:wlan";
++			function = LED_FUNCTION_WLAN;
++			color = <LED_COLOR_ID_YELLOW>;
++			gpios = <&tlmm 47 GPIO_ACTIVE_HIGH>;
++			linux,default-trigger = "phy0tx";
++			default-state = "off";
++		};
++	};
++
+ 	vreg_hdmi_out_1p2: regulator-hdmi-out-1p2 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "VREG_HDMI_OUT_1P2";

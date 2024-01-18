@@ -1,0 +1,28 @@
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Date: Tue, 6 Jun 2023 09:36:53 +0200
+Subject: WIP: iommu: arm-smmu: qcom: add rb1/2 compatibles
+
+---
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+index 549ae4d..0fd2c124 100644
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+@@ -245,6 +245,7 @@ static const struct of_device_id qcom_smmu_client_of_match[] __maybe_unused = {
+ 	{ .compatible = "qcom,adreno" },
+ 	{ .compatible = "qcom,mdp4" },
+ 	{ .compatible = "qcom,mdss" },
++	{ .compatible = "qcom,qcm2290-mdss" },
+ 	{ .compatible = "qcom,sc7180-mdss" },
+ 	{ .compatible = "qcom,sc7180-mss-pil" },
+ 	{ .compatible = "qcom,sc7280-mdss" },
+@@ -254,6 +255,7 @@ static const struct of_device_id qcom_smmu_client_of_match[] __maybe_unused = {
+ 	{ .compatible = "qcom,sdm670-mdss" },
+ 	{ .compatible = "qcom,sdm845-mdss" },
+ 	{ .compatible = "qcom,sdm845-mss-pil" },
++	{ .compatible = "qcom,sm6115-mdss" },
+ 	{ .compatible = "qcom,sm6350-mdss" },
+ 	{ .compatible = "qcom,sm6375-mdss" },
+ 	{ .compatible = "qcom,sm8150-mdss" },

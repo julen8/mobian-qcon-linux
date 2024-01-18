@@ -1,0 +1,21 @@
+From: Steev Klimaszewski <steev@kali.org>
+Date: Sat, 9 Dec 2023 00:08:32 +0200
+Subject: fixup: pm_runtime
+
+---
+ drivers/gpu/drm/bridge/ti-sn65dsi86.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi86.c b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
+index d19e1a0..32503eb 100644
+--- a/drivers/gpu/drm/bridge/ti-sn65dsi86.c
++++ b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
+@@ -1595,6 +1595,8 @@ static int ti_sn_pwm_probe(struct auxiliary_device *adev,
+ 	pdata->pchip.of_xlate = of_pwm_single_xlate;
+ 	pdata->pchip.of_pwm_n_cells = 1;
+ 
++	devm_pm_runtime_enable(&adev->dev);
++
+ 	return pwmchip_add(&pdata->pchip);
+ }
+ 

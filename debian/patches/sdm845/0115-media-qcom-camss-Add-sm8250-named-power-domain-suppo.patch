@@ -1,0 +1,41 @@
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Date: Thu, 23 Nov 2023 17:03:07 +0000
+Subject: media: qcom: camss: Add sm8250 named power-domain support
+
+Declare power-domain names "top", "ife0" and "ife1" eponymously for the
+power-domains TITAN_TOP_GDSC, IFE_0_GDSC and IFE_1_GDSC respectively.
+
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+---
+ drivers/media/platform/qcom/camss/camss.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index 942db0d..3bb23fd 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -849,6 +849,7 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
+ 				{ 0 } },
+ 		.reg = { "vfe0" },
+ 		.interrupt = { "vfe0" },
++		.pd_name = "ife0",
+ 		.line_num = 3,
+ 		.has_pd = true,
+ 		.ops = &vfe_ops_480
+@@ -870,6 +871,7 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
+ 				{ 0 } },
+ 		.reg = { "vfe1" },
+ 		.interrupt = { "vfe1" },
++		.pd_name = "ife1",
+ 		.line_num = 3,
+ 		.has_pd = true,
+ 		.ops = &vfe_ops_480
+@@ -1810,6 +1812,7 @@ static const struct camss_resources sdm845_resources = {
+ 
+ static const struct camss_resources sm8250_resources = {
+ 	.version = CAMSS_8250,
++	.pd_name = "top",
+ 	.csiphy_res = csiphy_res_8250,
+ 	.csid_res = csid_res_8250,
+ 	.vfe_res = vfe_res_8250,

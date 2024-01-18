@@ -1,0 +1,121 @@
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Date: Thu, 23 Nov 2023 17:03:04 +0000
+Subject: media: qcom: camss: Add support for named power-domains
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Right now we use fixed indexes to assign power-domains, with a
+requirement for the TOP GDSC to come last in the list.
+
+Adding support for named power-domains means the declaration in the dtsi
+can come in any order.
+
+After this change we continue to support the old indexing - if a SoC
+resource declaration or the in-use dtb doesn't declare power-domain names
+we fall back to the default legacy indexing.
+
+>From this point on though new SoC additions should contain named
+power-domains, eventually we will drop support for legacy indexing.
+
+Tested-by: Matti Lehtimäki <matti.lehtimaki@gmail.com>
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+---
+ drivers/media/platform/qcom/camss/camss-vfe.c | 24 +++++++++++++++++++++++-
+ drivers/media/platform/qcom/camss/camss.c     | 26 +++++++++++++++++++++-----
+ drivers/media/platform/qcom/camss/camss.h     |  2 ++
+ 3 files changed, 46 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index 60c4730..083d144 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -1382,7 +1382,29 @@ int msm_vfe_subdev_init(struct camss *camss, struct vfe_device *vfe,
+ 	if (!res->line_num)
+ 		return -EINVAL;
+ 
+-	if (res->has_pd) {
++	/* Power domain */
++
++	if (res->pd_name) {
++		vfe->genpd = dev_pm_domain_attach_by_name(camss->dev,
++							  res->pd_name);
++		if (IS_ERR(vfe->genpd)) {
++			ret = PTR_ERR(vfe->genpd);
++			return ret;
++		}
++	}
++
++	if (!vfe->genpd && res->has_pd) {
++		/*
++		 * Legacy magic index.
++		 * Requires
++		 * power-domain = <VFE_X>,
++		 *                <VFE_Y>,
++		 *                <TITAN_TOP>
++		 * id must correspondng to the index of the VFE which must
++		 * come before the TOP GDSC. VFE Lite has no individually
++		 * collapasible domain which is why id < vfe_num is a valid
++		 * check.
++		 */
+ 		vfe->genpd = dev_pm_domain_attach_by_id(camss->dev, id);
+ 		if (IS_ERR(vfe->genpd))
+ 			return PTR_ERR(vfe->genpd);
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index 35918cf..f2d2317 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -1522,12 +1522,28 @@ static int camss_configure_pd(struct camss *camss)
+ 		return 0;
+ 
+ 	/*
+-	 * VFE power domains are in the beginning of the list, and while all
+-	 * power domains should be attached, only if TITAN_TOP power domain is
+-	 * found in the list, it should be linked over here.
++	 * If a power-domain name is defined try to use it.
++	 * It is possible we are running a new kernel with an old dtb so
++	 * fallback to indexes even if a pd_name is defined but not found.
+ 	 */
+-	camss->genpd = dev_pm_domain_attach_by_id(camss->dev, camss->genpd_num - 1);
+-	if (IS_ERR(camss->genpd)) {
++	if (camss->res->pd_name) {
++		camss->genpd = dev_pm_domain_attach_by_name(camss->dev,
++							    camss->res->pd_name);
++		if (IS_ERR(camss->genpd)) {
++			ret = PTR_ERR(camss->genpd);
++			goto fail_pm;
++		}
++	}
++
++	if (!camss->genpd) {
++		/*
++		 * Legacy magic index. TITAN_TOP GDSC must be the last
++		 * item in the power-domain list.
++		 */
++		camss->genpd = dev_pm_domain_attach_by_id(camss->dev,
++							  camss->genpd_num - 1);
++	}
++	if (IS_ERR_OR_NULL(camss->genpd)) {
+ 		ret = PTR_ERR(camss->genpd);
+ 		goto fail_pm;
+ 	}
+diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
+index 1ba824a..cd8186f 100644
+--- a/drivers/media/platform/qcom/camss/camss.h
++++ b/drivers/media/platform/qcom/camss/camss.h
+@@ -48,6 +48,7 @@ struct camss_subdev_resources {
+ 	u32 clock_rate[CAMSS_RES_MAX][CAMSS_RES_MAX];
+ 	char *reg[CAMSS_RES_MAX];
+ 	char *interrupt[CAMSS_RES_MAX];
++	char *pd_name;
+ 	u8 line_num;
+ 	bool has_pd;
+ 	const void *ops;
+@@ -84,6 +85,7 @@ enum icc_count {
+ 
+ struct camss_resources {
+ 	enum camss_version version;
++	const char *pd_name;
+ 	const struct camss_subdev_resources *csiphy_res;
+ 	const struct camss_subdev_resources *csid_res;
+ 	const struct camss_subdev_resources *ispif_res;

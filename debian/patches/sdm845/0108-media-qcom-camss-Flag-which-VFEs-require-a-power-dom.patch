@@ -1,0 +1,111 @@
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Date: Thu, 23 Nov 2023 17:03:00 +0000
+Subject: media: qcom: camss: Flag which VFEs require a power-domain
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+At the moment we have some complex code for determining if a VFE requires a
+power-domain attachment. Particularly discordant in this scheme is the
+subtle reliance on VFE and VFE Lite declaration ordering in our resources.
+
+VFE id is used to determine if a VFE is lite or not and consequently if a
+VFE requires power-domain attachment. VFE Lite though is not a correct
+delineation between power-domain and non power-domain state since early
+SoCs have neither VFE Lite nor power-domains attached to VFEs.
+
+Introduce has_pd to the VFE resource structure to allow the CAMSS code to
+understand if it needs to try to attach a power-domain for a given VFE.
+
+As a side-effect from this we no longer need to care about VFE Lite or
+non-Lite or the id number associated with either and which order the
+VFE/VFE Lite was declared in.
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Tested-by: Matti Lehtimäki <matti.lehtimaki@gmail.com>
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+---
+ drivers/media/platform/qcom/camss/camss.c | 8 ++++++++
+ drivers/media/platform/qcom/camss/camss.h | 1 +
+ 2 files changed, 9 insertions(+)
+
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index 8e78dd8..ed01a3a 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -278,6 +278,7 @@ static const struct camss_subdev_resources vfe_res_8x96[] = {
+ 		.reg = { "vfe0" },
+ 		.interrupt = { "vfe0" },
+ 		.line_num = 3,
++		.has_pd = true,
+ 		.ops = &vfe_ops_4_7
+ 	},
+ 
+@@ -298,6 +299,7 @@ static const struct camss_subdev_resources vfe_res_8x96[] = {
+ 		.reg = { "vfe1" },
+ 		.interrupt = { "vfe1" },
+ 		.line_num = 3,
++		.has_pd = true,
+ 		.ops = &vfe_ops_4_7
+ 	}
+ };
+@@ -468,6 +470,7 @@ static const struct camss_subdev_resources vfe_res_660[] = {
+ 		.reg = { "vfe0" },
+ 		.interrupt = { "vfe0" },
+ 		.line_num = 3,
++		.has_pd = true,
+ 		.ops = &vfe_ops_4_8
+ 	},
+ 
+@@ -491,6 +494,7 @@ static const struct camss_subdev_resources vfe_res_660[] = {
+ 		.reg = { "vfe1" },
+ 		.interrupt = { "vfe1" },
+ 		.line_num = 3,
++		.has_pd = true,
+ 		.ops = &vfe_ops_4_8
+ 	}
+ };
+@@ -658,6 +662,7 @@ static const struct camss_subdev_resources vfe_res_845[] = {
+ 		.reg = { "vfe0" },
+ 		.interrupt = { "vfe0" },
+ 		.line_num = 4,
++		.has_pd = true,
+ 		.ops = &vfe_ops_170
+ 	},
+ 
+@@ -680,6 +685,7 @@ static const struct camss_subdev_resources vfe_res_845[] = {
+ 		.reg = { "vfe1" },
+ 		.interrupt = { "vfe1" },
+ 		.line_num = 4,
++		.has_pd = true,
+ 		.ops = &vfe_ops_170
+ 	},
+ 
+@@ -840,6 +846,7 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
+ 		.reg = { "vfe0" },
+ 		.interrupt = { "vfe0" },
+ 		.line_num = 3,
++		.has_pd = true,
+ 		.ops = &vfe_ops_480
+ 	},
+ 	/* VFE1 */
+@@ -860,6 +867,7 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
+ 		.reg = { "vfe1" },
+ 		.interrupt = { "vfe1" },
+ 		.line_num = 3,
++		.has_pd = true,
+ 		.ops = &vfe_ops_480
+ 	},
+ 	/* VFE2 (lite) */
+diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
+index 8acad73..b854cff 100644
+--- a/drivers/media/platform/qcom/camss/camss.h
++++ b/drivers/media/platform/qcom/camss/camss.h
+@@ -49,6 +49,7 @@ struct camss_subdev_resources {
+ 	char *reg[CAMSS_RES_MAX];
+ 	char *interrupt[CAMSS_RES_MAX];
+ 	u8 line_num;
++	bool has_pd;
+ 	const void *ops;
+ };
+ 
