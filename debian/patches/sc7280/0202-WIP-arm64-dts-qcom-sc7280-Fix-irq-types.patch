@@ -17,10 +17,10 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 26a6aac..8223e8e0 100644
+index 279e53c..fc3e871 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-@@ -2868,7 +2868,7 @@ remoteproc_mpss: remoteproc@4080000 {
+@@ -2869,7 +2869,7 @@ remoteproc_mpss: remoteproc@4080000 {
  			compatible = "qcom,sc7280-mpss-pas";
  			reg = <0 0x04080000 0 0x10000>;
  
@@ -29,7 +29,7 @@ index 26a6aac..8223e8e0 100644
  					      <&modem_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
  					      <&modem_smp2p_in 1 IRQ_TYPE_EDGE_RISING>,
  					      <&modem_smp2p_in 2 IRQ_TYPE_EDGE_RISING>,
-@@ -3995,8 +3995,8 @@ usb_1: usb@a6f8800 {
+@@ -3997,8 +3997,8 @@ usb_1: usb@a6f8800 {
  
  			interrupts-extended = <&intc GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>,
  					      <&pdc 14 IRQ_TYPE_LEVEL_HIGH>,
