@@ -25,7 +25,7 @@ index cd491e4..186aa82 100644
  /delete-node/ &xbl_mem;
  /delete-node/ &reserved_xbl_uefi_log;
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 7abf34b..b250d0c 100644
+index 9f8e6da..e3d3a6d 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
 @@ -152,6 +152,11 @@ ipa_fw_mem: memory@8b700000 {
@@ -40,7 +40,7 @@ index 7abf34b..b250d0c 100644
  		rmtfs_mem: memory@9c900000 {
  			compatible = "qcom,rmtfs-mem";
  			reg = <0x0 0x9c900000 0x0 0x280000>;
-@@ -2677,6 +2682,11 @@ gpu: gpu@3d00000 {
+@@ -2679,6 +2684,11 @@ gpu: gpu@3d00000 {
  			nvmem-cells = <&gpu_speed_bin>;
  			nvmem-cell-names = "speed_bin";
  
