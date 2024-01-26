@@ -32,10 +32,10 @@ index fd0111d..6310e07 100644
  			reg = <0x0 0x8ad00000 0x0 0x500000>;
  			no-map;
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 595358c..bac4168 100644
+index 3d57a89..5cd4968 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-@@ -3822,6 +3822,144 @@ nsp_noc: interconnect@a0c0000 {
+@@ -3824,6 +3824,144 @@ nsp_noc: interconnect@a0c0000 {
  			qcom,bcm-voters = <&apps_bcm_voter>;
  		};
  
