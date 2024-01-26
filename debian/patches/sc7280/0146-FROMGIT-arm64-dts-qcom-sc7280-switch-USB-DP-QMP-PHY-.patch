@@ -14,7 +14,7 @@ Signed-off-by: Bjorn Andersson <andersson@kernel.org>
  1 file changed, 19 insertions(+), 40 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 250ae46..0a8614b 100644
+index 370eb50e..a391f97 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
 @@ -19,6 +19,7 @@
@@ -34,7 +34,7 @@ index 250ae46..0a8614b 100644
  			clock-names = "bi_tcxo", "bi_tcxo_ao", "sleep_clk",
  				      "pcie_0_pipe_clk", "pcie_1_pipe_clk",
  				      "ufs_phy_rx_symbol_0_clk", "ufs_phy_rx_symbol_1_clk",
-@@ -3340,49 +3341,26 @@ usb_2_hsphy: phy@88e4000 {
+@@ -3344,49 +3345,26 @@ usb_2_hsphy: phy@88e4000 {
  			resets = <&gcc GCC_QUSB2PHY_SEC_BCR>;
  		};
  
@@ -95,7 +95,7 @@ index 250ae46..0a8614b 100644
  		};
  
  		usb_2: usb@8cf8800 {
-@@ -3691,7 +3669,7 @@ usb_1_dwc3: usb@a600000 {
+@@ -3695,7 +3673,7 @@ usb_1_dwc3: usb@a600000 {
  				iommus = <&apps_smmu 0xe0 0x0>;
  				snps,dis_u2_susphy_quirk;
  				snps,dis_enblslpm_quirk;
@@ -104,7 +104,7 @@ index 250ae46..0a8614b 100644
  				phy-names = "usb2-phy", "usb3-phy";
  				maximum-speed = "super-speed";
  			};
-@@ -3796,8 +3774,8 @@ dispcc: clock-controller@af00000 {
+@@ -3800,8 +3778,8 @@ dispcc: clock-controller@af00000 {
  				 <&gcc GCC_DISP_GPLL0_CLK_SRC>,
  				 <&mdss_dsi_phy 0>,
  				 <&mdss_dsi_phy 1>,
@@ -115,7 +115,7 @@ index 250ae46..0a8614b 100644
  				 <&mdss_edp_phy 0>,
  				 <&mdss_edp_phy 1>;
  			clock-names = "bi_tcxo",
-@@ -4133,8 +4111,9 @@ mdss_dp: displayport-controller@ae90000 {
+@@ -4137,8 +4115,9 @@ mdss_dp: displayport-controller@ae90000 {
  						"stream_pixel";
  				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
  						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
