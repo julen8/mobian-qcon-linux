@@ -88,7 +88,7 @@ index f180047..aac23a8 100644
  
  		spss_mem: memory@8ab00000 {
 diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-index a79c0f2..d574181 100644
+index 589ae40..69f0260 100644
 --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
 @@ -11,6 +11,7 @@
@@ -109,7 +109,7 @@ index a79c0f2..d574181 100644
  	};
  
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 91bb58c..76b0702 100644
+index ec5c364..370eb50e 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
 @@ -13,6 +13,7 @@
@@ -151,7 +151,7 @@ index abc6661..3ea07d0 100644
  
  		wlan_mem: wlan-region@8bc00000 {
 diff --git a/arch/arm64/boot/dts/qcom/sc8180x-primus.dts b/arch/arm64/boot/dts/qcom/sc8180x-primus.dts
-index 834e6f9..fd2fab4 100644
+index ae008c3..a40ef23 100644
 --- a/arch/arm64/boot/dts/qcom/sc8180x-primus.dts
 +++ b/arch/arm64/boot/dts/qcom/sc8180x-primus.dts
 @@ -6,6 +6,7 @@
@@ -245,7 +245,7 @@ index 6db12ab..e386b50 100644
  	};
  
 diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-index 81b0be8..154c850 100644
+index fb44e2f..11992eb 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
 @@ -813,7 +813,7 @@ rmtfs_mem: rmtfs@88f00000 {
@@ -279,7 +279,7 @@ index f9f397c..1b08ff1 100644
  	};
  
 diff --git a/arch/arm64/boot/dts/qcom/sm8150.dtsi b/arch/arm64/boot/dts/qcom/sm8150.dtsi
-index 19c6003..7d458fb 100644
+index 32045fb..327f4cf 100644
 --- a/arch/arm64/boot/dts/qcom/sm8150.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm8150.dtsi
 @@ -5,6 +5,7 @@
@@ -300,7 +300,7 @@ index 19c6003..7d458fb 100644
  
  		camera_mem: memory@8b700000 {
 diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-index a94e069..b462362 100644
+index a7cf506..1d597af 100644
 --- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
 @@ -10,6 +10,7 @@
@@ -334,7 +334,7 @@ index 001fb27..8b29fcf 100644
  
  		ramoops@ffc00000 {
 diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-index 2a60cf8..09a0c35 100644
+index 79cc8fb..50e8a76 100644
 --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
 @@ -10,6 +10,7 @@
@@ -355,7 +355,7 @@ index 2a60cf8..09a0c35 100644
  
  		xbl_sc_mem2: memory@a6e00000 {
 diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-index d115960..1a3bbd6 100644
+index 3a228d4..7f6670c 100644
 --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
 @@ -10,6 +10,7 @@
@@ -366,7 +366,7 @@ index d115960..1a3bbd6 100644
  #include <dt-bindings/gpio/gpio.h>
  #include <dt-bindings/interrupt-controller/arm-gic.h>
  #include <dt-bindings/interconnect/qcom,sm8550-rpmh.h>
-@@ -570,7 +571,7 @@ rmtfs_mem: rmtfs-region@d4a80000 {
+@@ -580,7 +581,7 @@ rmtfs_mem: rmtfs-region@d4a80000 {
  			no-map;
  
  			qcom,client-id = <1>;
