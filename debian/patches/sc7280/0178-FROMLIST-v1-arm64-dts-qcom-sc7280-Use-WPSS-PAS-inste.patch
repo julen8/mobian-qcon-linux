@@ -46,10 +46,10 @@ index 186aa82..fd0111d 100644
  
  &scm {
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index d4d4f2ae..71d0662 100644
+index 6af5d9a..f698bb0 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-@@ -3586,7 +3586,7 @@ qspi: spi@88dc000 {
+@@ -3588,7 +3588,7 @@ qspi: spi@88dc000 {
  		};
  
  		remoteproc_wpss: remoteproc@8a00000 {
@@ -58,7 +58,7 @@ index d4d4f2ae..71d0662 100644
  			reg = <0 0x08a00000 0 0x10000>;
  
  			interrupts-extended = <&intc GIC_SPI 587 IRQ_TYPE_EDGE_RISING>,
-@@ -3598,12 +3598,8 @@ remoteproc_wpss: remoteproc@8a00000 {
+@@ -3600,12 +3600,8 @@ remoteproc_wpss: remoteproc@8a00000 {
  			interrupt-names = "wdog", "fatal", "ready", "handover",
  					  "stop-ack", "shutdown-ack";
  
@@ -73,7 +73,7 @@ index d4d4f2ae..71d0662 100644
  
  			power-domains = <&rpmhpd SC7280_CX>,
  					<&rpmhpd SC7280_MX>;
-@@ -3616,11 +3612,6 @@ remoteproc_wpss: remoteproc@8a00000 {
+@@ -3618,11 +3614,6 @@ remoteproc_wpss: remoteproc@8a00000 {
  			qcom,smem-states = <&wpss_smp2p_out 0>;
  			qcom,smem-state-names = "stop";
  
