@@ -13,7 +13,7 @@ Signed-off-by: Rob Clark <robdclark@chromium.org>
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-index 1fbc1fd..4e9e2ce 100644
+index 74375be..a15f3a4 100644
 --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
 +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
 @@ -460,6 +460,7 @@ static const struct adreno_info gpulist[] = {
