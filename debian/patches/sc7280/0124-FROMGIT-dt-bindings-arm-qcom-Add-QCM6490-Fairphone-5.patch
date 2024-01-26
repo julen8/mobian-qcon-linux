@@ -13,7 +13,7 @@ Signed-off-by: Bjorn Andersson <andersson@kernel.org>
  1 file changed, 6 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index adbfaea..76934f4 100644
+index 90f31be..adee504 100644
 --- a/Documentation/devicetree/bindings/arm/qcom.yaml
 +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
 @@ -50,6 +50,7 @@ description: |
