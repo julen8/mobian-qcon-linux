@@ -77,7 +77,7 @@ index 3e739dc..5efc6e6 100644
  
  &usb_1_hsphy {
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 261cb68..279e53c 100644
+index 1446ef84..2f657f8 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
 @@ -4025,6 +4025,25 @@ usb_1_dwc3: usb@a600000 {
