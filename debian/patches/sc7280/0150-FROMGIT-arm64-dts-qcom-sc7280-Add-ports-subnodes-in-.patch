@@ -17,7 +17,7 @@ Signed-off-by: Bjorn Andersson <andersson@kernel.org>
  1 file changed, 26 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index f7f6169..4e46cf3 100644
+index 84de20c..3ed31fe 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
 @@ -3403,6 +3403,32 @@ usb_1_qmpphy: phy@88e8000 {

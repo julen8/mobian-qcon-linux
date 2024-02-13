@@ -43,7 +43,7 @@ index 2cca205..73c3be0 100644
  dtb-$(CONFIG_ARCH_QCOM)	+= qdu1000-idp.dtb
 diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
 new file mode 100644
-index 0000000..2de0b8c
+index 00000000..2de0b8c
 --- /dev/null
 +++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
 @@ -0,0 +1,667 @@

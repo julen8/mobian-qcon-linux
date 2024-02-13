@@ -13,7 +13,7 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 
 diff --git a/include/dt-bindings/iio/qcom,spmi-adc7-pm7325.h b/include/dt-bindings/iio/qcom,spmi-adc7-pm7325.h
 new file mode 100644
-index 0000000..9690801
+index 00000000..9690801
 --- /dev/null
 +++ b/include/dt-bindings/iio/qcom,spmi-adc7-pm7325.h
 @@ -0,0 +1,69 @@
