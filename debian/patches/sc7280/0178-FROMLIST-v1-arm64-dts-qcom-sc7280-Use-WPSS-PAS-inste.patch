@@ -46,7 +46,7 @@ index 186aa82..fd0111d 100644
  
  &scm {
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 6af5d9a..f698bb0 100644
+index bbfa139..95f6d52 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
 @@ -3588,7 +3588,7 @@ qspi: spi@88dc000 {

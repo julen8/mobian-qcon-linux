@@ -40,7 +40,7 @@ index 5d462ae..cd491e4 100644
  	status = "okay";
  };
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 4c935c6..3d14e1f 100644
+index 37d5a519..f89349c 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
 @@ -3770,6 +3770,8 @@ venus: video-codec@aa00000 {
