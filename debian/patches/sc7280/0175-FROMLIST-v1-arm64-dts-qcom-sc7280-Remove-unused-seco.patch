@@ -29,7 +29,7 @@ index 9550554..203274c 100644
  	clocks = <&gcc GCC_MSS_CFG_AHB_CLK>,
  		 <&gcc GCC_MSS_OFFLINE_AXI_CLK>,
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index e9c61c0..6af5d9a 100644
+index 2b3338d..bbfa139 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
 @@ -2858,8 +2858,7 @@ adreno_smmu: iommu@3da0000 {

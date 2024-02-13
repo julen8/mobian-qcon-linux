@@ -16,7 +16,7 @@ Signed-off-by: Bjorn Andersson <andersson@kernel.org>
  1 file changed, 4 insertions(+)
 
 diff --git a/arch/arm/boot/dts/qcom/qcom-sdx65-mtp.dts b/arch/arm/boot/dts/qcom/qcom-sdx65-mtp.dts
-index fcf1c51..9649c85 100644
+index b87c543..07c10c8 100644
 --- a/arch/arm/boot/dts/qcom/qcom-sdx65-mtp.dts
 +++ b/arch/arm/boot/dts/qcom/qcom-sdx65-mtp.dts
 @@ -4,6 +4,10 @@
