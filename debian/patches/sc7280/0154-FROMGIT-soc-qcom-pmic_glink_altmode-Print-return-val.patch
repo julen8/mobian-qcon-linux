@@ -14,7 +14,7 @@ Signed-off-by: Bjorn Andersson <andersson@kernel.org>
  1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/soc/qcom/pmic_glink_altmode.c b/drivers/soc/qcom/pmic_glink_altmode.c
-index 6f8b2f7..b78279e 100644
+index 9b0000b..7ee52cf 100644
 --- a/drivers/soc/qcom/pmic_glink_altmode.c
 +++ b/drivers/soc/qcom/pmic_glink_altmode.c
 @@ -160,7 +160,7 @@ static void pmic_glink_altmode_enable_dp(struct pmic_glink_altmode *altmode,
