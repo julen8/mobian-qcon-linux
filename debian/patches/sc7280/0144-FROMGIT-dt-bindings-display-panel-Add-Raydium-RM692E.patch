@@ -16,7 +16,7 @@ Link: https://patchwork.freedesktop.org/patch/msgid/20230927-topic-fp5_disp-v2-1
 
 diff --git a/Documentation/devicetree/bindings/display/panel/raydium,rm692e5.yaml b/Documentation/devicetree/bindings/display/panel/raydium,rm692e5.yaml
 new file mode 100644
-index 0000000..f436ba6
+index 00000000..f436ba6
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/display/panel/raydium,rm692e5.yaml
 @@ -0,0 +1,73 @@

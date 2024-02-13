@@ -17,7 +17,7 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 279e53c..fc3e871 100644
+index 2f657f8..fc3e871 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
 @@ -2869,7 +2869,7 @@ remoteproc_mpss: remoteproc@4080000 {
@@ -29,14 +29,14 @@ index 279e53c..fc3e871 100644
  					      <&modem_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
  					      <&modem_smp2p_in 1 IRQ_TYPE_EDGE_RISING>,
  					      <&modem_smp2p_in 2 IRQ_TYPE_EDGE_RISING>,
-@@ -3997,8 +3997,8 @@ usb_1: usb@a6f8800 {
+@@ -3996,8 +3996,8 @@ usb_1: usb@a6f8800 {
+ 			assigned-clock-rates = <19200000>, <200000000>;
  
  			interrupts-extended = <&intc GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>,
- 					      <&pdc 14 IRQ_TYPE_LEVEL_HIGH>,
+-					      <&pdc 14 IRQ_TYPE_EDGE_BOTH>,
 -					      <&pdc 15 IRQ_TYPE_EDGE_BOTH>,
--					      <&pdc 17 IRQ_TYPE_EDGE_BOTH>;
++					      <&pdc 14 IRQ_TYPE_LEVEL_HIGH>,
 +					      <&pdc 15 IRQ_TYPE_LEVEL_HIGH>,
-+					      <&pdc 17 IRQ_TYPE_LEVEL_HIGH>;
+ 					      <&pdc 17 IRQ_TYPE_LEVEL_HIGH>;
  			interrupt-names = "hs_phy_irq",
  					  "dp_hs_phy_irq",
- 					  "dm_hs_phy_irq",
