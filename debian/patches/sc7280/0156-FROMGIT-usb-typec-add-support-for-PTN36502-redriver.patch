@@ -36,7 +36,7 @@ index 65da611..816b9bd 100644
 +
  endmenu
 diff --git a/drivers/usb/typec/mux/Makefile b/drivers/usb/typec/mux/Makefile
-index 7619609..9d6a555 100644
+index 7619609..9d6a5557 100644
 --- a/drivers/usb/typec/mux/Makefile
 +++ b/drivers/usb/typec/mux/Makefile
 @@ -5,3 +5,4 @@ obj-$(CONFIG_TYPEC_MUX_GPIO_SBU)	+= gpio-sbu-mux.o
@@ -46,7 +46,7 @@ index 7619609..9d6a555 100644
 +obj-$(CONFIG_TYPEC_MUX_PTN36502)	+= ptn36502.o
 diff --git a/drivers/usb/typec/mux/ptn36502.c b/drivers/usb/typec/mux/ptn36502.c
 new file mode 100644
-index 0000000..72ae38a
+index 00000000..72ae38a
 --- /dev/null
 +++ b/drivers/usb/typec/mux/ptn36502.c
 @@ -0,0 +1,444 @@
