@@ -7,10 +7,10 @@ Subject: drm/msm/dpu: Hack in 1:1:1 DSC topology
  1 file changed, 13 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index b02aa2e..e375499 100644
+index 7d4cf81..08dce3b 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -532,9 +532,8 @@ bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc)
+@@ -535,9 +535,8 @@ bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc)
  		if (dpu_enc->phys_encs[i])
  			intf_count++;
  
@@ -21,7 +21,7 @@ index b02aa2e..e375499 100644
  
  	return (num_dsc > 0) && (num_dsc > intf_count);
  }
-@@ -595,8 +594,8 @@ static struct msm_display_topology dpu_encoder_get_topology(
+@@ -598,8 +597,8 @@ static struct msm_display_topology dpu_encoder_get_topology(
  		 * this is power optimal and can drive up to (including) 4k
  		 * screens
  		 */
@@ -32,7 +32,7 @@ index b02aa2e..e375499 100644
  		topology.num_intf = 1;
  	}
  
-@@ -1820,46 +1819,45 @@ static void dpu_encoder_dsc_pipe_cfg(struct dpu_hw_ctl *ctl,
+@@ -1823,46 +1822,45 @@ static void dpu_encoder_dsc_pipe_cfg(struct dpu_hw_ctl *ctl,
  static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
  				 struct drm_dsc_config *dsc)
  {
@@ -89,7 +89,7 @@ index b02aa2e..e375499 100644
  		dpu_encoder_dsc_pipe_cfg(ctl, hw_dsc[i], hw_pp[i],
  					 dsc, dsc_common_mode, initial_lines);
  }
-@@ -2003,7 +2001,6 @@ static void dpu_encoder_dsc_pipe_clr(struct dpu_hw_ctl *ctl,
+@@ -2006,7 +2004,6 @@ static void dpu_encoder_dsc_pipe_clr(struct dpu_hw_ctl *ctl,
  
  static void dpu_encoder_unprep_dsc(struct dpu_encoder_virt *dpu_enc)
  {
