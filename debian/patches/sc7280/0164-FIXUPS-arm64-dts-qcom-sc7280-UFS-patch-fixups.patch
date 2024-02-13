@@ -7,7 +7,7 @@ Subject: FIXUPS! arm64: dts: qcom: sc7280: UFS patch fixups
  1 file changed, 70 insertions(+), 67 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index ab2b04e..9f8e6da 100644
+index 5ad77fd..6ce3170 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
 @@ -906,7 +906,7 @@ gcc: clock-controller@100000 {
