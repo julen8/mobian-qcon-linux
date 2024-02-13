@@ -14,7 +14,7 @@ Signed-off-by: Bjorn Andersson <andersson@kernel.org>
  1 file changed, 19 insertions(+), 40 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 370eb50e..a391f97 100644
+index bf0a87e..460db3b 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
 @@ -19,6 +19,7 @@
