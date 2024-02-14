@@ -217,4 +217,5 @@ debian/0216-wireless-Add-Debian-wireless-regdb-certificates.patch
 mobian/0217-sm7225-fairphone-fp4-use-mbn-firmware-files.patch
 mobian/0218-qcm6490-fairphone-fp5-use-mbn-firmware-files.patch
 mobian/0219-drivers-touchscreen-fix-conflict-between-downstream-.patch
-mobian/0220-arm64-configs-add-qcom_defconfig.patch
+mobian/0220-builddeb-install-modules-under-usr.patch
+mobian/0221-arm64-configs-add-qcom_defconfig.patch
