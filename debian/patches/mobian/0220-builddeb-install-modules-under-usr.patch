@@ -1,0 +1,79 @@
+From: Arnaud Ferraris <arnaud.ferraris@collabora.com>
+Date: Wed, 14 Feb 2024 09:06:31 +0100
+Subject: builddeb: install modules under `/usr`
+
+Modern Debian-based system are usr-merged, and depmod recently changed
+to look for modules under `/usr/lib/modules` only, causing issues with
+this legacy build script.
+---
+ scripts/package/builddeb | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/scripts/package/builddeb b/scripts/package/builddeb
+index d7dd0d0..75d9525 100755
+--- a/scripts/package/builddeb
++++ b/scripts/package/builddeb
+@@ -62,13 +62,13 @@ install_linux_image () {
+ 		${MAKE} -f ${srctree}/Makefile INSTALL_DTBS_PATH="${pdir}/usr/lib/linux-image-${KERNELRELEASE}" dtbs_install
+ 	fi
+ 
+-	${MAKE} -f ${srctree}/Makefile INSTALL_MOD_PATH="${pdir}" modules_install
+-	rm -f "${pdir}/lib/modules/${KERNELRELEASE}/build"
++	${MAKE} -f ${srctree}/Makefile INSTALL_MOD_PATH="${pdir}/usr" modules_install
++	rm -f "${pdir}/usr/lib/modules/${KERNELRELEASE}/build"
+ 
+ 	# Install the kernel
+ 	if [ "${ARCH}" = um ] ; then
+ 		mkdir -p "${pdir}/usr/lib/uml/modules"
+-		mv "${pdir}/lib/modules/${KERNELRELEASE}" "${pdir}/usr/lib/uml/modules/${KERNELRELEASE}"
++		mv "${pdir}/usr/lib/modules/${KERNELRELEASE}" "${pdir}/usr/lib/uml/modules/${KERNELRELEASE}"
+ 		mkdir -p "${pdir}/usr/bin" "${pdir}/usr/share/doc/${pname}"
+ 		cp System.map "${pdir}/usr/lib/uml/modules/${KERNELRELEASE}/System.map"
+ 		cp ${KCONFIG_CONFIG} "${pdir}/usr/share/doc/${pname}/config"
+@@ -127,8 +127,8 @@ install_linux_image_dbg () {
+ 
+ 	rm -rf ${pdir}
+ 
+-	for module in $(find ${image_pdir}/lib/modules/ -name *.ko -printf '%P\n'); do
+-		module=lib/modules/${module}
++	for module in $(find ${image_pdir}/usr/lib/modules/ -name *.ko -printf '%P\n'); do
++		module=usr/lib/modules/${module}
+ 		mkdir -p $(dirname ${pdir}/usr/lib/debug/${module})
+ 		# only keep debug symbols in the debug file
+ 		${OBJCOPY} --only-keep-debug ${image_pdir}/${module} ${pdir}/usr/lib/debug/${module}
+@@ -140,19 +140,19 @@ install_linux_image_dbg () {
+ 
+ 	# re-sign stripped modules
+ 	if is_enabled CONFIG_MODULE_SIG_ALL; then
+-		${MAKE} -f ${srctree}/Makefile INSTALL_MOD_PATH="${image_pdir}" modules_sign
++		${MAKE} -f ${srctree}/Makefile INSTALL_MOD_PATH="${image_pdir}/usr" modules_sign
+ 	fi
+ 
+ 	# Build debug package
+ 	# Different tools want the image in different locations
+ 	# perf
+-	mkdir -p ${pdir}/usr/lib/debug/lib/modules/${KERNELRELEASE}/
+-	cp vmlinux ${pdir}/usr/lib/debug/lib/modules/${KERNELRELEASE}/
++	mkdir -p ${pdir}/usr/lib/debug/usr/lib/modules/${KERNELRELEASE}/
++	cp vmlinux ${pdir}/usr/lib/debug/usr/lib/modules/${KERNELRELEASE}/
+ 	# systemtap
+ 	mkdir -p ${pdir}/usr/lib/debug/boot/
+-	ln -s ../lib/modules/${KERNELRELEASE}/vmlinux ${pdir}/usr/lib/debug/boot/vmlinux-${KERNELRELEASE}
++	ln -s ../usr/lib/modules/${KERNELRELEASE}/vmlinux ${pdir}/usr/lib/debug/boot/vmlinux-${KERNELRELEASE}
+ 	# kdump-tools
+-	ln -s lib/modules/${KERNELRELEASE}/vmlinux ${pdir}/usr/lib/debug/vmlinux-${KERNELRELEASE}
++	ln -s usr/lib/modules/${KERNELRELEASE}/vmlinux ${pdir}/usr/lib/debug/vmlinux-${KERNELRELEASE}
+ }
+ 
+ install_kernel_headers () {
+@@ -163,8 +163,8 @@ install_kernel_headers () {
+ 
+ 	"${srctree}/scripts/package/install-extmod-build" "${pdir}/usr/src/linux-headers-${version}"
+ 
+-	mkdir -p $pdir/lib/modules/$version/
+-	ln -s /usr/src/linux-headers-$version $pdir/lib/modules/$version/build
++	mkdir -p $pdir/usr/lib/modules/$version/
++	ln -s /usr/src/linux-headers-$version $pdir/usr/lib/modules/$version/build
+ }
+ 
+ install_libc_headers () {
