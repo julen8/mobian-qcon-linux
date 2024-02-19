@@ -53,7 +53,7 @@ index a8a9fa6..0c6e878 100644
 +obj-$(CONFIG_LENOVO_YOGA_C630_EC)	+= yoga-c630-ec.o
 diff --git a/drivers/power/supply/yoga-c630-ec.c b/drivers/power/supply/yoga-c630-ec.c
 new file mode 100644
-index 00000000..1fa0b58
+index 0000000..1fa0b58
 --- /dev/null
 +++ b/drivers/power/supply/yoga-c630-ec.c
 @@ -0,0 +1,547 @@
