@@ -52,7 +52,7 @@ index a94cc5e..41a794e 100644
  obj-$(CONFIG_DRM_PANEL_SAMSUNG_DB7430) += panel-samsung-db7430.o
 diff --git a/drivers/gpu/drm/panel/panel-raydium-rm692e5.c b/drivers/gpu/drm/panel/panel-raydium-rm692e5.c
 new file mode 100644
-index 00000000..a613ba5
+index 0000000..a613ba5
 --- /dev/null
 +++ b/drivers/gpu/drm/panel/panel-raydium-rm692e5.c
 @@ -0,0 +1,423 @@
