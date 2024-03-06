@@ -17,7 +17,7 @@ Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
  3 files changed, 19 insertions(+)
 
 diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-index 61b6455..5392ec6 100644
+index 8f9dff9..14f5a7b 100644
 --- a/drivers/usb/typec/ucsi/ucsi.c
 +++ b/drivers/usb/typec/ucsi/ucsi.c
 @@ -578,6 +578,9 @@ static int ucsi_read_pdos(struct ucsi_connector *con,
