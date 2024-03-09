@@ -91,7 +91,7 @@ index 8ba9c3f..d5bee73a 100644
  obj-$(CONFIG_SND_SOC_AW88261)	+=snd-soc-aw88261.o
 diff --git a/sound/soc/codecs/aw87390.c b/sound/soc/codecs/aw87390.c
 new file mode 100644
-index 0000000..79521ff
+index 00000000..79521ff
 --- /dev/null
 +++ b/sound/soc/codecs/aw87390.c
 @@ -0,0 +1,463 @@
@@ -560,7 +560,7 @@ index 0000000..79521ff
 +MODULE_LICENSE("GPL v2");
 diff --git a/sound/soc/codecs/aw87390.h b/sound/soc/codecs/aw87390.h
 new file mode 100644
-index 0000000..d0d049e
+index 00000000..d0d049e
 --- /dev/null
 +++ b/sound/soc/codecs/aw87390.h
 @@ -0,0 +1,85 @@
