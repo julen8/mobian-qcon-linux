@@ -38,7 +38,7 @@ index 21009a4..a94cc5e 100644
 +obj-$(CONFIG_DRM_PANEL_HIMAX_HX83112A) += panel-hx83112a-auo.o
 diff --git a/drivers/gpu/drm/panel/panel-hx83112a-auo.c b/drivers/gpu/drm/panel/panel-hx83112a-auo.c
 new file mode 100644
-index 0000000..f757d84
+index 00000000..f757d84
 --- /dev/null
 +++ b/drivers/gpu/drm/panel/panel-hx83112a-auo.c
 @@ -0,0 +1,355 @@

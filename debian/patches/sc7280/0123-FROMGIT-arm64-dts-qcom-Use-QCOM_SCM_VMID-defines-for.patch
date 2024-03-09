@@ -206,7 +206,7 @@ index 6a1c674..57ed447 100644
  
  		/* rmtfs upper guard */
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index 17ae11f..3d98568 100644
+index 3fb1e57..509ac96 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 @@ -127,7 +127,7 @@ rmtfs_mem: rmtfs-mem@f5b01000 {
@@ -219,7 +219,7 @@ index 17ae11f..3d98568 100644
  		rmtfs_upper_guard: rmtfs-upper-guard@f5d01000 {
  			no-map;
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
-index c958315..3b2177b 100644
+index c9583156..3b2177b 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
 @@ -108,7 +108,7 @@ rmtfs_mem: memory@f6301000 {
