@@ -1,3 +1,10 @@
+linux-6.6-qcom (6.6.21+qcom-1) unstable; urgency=medium
+
+  * d/patches: add missing patches from sdm845-mainline
+  * Rebase on 6.6.21
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Sat, 09 Mar 2024 12:05:05 +0100
+
 linux-6.6-qcom (6.6.20+qcom-1) unstable; urgency=medium
 
   * Rebase on 6.6.20
