@@ -1,0 +1,26 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Wed, 20 Dec 2023 11:02:56 +0100
+Subject: FROMLIST v1 dt-bindings: soc: qcom: qcom,pmic-glink: document
+ QCM6490 compatible
+
+Document the QCM6490 compatible used to describe the pmic glink on this
+platform.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
+index 61df97ff..101c095 100644
+--- a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
++++ b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
+@@ -23,6 +23,7 @@ properties:
+     oneOf:
+       - items:
+           - enum:
++              - qcom,qcm6490-pmic-glink
+               - qcom,sc8180x-pmic-glink
+               - qcom,sc8280xp-pmic-glink
+               - qcom,sm8350-pmic-glink
