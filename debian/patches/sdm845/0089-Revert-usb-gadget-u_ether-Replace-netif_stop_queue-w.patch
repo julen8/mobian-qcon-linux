@@ -1,0 +1,23 @@
+From: Caleb Connolly <caleb.connolly@linaro.org>
+Date: Mon, 4 Dec 2023 14:15:51 +0000
+Subject: Revert "usb: gadget: u_ether: Replace netif_stop_queue with
+ netif_device_detach"
+
+This reverts commit f49449fbc21e7e9550a5203902d69c8ae7dfd918.
+---
+ drivers/usb/gadget/function/u_ether.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/usb/gadget/function/u_ether.c b/drivers/usb/gadget/function/u_ether.c
+index 3c5a6f6..0f79e88 100644
+--- a/drivers/usb/gadget/function/u_ether.c
++++ b/drivers/usb/gadget/function/u_ether.c
+@@ -1202,7 +1202,7 @@ void gether_disconnect(struct gether *link)
+ 
+ 	DBG(dev, "%s\n", __func__);
+ 
+-	netif_device_detach(dev->net);
++	netif_stop_queue(dev->net);
+ 	netif_carrier_off(dev->net);
+ 
+ 	/* disable endpoints, forcing (synchronous) completion
