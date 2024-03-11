@@ -1,0 +1,443 @@
+From: Luca Weiss <luca@z3ntu.xyz>
+Date: Thu, 21 Oct 2021 15:29:49 +0200
+Subject: Input - hxchipset: hack up driver so it compiles
+
+---
+ drivers/input/touchscreen/hxchipset/Makefile       |  6 +-
+ drivers/input/touchscreen/hxchipset/himax_common.c | 16 +++--
+ drivers/input/touchscreen/hxchipset/himax_common.h |  4 +-
+ drivers/input/touchscreen/hxchipset/himax_debug.c  | 69 ++++++++++------------
+ .../input/touchscreen/hxchipset/himax_ic_HX83112.c | 10 ++--
+ .../touchscreen/hxchipset/himax_ic_incell_core.c   | 12 ++--
+ .../input/touchscreen/hxchipset/himax_inspection.c | 11 ++--
+ .../input/touchscreen/hxchipset/himax_platform.c   | 13 ++--
+ 8 files changed, 68 insertions(+), 73 deletions(-)
+
+diff --git a/drivers/input/touchscreen/hxchipset/Makefile b/drivers/input/touchscreen/hxchipset/Makefile
+index 48ab92a..9dc6b2e 100644
+--- a/drivers/input/touchscreen/hxchipset/Makefile
++++ b/drivers/input/touchscreen/hxchipset/Makefile
+@@ -4,9 +4,9 @@ ifneq ($(filter y, $(CONFIG_KALLSYMS_ALL)),)
+ 	ccflags-y += -D__KERNEL_KALLSYMS_ALL_ENABLED__
+ endif
+ 
+-ifneq ($(filter y, $(CONFIG_DRM)),)
+-	ccflags-y += -DHX_CONFIG_DRM
+-endif
++#ifneq ($(filter y, $(CONFIG_DRM)),)
++#	ccflags-y += -DHX_CONFIG_DRM
++#endif
+ 
+ ifneq ($(filter y m, $(CONFIG_TOUCHSCREEN_HIMAX_DEBUG)),)
+ 	himax_mmi-objs += himax_debug.o
+diff --git a/drivers/input/touchscreen/hxchipset/himax_common.c b/drivers/input/touchscreen/hxchipset/himax_common.c
+index 81bbbbb..47019e3 100644
+--- a/drivers/input/touchscreen/hxchipset/himax_common.c
++++ b/drivers/input/touchscreen/hxchipset/himax_common.c
+@@ -356,12 +356,11 @@ static ssize_t himax_self_test_write(struct file *filp, const char __user *buff,
+ 	return len;
+ }
+ 
+-static const struct file_operations himax_proc_self_test_ops = {
+-	.owner = THIS_MODULE,
+-	.open = himax_self_test_proc_open,
+-	.read = seq_read,
+-	.write = himax_self_test_write,
+-	.release = seq_release,
++static const struct proc_ops himax_proc_self_test_ops = {
++	.proc_open = himax_self_test_proc_open,
++	.proc_read = seq_read,
++	.proc_write = himax_self_test_write,
++	.proc_release = seq_release,
+ };
+ 
+ #if defined(HX_HIGH_SENSE)
+@@ -700,9 +699,8 @@ static ssize_t himax_vendor_read(struct file *file, char *buf,
+ 
+ 	return ret;
+ }
+-static const struct file_operations himax_proc_vendor_ops = {
+-	.owner = THIS_MODULE,
+-	.read = himax_vendor_read,
++static const struct proc_ops himax_proc_vendor_ops = {
++	.proc_read = himax_vendor_read,
+ };
+ 
+ int himax_common_proc_init(void)
+diff --git a/drivers/input/touchscreen/hxchipset/himax_common.h b/drivers/input/touchscreen/hxchipset/himax_common.h
+index afa1bfd..2028f05 100644
+--- a/drivers/input/touchscreen/hxchipset/himax_common.h
++++ b/drivers/input/touchscreen/hxchipset/himax_common.h
+@@ -16,7 +16,7 @@
+ #ifndef HIMAX_COMMON_H
+ #define HIMAX_COMMON_H
+ 
+-#include <asm/segment.h>
++//#include <asm/segment.h>
+ 
+ #include <linux/uaccess.h>
+ #include <linux/atomic.h>
+@@ -40,6 +40,8 @@
+ #include "himax_platform.h"
+ #include <linux/kallsyms.h>
+ #include <drm/drm_panel.h>
++#include <linux/ktime.h>
++#include <linux/pinctrl/consumer.h>
+ 
+ #if defined(CONFIG_OF)
+ 	#include <linux/of_gpio.h>
+diff --git a/drivers/input/touchscreen/hxchipset/himax_debug.c b/drivers/input/touchscreen/hxchipset/himax_debug.c
+index a439fa2..ad1677b 100644
+--- a/drivers/input/touchscreen/hxchipset/himax_debug.c
++++ b/drivers/input/touchscreen/hxchipset/himax_debug.c
+@@ -80,7 +80,7 @@ uint8_t *reg_read_data;
+ 
+ struct proc_dir_entry *himax_proc_pen_pos_file;
+ 
+-struct timespec timeStart, timeEnd, timeDelta;
++struct timespec64 timeStart, timeEnd, timeDelta;
+ int g_switch_mode;
+ /*
+  *	Segment : Himax PROC Debug Function
+@@ -167,9 +167,8 @@ static ssize_t himax_pen_ops_read(struct file *file, char *buf,
+ 	return ret;
+ }
+ 
+-static const struct file_operations himax_proc_pen_pos_ops = {
+-	.owner = THIS_MODULE,
+-	.read = himax_pen_ops_read,
++static const struct proc_ops himax_proc_pen_pos_ops = {
++	.proc_read = himax_pen_ops_read,
+ };
+ 
+ static ssize_t himax_crc_test_read(char *buf, size_t len)
+@@ -761,10 +760,10 @@ static ssize_t himax_proc_register_write(char *buf, size_t len)
+ 			if (strcmp(HX_85XX_H_SERIES_PWON,
+ 				private_ts->chip_name) == 0 && cfg_flag == 0)
+ 				cfg_flag = 2;
+-				g_core_fp.fp_register_write(reg_cmd,
+-					byte_length, &w_data[0], cfg_flag);
++			g_core_fp.fp_register_write(reg_cmd,
++				byte_length, &w_data[0], cfg_flag);
+ 
+-			}
++		}
+ 		break;
+ 		};
+ 	}
+@@ -996,12 +995,12 @@ void himax_log_touch_event(struct himax_ts_data *ts, int start)
+ void himax_log_touch_int_devation(int touched)
+ {
+ 	if (touched == HX_FINGER_ON) {
+-		getnstimeofday(&timeStart);
++		ktime_get_real_ts64(&timeStart);
+ 		/* I(" Irq start time = %ld.%06ld s\n",
+ 		 * timeStart.tv_sec, timeStart.tv_nsec/1000);
+ 		 */
+ 	} else if (touched == HX_FINGER_LEAVE) {
+-		getnstimeofday(&timeEnd);
++		ktime_get_real_ts64(&timeEnd);
+ 		timeDelta.tv_nsec =
+ 		  (timeEnd.tv_sec * 1000000000 + timeEnd.tv_nsec) -
+ 		  (timeStart.tv_sec * 1000000000 + timeStart.tv_nsec);
+@@ -1630,11 +1629,10 @@ static int himax_diag_stack_open(struct inode *inode, struct file *file)
+ 	return seq_open(file, &himax_diag_stack_ops);
+ };
+ 
+-static const struct file_operations himax_proc_stack_ops = {
+-	.owner = THIS_MODULE,
+-	.open = himax_diag_stack_open,
+-	.read = seq_read,
+-	.release = seq_release,
++static const struct proc_ops himax_proc_stack_ops = {
++	.proc_open = himax_diag_stack_open,
++	.proc_read = seq_read,
++	.proc_release = seq_release,
+ };
+ 
+ static int himax_sram_read(struct seq_file *s, void *v, uint8_t rs)
+@@ -1688,11 +1686,10 @@ static int himax_diag_delta_open(struct inode *inode, struct file *file)
+ 	return seq_open(file, &himax_diag_delta_ops);
+ };
+ 
+-static const struct file_operations himax_proc_delta_ops = {
+-	.owner = THIS_MODULE,
+-	.open = himax_diag_delta_open,
+-	.read = seq_read,
+-	.release = seq_release,
++static const struct proc_ops himax_proc_delta_ops = {
++	.proc_open = himax_diag_delta_open,
++	.proc_read = seq_read,
++	.proc_release = seq_release,
+ };
+ 
+ static int himax_diag_dc_read(struct seq_file *s, void *v)
+@@ -1711,11 +1708,10 @@ static int himax_diag_dc_open(struct inode *inode, struct file *file)
+ 	return seq_open(file, &himax_diag_dc_ops);
+ };
+ 
+-static const struct file_operations himax_proc_dc_ops = {
+-	.owner = THIS_MODULE,
+-	.open = himax_diag_dc_open,
+-	.read = seq_read,
+-	.release = seq_release,
++static const struct proc_ops himax_proc_dc_ops = {
++	.proc_open = himax_diag_dc_open,
++	.proc_read = seq_read,
++	.proc_release = seq_release,
+ };
+ 
+ static int himax_diag_baseline_read(struct seq_file *s, void *v)
+@@ -1734,11 +1730,10 @@ static int himax_diag_baseline_open(struct inode *inode, struct file *file)
+ 	return seq_open(file, &himax_diag_baseline_ops);
+ };
+ 
+-static const struct file_operations himax_proc_baseline_ops = {
+-	.owner = THIS_MODULE,
+-	.open = himax_diag_baseline_open,
+-	.read = seq_read,
+-	.release = seq_release,
++static const struct proc_ops himax_proc_baseline_ops = {
++	.proc_open = himax_diag_baseline_open,
++	.proc_read = seq_read,
++	.proc_release = seq_release,
+ };
+ #if defined(HX_RST_PIN_FUNC)
+ static void test_rst_pin(void)
+@@ -2069,11 +2064,10 @@ static int himax_flash_dump_proc_open(struct inode *inode,
+ 	return seq_open(file, &himax_flash_dump_seq_ops);
+ };
+ 
+-static const struct file_operations himax_proc_flash_ops = {
+-	.owner = THIS_MODULE,
+-	.open = himax_flash_dump_proc_open,
+-	.read = seq_read,
+-	.write = himax_proc_flash_write,
++static const struct proc_ops himax_proc_flash_ops = {
++	.proc_open = himax_flash_dump_proc_open,
++	.proc_read = seq_read,
++	.proc_write = himax_proc_flash_write,
+ };
+ 
+ void himax_ts_flash_func(void)
+@@ -2781,10 +2775,9 @@ static ssize_t himax_debug_write(struct file *file, const char *buff,
+ 	return len;
+ }
+ 
+-static const struct file_operations himax_proc_debug_ops = {
+-	.owner = THIS_MODULE,
+-	.read = himax_debug_read,
+-	.write = himax_debug_write,
++static const struct proc_ops himax_proc_debug_ops = {
++	.proc_read = himax_debug_read,
++	.proc_write = himax_debug_write,
+ };
+ 
+ static void himax_himax_data_init(void)
+diff --git a/drivers/input/touchscreen/hxchipset/himax_ic_HX83112.c b/drivers/input/touchscreen/hxchipset/himax_ic_HX83112.c
+index 971a4c16..a6e587a 100644
+--- a/drivers/input/touchscreen/hxchipset/himax_ic_HX83112.c
++++ b/drivers/input/touchscreen/hxchipset/himax_ic_HX83112.c
+@@ -507,25 +507,25 @@ static bool hx83112_chip_detect(void)
+ 		|| (tmp_data[1] == 0x2e)
+ 		|| (tmp_data[1] == 0x2f))) {
+ 			if (tmp_data[1] == 0x2a) {
+-				strlcpy((*kp_private_ts)->chip_name,
++				strscpy((*kp_private_ts)->chip_name,
+ 					HX_83112A_SERIES_PWON, 30);
+ 				(*kp_ic_data)->ic_adc_num =
+ 					hx83112a_data_adc_num;
+ 				hx83112ab_func_re_init();
+ 			} else if (tmp_data[1] == 0x2b) {
+-				strlcpy((*kp_private_ts)->chip_name,
++				strscpy((*kp_private_ts)->chip_name,
+ 					HX_83112B_SERIES_PWON, 30);
+ 				(*kp_ic_data)->ic_adc_num =
+ 					hx83112b_data_adc_num;
+ 				hx83112ab_func_re_init();
+ 			} else if (tmp_data[1] == 0x2e) {
+-				strlcpy((*kp_private_ts)->chip_name,
++				strscpy((*kp_private_ts)->chip_name,
+ 					HX_83112E_SERIES_PWON, 30);
+ 				(*kp_ic_data)->ic_adc_num =
+ 					hx83112e_data_adc_num;
+ 				hx83112ab_func_re_init();
+ 			} else if (tmp_data[1] == 0x2f) {
+-				strlcpy((*kp_private_ts)->chip_name,
++				strscpy((*kp_private_ts)->chip_name,
+ 					HX_83112F_SERIES_PWON, 30);
+ 				(*kp_ic_data)->ic_adc_num =
+ 					hx83112f_data_adc_num;
+@@ -588,5 +588,3 @@ module_exit(himax_hx83112_exit);
+ 
+ MODULE_DESCRIPTION("HIMAX HX83112 touch driver");
+ MODULE_LICENSE("GPL");
+-
+-
+diff --git a/drivers/input/touchscreen/hxchipset/himax_ic_incell_core.c b/drivers/input/touchscreen/hxchipset/himax_ic_incell_core.c
+index e5810c4..a079b48 100644
+--- a/drivers/input/touchscreen/hxchipset/himax_ic_incell_core.c
++++ b/drivers/input/touchscreen/hxchipset/himax_ic_incell_core.c
+@@ -457,8 +457,8 @@ static void himax_mcu_sense_on(uint8_t FlashMode)
+ 			if (ret < 0)
+ 				E("%s: i2c access fail!\n", __func__);
+ 
+-				ret = himax_bus_write(pic_op->adr_i2c_psw_ub[0],
+-					tmp_data, 1, HIMAX_I2C_RETRY_TIMES);
++			ret = himax_bus_write(pic_op->adr_i2c_psw_ub[0],
++				tmp_data, 1, HIMAX_I2C_RETRY_TIMES);
+ 			if (ret < 0)
+ 				E("%s: i2c access fail!\n", __func__);
+ 		}
+@@ -1520,7 +1520,7 @@ static bool himax_mcu_check_chip_version(void)
+ 		if ((tmp_data[3] == 0x83)
+ 		&& (tmp_data[2] == 0x10)
+ 		&& (tmp_data[1] == 0x2a)) {
+-			strlcpy(private_ts->chip_name,
++			strscpy(private_ts->chip_name,
+ 				HX_83102A_SERIES_PWON, 30);
+ 			ret_data = true;
+ 			goto END;
+@@ -1642,7 +1642,7 @@ static void himax_mcu_read_FW_ver(void)
+ static bool himax_mcu_read_event_stack(uint8_t *buf, uint8_t length)
+ {
+ 	uint8_t cmd[DATA_LEN_4];
+-	struct timespec t_start, t_end, t_delta;
++	struct timespec64 t_start, t_end, t_delta;
+ 	int len = length;
+ 	int i2c_speed = 0;
+ 	int ret = 0;
+@@ -1657,13 +1657,13 @@ static bool himax_mcu_read_event_stack(uint8_t *buf, uint8_t length)
+ 		return 0;
+ 	}
+ 	if (private_ts->debug_log_level & BIT(2))
+-		getnstimeofday(&t_start);
++		ktime_get_real_ts64(&t_start);
+ 
+ 	himax_bus_read(pfw_op->addr_event_addr[0], buf, length,
+ 			HIMAX_I2C_RETRY_TIMES);
+ 
+ 	if (private_ts->debug_log_level & BIT(2)) {
+-		getnstimeofday(&t_end);
++		ktime_get_real_ts64(&t_end);
+ 		t_delta.tv_nsec = (t_end.tv_sec * 1000000000 + t_end.tv_nsec)
+ 			- (t_start.tv_sec * 1000000000 + t_start.tv_nsec);
+ 
+diff --git a/drivers/input/touchscreen/hxchipset/himax_inspection.c b/drivers/input/touchscreen/hxchipset/himax_inspection.c
+index ca5e8da..d397ba4 100644
+--- a/drivers/input/touchscreen/hxchipset/himax_inspection.c
++++ b/drivers/input/touchscreen/hxchipset/himax_inspection.c
+@@ -1352,6 +1352,7 @@ static uint32_t himax_data_campare(uint8_t checktype, int *RAW,
+ 	case HX_ACT_IDLE_BPN_RAWDATA:
+ 	case HX_ACT_IDLE_NOISE:
+ 		block_num = ic_data->ic_adc_num;
++		fallthrough;
+ 	case HX_SORTING:
+ 	case HX_OPEN:
+ 	case HX_MICRO_OPEN:
+@@ -1849,7 +1850,7 @@ static int himax_parse_test_dri_file(const struct firmware *file_entry)
+ 	while (g_hx_head_str[i]) {
+ 		/*compose header string of .dri file*/
+ 		for (j = 0; j < 2; j++) {
+-			strlcpy(str[j], "[", sizeof(str[j]));
++			strscpy(str[j], "[", sizeof(str[j]));
+ 			strlcat(str[j], g_hx_head_str[i], sizeof(str[j]));
+ 			strlcat(str[j], str_tail[j], sizeof(str[j]));
+ 			/*I("%s string[%d] : %s\n", __func__, j, str[j]);*/
+@@ -2229,7 +2230,7 @@ static int himax_chip_self_test(struct seq_file *s, void *v)
+ 	uint8_t tmp_data[DATA_LEN_4] = {0x01, 0x00, 0x00, 0x00};
+ 	struct file *raw_file = NULL;
+ 	struct filename *vts_name = NULL;
+-	mm_segment_t fs;
++	//mm_segment_t fs;
+ 	loff_t pos = 0;
+ 	uint32_t rslt = HX_INSP_OK;
+ 
+@@ -2271,8 +2272,8 @@ static int himax_chip_self_test(struct seq_file *s, void *v)
+ 		}
+ 	}
+ 
+-	fs = get_fs();
+-	set_fs(get_ds());
++	//fs = get_fs();
++	//set_fs(get_ds());
+ 
+ 	hx_print_ic_id();
+ 	if (file_w_flag) {
+@@ -2345,7 +2346,7 @@ static int himax_chip_self_test(struct seq_file *s, void *v)
+ 	} else if(file_w_flag)
+ 		kp_putname_kernel(vts_name);
+ 
+-	set_fs(fs);
++	//set_fs(fs);
+ 
+ #if defined(HX_ZERO_FLASH)
+ 	private_ts->in_self_test = 0;
+diff --git a/drivers/input/touchscreen/hxchipset/himax_platform.c b/drivers/input/touchscreen/hxchipset/himax_platform.c
+index 006f797..67dda8f 100644
+--- a/drivers/input/touchscreen/hxchipset/himax_platform.c
++++ b/drivers/input/touchscreen/hxchipset/himax_platform.c
+@@ -24,6 +24,7 @@
+ int i2c_error_count;
+ u8 *gp_rw_buf;
+ 
++#if defined(HX_CONFIG_DRM)
+ struct drm_panel *active_panel;
+ 
+ int check_dt(struct device_node *np)
+@@ -49,6 +50,7 @@ int check_dt(struct device_node *np)
+ 
+ 	return -ENODEV;
+ }
++#endif
+ 
+ int check_default_tp(struct device_node *dt, const char *prop)
+ {
+@@ -1065,12 +1067,13 @@ int drm_notifier_callback(struct notifier_block *self,
+ }
+ #endif
+ 
+-int himax_chip_common_probe(struct i2c_client *client,
+-		const struct i2c_device_id *id)
++int himax_chip_common_probe(struct i2c_client *client)
+ {
+ 	int ret = 0;
+ 	struct himax_ts_data *ts;
++#if defined(HX_CONFIG_DRM)
+ 	struct device_node *dp = client->dev.of_node;
++#endif
+ 
+ 	I("%s:Enter\n", __func__);
+ 
+@@ -1087,6 +1090,7 @@ int himax_chip_common_probe(struct i2c_client *client,
+ 		return -ENODEV;
+ 	}
+ 
++#if defined(HX_CONFIG_DRM)
+ 	if (check_dt(dp)) {
+ 		if (!check_default_tp(dp, "qcom,i2c-touch-active"))
+ 			ret = -EPROBE_DEFER;
+@@ -1095,6 +1099,7 @@ int himax_chip_common_probe(struct i2c_client *client,
+         	E("check_dt failed, error=%d", ret);
+ 		return ret;
+ 	}
++#endif
+ 
+ 	ts = kzalloc(sizeof(struct himax_ts_data), GFP_KERNEL);
+ 	if (ts == NULL) {
+@@ -1137,14 +1142,12 @@ int himax_chip_common_probe(struct i2c_client *client,
+ 	return ret;
+ }
+ 
+-int himax_chip_common_remove(struct i2c_client *client)
++void himax_chip_common_remove(struct i2c_client *client)
+ {
+ 	if (g_hx_chip_inited)
+ 		himax_chip_common_deinit();
+ 
+ 	kfree(gp_rw_buf);
+-
+-	return 0;
+ }
+ 
+ static const struct i2c_device_id himax_common_ts_id[] = {
