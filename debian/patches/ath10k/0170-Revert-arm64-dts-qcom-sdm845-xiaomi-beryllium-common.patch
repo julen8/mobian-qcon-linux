@@ -1,0 +1,20 @@
+From: Arnaud Ferraris <aferraris@debian.org>
+Date: Thu, 21 Sep 2023 17:16:42 +0200
+Subject: Revert "arm64: dts: qcom: sdm845-xiaomi-beryllium-common: add ath10k
+ calibration variant"
+
+This reverts commit 79e90fb715c321e0820d6fcb8c4b257afd12a1fe.
+---
+ arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+index 85e9efb..d4a72dd 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+@@ -755,5 +755,4 @@ &wifi {
+ 	vdd-3.3-ch1-supply = <&vreg_l23a_3p3>;
+ 
+ 	qcom,snoc-host-cap-skip-quirk;
+-	qcom,ath10k-calibration-variant = "xiaomi_beryllium";
+ };
