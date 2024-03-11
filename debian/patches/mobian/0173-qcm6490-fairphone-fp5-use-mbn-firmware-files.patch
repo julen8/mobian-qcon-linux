@@ -1,0 +1,30 @@
+From: Arnaud Ferraris <arnaud.ferraris@collabora.com>
+Date: Fri, 12 Jan 2024 12:10:55 +0100
+Subject: qcm6490-fairphone-fp5: use mbn firmware files
+
+---
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+index f5bd518..c8b42b7 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+@@ -603,7 +603,7 @@ &gpu {
+ };
+ 
+ &gpu_zap_shader {
+-	firmware-name = "qcom/qcm6490/fairphone5/a660_zap.mdt";
++	firmware-name = "qcom/qcm6490/fairphone5/a660_zap.mbn";
+ };
+ 
+ &i2c1 {
+@@ -699,7 +699,7 @@ &i2c9 {
+ &ipa {
+ 	qcom,gsi-loader = "self";
+ 	memory-region = <&ipa_fw_mem>;
+-	firmware-name = "qcom/qcm6490/fairphone5/ipa_fws.mdt";
++	firmware-name = "qcom/qcm6490/fairphone5/ipa_fws.mbn";
+ 	status = "okay";
+ };
+ 
