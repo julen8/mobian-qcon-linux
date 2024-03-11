@@ -1,0 +1,5 @@
+linux-6.12-qcom (6.12~rc1+qcom-1) UNRELEASED; urgency=medium
+
+  * Initial 6.12 release
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Tue, 01 Oct 2024 22:32:29 +0200
