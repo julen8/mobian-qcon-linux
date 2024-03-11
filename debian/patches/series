@@ -166,3 +166,6 @@ sc7280/0165-WIP-ASoC-qcom-common-Add-HDMI-Jack-setup-support.patch
 sc7280/0166-ASoC-qcom-sm8250-Add-HDMI-Jack-support.patch
 sc7280/0167-arm64-dts-qcom-sc7280-Add-apr-nodes-for-sound.patch
 sc7280/0168-arm64-dts-qcom-qcm6490-fairphone-fp5-Add-DisplayPort.patch
+ath10k/0169-Revert-arm64-dts-qcom-sdm845-oneplus-common-add-ath1.patch
+ath10k/0170-Revert-arm64-dts-qcom-sdm845-xiaomi-beryllium-common.patch
+ath10k/0171-Revert-arm64-dts-qcom-sdm845-shift-axolotl-add-ath10.patch
