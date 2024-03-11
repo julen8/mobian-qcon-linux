@@ -1,0 +1,62 @@
+From: Caleb Connolly <caleb.connolly@linaro.org>
+Date: Fri, 8 Dec 2023 14:57:30 +0000
+Subject: panel/sdm845: prepare_prev_first
+
+Needed so that we can send DCS commands in .prepare()
+
+Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
+---
+ drivers/gpu/drm/panel/panel-ebbg-ft8719.c        | 1 +
+ drivers/gpu/drm/panel/panel-novatek-nt36672a.c   | 1 +
+ drivers/gpu/drm/panel/panel-samsung-s6e3fc2x01.c | 1 +
+ drivers/gpu/drm/panel/panel-samsung-sofef00.c    | 1 +
+ 4 files changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
+index b40a275..2ad3775 100644
+--- a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
++++ b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
+@@ -229,6 +229,7 @@ static int ebbg_ft8719_probe(struct mipi_dsi_device *dsi)
+ 
+ 	drm_panel_init(&ctx->panel, dev, &ebbg_ft8719_panel_funcs,
+ 		       DRM_MODE_CONNECTOR_DSI);
++	ctx->panel.prepare_prev_first = true;
+ 
+ 	ret = drm_panel_of_backlight(&ctx->panel);
+ 	if (ret)
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+index 2d89ae5..6e764cf 100644
+--- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
++++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+@@ -635,6 +635,7 @@ static int nt36672a_panel_add(struct nt36672a_panel *pinfo)
+ 				     "failed to get reset gpio from DT\n");
+ 
+ 	drm_panel_init(&pinfo->base, dev, &panel_funcs, DRM_MODE_CONNECTOR_DSI);
++	pinfo->base.prepare_prev_first = true;
+ 
+ 	ret = drm_panel_of_backlight(&pinfo->base);
+ 	if (ret)
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3fc2x01.c b/drivers/gpu/drm/panel/panel-samsung-s6e3fc2x01.c
+index 21d5408..32714e2 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-s6e3fc2x01.c
++++ b/drivers/gpu/drm/panel/panel-samsung-s6e3fc2x01.c
+@@ -328,6 +328,7 @@ static int samsung_s6e3fc2x01_probe(struct mipi_dsi_device *dsi)
+ 
+ 	drm_panel_init(&ctx->panel, dev, &samsung_s6e3fc2x01_panel_funcs,
+ 		       DRM_MODE_CONNECTOR_DSI);
++	ctx->panel.prepare_prev_first = true;
+ 
+ 	ctx->panel.backlight = s6e3fc2x01_create_backlight(dsi);
+ 	if (IS_ERR(ctx->panel.backlight))
+diff --git a/drivers/gpu/drm/panel/panel-samsung-sofef00.c b/drivers/gpu/drm/panel/panel-samsung-sofef00.c
+index bb02b2f..d7df52a 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-sofef00.c
++++ b/drivers/gpu/drm/panel/panel-samsung-sofef00.c
+@@ -245,6 +245,7 @@ static int sofef00_panel_probe(struct mipi_dsi_device *dsi)
+ 
+ 	drm_panel_init(&ctx->panel, dev, &sofef00_panel_panel_funcs,
+ 		       DRM_MODE_CONNECTOR_DSI);
++	ctx->panel.prepare_prev_first = true;
+ 
+ 	ctx->panel.backlight = sofef00_create_backlight(dsi);
+ 	if (IS_ERR(ctx->panel.backlight))
