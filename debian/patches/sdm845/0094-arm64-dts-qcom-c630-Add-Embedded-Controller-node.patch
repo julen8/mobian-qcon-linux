@@ -1,0 +1,71 @@
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+Date: Sun, 5 Feb 2023 17:28:09 +0200
+Subject: arm64: dts: qcom: c630: Add Embedded Controller node
+
+The Embedded Controller in the Lenovo Yoga C630 is accessible on &i2c1
+and provides battery and adapter status, as well as altmode
+notifications for the second USB Type-C port.
+
+Add a definition for the EC.
+
+Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+---
+ .../boot/dts/qcom/sdm850-lenovo-yoga-c630.dts      | 35 ++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm850-lenovo-yoga-c630.dts b/arch/arm64/boot/dts/qcom/sdm850-lenovo-yoga-c630.dts
+index 47dc42f..6627abb 100644
+--- a/arch/arm64/boot/dts/qcom/sdm850-lenovo-yoga-c630.dts
++++ b/arch/arm64/boot/dts/qcom/sdm850-lenovo-yoga-c630.dts
+@@ -370,6 +370,33 @@ zap-shader {
+ &i2c1 {
+ 	status = "okay";
+ 	clock-frequency = <400000>;
++
++	embedded-controller@70 {
++		compatible = "lenovo,yoga-c630-ec";
++		reg = <0x70>;
++
++		interrupts-extended = <&tlmm 20 IRQ_TYPE_LEVEL_HIGH>;
++
++		pinctrl-names = "default";
++		pinctrl-0 = <&ec_int_state>;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		connector@0 {
++			compatible = "usb-c-connector";
++			reg = <0>;
++			power-role = "source";
++			data-role = "host";
++		};
++
++		connector@1 {
++			compatible = "usb-c-connector";
++			reg = <1>;
++			power-role = "source";
++			data-role = "host";
++		};
++	};
+ };
+ 
+ &i2c3 {
+@@ -694,6 +721,14 @@ mode_pin_active: mode-pin-state {
+ 
+ 		bias-disable;
+ 	};
++
++	ec_int_state: ec-int-state {
++		pins = "gpio20";
++		function = "gpio";
++
++		input-enable;
++		bias-disable;
++	};
+ };
+ 
+ &uart6 {

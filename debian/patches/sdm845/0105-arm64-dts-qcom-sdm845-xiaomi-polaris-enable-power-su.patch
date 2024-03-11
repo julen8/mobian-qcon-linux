@@ -1,0 +1,38 @@
+From: Icenowy Zheng <uwu@icenowy.me>
+Date: Thu, 29 Feb 2024 22:18:44 +0800
+Subject: arm64: dts: qcom: sdm845-xiaomi-polaris: enable power supplies
+
+A simple-battery is already defined for polaris, but the corresponding
+charger and fuel gauge device nodes in PMI8998 is not enabled yet.
+
+Enable them and bind them to the simple-battery node.
+
+Signed-off-by: Icenowy Zheng <uwu@icenowy.me>
+---
+ arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
+index 8df6188..7ab9a0a 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
+@@ -510,6 +510,19 @@ &mss_pil {
+ 	status = "okay";
+ };
+ 
++&pmi8998_charger {
++	monitored-battery = <&battery>;
++
++	status = "okay";
++};
++
++&pmi8998_fg {
++	status = "okay";
++
++	power-supplies = <&pmi8998_charger>;
++	monitored-battery = <&battery>;
++};
++
+ &pmi8998_wled {
+ 	qcom,current-limit-microamp = <20000>;
+ 	qcom,current-boost-limit = <970>;

@@ -1,0 +1,56 @@
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Wed, 19 Jul 2023 21:04:47 +0300
+Subject: arm64: dts: qcom: qcm2290: temporarily disable cluster idle state
+
+For some reason cluster idle state causes the board to hang after boot.
+Disable it to make it work properly.
+
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ arch/arm64/boot/dts/qcom/qcm2290.dtsi | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcm2290.dtsi b/arch/arm64/boot/dts/qcom/qcm2290.dtsi
+index 0911fb0..8aeaf2a 100644
+--- a/arch/arm64/boot/dts/qcom/qcm2290.dtsi
++++ b/arch/arm64/boot/dts/qcom/qcm2290.dtsi
+@@ -175,33 +175,35 @@ psci {
+ 
+ 		CPU_PD0: power-domain-cpu0 {
+ 			#power-domain-cells = <0>;
+-			power-domains = <&CLUSTER_PD>;
++			//power-domains = <&CLUSTER_PD>;
+ 			domain-idle-states = <&CPU_SLEEP>;
+ 		};
+ 
+ 		CPU_PD1: power-domain-cpu1 {
+ 			#power-domain-cells = <0>;
+-			power-domains = <&CLUSTER_PD>;
++			//power-domains = <&CLUSTER_PD>;
+ 			domain-idle-states = <&CPU_SLEEP>;
+ 		};
+ 
+ 		CPU_PD2: power-domain-cpu2 {
+ 			#power-domain-cells = <0>;
+-			power-domains = <&CLUSTER_PD>;
++			//power-domains = <&CLUSTER_PD>;
+ 			domain-idle-states = <&CPU_SLEEP>;
+ 		};
+ 
+ 		CPU_PD3: power-domain-cpu3 {
+ 			#power-domain-cells = <0>;
+-			power-domains = <&CLUSTER_PD>;
++			//power-domains = <&CLUSTER_PD>;
+ 			domain-idle-states = <&CPU_SLEEP>;
+ 		};
+ 
++#if 0
+ 		CLUSTER_PD: power-domain-cpu-cluster {
+ 			#power-domain-cells = <0>;
+ 			power-domains = <&mpm>;
+ 			domain-idle-states = <&CLUSTER_SLEEP>;
+ 		};
++#endif
+ 	};
+ 
+ 	rpm: remoteproc {
