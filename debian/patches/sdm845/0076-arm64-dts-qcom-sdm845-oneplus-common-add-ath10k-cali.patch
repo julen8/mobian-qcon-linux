@@ -14,7 +14,7 @@ Signed-off-by: Dylan Van Assche <me@dylanvanassche.be>
  1 file changed, 1 insertion(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index 7ecb084..17ae11f 100644
+index e9352bc..e97142a 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 @@ -936,4 +936,5 @@ &wifi {
