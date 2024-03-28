@@ -13,7 +13,7 @@ Signed-off-by: Bjorn Andersson <andersson@kernel.org>
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/soc/qcom/socinfo.c b/drivers/soc/qcom/socinfo.c
-index 497cfb7..649732b 100644
+index 880b41a..fe38313 100644
 --- a/drivers/soc/qcom/socinfo.c
 +++ b/drivers/soc/qcom/socinfo.c
 @@ -389,6 +389,7 @@ static const struct soc_id soc_id[] = {
