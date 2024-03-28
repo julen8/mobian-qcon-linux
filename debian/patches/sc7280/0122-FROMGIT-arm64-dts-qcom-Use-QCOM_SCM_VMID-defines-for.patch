@@ -206,7 +206,7 @@ index 6a1c674..57ed447 100644
  
  		/* rmtfs upper guard */
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index 3fb1e57..509ac96 100644
+index e38ed88..5c011c5 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 @@ -127,7 +127,7 @@ rmtfs_mem: rmtfs-mem@f5b01000 {
@@ -245,7 +245,7 @@ index 6db12ab..e386b50 100644
  	};
  
 diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-index 01372e1..47c33c1 100644
+index 0b0b429..27781b0 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
 @@ -813,7 +813,7 @@ rmtfs_mem: rmtfs@88f00000 {
@@ -279,7 +279,7 @@ index f9f397c..1b08ff1 100644
  	};
  
 diff --git a/arch/arm64/boot/dts/qcom/sm8150.dtsi b/arch/arm64/boot/dts/qcom/sm8150.dtsi
-index 26b6d84..7e78bf2 100644
+index 73ef228..da65d32 100644
 --- a/arch/arm64/boot/dts/qcom/sm8150.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm8150.dtsi
 @@ -5,6 +5,7 @@
@@ -334,7 +334,7 @@ index 001fb27..8b29fcf 100644
  
  		ramoops@ffc00000 {
 diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-index 91d856e..35067d4 100644
+index 0fc25c6..fc5583f 100644
 --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
 @@ -10,6 +10,7 @@
@@ -355,7 +355,7 @@ index 91d856e..35067d4 100644
  
  		xbl_sc_mem2: memory@a6e00000 {
 diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-index 076715ef..c0d781b 100644
+index 90e6cd2..36d843c 100644
 --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
 @@ -10,6 +10,7 @@
