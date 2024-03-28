@@ -12,7 +12,7 @@ Signed-off-by: methanal <baclofen@tuta.io>
  3 files changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index 4f4d1c1..5fb3f9a 100644
+index 13c110e..c1e8260 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 @@ -432,7 +432,7 @@ rmi4-f01@1 {
