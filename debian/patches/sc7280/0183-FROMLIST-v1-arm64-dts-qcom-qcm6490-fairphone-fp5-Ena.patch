@@ -1,43 +1,23 @@
 From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Fri, 18 Aug 2023 13:18:03 +0200
-Subject: FROMLIST v1 arm64: dts: qcom: qcm6490-fairphone-fp5: Enable various
- remoteprocs
+Date: Fri, 27 Oct 2023 14:05:25 +0200
+Subject: FROMLIST v1 arm64: dts: qcom: qcm6490-fairphone-fp5: Enable WiFi
 
-Enable the ADSP, CDSP, MPSS and WPSS that are found on the SoC.
+Now that the WPSS remoteproc is enabled, enable wifi so we can use it.
 
 Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
- arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-index cc09273..d65eef3 100644
+index d65eef3..e7e20f7 100644
 --- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
 +++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-@@ -490,6 +490,26 @@ &qupv3_id_1 {
+@@ -713,3 +713,7 @@ &venus {
+ 	firmware-name = "qcom/qcm6490/fairphone5/venus.mbn";
  	status = "okay";
  };
- 
-+&remoteproc_adsp {
-+	firmware-name = "qcom/qcm6490/fairphone5/adsp.mdt";
++
++&wifi {
 +	status = "okay";
 +};
-+
-+&remoteproc_cdsp {
-+	firmware-name = "qcom/qcm6490/fairphone5/cdsp.mdt";
-+	status = "okay";
-+};
-+
-+&remoteproc_mpss {
-+	firmware-name = "qcom/qcm6490/fairphone5/modem.mdt";
-+	status = "okay";
-+};
-+
-+&remoteproc_wpss {
-+	firmware-name = "qcom/qcm6490/fairphone5/wpss.mdt";
-+	status = "okay";
-+};
-+
- &sdc2_clk {
- 	drive-strength = <16>;
- 	bias-disable;
