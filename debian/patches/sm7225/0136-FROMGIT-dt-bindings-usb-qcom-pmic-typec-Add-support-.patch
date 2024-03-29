@@ -1,0 +1,39 @@
+From: Danila Tikhonov <danila@jiaxyga.com>
+Date: Tue, 20 Feb 2024 23:21:46 +0300
+Subject: FROMGIT dt-bindings: usb: qcom,pmic-typec: Add support for the
+ PM6150 PMIC
+
+The PM6150 PMIC has the same Type-C register block as the PM8150B.
+Define corresponding compatible string, having the qcom,pm8150b-vbus-reg
+as a fallback.
+
+Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Link: https://lore.kernel.org/r/20240220202147.228911-2-danila@jiaxyga.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml b/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml
+index 6c0c6b3..976d173 100644
+--- a/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml
++++ b/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml
+@@ -14,9 +14,14 @@ description:
+ 
+ properties:
+   compatible:
+-    enum:
+-      - qcom,pmi632-typec
+-      - qcom,pm8150b-typec
++    oneOf:
++      - enum:
++          - qcom,pmi632-typec
++          - qcom,pm8150b-typec
++      - items:
++          - enum:
++              - qcom,pm6150-typec
++          - const: qcom,pm8150b-typec
+ 
+   connector:
+     type: object

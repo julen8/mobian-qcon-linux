@@ -1,0 +1,33 @@
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 4 Mar 2024 11:26:10 +0200
+Subject: FROMGIT dt-bindings: usb: qcom,pmic-typec: add support for the
+ PM4125 block
+
+The PM4125 PMIC has the same Type-C register block as the PMI632.
+Likewise it doesn't support USB Power Delivery. Define the compatible
+for the TypeC block found on PM4125, using PMI632 as a compatible.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Link: https://lore.kernel.org/r/20240304-pm4125-typec-v4-1-f3601a16f9ea@linaro.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml b/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml
+index 976d173..d969457 100644
+--- a/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml
++++ b/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml
+@@ -22,6 +22,11 @@ properties:
+           - enum:
+               - qcom,pm6150-typec
+           - const: qcom,pm8150b-typec
++      - items:
++          - enum:
++              - qcom,pm4125-typec
++          - const: qcom,pmi632-typec
++
+ 
+   connector:
+     type: object

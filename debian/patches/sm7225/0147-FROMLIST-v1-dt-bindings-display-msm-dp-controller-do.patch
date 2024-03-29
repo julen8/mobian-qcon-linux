@@ -1,0 +1,25 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 22 Mar 2024 16:44:59 +0100
+Subject: FROMLIST v1 dt-bindings: display: msm: dp-controller: document
+ SM8250 compatible
+
+Add the compatible string for the DisplayPort controller on SM6350 which
+is compatible with the one on SM8350.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+index ae53cbf..97993fe 100644
+--- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+@@ -29,6 +29,7 @@ properties:
+           - qcom,sm8650-dp
+       - items:
+           - enum:
++              - qcom,sm6350-dp
+               - qcom,sm8150-dp
+               - qcom,sm8250-dp
+               - qcom,sm8450-dp

@@ -1,0 +1,109 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 4 Feb 2022 14:15:09 +0100
+Subject: [WIP] arm64: dts: qcom: sm7225-fairphone-fp4: Configure PM8008
+ regulators
+
+PM8008 regulators are used for the cameras found on FP4. Configure the
+chip and its voltages.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+
+[WIP] Because pm8008 regulator bindings are still changing on mailing
+      list, wait until upstream and then adjust.
+---
+ arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts | 68 ++++++++++++++++++++++-
+ 1 file changed, 67 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+index e1404b8..9c571837 100644
+--- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
++++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+@@ -536,7 +536,11 @@ himax_ts@48 {
+ };
+ 
+ &i2c10 {
+-	/* PM8008 PMIC @ 8 and 9 */
++	clock-frequency = <400000>;
++	status = "okay";
++
++	#include "pm8008.dtsi"
++
+ 	/* PX8618 @ 26 */
+ 	/* SMB1395 PMIC @ 34 */
+ 
+@@ -788,6 +792,61 @@ conn-therm@1 {
+ 	};
+ };
+ 
++&pm8008_chip {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pm8008_active>;
++};
++
++&pm8008_regulators {
++	vdd_l1_l2-supply = <&vreg_s8e>;
++	vdd_l3_l4-supply = <&vreg_bob>;
++	vdd_l5-supply = <&vreg_bob>;
++	vdd_l6-supply = <&vreg_s2a>;
++	vdd_l7-supply = <&vreg_bob>;
++};
++
++&pm8008_l1 {
++	regulator-min-microvolt = <528000>;
++	regulator-max-microvolt = <1200000>;
++	regulator-min-dropout-voltage-microvolt = <110000>;
++};
++
++&pm8008_l2 {
++	regulator-min-microvolt = <528000>;
++	regulator-max-microvolt = <1200000>;
++	regulator-min-dropout-voltage-microvolt = <110000>;
++};
++
++&pm8008_l3 {
++	regulator-min-microvolt = <1500000>;
++	regulator-max-microvolt = <2800000>;
++	regulator-min-dropout-voltage-microvolt = <128000>;
++};
++
++&pm8008_l4 {
++	regulator-min-microvolt = <1500000>;
++	regulator-max-microvolt = <2904000>;
++	regulator-min-dropout-voltage-microvolt = <96000>;
++};
++
++&pm8008_l5 {
++	regulator-min-microvolt = <1500000>;
++	regulator-max-microvolt = <2900000>;
++	regulator-min-dropout-voltage-microvolt = <128000>;
++};
++
++&pm8008_l6 {
++	regulator-min-microvolt = <1500000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-min-dropout-voltage-microvolt = <56000>;
++};
++
++&pm8008_l7 {
++	regulator-min-microvolt = <1500000>;
++	regulator-max-microvolt = <3140000>;
++	regulator-min-dropout-voltage-microvolt = <120000>;
++};
++
+ &pmk8350_adc_tm {
+ 	status = "okay";
+ 
+@@ -930,6 +989,13 @@ qup_uart1_sleep_tx: qup-uart1-sleep-tx-state {
+ 		bias-pull-up;
+ 	};
+ 
++	pm8008_active: pm8008-active-state {
++		pins = "gpio58";
++		function = "gpio";
++		bias-disable;
++		output-high;
++	};
++
+ 	ts_active: ts-irq-active-state {
+ 		pins = "gpio22";
+ 		function = "gpio";

@@ -1,0 +1,33 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 22 Mar 2024 16:46:07 +0100
+Subject: FROMLIST v1 dt-bindings: display: msm: sm6350-mdss: document DP
+ controller subnode
+
+Document the displayport controller subnode of the SM6350 MDSS.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ .../devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml      | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml
+index c9ba1fa..d91b8ec 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml
+@@ -53,6 +53,16 @@ patternProperties:
+       compatible:
+         const: qcom,sm6350-dpu
+ 
++  "^displayport-controller@[0-9a-f]+$":
++    type: object
++    additionalProperties: true
++
++    properties:
++      compatible:
++        items:
++          - const: qcom,sm6350-dp
++          - const: qcom,sm8350-dp
++
+   "^dsi@[0-9a-f]+$":
+     type: object
+     additionalProperties: true

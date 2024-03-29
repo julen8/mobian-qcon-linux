@@ -1,0 +1,30 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Tue, 1 Nov 2022 13:33:00 +0100
+Subject: arm64: dts: qcom: pm7250b: Add node for PMIC VBUS booster
+
+Add the required DTS node for the USB VBUS output regulator, which is
+available on PM7250B. This will provide the VBUS source to connected
+peripherals.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/pm7250b.dtsi | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/pm7250b.dtsi b/arch/arm64/boot/dts/qcom/pm7250b.dtsi
+index 3bf7cf5..91a046b 100644
+--- a/arch/arm64/boot/dts/qcom/pm7250b.dtsi
++++ b/arch/arm64/boot/dts/qcom/pm7250b.dtsi
+@@ -45,6 +45,12 @@ pmic@PM7250B_SID {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+ 
++		pm7250b_vbus: usb-vbus-regulator@1100 {
++			compatible = "qcom,pm7250b-vbus-reg", "qcom,pm8150b-vbus-reg";
++			status = "disabled";
++			reg = <0x1100>;
++		};
++
+ 		pm7250b_temp: temp-alarm@2400 {
+ 			compatible = "qcom,spmi-temp-alarm";
+ 			reg = <0x2400>;
