@@ -10,7 +10,7 @@ Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
  1 file changed, 20 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index e8ee41b..3336264 100644
+index 4577e1d..1e90e93 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 @@ -12,6 +12,7 @@
@@ -38,8 +38,8 @@ index e8ee41b..3336264 100644
 +};
 +
  &q6afedai {
- 	qi2s@22 {
- 		reg = <22>;
+ 	dai@22 {
+ 		reg = <QUATERNARY_MI2S_RX>;
 @@ -669,6 +682,13 @@ cpu {
  		};
  	};

@@ -100,7 +100,7 @@ index 80462a5..6bf6ae73 100644
  			compatible = "qcom,rmtfs-mem";
  			reg = <0 0xf6301000 0 0x200000>;
 diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-index eb8e546..be5b675 100644
+index 91185cf..ad85c86 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
 @@ -888,6 +888,11 @@ mdata_mem: mpss-metadata {

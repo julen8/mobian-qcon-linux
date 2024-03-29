@@ -14,10 +14,10 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  1 file changed, 5 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-index 176898c..ab6e735 100644
+index 1e85c43a..0a1f253 100644
 --- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
 +++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-@@ -915,6 +915,11 @@ &usb_1_qmpphy {
+@@ -920,6 +920,11 @@ &usb_1_qmpphy {
  	status = "okay";
  };
  
