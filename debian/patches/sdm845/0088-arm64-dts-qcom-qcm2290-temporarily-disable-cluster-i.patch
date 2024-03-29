@@ -11,7 +11,7 @@ Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
  1 file changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/qcm2290.dtsi b/arch/arm64/boot/dts/qcom/qcm2290.dtsi
-index 0911fb0..8aeaf2a 100644
+index 89beac8..9ee1af7 100644
 --- a/arch/arm64/boot/dts/qcom/qcm2290.dtsi
 +++ b/arch/arm64/boot/dts/qcom/qcm2290.dtsi
 @@ -175,33 +175,35 @@ psci {
