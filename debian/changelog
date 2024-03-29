@@ -1,3 +1,12 @@
+linux-6.8-qcom (6.8.2+qcom-1) unstable; urgency=medium
+
+  * d/patches: rebase on 6.8.2
+  * d/patches: update from sdm845-mainline
+  * d/patches: update FP4 patches
+  * d/patches: update defconfig for latest patches
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Fri, 29 Mar 2024 09:57:58 +0100
+
 linux-6.8-qcom (6.8+qcom-1) unstable; urgency=medium
 
   * Initial 6.8 release
