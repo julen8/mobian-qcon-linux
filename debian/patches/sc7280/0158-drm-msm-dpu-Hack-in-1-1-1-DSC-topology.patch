@@ -3,14 +3,14 @@ Date: Wed, 26 Jul 2023 10:17:38 +0200
 Subject: drm/msm/dpu: Hack in 1:1:1 DSC topology
 
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 29 +++++++++++++----------------
- 1 file changed, 13 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 25 ++++++++++---------------
+ 1 file changed, 10 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 6a4b489..e71d40f 100644
+index aca6893..ee031f3 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -500,9 +500,8 @@ bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc)
+@@ -507,9 +507,8 @@ bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc)
  		if (dpu_enc->phys_encs[i])
  			intf_count++;
  
@@ -21,7 +21,7 @@ index 6a4b489..e71d40f 100644
  
  	return (num_dsc > 0) && (num_dsc > intf_count);
  }
-@@ -563,8 +562,8 @@ static struct msm_display_topology dpu_encoder_get_topology(
+@@ -570,8 +569,8 @@ static struct msm_display_topology dpu_encoder_get_topology(
  		 * this is power optimal and can drive up to (including) 4k
  		 * screens
  		 */
@@ -32,7 +32,7 @@ index 6a4b489..e71d40f 100644
  		topology.num_intf = 1;
  	}
  
-@@ -1828,46 +1827,45 @@ static void dpu_encoder_dsc_pipe_cfg(struct dpu_hw_ctl *ctl,
+@@ -1835,7 +1834,6 @@ static void dpu_encoder_dsc_pipe_cfg(struct dpu_hw_ctl *ctl,
  static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
  				 struct drm_dsc_config *dsc)
  {
@@ -40,11 +40,7 @@ index 6a4b489..e71d40f 100644
  	struct dpu_encoder_phys *enc_master = dpu_enc->cur_master;
  	struct dpu_hw_ctl *ctl = enc_master->hw_ctl;
  	struct dpu_hw_dsc *hw_dsc[MAX_CHANNELS_PER_ENC];
- 	struct dpu_hw_pingpong *hw_pp[MAX_CHANNELS_PER_ENC];
- 	int this_frame_slices;
- 	int intf_ip_w, enc_ip_w;
--	int dsc_common_mode;
-+	int dsc_common_mode = 0;
+@@ -1846,21 +1844,23 @@ static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
  	int pic_width;
  	u32 initial_lines;
  	int i;
@@ -65,14 +61,13 @@ index 6a4b489..e71d40f 100644
  	dsc_common_mode = 0;
  	pic_width = dsc->pic_width;
  
--	dsc_common_mode = DSC_MODE_MULTIPLEX | DSC_MODE_SPLIT_PANEL;
+-	dsc_common_mode = DSC_MODE_SPLIT_PANEL;
 +	if (num_dsc > 1)
-+		dsc_common_mode |= DSC_MODE_SPLIT_PANEL;
-+	if (dpu_encoder_use_dsc_merge(&dpu_enc->base))
-+		dsc_common_mode |= DSC_MODE_MULTIPLEX;
++		dsc_common_mode = DSC_MODE_SPLIT_PANEL;
+ 	if (dpu_encoder_use_dsc_merge(enc_master->parent))
+ 		dsc_common_mode |= DSC_MODE_MULTIPLEX;
  	if (enc_master->intf_mode == INTF_MODE_VIDEO)
- 		dsc_common_mode |= DSC_MODE_VIDEO;
- 
+@@ -1869,14 +1869,10 @@ static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
  	this_frame_slices = pic_width / dsc->slice_width;
  	intf_ip_w = this_frame_slices * dsc->slice_width;
  
@@ -89,7 +84,7 @@ index 6a4b489..e71d40f 100644
  		dpu_encoder_dsc_pipe_cfg(ctl, hw_dsc[i], hw_pp[i],
  					 dsc, dsc_common_mode, initial_lines);
  }
-@@ -2011,7 +2009,6 @@ static void dpu_encoder_dsc_pipe_clr(struct dpu_hw_ctl *ctl,
+@@ -2020,7 +2016,6 @@ static void dpu_encoder_dsc_pipe_clr(struct dpu_hw_ctl *ctl,
  
  static void dpu_encoder_unprep_dsc(struct dpu_encoder_virt *dpu_enc)
  {
