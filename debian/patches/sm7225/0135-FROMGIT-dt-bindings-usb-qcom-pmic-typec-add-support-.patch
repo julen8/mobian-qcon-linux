@@ -1,0 +1,86 @@
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 30 Jan 2024 21:32:55 +0200
+Subject: FROMGIT dt-bindings: usb: qcom,pmic-typec: add support for the
+ PMI632 block
+
+The PMI632 PMIC has the same Type-C register block as the PM8150B.
+However this PMIC doesn't support USB Power Delivery. As such it doesn't
+have the second region used by the existing pm8150b bindings. Add if
+clauses to handle the PMI632 usecase.
+
+Tested-by: Luca Weiss <luca.weiss@fairphone.com> # sdm632-fairphone-fp3
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Rob Herring <robh@kernel.org>
+Link: https://lore.kernel.org/r/20240130-pmi632-typec-v3-2-b05fe44f0a51@linaro.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ .../devicetree/bindings/usb/qcom,pmic-typec.yaml   | 32 +++++++++++++++++++++-
+ 1 file changed, 31 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml b/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml
+index 55df312..6c0c6b3 100644
+--- a/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml
++++ b/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml
+@@ -15,6 +15,7 @@ description:
+ properties:
+   compatible:
+     enum:
++      - qcom,pmi632-typec
+       - qcom,pm8150b-typec
+ 
+   connector:
+@@ -24,9 +25,11 @@ properties:
+ 
+   reg:
+     description: Type-C port and pdphy SPMI register base offsets
++    minItems: 1
+     maxItems: 2
+ 
+   interrupts:
++    minItems: 8
+     items:
+       - description: Type-C CC attach notification, VBUS error, tCCDebounce done
+       - description: Type-C VCONN powered
+@@ -46,6 +49,7 @@ properties:
+       - description: Power Domain Fast Role Swap event
+ 
+   interrupt-names:
++    minItems: 8
+     items:
+       - const: or-rid-detect-change
+       - const: vpd-detect
+@@ -81,7 +85,33 @@ required:
+   - interrupts
+   - interrupt-names
+   - vdd-vbus-supply
+-  - vdd-pdphy-supply
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - qcom,pmi632-typec
++    then:
++      properties:
++        reg:
++          maxItems: 1
++        interrupts:
++          maxItems: 8
++        interrupt-names:
++          maxItems: 8
++        vdd-pdphy-supply: false
++    else:
++      properties:
++        reg:
++          maxItems: 2
++        interrupts:
++          minItems: 16
++        interrupt-names:
++          maxItems: 16
++      required:
++        - vdd-pdphy-supply
+ 
+ additionalProperties: false
+ 

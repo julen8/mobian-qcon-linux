@@ -1,0 +1,60 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Mon, 19 Feb 2024 11:16:02 +0100
+Subject: FROMGIT arm64: dts: qcom: sm6350: Add Crypto Engine
+
+Add crypto engine (CE) and CE BAM related nodes and definitions for this
+SoC.
+
+For reference:
+
+  [    2.297419] qcrypto 1dfa000.crypto: Crypto device found, version 5.5.1
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Link: https://lore.kernel.org/r/20240219-sm6350-qce-v2-1-7acb8838f248@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/sm6350.dtsi | 31 +++++++++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+index 50ce3e8..d56dcee 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+@@ -1203,6 +1203,37 @@ ufs_mem_phy: phy@1d87000 {
+ 			status = "disabled";
+ 		};
+ 
++		cryptobam: dma-controller@1dc4000 {
++			compatible = "qcom,bam-v1.7.4", "qcom,bam-v1.7.0";
++			reg = <0 0x01dc4000 0 0x24000>;
++			interrupts = <GIC_SPI 272 IRQ_TYPE_LEVEL_HIGH>;
++			#dma-cells = <1>;
++			qcom,ee = <0>;
++			qcom,controlled-remotely;
++			num-channels = <16>;
++			qcom,num-ees = <4>;
++			iommus = <&apps_smmu 0x426 0x11>,
++				 <&apps_smmu 0x432 0x0>,
++				 <&apps_smmu 0x436 0x11>,
++				 <&apps_smmu 0x438 0x1>,
++				 <&apps_smmu 0x43f 0x0>;
++		};
++
++		crypto: crypto@1dfa000 {
++			compatible = "qcom,sm6350-qce", "qcom,sm8150-qce", "qcom,qce";
++			reg = <0 0x01dfa000 0 0x6000>;
++			dmas = <&cryptobam 4>, <&cryptobam 5>;
++			dma-names = "rx", "tx";
++			iommus = <&apps_smmu 0x426 0x11>,
++				 <&apps_smmu 0x432 0x0>,
++				 <&apps_smmu 0x436 0x11>,
++				 <&apps_smmu 0x438 0x1>,
++				 <&apps_smmu 0x43f 0x0>;
++			interconnects = <&aggre2_noc MASTER_CRYPTO_CORE_0 QCOM_ICC_TAG_ALWAYS
++					 &clk_virt SLAVE_EBI_CH0 QCOM_ICC_TAG_ALWAYS>;
++			interconnect-names = "memory";
++		};
++
+ 		ipa: ipa@1e40000 {
+ 			compatible = "qcom,sm6350-ipa";
+ 
