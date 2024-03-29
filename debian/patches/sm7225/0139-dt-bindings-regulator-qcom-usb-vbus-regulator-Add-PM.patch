@@ -1,0 +1,26 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Thu, 21 Mar 2024 13:49:11 +0100
+Subject: dt-bindings: regulator: qcom,usb-vbus-regulator: Add PM7250B
+ compatible
+
+The VBUS register block on the PM6150 PMIC shares the design with the
+PM8150B one. Define corresponding compatible string, having the
+qcom,pm8150b-vbus-reg as a fallback.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml b/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
+index 33ae1f7..fcefc72 100644
+--- a/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
++++ b/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
+@@ -26,6 +26,7 @@ properties:
+           - enum:
+               - qcom,pm4125-vbus-reg
+               - qcom,pm6150-vbus-reg
++              - qcom,pm7250b-vbus-reg
+               - qcom,pmi632-vbus-reg
+           - const: qcom,pm8150b-vbus-reg
+ 

@@ -1,0 +1,54 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Wed, 10 Jan 2024 16:21:19 +0100
+Subject: FROMGIT arm64: dts: qcom: sm7225-fairphone-fp4: Switch firmware ext
+ to .mbn
+
+Specify the file name for the squashed/non-split firmware with the .mbn
+extension instead of the split .mdt. The kernel can load both but the
+squashed version is preferred in dts nowadays.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Link: https://lore.kernel.org/r/20240110-fp4-mbn-v1-1-45e7e33b1834@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+index ade6198..9ed349e 100644
+--- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
++++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+@@ -116,7 +116,7 @@ active-config0 {
+ };
+ 
+ &adsp {
+-	firmware-name = "qcom/sm7225/fairphone4/adsp.mdt";
++	firmware-name = "qcom/sm7225/fairphone4/adsp.mbn";
+ 	status = "okay";
+ };
+ 
+@@ -361,7 +361,7 @@ &cci1_i2c0 {
+ };
+ 
+ &cdsp {
+-	firmware-name = "qcom/sm7225/fairphone4/cdsp.mdt";
++	firmware-name = "qcom/sm7225/fairphone4/cdsp.mbn";
+ 	status = "okay";
+ };
+ 
+@@ -400,12 +400,12 @@ &i2c10 {
+ &ipa {
+ 	qcom,gsi-loader = "self";
+ 	memory-region = <&pil_ipa_fw_mem>;
+-	firmware-name = "qcom/sm7225/fairphone4/ipa_fws.mdt";
++	firmware-name = "qcom/sm7225/fairphone4/ipa_fws.mbn";
+ 	status = "okay";
+ };
+ 
+ &mpss {
+-	firmware-name = "qcom/sm7225/fairphone4/modem.mdt";
++	firmware-name = "qcom/sm7225/fairphone4/modem.mbn";
+ 	status = "okay";
+ };
+ 

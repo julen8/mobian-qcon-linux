@@ -1,0 +1,32 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 16 Feb 2024 14:11:20 +0100
+Subject: FROMGIT arm64: dts: qcom: sm6350: Add interconnect for MDSS
+
+Add the definition for the interconnect used in the display subsystem.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Link: https://lore.kernel.org/r/20240216-sm6350-interconnect-v1-1-9d55667c06ca@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/sm6350.dtsi | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+index bf79a40..50ce3e8 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+@@ -1966,6 +1966,13 @@ mdss: display-subsystem@ae00000 {
+ 			interrupt-controller;
+ 			#interrupt-cells = <1>;
+ 
++			interconnects = <&mmss_noc MASTER_MDP_PORT0 QCOM_ICC_TAG_ALWAYS
++					 &clk_virt SLAVE_EBI_CH0 QCOM_ICC_TAG_ALWAYS>,
++					<&gem_noc MASTER_AMPSS_M0 QCOM_ICC_TAG_ACTIVE_ONLY
++					 &config_noc SLAVE_DISPLAY_CFG QCOM_ICC_TAG_ACTIVE_ONLY>;
++			interconnect-names = "mdp0-mem",
++					     "cpu-cfg";
++
+ 			clocks = <&gcc GCC_DISP_AHB_CLK>,
+ 				 <&gcc GCC_DISP_AXI_CLK>,
+ 				 <&dispcc DISP_CC_MDSS_MDP_CLK>;

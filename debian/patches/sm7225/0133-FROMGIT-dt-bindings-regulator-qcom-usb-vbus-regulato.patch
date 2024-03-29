@@ -1,0 +1,29 @@
+From: Danila Tikhonov <danila@jiaxyga.com>
+Date: Sat, 17 Feb 2024 19:31:59 +0300
+Subject: FROMGIT dt-bindings: regulator: qcom,usb-vbus-regulator: Add PM6150
+ compatible
+
+The VBUS register block on the PM6150 PMIC shares the design with the
+PM8150B one. Define corresponding compatible string, having the
+qcom,pm8150b-vbus-reg as a fallback.
+
+Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Link: https://msgid.link/r/20240217163201.32989-2-danila@jiaxyga.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml b/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
+index 66dcd5c..b828a69 100644
+--- a/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
++++ b/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
+@@ -24,6 +24,7 @@ properties:
+           - qcom,pm8150b-vbus-reg
+       - items:
+           - enum:
++              - qcom,pm6150-vbus-reg
+               - qcom,pmi632-vbus-reg
+           - const: qcom,pm8150b-vbus-reg
+ 

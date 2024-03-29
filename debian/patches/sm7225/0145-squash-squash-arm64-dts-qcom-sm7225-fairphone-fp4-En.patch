@@ -1,0 +1,65 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Wed, 27 Mar 2024 15:22:47 +0100
+Subject: squash! squash! arm64: dts: qcom: sm7225-fairphone-fp4: Enable USB
+ role switching
+
+---
+ arch/arm64/boot/dts/qcom/sm6350.dtsi              |  2 ++
+ arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts | 10 +---------
+ 2 files changed, 3 insertions(+), 9 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+index fb4c8da..5a40c93 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+@@ -1738,6 +1738,7 @@ port@1 {
+ 					reg = <1>;
+ 
+ 					usb_1_qmpphy_usb_ss_in: endpoint {
++						remote-endpoint = <&usb_1_dwc3_ss_out>;
+ 					};
+ 				};
+ 
+@@ -1936,6 +1937,7 @@ port@1 {
+ 						reg = <1>;
+ 
+ 						usb_1_dwc3_ss_out: endpoint {
++							remote-endpoint = <&usb_1_qmpphy_usb_ss_in>;
+ 						};
+ 					};
+ 				};
+diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+index 58c15a9..469e3b1 100644
+--- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
++++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+@@ -805,7 +805,7 @@ connector {
+ 		data-role = "dual";
+ 		self-powered;
+ 
+-		source-pdos = <PDO_FIXED(5000, 1500,
++		source-pdos = <PDO_FIXED(5000, 500,
+ 					 PDO_FIXED_DUAL_ROLE |
+ 					 PDO_FIXED_USB_COMM |
+ 					 PDO_FIXED_DATA_SWAP)>;
+@@ -1138,10 +1138,6 @@ &usb_1_dwc3_hs_out {
+ 	remote-endpoint = <&pm7250b_hs_in>;
+ };
+ 
+-&usb_1_dwc3_ss_out {
+-	remote-endpoint = <&usb_1_qmpphy_usb_ss_in>;
+-};
+-
+ &usb_1_hsphy {
+ 	vdd-supply = <&vreg_l18a>;
+ 	vdda-pll-supply = <&vreg_l2a>;
+@@ -1162,10 +1158,6 @@ &usb_1_qmpphy_out {
+ 	remote-endpoint = <&pm7250b_ss_in>;
+ };
+ 
+-&usb_1_qmpphy_usb_ss_in {
+-	remote-endpoint = <&usb_1_dwc3_ss_out>;
+-};
+-
+ &wifi {
+ 	vdd-0.8-cx-mx-supply = <&vreg_l4a>;
+ 	vdd-1.8-xo-supply = <&vreg_l7a>;

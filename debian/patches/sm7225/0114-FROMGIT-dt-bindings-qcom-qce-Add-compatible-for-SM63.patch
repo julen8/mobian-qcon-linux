@@ -1,0 +1,25 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 5 Jan 2024 17:15:43 +0100
+Subject: FROMGIT dt-bindings: qcom-qce: Add compatible for SM6350
+
+Add a compatible for the crypto block found on the SM6350 SoC.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+---
+ Documentation/devicetree/bindings/crypto/qcom-qce.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/crypto/qcom-qce.yaml b/Documentation/devicetree/bindings/crypto/qcom-qce.yaml
+index a48bd381..e285e38 100644
+--- a/Documentation/devicetree/bindings/crypto/qcom-qce.yaml
++++ b/Documentation/devicetree/bindings/crypto/qcom-qce.yaml
+@@ -45,6 +45,7 @@ properties:
+       - items:
+           - enum:
+               - qcom,sc7280-qce
++              - qcom,sm6350-qce
+               - qcom,sm8250-qce
+               - qcom,sm8350-qce
+               - qcom,sm8450-qce
