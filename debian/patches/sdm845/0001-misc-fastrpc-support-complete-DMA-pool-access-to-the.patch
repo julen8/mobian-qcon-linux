@@ -14,11 +14,11 @@ so guard this with a domain ID check.
 Signed-off-by: Dylan Van Assche <me@dylanvanassche.be>
 Reviewed-by: Caleb Connolly <caleb.connolly@linaro.org>
 ---
- drivers/misc/fastrpc.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ drivers/misc/fastrpc.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
 diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index dbd26c3..11c0f27 100644
+index dbd26c3..965dec3 100644
 --- a/drivers/misc/fastrpc.c
 +++ b/drivers/misc/fastrpc.c
 @@ -2257,6 +2257,8 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
@@ -30,21 +30,19 @@ index dbd26c3..11c0f27 100644
  	unsigned int vmids[FASTRPC_MAX_VMIDS];
  
  	err = of_property_read_string(rdev->of_node, "label", &domain);
-@@ -2299,6 +2301,21 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+@@ -2299,6 +2301,19 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
  		}
  	}
  
 +	rmem_node = of_parse_phandle(rdev->of_node, "memory-region", 0);
 +	if (domain_id == SDSP_DOMAIN_ID && rmem_node) {
 +		rmem = of_reserved_mem_lookup(rmem_node);
-+		u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
-+
 +		if (!rmem) {
 +			err = -EINVAL;
 +			goto fdev_error;
 +		}
 +
-+		qcom_scm_assign_mem(rmem->base, rmem->size, &src_perms,
++		qcom_scm_assign_mem(rmem->base, rmem->size, &data->perms,
 +				    data->vmperms, data->vmcount);
 +
 +	}

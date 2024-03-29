@@ -1,53 +1,29 @@
 From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Tue, 2 Jan 2024 11:53:10 +0100
-Subject: FROMLIST v1 arm64: dts: qcom: sm7225-fairphone-fp4: Add PM6150L
+Date: Wed, 7 Dec 2022 09:36:52 +0100
+Subject: FROMLIST v1 arm64: dts: qcom: sm7225-fairphone-fp4: Add PMK8003
  thermals
 
-Configure the thermals for the PA_THERM1, MSM_THERM, PA_THERM0,
-RFC_CAM_THERM, CAM_FLASH_THERM and QUIET_THERM thermistors connected to
-PM6150L.
-
-Due to hardware constraints we can only register 4 zones with
-pm6150l_adc_tm, the other 2 we can register via generic-adc-thermal.
+Configure the thermals for the XO_THERM thermistor connected to
+PMK8003/PMK8350.
 
 Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
- arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts | 191 ++++++++++++++++++++++
- 1 file changed, 191 insertions(+)
+ arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts | 25 +++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-index cf897df..abceb2a 100644
+index 8eb376f..cf897df 100644
 --- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
 +++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-@@ -83,6 +83,20 @@ memory@efe01000 {
- 		};
- 	};
- 
-+	msm_therm_sensor: thermal-sensor-msm {
-+		compatible = "generic-adc-thermal";
-+		#thermal-sensor-cells = <0>;
-+		io-channels = <&pm6150l_adc ADC5_AMUX_THM2_100K_PU>;
-+		io-channel-names = "sensor-channel";
-+	};
-+
-+	rear_cam_sensor: thermal-sensor-rear-cam {
-+		compatible = "generic-adc-thermal";
-+		#thermal-sensor-cells = <0>;
-+		io-channels = <&pm6150l_adc ADC5_GPIO2_100K_PU>;
-+		io-channel-names = "sensor-channel";
-+	};
-+
- 	thermal-zones {
- 		chg-skin-thermal {
- 			polling-delay-passive = <0>;
-@@ -112,6 +126,90 @@ active-config0 {
+@@ -111,6 +111,20 @@ active-config0 {
+ 				};
  			};
  		};
- 
-+		pa0-thermal {
++
++		xo-thermal {
 +			polling-delay-passive = <0>;
 +			polling-delay = <0>;
-+			thermal-sensors = <&pm6150l_adc_tm 1>;
++			thermal-sensors = <&pmk8350_adc_tm 0>;
 +
 +			trips {
 +				active-config0 {
@@ -57,184 +33,24 @@ index cf897df..abceb2a 100644
 +				};
 +			};
 +		};
-+
-+		pa1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&pm6150l_adc_tm 0>;
-+
-+			trips {
-+				active-config0 {
-+					temperature = <125000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		quiet-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&pm6150l_adc_tm 3>;
-+
-+			trips {
-+				active-config0 {
-+					temperature = <125000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		rear-cam-thermal {
-+			polling-delay-passive = <1000>;
-+			polling-delay = <5000>;
-+			thermal-sensors = <&rear_cam_sensor>;
-+
-+			trips {
-+				active-config0 {
-+					temperature = <125000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		rfc-flash-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&pm6150l_adc_tm 2>;
-+
-+			trips {
-+				active-config0 {
-+					temperature = <125000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		sdm-skin-thermal {
-+			polling-delay-passive = <1000>;
-+			polling-delay = <5000>;
-+			thermal-sensors = <&msm_therm_sensor>;
-+
-+			trips {
-+				active-config0 {
-+					temperature = <125000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
- 		xo-thermal {
- 			polling-delay-passive = <0>;
- 			polling-delay = <0>;
-@@ -467,6 +565,91 @@ &mpss {
- 	status = "okay";
- };
- 
-+&pm6150l_adc {
-+	pinctrl-0 = <&pm6150l_adc_default>;
-+	pinctrl-names = "default";
-+
-+	channel@4d {
-+		reg = <ADC5_AMUX_THM1_100K_PU>;
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,pre-scaling = <1 1>;
-+		label = "pa_therm1";
-+	};
-+
-+	channel@4e {
-+		reg = <ADC5_AMUX_THM2_100K_PU>;
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,pre-scaling = <1 1>;
-+		label = "msm_therm";
-+	};
-+
-+	channel@4f {
-+		reg = <ADC5_AMUX_THM3_100K_PU>;
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,pre-scaling = <1 1>;
-+		label = "pa_therm0";
-+	};
-+
-+	channel@53 {
-+		reg = <ADC5_GPIO2_100K_PU>;
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,pre-scaling = <1 1>;
-+		label = "rear_cam_therm";
-+	};
-+
-+	channel@54 {
-+		reg = <ADC5_GPIO3_100K_PU>;
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,pre-scaling = <1 1>;
-+		label = "rear_cam_flash_therm";
-+	};
-+
-+	channel@55 {
-+		reg = <ADC5_GPIO4_100K_PU>;
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,pre-scaling = <1 1>;
-+		label = "quiet_therm";
-+	};
-+};
-+
-+&pm6150l_adc_tm {
-+	status = "okay";
-+
-+	pa-therm1@0 {
-+		reg = <0>;
-+		io-channels = <&pm6150l_adc ADC5_AMUX_THM1_100K_PU>;
-+		qcom,ratiometric;
-+		qcom,hw-settle-time-us = <200>;
-+	};
-+
-+	pa-therm0@1 {
-+		reg = <1>;
-+		io-channels = <&pm6150l_adc ADC5_AMUX_THM3_100K_PU>;
-+		qcom,ratiometric;
-+		qcom,hw-settle-time-us = <200>;
-+	};
-+
-+	rear-cam-flash-therm@2 {
-+		reg = <2>;
-+		io-channels = <&pm6150l_adc ADC5_GPIO3_100K_PU>;
-+		qcom,ratiometric;
-+		qcom,hw-settle-time-us = <200>;
-+	};
-+
-+	quiet-therm@3 {
-+		reg = <3>;
-+		io-channels = <&pm6150l_adc ADC5_GPIO4_100K_PU>;
-+		qcom,ratiometric;
-+		qcom,hw-settle-time-us = <200>;
-+	};
-+};
-+
- &pm6150l_flash {
- 	status = "okay";
- 
-@@ -489,6 +672,14 @@ led-1 {
  	};
  };
  
-+&pm6150l_gpios {
-+	pm6150l_adc_default: adc-default-state {
-+		pins = "gpio6", "gpio7", "gpio10";
-+		function = PMIC_GPIO_FUNC_NORMAL;
-+		bias-high-impedance;
+@@ -534,6 +548,17 @@ conn-therm@1 {
+ 	};
+ };
+ 
++&pmk8350_adc_tm {
++	status = "okay";
++
++	xo-therm@0 {
++		reg = <0>;
++		io-channels = <&pmk8350_vadc PMK8350_ADC7_AMUX_THM1_100K_PU>;
++		qcom,ratiometric;
++		qcom,hw-settle-time-us = <200>;
 +	};
 +};
 +
- &pm6150l_wled {
- 	qcom,switching-freq = <800>;
- 	qcom,current-limit-microamp = <20000>;
+ &pmk8350_rtc {
+ 	status = "okay";
+ };
