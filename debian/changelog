@@ -1,3 +1,9 @@
+linux-6.8-qcom (6.8.7+qcom-1) unstable; urgency=medium
+
+  * Rebase on 6.8.7
+
+ -- Mobot <group_9279_bot_63f8e5239ee997bddf744fbb961e9cce@noreply.salsa.debian.org>  Fri, 19 Apr 2024 15:40:40 +0000
+
 linux-6.8-qcom (6.8.2+qcom-1) unstable; urgency=medium
 
   * d/patches: rebase on 6.8.2
