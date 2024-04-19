@@ -77,10 +77,10 @@ index 0a1f253..4ff9fc2 100644
  
  &usb_1_hsphy {
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 9d60798..a494546 100644
+index 4df7e08..172b383 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-@@ -4067,6 +4067,25 @@ usb_1_dwc3: usb@a600000 {
+@@ -4075,6 +4075,25 @@ usb_1_dwc3: usb@a600000 {
  				phys = <&usb_1_hsphy>, <&usb_1_qmpphy QMP_USB43DP_USB3_PHY>;
  				phy-names = "usb2-phy", "usb3-phy";
  				maximum-speed = "super-speed";

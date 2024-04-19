@@ -33,10 +33,10 @@ Signed-off-by: Bjorn Andersson <andersson@kernel.org>
  5 files changed, 11 insertions(+), 11 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index ce0d24e..d0bace4 100644
+index 7dc2c37..46545cd 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-@@ -3642,7 +3642,7 @@ remoteproc_adsp: remoteproc@3700000 {
+@@ -3650,7 +3650,7 @@ remoteproc_adsp: remoteproc@3700000 {
  			compatible = "qcom,sc7280-adsp-pas";
  			reg = <0 0x03700000 0 0x100>;
  
@@ -45,7 +45,7 @@ index ce0d24e..d0bace4 100644
  					      <&adsp_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
  					      <&adsp_smp2p_in 1 IRQ_TYPE_EDGE_RISING>,
  					      <&adsp_smp2p_in 2 IRQ_TYPE_EDGE_RISING>,
-@@ -3879,7 +3879,7 @@ remoteproc_cdsp: remoteproc@a300000 {
+@@ -3887,7 +3887,7 @@ remoteproc_cdsp: remoteproc@a300000 {
  			compatible = "qcom,sc7280-cdsp-pas";
  			reg = <0 0x0a300000 0 0x10000>;
  
