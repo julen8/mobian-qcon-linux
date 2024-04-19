@@ -12,7 +12,7 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  1 file changed, 73 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index a197661..0b27a54 100644
+index 02d1139..e378c11 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
 @@ -24,6 +24,7 @@
@@ -23,7 +23,7 @@ index a197661..0b27a54 100644
  #include <dt-bindings/soc/qcom,rpmh-rsc.h>
  #include <dt-bindings/sound/qcom,lpass.h>
  #include <dt-bindings/thermal/thermal.h>
-@@ -3687,6 +3688,75 @@ IPCC_MPROC_SIGNAL_GLINK_QMP
+@@ -3695,6 +3696,75 @@ IPCC_MPROC_SIGNAL_GLINK_QMP
  				label = "lpass";
  				qcom,remote-pid = <2>;
  
@@ -99,7 +99,7 @@ index a197661..0b27a54 100644
  				fastrpc {
  					compatible = "qcom,fastrpc";
  					qcom,glink-channels = "fastrpcglink-apps-dsp";
-@@ -5910,6 +5980,9 @@ cpufreq_hw: cpufreq@18591000 {
+@@ -5918,6 +5988,9 @@ cpufreq_hw: cpufreq@18591000 {
  		};
  	};
  

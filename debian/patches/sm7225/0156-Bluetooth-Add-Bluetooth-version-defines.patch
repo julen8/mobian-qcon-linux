@@ -13,7 +13,7 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  1 file changed, 9 insertions(+)
 
 diff --git a/include/net/bluetooth/bluetooth.h b/include/net/bluetooth/bluetooth.h
-index 7ffa8c1..818eb14 100644
+index eaec5d6..fa9c09b 100644
 --- a/include/net/bluetooth/bluetooth.h
 +++ b/include/net/bluetooth/bluetooth.h
 @@ -39,11 +39,20 @@

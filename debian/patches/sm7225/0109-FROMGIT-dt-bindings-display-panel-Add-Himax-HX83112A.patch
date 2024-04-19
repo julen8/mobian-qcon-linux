@@ -17,7 +17,7 @@ Link: https://patchwork.freedesktop.org/patch/msgid/20240216-fp4-panel-v3-1-a556
 
 diff --git a/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml b/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml
 new file mode 100644
-index 00000000..174661d
+index 0000000..174661d
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml
 @@ -0,0 +1,74 @@
