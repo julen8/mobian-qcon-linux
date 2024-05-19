@@ -32,7 +32,7 @@ index 1aabf1c..b8b4d2e 100644
  M:	David Lechner <david@lechnology.com>
  S:	Maintained
 diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 8f37837..46b8811 100644
+index 888297d..32b8f2b 100644
 --- a/drivers/gpu/drm/panel/Kconfig
 +++ b/drivers/gpu/drm/panel/Kconfig
 @@ -666,6 +666,18 @@ config DRM_PANEL_SAMSUNG_SOFEF00

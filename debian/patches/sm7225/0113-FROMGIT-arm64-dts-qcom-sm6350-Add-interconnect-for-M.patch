@@ -13,7 +13,7 @@ Signed-off-by: Bjorn Andersson <andersson@kernel.org>
  1 file changed, 7 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/qcom/sm6350.dtsi
-index bf79a40..50ce3e8 100644
+index e53c719..049be13 100644
 --- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
 @@ -1966,6 +1966,13 @@ mdss: display-subsystem@ae00000 {
