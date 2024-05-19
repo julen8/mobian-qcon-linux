@@ -20,7 +20,7 @@ Signed-off-by: Bjorn Andersson <andersson@kernel.org>
  2 files changed, 54 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/qcom/sm6350.dtsi
-index e39e855..bf79a40 100644
+index 5a81c88..e53c719 100644
 --- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
 @@ -1330,7 +1330,7 @@ gpu: gpu@3d00000 {

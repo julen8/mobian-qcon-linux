@@ -23,7 +23,7 @@ Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
  create mode 100644 drivers/gpu/drm/panel/panel-visionox-rm69299-shift.c
 
 diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 673ab96..bf38b22 100644
+index 859a7e9..40c845d9 100644
 --- a/drivers/gpu/drm/panel/Kconfig
 +++ b/drivers/gpu/drm/panel/Kconfig
 @@ -867,6 +867,15 @@ config DRM_PANEL_VISIONOX_RM69299
