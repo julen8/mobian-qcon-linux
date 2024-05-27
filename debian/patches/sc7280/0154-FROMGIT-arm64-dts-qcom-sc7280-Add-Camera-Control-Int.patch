@@ -14,10 +14,10 @@ Signed-off-by: Bjorn Andersson <andersson@kernel.org>
  1 file changed, 136 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 3ed31fe..37d5a519 100644
+index d88c24c..dea101f 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-@@ -3823,6 +3823,86 @@ videocc: clock-controller@aaf0000 {
+@@ -3831,6 +3831,86 @@ videocc: clock-controller@aaf0000 {
  			#power-domain-cells = <1>;
  		};
  
@@ -104,7 +104,7 @@ index 3ed31fe..37d5a519 100644
  		camcc: clock-controller@ad00000 {
  			compatible = "qcom,sc7280-camcc";
  			reg = <0 0x0ad00000 0 0x10000>;
-@@ -4328,6 +4408,62 @@ tlmm: pinctrl@f100000 {
+@@ -4336,6 +4416,62 @@ tlmm: pinctrl@f100000 {
  			gpio-ranges = <&tlmm 0 0 175>;
  			wakeup-parent = <&pdc>;
  
