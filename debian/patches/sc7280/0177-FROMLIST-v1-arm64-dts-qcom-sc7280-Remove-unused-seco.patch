@@ -29,10 +29,10 @@ index 9550554..203274c 100644
  	clocks = <&gcc GCC_MSS_CFG_AHB_CLK>,
  		 <&gcc GCC_MSS_OFFLINE_AXI_CLK>,
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 2b3338d..bbfa139 100644
+index a71df20..605eedc 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-@@ -2858,8 +2858,7 @@ adreno_smmu: iommu@3da0000 {
+@@ -2866,8 +2866,7 @@ adreno_smmu: iommu@3da0000 {
  
  		remoteproc_mpss: remoteproc@4080000 {
  			compatible = "qcom,sc7280-mpss-pas";
