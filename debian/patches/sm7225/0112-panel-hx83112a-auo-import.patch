@@ -10,7 +10,7 @@ Subject: panel-hx83112a-auo import
  create mode 100644 drivers/gpu/drm/panel/panel-hx83112a-auo.c
 
 diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index e4c4bd8..8af58b7 100644
+index a495ac5..dce1ce5 100644
 --- a/drivers/gpu/drm/panel/Kconfig
 +++ b/drivers/gpu/drm/panel/Kconfig
 @@ -866,4 +866,12 @@ config DRM_PANEL_XINPENG_XPP055C272

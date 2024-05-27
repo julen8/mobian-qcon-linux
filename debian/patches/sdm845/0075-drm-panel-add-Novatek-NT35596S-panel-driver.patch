@@ -11,7 +11,7 @@ Signed-off-by: Arnaud Ferraris <arnaud.ferraris@collabora.com>
  create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt35596s.c
 
 diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 7fed1ba..db43b4b 100644
+index fb6d13f..15005ff 100644
 --- a/drivers/gpu/drm/panel/Kconfig
 +++ b/drivers/gpu/drm/panel/Kconfig
 @@ -378,6 +378,16 @@ config DRM_PANEL_NOVATEK_NT35560
