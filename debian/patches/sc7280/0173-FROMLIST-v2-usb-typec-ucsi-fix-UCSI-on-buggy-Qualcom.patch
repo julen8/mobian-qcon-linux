@@ -17,10 +17,10 @@ Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
  3 files changed, 19 insertions(+)
 
 diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-index 8f9dff9..14f5a7b 100644
+index 7d2ca39..b501760 100644
 --- a/drivers/usb/typec/ucsi/ucsi.c
 +++ b/drivers/usb/typec/ucsi/ucsi.c
-@@ -578,6 +578,9 @@ static int ucsi_read_pdos(struct ucsi_connector *con,
+@@ -595,6 +595,9 @@ static int ucsi_read_pdos(struct ucsi_connector *con,
  	u64 command;
  	int ret;
  
@@ -31,10 +31,10 @@ index 8f9dff9..14f5a7b 100644
  	command |= UCSI_GET_PDOS_PARTNER_PDO(is_partner);
  	command |= UCSI_GET_PDOS_PDO_OFFSET(offset);
 diff --git a/drivers/usb/typec/ucsi/ucsi.h b/drivers/usb/typec/ucsi/ucsi.h
-index 474315a..6478016 100644
+index 2a886e5..ede9876 100644
 --- a/drivers/usb/typec/ucsi/ucsi.h
 +++ b/drivers/usb/typec/ucsi/ucsi.h
-@@ -317,6 +317,9 @@ struct ucsi {
+@@ -328,6 +328,9 @@ struct ucsi {
  #define EVENT_PENDING	0
  #define COMMAND_PENDING	1
  #define ACK_PENDING	2
@@ -45,7 +45,7 @@ index 474315a..6478016 100644
  
  #define UCSI_MAX_SVID		5
 diff --git a/drivers/usb/typec/ucsi/ucsi_glink.c b/drivers/usb/typec/ucsi/ucsi_glink.c
-index 4853141..f7ae1aa 100644
+index 894622b..13f1b9a 100644
 --- a/drivers/usb/typec/ucsi/ucsi_glink.c
 +++ b/drivers/usb/typec/ucsi/ucsi_glink.c
 @@ -6,6 +6,7 @@
@@ -56,7 +56,7 @@ index 4853141..f7ae1aa 100644
  #include <linux/property.h>
  #include <linux/soc/qcom/pdr.h>
  #include <linux/usb/typec_mux.h>
-@@ -296,12 +297,20 @@ static void pmic_glink_ucsi_destroy(void *data)
+@@ -310,12 +311,20 @@ static void pmic_glink_ucsi_destroy(void *data)
  	mutex_unlock(&ucsi->lock);
  }
  
@@ -77,7 +77,7 @@ index 4853141..f7ae1aa 100644
  	int ret;
  
  	ucsi = devm_kzalloc(dev, sizeof(*ucsi), GFP_KERNEL);
-@@ -327,6 +336,10 @@ static int pmic_glink_ucsi_probe(struct auxiliary_device *adev,
+@@ -341,6 +350,10 @@ static int pmic_glink_ucsi_probe(struct auxiliary_device *adev,
  	if (ret)
  		return ret;
  
