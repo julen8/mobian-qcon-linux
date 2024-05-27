@@ -15,10 +15,10 @@ Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/nvmem/qfprom.c b/drivers/nvmem/qfprom.c
-index 14814cb..525be03 100644
+index 6c55404..116a39e 100644
 --- a/drivers/nvmem/qfprom.c
 +++ b/drivers/nvmem/qfprom.c
-@@ -423,12 +423,12 @@ static int qfprom_probe(struct platform_device *pdev)
+@@ -424,12 +424,12 @@ static int qfprom_probe(struct platform_device *pdev)
  		if (IS_ERR(priv->vcc))
  			return PTR_ERR(priv->vcc);
  

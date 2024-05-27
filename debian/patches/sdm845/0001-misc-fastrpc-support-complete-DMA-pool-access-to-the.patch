@@ -18,10 +18,10 @@ Reviewed-by: Caleb Connolly <caleb.connolly@linaro.org>
  1 file changed, 15 insertions(+)
 
 diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 03319a1f..4fa84a9 100644
+index dbd26c3..965dec3 100644
 --- a/drivers/misc/fastrpc.c
 +++ b/drivers/misc/fastrpc.c
-@@ -2254,6 +2254,8 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+@@ -2257,6 +2257,8 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
  	int i, err, domain_id = -1, vmcount;
  	const char *domain;
  	bool secure_dsp;
@@ -30,7 +30,7 @@ index 03319a1f..4fa84a9 100644
  	unsigned int vmids[FASTRPC_MAX_VMIDS];
  
  	err = of_property_read_string(rdev->of_node, "label", &domain);
-@@ -2297,6 +2299,19 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+@@ -2299,6 +2301,19 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
  		}
  	}
  
