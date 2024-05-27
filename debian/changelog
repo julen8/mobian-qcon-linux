@@ -1,3 +1,9 @@
+linux-6.8-qcom (6.8.11+qcom-1) unstable; urgency=medium
+
+  * Rebase on 6.8.11
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Mon, 27 May 2024 17:15:45 +0200
+
 linux-6.8-qcom (6.8.10+qcom-1) unstable; urgency=medium
 
   * Rebase on 6.8.10
