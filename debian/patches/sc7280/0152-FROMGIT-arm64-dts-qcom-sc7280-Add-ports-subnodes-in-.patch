@@ -17,10 +17,10 @@ Signed-off-by: Bjorn Andersson <andersson@kernel.org>
  1 file changed, 26 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 84de20c..3ed31fe 100644
+index e456c95..d88c24c 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-@@ -3403,6 +3403,32 @@ usb_1_qmpphy: phy@88e8000 {
+@@ -3411,6 +3411,32 @@ usb_1_qmpphy: phy@88e8000 {
  
  			#clock-cells = <1>;
  			#phy-cells = <1>;
