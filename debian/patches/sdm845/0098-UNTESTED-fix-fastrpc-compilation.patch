@@ -1,0 +1,31 @@
+From: Caleb Connolly <caleb.connolly@linaro.org>
+Date: Wed, 20 Mar 2024 12:14:24 +0000
+Subject: UNTESTED: fix fastrpc compilation
+
+Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
+---
+ drivers/misc/fastrpc.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index cb4e397..51f469f 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -2306,13 +2306,16 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 
+ 	rmem_node = of_parse_phandle(rdev->of_node, "memory-region", 0);
+ 	if (domain_id == SDSP_DOMAIN_ID && rmem_node) {
++		u64 src_perms;
+ 		rmem = of_reserved_mem_lookup(rmem_node);
+ 		if (!rmem) {
+ 			err = -EINVAL;
+ 			goto fdev_error;
+ 		}
+ 
+-		qcom_scm_assign_mem(rmem->base, rmem->size, &data->perms,
++		src_perms = BIT(QCOM_SCM_VMID_HLOS) | BIT(QCOM_SCM_VMID_SSC_Q6);
++
++		qcom_scm_assign_mem(rmem->base, rmem->size, &src_perms,
+ 				    data->vmperms, data->vmcount);
+ 
+ 	}
