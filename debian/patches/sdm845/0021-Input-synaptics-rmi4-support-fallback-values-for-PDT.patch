@@ -26,7 +26,7 @@ Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
  3 files changed, 67 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/input/rmi4/rmi_driver.c b/drivers/input/rmi4/rmi_driver.c
-index 22f0b35..2469d19 100644
+index 9d7ad13..93bb708 100644
 --- a/drivers/input/rmi4/rmi_driver.c
 +++ b/drivers/input/rmi4/rmi_driver.c
 @@ -461,9 +461,10 @@ static int rmi_driver_reset_handler(struct rmi_device *rmi_dev)

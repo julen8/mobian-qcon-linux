@@ -46,10 +46,10 @@ index 7dd83ec..2c63ea3 100644
  	[ABS_MT_TOUCH_MAJOR] = "MTMajor",
  	[ABS_MT_TOUCH_MINOR] = "MTMinor",
 diff --git a/include/uapi/linux/input-event-codes.h b/include/uapi/linux/input-event-codes.h
-index 022a520..e8d5ee0 100644
+index 03edf2c..54f1764 100644
 --- a/include/uapi/linux/input-event-codes.h
 +++ b/include/uapi/linux/input-event-codes.h
-@@ -866,6 +866,7 @@
+@@ -867,6 +867,7 @@
  
  #define ABS_VOLUME		0x20
  #define ABS_PROFILE		0x21
@@ -57,7 +57,7 @@ index 022a520..e8d5ee0 100644
  
  #define ABS_MISC		0x28
  
-@@ -974,4 +975,12 @@
+@@ -975,4 +976,12 @@
  #define SND_MAX			0x07
  #define SND_CNT			(SND_MAX+1)
  

@@ -7,7 +7,7 @@ Subject: FIXUPS! arm64: dts: qcom: sc7280: UFS patch fixups
  1 file changed, 70 insertions(+), 67 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 5ad77fd..6ce3170 100644
+index 0c834cd..32a75a72 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
 @@ -906,7 +906,7 @@ gcc: clock-controller@100000 {
@@ -19,7 +19,7 @@ index 5ad77fd..6ce3170 100644
  				 <&usb_1_qmpphy QMP_USB43DP_USB3_PIPE_CLK>;
  			clock-names = "bi_tcxo", "bi_tcxo_ao", "sleep_clk",
  				      "pcie_0_pipe_clk", "pcie_1_pipe_clk",
-@@ -2234,6 +2234,75 @@ pcie1_phy: phy@1c0e000 {
+@@ -2242,6 +2242,75 @@ pcie1_phy: phy@1c0e000 {
  			status = "disabled";
  		};
  
@@ -95,7 +95,7 @@ index 5ad77fd..6ce3170 100644
  		ipa: ipa@1e40000 {
  			compatible = "qcom,sc7280-ipa";
  
-@@ -3357,72 +3426,6 @@ opp-202000000 {
+@@ -3365,72 +3434,6 @@ opp-202000000 {
  			};
  		};
  
