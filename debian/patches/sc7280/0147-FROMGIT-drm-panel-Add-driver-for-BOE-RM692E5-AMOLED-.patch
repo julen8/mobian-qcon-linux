@@ -19,7 +19,7 @@ Link: https://patchwork.freedesktop.org/patch/msgid/20230927-topic-fp5_disp-v2-2
  create mode 100644 drivers/gpu/drm/panel/panel-raydium-rm692e5.c
 
 diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 8af58b7..a4d9ab8 100644
+index dce1ce5..30c6054 100644
 --- a/drivers/gpu/drm/panel/Kconfig
 +++ b/drivers/gpu/drm/panel/Kconfig
 @@ -515,6 +515,15 @@ config DRM_PANEL_RAYDIUM_RM68200
