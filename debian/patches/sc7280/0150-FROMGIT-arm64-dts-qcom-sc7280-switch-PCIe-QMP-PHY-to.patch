@@ -14,7 +14,7 @@ Signed-off-by: Bjorn Andersson <andersson@kernel.org>
  1 file changed, 16 insertions(+), 24 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index ad453e3..1af887e 100644
+index 473d174..f2d8c9d 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
 @@ -858,7 +858,7 @@ gcc: clock-controller@100000 {
@@ -26,7 +26,7 @@ index ad453e3..1af887e 100644
  				 <0>, <0>, <0>,
  				 <&usb_1_qmpphy QMP_USB43DP_USB3_PIPE_CLK>;
  			clock-names = "bi_tcxo", "bi_tcxo_ao", "sleep_clk",
-@@ -2111,7 +2111,7 @@ pcie1: pci@1c08000 {
+@@ -2119,7 +2119,7 @@ pcie1: pci@1c08000 {
  
  			clocks = <&gcc GCC_PCIE_1_PIPE_CLK>,
  				 <&gcc GCC_PCIE_1_PIPE_CLK_SRC>,
@@ -35,7 +35,7 @@ index ad453e3..1af887e 100644
  				 <&rpmhcc RPMH_CXO_CLK>,
  				 <&gcc GCC_PCIE_1_AUX_CLK>,
  				 <&gcc GCC_PCIE_1_CFG_AHB_CLK>,
-@@ -2145,7 +2145,7 @@ pcie1: pci@1c08000 {
+@@ -2153,7 +2153,7 @@ pcie1: pci@1c08000 {
  
  			power-domains = <&gcc GCC_PCIE_1_GDSC>;
  
@@ -44,7 +44,7 @@ index ad453e3..1af887e 100644
  			phy-names = "pciephy";
  
  			pinctrl-names = "default";
-@@ -2161,15 +2161,22 @@ pcie1: pci@1c08000 {
+@@ -2169,15 +2169,22 @@ pcie1: pci@1c08000 {
  
  		pcie1_phy: phy@1c0e000 {
  			compatible = "qcom,sm8250-qmp-gen3x2-pcie-phy";
@@ -73,7 +73,7 @@ index ad453e3..1af887e 100644
  
  			resets = <&gcc GCC_PCIE_1_PHY_BCR>;
  			reset-names = "phy";
-@@ -2178,21 +2185,6 @@ pcie1_phy: phy@1c0e000 {
+@@ -2186,21 +2193,6 @@ pcie1_phy: phy@1c0e000 {
  			assigned-clock-rates = <100000000>;
  
  			status = "disabled";

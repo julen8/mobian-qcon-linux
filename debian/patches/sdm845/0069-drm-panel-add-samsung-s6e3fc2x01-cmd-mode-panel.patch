@@ -16,7 +16,7 @@ Signed-off-by: Caleb Connolly <caleb@connolly.tech>
  create mode 100644 drivers/gpu/drm/panel/panel-samsung-s6e3fc2x01.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 40312bb..6dfdd24 100644
+index 72a2880a..4b907b0 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
 @@ -6750,6 +6750,11 @@ S:	Maintained
@@ -32,7 +32,7 @@ index 40312bb..6dfdd24 100644
  M:	David Lechner <david@lechnology.com>
  S:	Maintained
 diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 869e535..f4260be 100644
+index 3a2f4a9..54fa91b 100644
 --- a/drivers/gpu/drm/panel/Kconfig
 +++ b/drivers/gpu/drm/panel/Kconfig
 @@ -626,6 +626,18 @@ config DRM_PANEL_SAMSUNG_SOFEF00
