@@ -51,7 +51,7 @@ index 8c0ed8b..fb30855 100644
  obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9341) += panel-ilitek-ili9341.o
 diff --git a/drivers/gpu/drm/panel/panel-himax-hx83112a.c b/drivers/gpu/drm/panel/panel-himax-hx83112a.c
 new file mode 100644
-index 00000000..466c270
+index 0000000..466c270
 --- /dev/null
 +++ b/drivers/gpu/drm/panel/panel-himax-hx83112a.c
 @@ -0,0 +1,372 @@
