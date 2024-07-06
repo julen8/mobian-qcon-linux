@@ -1,12 +1,18 @@
 #!/usr/bin/make -f
 
 include /usr/share/dpkg/pkg-info.mk
+include /usr/share/dpkg/architecture.mk
 
 srctree ?= .
 
 KVER=6.8
 KVENDOR=qcom
 KREL=$(KVER)-$(KVENDOR)
+
+ifneq ($(filter cross,$(DEB_BUILD_PROFILES)),)
+  export ARCH=${DEB_HOST_ARCH}
+  export CROSS_COMPILE=${DEB_HOST_GNU_TYPE}-
+endif
 
 BUILD=$(MAKE) KERNELRELEASE=$(KREL)
 GENERATED_FILES= \
