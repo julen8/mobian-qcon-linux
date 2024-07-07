@@ -11,10 +11,10 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/usb/typec/ucsi/ucsi_glink.c b/drivers/usb/typec/ucsi/ucsi_glink.c
-index 13f1b9a..3b9e2d8 100644
+index 20adfd5..16d1d20 100644
 --- a/drivers/usb/typec/ucsi/ucsi_glink.c
 +++ b/drivers/usb/typec/ucsi/ucsi_glink.c
-@@ -312,6 +312,7 @@ static void pmic_glink_ucsi_destroy(void *data)
+@@ -310,6 +310,7 @@ static void pmic_glink_ucsi_destroy(void *data)
  }
  
  static const struct of_device_id pmic_glink_ucsi_of_quirks[] = {
