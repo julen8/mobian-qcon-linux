@@ -7,7 +7,7 @@ Subject: drm/msm/dpu: Hack in 1:1:1 DSC topology
  1 file changed, 10 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 20e1185..752e4aa 100644
+index 5fb7e2e..2e20065 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
 @@ -542,9 +542,8 @@ bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc)

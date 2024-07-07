@@ -8,7 +8,7 @@ Signed-off-by: Joel Selvaraj <joelselvaraj.oss@gmail.com>
  1 file changed, 22 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
-index b670c6b..c9583156 100644
+index b670c6b..c958315 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
 @@ -380,6 +380,28 @@ &pmi8998_charger {
