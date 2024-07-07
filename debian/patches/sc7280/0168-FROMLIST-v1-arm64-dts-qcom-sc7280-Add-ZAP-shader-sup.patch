@@ -25,7 +25,7 @@ index cd491e4..186aa82 100644
  /delete-node/ &xbl_mem;
  /delete-node/ &reserved_xbl_uefi_log;
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 32a75a72..fc0b0d5 100644
+index 32a75a7..fc0b0d5 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
 @@ -152,6 +152,11 @@ ipa_fw_mem: memory@8b700000 {
