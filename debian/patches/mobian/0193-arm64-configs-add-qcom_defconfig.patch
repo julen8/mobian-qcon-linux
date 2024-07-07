@@ -12,7 +12,7 @@ new file mode 100644
 index 0000000..a0f89c4
 --- /dev/null
 +++ b/arch/arm64/configs/qcom_defconfig
-@@ -0,0 +1,976 @@
+@@ -0,0 +1,977 @@
 +CONFIG_SYSVIPC=y
 +CONFIG_POSIX_MQUEUE=y
 +CONFIG_AUDIT=y
@@ -989,3 +989,4 @@ index 0000000..a0f89c4
 +CONFIG_MAGIC_SYSRQ=y
 +CONFIG_PANIC_TIMEOUT=-1
 +CONFIG_MEMTEST=y
++CONFIG_RELR=n
