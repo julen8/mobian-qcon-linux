@@ -13,8 +13,8 @@ and speaker output has it own DAI link.
 
 Signed-off-by: Dylan Van Assche <me@dylanvanassche.be>
 ---
- arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts | 99 +++++++++++++++++++++--
- 1 file changed, 92 insertions(+), 7 deletions(-)
+ arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts | 97 +++++++++++++++++++++--
+ 1 file changed, 91 insertions(+), 6 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
 index c9f8f35..31b3def 100644
@@ -99,12 +99,9 @@ index c9f8f35..31b3def 100644
  		};
  	};
  
--	slim-dai-link {
--		link-name = "SLIM Playback";
 +	slimcap-wcd-dai-link {
 +		link-name = "SLIM WCD Capture 1";
- 		codec {
--			sound-dai = <&wcd9340 0>;
++		codec {
 +			sound-dai = <&wcd9340 1>; /* AIF1_CAP */
 +		};
 +
@@ -117,9 +114,11 @@ index c9f8f35..31b3def 100644
 +		};
 +	};
 +
-+	slim-dai-link {
+ 	slim-dai-link {
+-		link-name = "SLIM Playback";
 +		link-name = "SLIM WCD Playback 1";
-+		codec {
+ 		codec {
+-			sound-dai = <&wcd9340 0>;
 +			sound-dai = <&wcd9340 0>; /* AIF1_PB */
  		};
  
