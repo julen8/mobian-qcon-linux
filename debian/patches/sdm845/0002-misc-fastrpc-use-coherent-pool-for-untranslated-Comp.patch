@@ -16,7 +16,7 @@ Reviewed-by: Caleb Connolly <caleb.connolly@linaro.org>
  1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 965dec3..cb4e397 100644
+index 6d401ea..6872ea7 100644
 --- a/drivers/misc/fastrpc.c
 +++ b/drivers/misc/fastrpc.c
 @@ -953,7 +953,10 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
