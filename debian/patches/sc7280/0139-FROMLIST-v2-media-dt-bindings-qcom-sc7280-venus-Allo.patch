@@ -1,0 +1,26 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Mon, 29 Jan 2024 08:48:54 +0100
+Subject: FROMLIST v2 media: dt-bindings: qcom,sc7280-venus: Allow one IOMMU
+ entry
+
+Some SC7280-based boards crash when providing the "secure_non_pixel"
+context bank, so allow only one iommu in the bindings also.
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ Documentation/devicetree/bindings/media/qcom,sc7280-venus.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/media/qcom,sc7280-venus.yaml b/Documentation/devicetree/bindings/media/qcom,sc7280-venus.yaml
+index 8f9b643..10c334e 100644
+--- a/Documentation/devicetree/bindings/media/qcom,sc7280-venus.yaml
++++ b/Documentation/devicetree/bindings/media/qcom,sc7280-venus.yaml
+@@ -43,6 +43,7 @@ properties:
+       - const: vcodec_bus
+ 
+   iommus:
++    minItems: 1
+     maxItems: 2
+ 
+   interconnects:
