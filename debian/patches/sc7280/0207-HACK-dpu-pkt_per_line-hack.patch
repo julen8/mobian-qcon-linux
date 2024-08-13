@@ -7,10 +7,10 @@ Subject: HACK dpu pkt_per_line hack
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index ab393bd..964f4e3 100644
+index 77b805e..59be968 100644
 --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
 +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -848,7 +848,7 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
+@@ -850,7 +850,7 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
  	 * Since the current driver only supports slice_per_pkt = 1,
  	 * pkt_per_line will be equal to slice per intf for now.
  	 */
