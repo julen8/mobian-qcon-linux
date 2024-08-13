@@ -1,5 +1,5 @@
-linux-6.11-qcom (6.11+qcom-1) UNRELEASED; urgency=medium
+linux-6.11-qcom (6.11~rc3+qcom-1) unstable; urgency=medium
 
   * Initial 6.11 release
 
- -- Arnaud Ferraris <aferraris@debian.org>  Thu, 06 Oct 2022 14:38:14 +0200
+ -- Arnaud Ferraris <aferraris@debian.org>  Tue, 13 Aug 2024 14:06:46 +0200
