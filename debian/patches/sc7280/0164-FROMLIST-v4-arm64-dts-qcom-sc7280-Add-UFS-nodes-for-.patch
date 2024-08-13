@@ -10,7 +10,7 @@ Signed-off-by: Nitin Rawat <quic_nitirawa@quicinc.com>
  1 file changed, 66 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 20b4e7f..0c834cd 100644
+index 79ac75d..622c8ff 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
 @@ -3365,6 +3365,72 @@ opp-202000000 {
