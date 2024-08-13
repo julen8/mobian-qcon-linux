@@ -7,7 +7,7 @@ Subject: arm64: dts: qcom: sm6350: WIP interconnect for gpu, mdss
  1 file changed, 19 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/qcom/sm6350.dtsi
-index 62565a9..76d376a 100644
+index ecb84c8..556d148 100644
 --- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
 @@ -842,6 +842,13 @@ sdhc_1: mmc@7c4000 {
@@ -24,7 +24,7 @@ index 62565a9..76d376a 100644
  			qcom,dll-config = <0x000f642c>;
  			qcom,ddr-config = <0x80040868>;
  			power-domains = <&rpmhpd SM6350_CX>;
-@@ -1333,6 +1340,8 @@ gpu: gpu@3d00000 {
+@@ -1336,6 +1343,8 @@ gpu: gpu@3d00000 {
  			iommus = <&adreno_smmu 0>;
  			operating-points-v2 = <&gpu_opp_table>;
  			qcom,gmu = <&gmu>;
@@ -33,7 +33,7 @@ index 62565a9..76d376a 100644
  			nvmem-cells = <&gpu_speed_bin>;
  			nvmem-cell-names = "speed_bin";
  
-@@ -1348,42 +1357,49 @@ gpu_opp_table: opp-table {
+@@ -1351,42 +1360,49 @@ gpu_opp_table: opp-table {
  				opp-850000000 {
  					opp-hz = /bits/ 64 <850000000>;
  					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
@@ -83,7 +83,7 @@ index 62565a9..76d376a 100644
  					opp-supported-hw = <0xff>;
  				};
  			};
-@@ -1974,6 +1990,9 @@ mdss: display-subsystem@ae00000 {
+@@ -1979,6 +1995,9 @@ mdss: display-subsystem@ae00000 {
  			reg = <0 0x0ae00000 0 0x1000>;
  			reg-names = "mdss";
  
