@@ -7,7 +7,7 @@ Subject: qcm6490-fairphone-fp5: use mbn firmware files
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-index c9b579c..5be5c9a 100644
+index f5bfbfa..1ef048c 100644
 --- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
 +++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
 @@ -629,7 +629,7 @@ &gpu {
