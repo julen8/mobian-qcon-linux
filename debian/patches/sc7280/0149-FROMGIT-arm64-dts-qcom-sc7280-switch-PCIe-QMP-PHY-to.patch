@@ -14,7 +14,7 @@ Signed-off-by: Bjorn Andersson <andersson@kernel.org>
  1 file changed, 16 insertions(+), 24 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 473d174..f2d8c9d 100644
+index e152609..9676377 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
 @@ -858,7 +858,7 @@ gcc: clock-controller@100000 {
