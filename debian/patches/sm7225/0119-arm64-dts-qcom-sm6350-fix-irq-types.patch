@@ -13,10 +13,10 @@ See also https://lore.kernel.org/lkml/8735gi5g7s.wl-maz@kernel.org/
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/qcom/sm6350.dtsi
-index 76d376a..6e20e99 100644
+index 556d148..c23f4b2 100644
 --- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
-@@ -1266,7 +1266,7 @@ adsp: remoteproc@3000000 {
+@@ -1268,7 +1268,7 @@ adsp: remoteproc@3000000 {
  			compatible = "qcom,sm6350-adsp-pas";
  			reg = <0 0x03000000 0 0x100>;
  
@@ -25,7 +25,7 @@ index 76d376a..6e20e99 100644
  					      <&smp2p_adsp_in 0 IRQ_TYPE_EDGE_RISING>,
  					      <&smp2p_adsp_in 1 IRQ_TYPE_EDGE_RISING>,
  					      <&smp2p_adsp_in 2 IRQ_TYPE_EDGE_RISING>,
-@@ -1535,7 +1535,7 @@ cdsp: remoteproc@8300000 {
+@@ -1538,7 +1538,7 @@ cdsp: remoteproc@8300000 {
  			compatible = "qcom,sm6350-cdsp-pas";
  			reg = <0 0x08300000 0 0x10000>;
  
@@ -34,7 +34,7 @@ index 76d376a..6e20e99 100644
  					      <&smp2p_cdsp_in 0 IRQ_TYPE_EDGE_RISING>,
  					      <&smp2p_cdsp_in 1 IRQ_TYPE_EDGE_RISING>,
  					      <&smp2p_cdsp_in 2 IRQ_TYPE_EDGE_RISING>,
-@@ -1857,8 +1857,8 @@ usb_1: usb@a6f8800 {
+@@ -1861,8 +1861,8 @@ usb_1: usb@a6f8800 {
  
  			interrupts-extended = <&intc GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>,
  					      <&pdc 17 IRQ_TYPE_LEVEL_HIGH>,
