@@ -1,0 +1,41 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Mon, 20 Feb 2023 10:11:02 +0800
+Subject: dt-bindings: clocks: qcom,sm6350-camcc: allow
+ power-domains/required-opps
+
+Since camcc needs to have CX power domain on, allow it and
+required-opps property.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ .../devicetree/bindings/clock/qcom,sm6350-camcc.yaml          | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/clock/qcom,sm6350-camcc.yaml b/Documentation/devicetree/bindings/clock/qcom,sm6350-camcc.yaml
+index fd6658c..a55b04d 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,sm6350-camcc.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,sm6350-camcc.yaml
+@@ -23,12 +23,23 @@ properties:
+     items:
+       - description: Board XO source
+ 
++  power-domains:
++    maxItems: 1
++    description:
++      A phandle and PM domain specifier for the CX power domain.
++
++  required-opps:
++    description:
++      A phandle to an OPP node describing required CX performance point.
++
+   reg:
+     maxItems: 1
+ 
+ required:
+   - compatible
+   - clocks
++  - power-domains
++  - required-opps
+ 
+ allOf:
+   - $ref: qcom,gcc.yaml#
