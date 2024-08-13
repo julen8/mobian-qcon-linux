@@ -1,0 +1,176 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 10 May 2024 09:46:13 +0200
+Subject: Revert "wifi: ath11k: support 2 station interfaces"
+
+Crashes wifi on FP5.
+
+[   53.116443] qcom_q6v5_pas 8a00000.remoteproc: fatal error received: cmnos_thread.c:4645:Asserted in cmnos_allocram.c:cmnos_allocram_base_with_alignment_recurse:497 with Args:0x3,0x3,0x0
+
+This reverts commit f019f4dff2e4cb8704dc608496e3f2829de3e919.
+---
+ drivers/net/wireless/ath/ath11k/core.c | 14 +++-----------
+ drivers/net/wireless/ath/ath11k/hw.c   |  2 +-
+ drivers/net/wireless/ath/ath11k/hw.h   |  1 -
+ drivers/net/wireless/ath/ath11k/mac.c  | 28 ++++++++++------------------
+ 4 files changed, 14 insertions(+), 31 deletions(-)
+
+diff --git a/drivers/net/wireless/ath/ath11k/core.c b/drivers/net/wireless/ath/ath11k/core.c
+index 8e0dd70..a2cabce 100644
+--- a/drivers/net/wireless/ath/ath11k/core.c
++++ b/drivers/net/wireless/ath/ath11k/core.c
+@@ -122,7 +122,6 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
+ 		.tcl_ring_retry = true,
+ 		.tx_ring_size = DP_TCL_DATA_RING_SIZE,
+ 		.smp2p_wow_exit = false,
+-		.support_dual_stations = false,
+ 	},
+ 	{
+ 		.hw_rev = ATH11K_HW_IPQ6018_HW10,
+@@ -206,7 +205,6 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
+ 		.tx_ring_size = DP_TCL_DATA_RING_SIZE,
+ 		.smp2p_wow_exit = false,
+ 		.support_fw_mac_sequence = false,
+-		.support_dual_stations = false,
+ 	},
+ 	{
+ 		.name = "qca6390 hw2.0",
+@@ -260,7 +258,7 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
+ 		.coldboot_cal_ftm = false,
+ 		.cbcal_restart_fw = false,
+ 		.fw_mem_mode = 0,
+-		.num_vdevs = 2 + 1,
++		.num_vdevs = 16 + 1,
+ 		.num_peers = 512,
+ 		.supports_suspend = true,
+ 		.hal_desc_sz = sizeof(struct hal_rx_desc_ipq8074),
+@@ -295,7 +293,6 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
+ 		.tx_ring_size = DP_TCL_DATA_RING_SIZE,
+ 		.smp2p_wow_exit = false,
+ 		.support_fw_mac_sequence = true,
+-		.support_dual_stations = true,
+ 	},
+ 	{
+ 		.name = "qcn9074 hw1.0",
+@@ -378,7 +375,6 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
+ 		.tx_ring_size = DP_TCL_DATA_RING_SIZE,
+ 		.smp2p_wow_exit = false,
+ 		.support_fw_mac_sequence = false,
+-		.support_dual_stations = false,
+ 	},
+ 	{
+ 		.name = "wcn6855 hw2.0",
+@@ -432,7 +428,7 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
+ 		.coldboot_cal_ftm = false,
+ 		.cbcal_restart_fw = false,
+ 		.fw_mem_mode = 0,
+-		.num_vdevs = 2 + 1,
++		.num_vdevs = 16 + 1,
+ 		.num_peers = 512,
+ 		.supports_suspend = true,
+ 		.hal_desc_sz = sizeof(struct hal_rx_desc_wcn6855),
+@@ -467,7 +463,6 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
+ 		.tx_ring_size = DP_TCL_DATA_RING_SIZE,
+ 		.smp2p_wow_exit = false,
+ 		.support_fw_mac_sequence = true,
+-		.support_dual_stations = true,
+ 	},
+ 	{
+ 		.name = "wcn6855 hw2.1",
+@@ -519,7 +514,7 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
+ 		.coldboot_cal_ftm = false,
+ 		.cbcal_restart_fw = false,
+ 		.fw_mem_mode = 0,
+-		.num_vdevs = 2 + 1,
++		.num_vdevs = 16 + 1,
+ 		.num_peers = 512,
+ 		.supports_suspend = true,
+ 		.hal_desc_sz = sizeof(struct hal_rx_desc_wcn6855),
+@@ -554,7 +549,6 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
+ 		.tx_ring_size = DP_TCL_DATA_RING_SIZE,
+ 		.smp2p_wow_exit = false,
+ 		.support_fw_mac_sequence = true,
+-		.support_dual_stations = true,
+ 	},
+ 	{
+ 		.name = "wcn6750 hw1.0",
+@@ -636,7 +630,6 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
+ 		.tx_ring_size = DP_TCL_DATA_RING_SIZE_WCN6750,
+ 		.smp2p_wow_exit = true,
+ 		.support_fw_mac_sequence = true,
+-		.support_dual_stations = false,
+ 	},
+ 	{
+ 		.hw_rev = ATH11K_HW_IPQ5018_HW10,
+@@ -718,7 +711,6 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
+ 		.tx_ring_size = DP_TCL_DATA_RING_SIZE,
+ 		.smp2p_wow_exit = false,
+ 		.support_fw_mac_sequence = false,
+-		.support_dual_stations = false,
+ 	},
+ };
+ 
+diff --git a/drivers/net/wireless/ath/ath11k/hw.c b/drivers/net/wireless/ath/ath11k/hw.c
+index caa6dc1..77d8f92 100644
+--- a/drivers/net/wireless/ath/ath11k/hw.c
++++ b/drivers/net/wireless/ath/ath11k/hw.c
+@@ -58,7 +58,7 @@ static void ath11k_hw_wcn6855_tx_mesh_enable(struct ath11k_base *ab,
+ static void ath11k_init_wmi_config_qca6390(struct ath11k_base *ab,
+ 					   struct target_resource_config *config)
+ {
+-	config->num_vdevs = ab->hw_params.num_vdevs;
++	config->num_vdevs = 4;
+ 	config->num_peers = 16;
+ 	config->num_tids = 32;
+ 
+diff --git a/drivers/net/wireless/ath/ath11k/hw.h b/drivers/net/wireless/ath/ath11k/hw.h
+index 3003225..34ddd47 100644
+--- a/drivers/net/wireless/ath/ath11k/hw.h
++++ b/drivers/net/wireless/ath/ath11k/hw.h
+@@ -226,7 +226,6 @@ struct ath11k_hw_params {
+ 	u32 tx_ring_size;
+ 	bool smp2p_wow_exit;
+ 	bool support_fw_mac_sequence;
+-	bool support_dual_stations;
+ };
+ 
+ struct ath11k_hw_ops {
+diff --git a/drivers/net/wireless/ath/ath11k/mac.c b/drivers/net/wireless/ath/ath11k/mac.c
+index dedff7c..5e05f5f 100644
+--- a/drivers/net/wireless/ath/ath11k/mac.c
++++ b/drivers/net/wireless/ath/ath11k/mac.c
+@@ -9903,25 +9903,17 @@ static int ath11k_mac_setup_iface_combinations(struct ath11k *ar)
+ 	combinations[0].beacon_int_infra_match = true;
+ 	combinations[0].beacon_int_min_gcd = 100;
+ 
+-	if (ab->hw_params.support_dual_stations) {
+-		limits[0].max = 2;
+-		limits[1].max = 1;
++	limits[0].max = 1;
++	limits[1].max = 16;
+ 
+-		combinations[0].max_interfaces = ab->hw_params.num_vdevs;
+-		combinations[0].num_different_channels = 2;
+-	} else {
+-		limits[0].max = 1;
+-		limits[1].max = 16;
+-
+-		combinations[0].max_interfaces = 16;
+-		combinations[0].num_different_channels = 1;
+-		combinations[0].radar_detect_widths = BIT(NL80211_CHAN_WIDTH_20_NOHT) |
+-							BIT(NL80211_CHAN_WIDTH_20) |
+-							BIT(NL80211_CHAN_WIDTH_40) |
+-							BIT(NL80211_CHAN_WIDTH_80) |
+-							BIT(NL80211_CHAN_WIDTH_80P80) |
+-							BIT(NL80211_CHAN_WIDTH_160);
+-	}
++	combinations[0].max_interfaces = 16;
++	combinations[0].num_different_channels = 1;
++	combinations[0].radar_detect_widths = BIT(NL80211_CHAN_WIDTH_20_NOHT) |
++						BIT(NL80211_CHAN_WIDTH_20) |
++						BIT(NL80211_CHAN_WIDTH_40) |
++						BIT(NL80211_CHAN_WIDTH_80) |
++						BIT(NL80211_CHAN_WIDTH_80P80) |
++						BIT(NL80211_CHAN_WIDTH_160);
+ 
+ 	if (p2p) {
+ 		limits[1].types |= BIT(NL80211_IFTYPE_P2P_CLIENT) |
