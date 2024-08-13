@@ -32,7 +32,7 @@ index fd0111d..6310e07 100644
  			reg = <0x0 0x8ad00000 0x0 0x500000>;
  			no-map;
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index e32c0f5..1cdadeb 100644
+index a820169..b1b7bb1 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
 @@ -3832,6 +3832,144 @@ nsp_noc: interconnect@a0c0000 {
