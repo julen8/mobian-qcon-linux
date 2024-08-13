@@ -40,10 +40,10 @@ index 5d462ae..cd491e4 100644
  	status = "okay";
  };
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index dea101f..20b4e7f 100644
+index b1e0a72..79ac75d 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-@@ -3778,6 +3778,8 @@ venus: video-codec@aa00000 {
+@@ -3779,6 +3779,8 @@ venus: video-codec@aa00000 {
  				 <&apps_smmu 0x2184 0x20>;
  			memory-region = <&video_mem>;
  
@@ -52,7 +52,7 @@ index dea101f..20b4e7f 100644
  			video-decoder {
  				compatible = "venus-decoder";
  			};
-@@ -3786,10 +3788,6 @@ video-encoder {
+@@ -3787,10 +3789,6 @@ video-encoder {
  				compatible = "venus-encoder";
  			};
  
