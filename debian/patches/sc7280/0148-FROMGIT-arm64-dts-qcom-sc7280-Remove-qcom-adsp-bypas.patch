@@ -12,7 +12,7 @@ Signed-off-by: Bjorn Andersson <andersson@kernel.org>
  1 file changed, 1 deletion(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 3591b3c..473d174 100644
+index 25dea9f..e152609 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
 @@ -2514,7 +2514,6 @@ lpass_tlmm: pinctrl@33c0000 {
