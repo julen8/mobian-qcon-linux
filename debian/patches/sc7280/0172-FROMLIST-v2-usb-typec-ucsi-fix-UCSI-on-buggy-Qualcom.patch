@@ -45,7 +45,7 @@ index 2a886e5..ede9876 100644
  
  #define UCSI_MAX_SVID		5
 diff --git a/drivers/usb/typec/ucsi/ucsi_glink.c b/drivers/usb/typec/ucsi/ucsi_glink.c
-index 7625e28..20adfd5 100644
+index 94f2df0..59db3b6 100644
 --- a/drivers/usb/typec/ucsi/ucsi_glink.c
 +++ b/drivers/usb/typec/ucsi/ucsi_glink.c
 @@ -6,6 +6,7 @@
