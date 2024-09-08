@@ -52,7 +52,7 @@ index e6139e8..cbefc20 100644
  
  static struct gdsc *disp_cc_sdm845_gdscs[] = {
 diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-index d90b947..528a18b 100644
+index faa88fd..f3cb61b 100644
 --- a/drivers/gpu/drm/msm/msm_mdss.c
 +++ b/drivers/gpu/drm/msm/msm_mdss.c
 @@ -384,6 +384,8 @@ static int msm_mdss_reset(struct device *dev)

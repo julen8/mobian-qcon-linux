@@ -12,7 +12,7 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  1 file changed, 11 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/clock/qcom,sm6350-camcc.yaml b/Documentation/devicetree/bindings/clock/qcom,sm6350-camcc.yaml
-index fd6658c..a55b04d 100644
+index c03b30f..512d774 100644
 --- a/Documentation/devicetree/bindings/clock/qcom,sm6350-camcc.yaml
 +++ b/Documentation/devicetree/bindings/clock/qcom,sm6350-camcc.yaml
 @@ -23,12 +23,23 @@ properties:
