@@ -1,3 +1,9 @@
+linux-6.11-qcom (6.11~rc6+qcom-1) unstable; urgency=medium
+
+  * Rebase on 6.11-rc6
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Sun, 08 Sep 2024 16:46:09 +0200
+
 linux-6.11-qcom (6.11~rc3+qcom-1) unstable; urgency=medium
 
   * Initial 6.11 release
