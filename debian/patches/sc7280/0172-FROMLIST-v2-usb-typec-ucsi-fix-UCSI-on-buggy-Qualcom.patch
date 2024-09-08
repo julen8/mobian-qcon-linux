@@ -31,7 +31,7 @@ index f6fb557..46fff54 100644
  	command |= UCSI_GET_PDOS_PARTNER_PDO(is_partner);
  	command |= UCSI_GET_PDOS_PDO_OFFSET(offset);
 diff --git a/drivers/usb/typec/ucsi/ucsi.h b/drivers/usb/typec/ucsi/ucsi.h
-index 2a886e5..ede9876 100644
+index 42c60eb..42bd5da 100644
 --- a/drivers/usb/typec/ucsi/ucsi.h
 +++ b/drivers/usb/typec/ucsi/ucsi.h
 @@ -328,6 +328,9 @@ struct ucsi {
