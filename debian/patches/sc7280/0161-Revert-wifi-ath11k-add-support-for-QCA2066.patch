@@ -14,7 +14,7 @@ This reverts commit 5dc9d1a55e953d9059ecbdd8fe6ec81e9edd349e.
  5 files changed, 1 insertion(+), 118 deletions(-)
 
 diff --git a/drivers/net/wireless/ath/ath11k/core.c b/drivers/net/wireless/ath/ath11k/core.c
-index 03187df..8e0dd70 100644
+index ccf4ad3..e719c4a 100644
 --- a/drivers/net/wireless/ath/ath11k/core.c
 +++ b/drivers/net/wireless/ath/ath11k/core.c
 @@ -720,95 +720,6 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
@@ -114,7 +114,7 @@ index 03187df..8e0dd70 100644
  
  static inline struct ath11k_pdev *ath11k_core_get_single_pdev(struct ath11k_base *ab)
 diff --git a/drivers/net/wireless/ath/ath11k/core.h b/drivers/net/wireless/ath/ath11k/core.h
-index df24f0e..3564ad6 100644
+index b655967..2655c6b 100644
 --- a/drivers/net/wireless/ath/ath11k/core.h
 +++ b/drivers/net/wireless/ath/ath11k/core.h
 @@ -147,7 +147,6 @@ enum ath11k_hw_rev {
@@ -126,7 +126,7 @@ index df24f0e..3564ad6 100644
  
  enum ath11k_firmware_mode {
 diff --git a/drivers/net/wireless/ath/ath11k/mhi.c b/drivers/net/wireless/ath/ath11k/mhi.c
-index ab18269..e61b3c0 100644
+index 6974a55..33a07f7 100644
 --- a/drivers/net/wireless/ath/ath11k/mhi.c
 +++ b/drivers/net/wireless/ath/ath11k/mhi.c
 @@ -397,7 +397,6 @@ int ath11k_mhi_register(struct ath11k_pci *ab_pci)
@@ -138,7 +138,7 @@ index ab18269..e61b3c0 100644
  		break;
  	default:
 diff --git a/drivers/net/wireless/ath/ath11k/pci.c b/drivers/net/wireless/ath/ath11k/pci.c
-index 8d63b84..c6e63be 100644
+index be9d2c6..022d695 100644
 --- a/drivers/net/wireless/ath/ath11k/pci.c
 +++ b/drivers/net/wireless/ath/ath11k/pci.c
 @@ -29,8 +29,6 @@
