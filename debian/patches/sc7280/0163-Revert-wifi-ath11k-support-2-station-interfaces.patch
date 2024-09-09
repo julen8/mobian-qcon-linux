@@ -15,7 +15,7 @@ This reverts commit f019f4dff2e4cb8704dc608496e3f2829de3e919.
  4 files changed, 14 insertions(+), 31 deletions(-)
 
 diff --git a/drivers/net/wireless/ath/ath11k/core.c b/drivers/net/wireless/ath/ath11k/core.c
-index 8e0dd70..a2cabce 100644
+index e719c4a..dd02fdc 100644
 --- a/drivers/net/wireless/ath/ath11k/core.c
 +++ b/drivers/net/wireless/ath/ath11k/core.c
 @@ -122,7 +122,6 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
@@ -135,10 +135,10 @@ index 3003225..34ddd47 100644
  
  struct ath11k_hw_ops {
 diff --git a/drivers/net/wireless/ath/ath11k/mac.c b/drivers/net/wireless/ath/ath11k/mac.c
-index dedff7c..5e05f5f 100644
+index 1c0f488..0c715d7 100644
 --- a/drivers/net/wireless/ath/ath11k/mac.c
 +++ b/drivers/net/wireless/ath/ath11k/mac.c
-@@ -9903,25 +9903,17 @@ static int ath11k_mac_setup_iface_combinations(struct ath11k *ar)
+@@ -9904,25 +9904,17 @@ static int ath11k_mac_setup_iface_combinations(struct ath11k *ar)
  	combinations[0].beacon_int_infra_match = true;
  	combinations[0].beacon_int_min_gcd = 100;
  
