@@ -8,10 +8,10 @@ Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
  1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 02b6960..77ea252 100644
+index 47355c4..a2e221e 100644
 --- a/drivers/misc/fastrpc.c
 +++ b/drivers/misc/fastrpc.c
-@@ -2313,13 +2313,16 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+@@ -2312,13 +2312,16 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
  
  	rmem_node = of_parse_phandle(rdev->of_node, "memory-region", 0);
  	if (domain_id == SDSP_DOMAIN_ID && rmem_node) {
