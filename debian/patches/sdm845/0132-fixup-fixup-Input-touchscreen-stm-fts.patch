@@ -1,0 +1,19 @@
+From: Caleb Connolly <caleb@postmarketos.org>
+Date: Sun, 18 Aug 2024 22:21:14 +0200
+Subject: fixup! fixup! Input - touchscreen: stm-fts
+
+---
+ drivers/input/touchscreen/Kconfig | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
+index 4a5a749..5ef49168 100644
+--- a/drivers/input/touchscreen/Kconfig
++++ b/drivers/input/touchscreen/Kconfig
+@@ -1431,4 +1431,6 @@ config TOUCHSCREEN_HIMAX_HX83112B
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called himax_hx83112b.
+ 
++source "drivers/input/touchscreen/stm/Kconfig"
++
+ endif
