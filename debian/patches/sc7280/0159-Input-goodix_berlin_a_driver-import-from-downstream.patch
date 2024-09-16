@@ -34,25 +34,26 @@ Subject: Input - goodix_berlin_a_driver: import from downstream
  create mode 100644 drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_utils.c
 
 diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
-index f8b09a3..9812362 100644
+index b93fb65..a1723d9 100644
 --- a/drivers/input/touchscreen/Kconfig
 +++ b/drivers/input/touchscreen/Kconfig
-@@ -1442,4 +1442,6 @@ config TOUCHSCREEN_HIMAX_CHIPSET
- 
+@@ -1444,4 +1444,6 @@ config TOUCHSCREEN_HIMAX_CHIPSET
  source "drivers/input/touchscreen/hxchipset/Kconfig"
+ source "drivers/input/touchscreen/stm/Kconfig"
  
 +source "drivers/input/touchscreen/goodix_berlin_a_driver/Kconfig"
 +
  endif
 diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
-index 271cbd6..335641f 100644
+index 546dc65..77296a5 100644
 --- a/drivers/input/touchscreen/Makefile
 +++ b/drivers/input/touchscreen/Makefile
-@@ -122,3 +122,4 @@ obj-$(CONFIG_TOUCHSCREEN_IQS7211)	+= iqs7211.o
+@@ -122,4 +122,5 @@ obj-$(CONFIG_TOUCHSCREEN_IQS7211)	+= iqs7211.o
  obj-$(CONFIG_TOUCHSCREEN_ZINITIX)	+= zinitix.o
  obj-$(CONFIG_TOUCHSCREEN_HIMAX_HX83112B)	+= himax_hx83112b.o
  obj-$(CONFIG_TOUCHSCREEN_HIMAX_CHIPSET)	+= hxchipset/
 +obj-$(CONFIG_TOUCHSCREEN_GOODIX_BRL) += goodix_berlin_a_driver/
+ obj-$(CONFIG_TOUCHSCREEN_STM_FTS_DOWNSTREAM)		+= stm/
 diff --git a/drivers/input/touchscreen/goodix_berlin_a_driver/Kconfig b/drivers/input/touchscreen/goodix_berlin_a_driver/Kconfig
 new file mode 100644
 index 00000000..396268b
