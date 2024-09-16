@@ -3,7 +3,7 @@ Date: Thu, 21 Oct 2021 15:12:42 +0200
 Subject: Input - hxchipset: import touchscreen driver from downstream
 
 ---
- drivers/input/touchscreen/Kconfig                  |   12 +
+ drivers/input/touchscreen/Kconfig                  |   11 +
  drivers/input/touchscreen/Makefile                 |    1 +
  drivers/input/touchscreen/hxchipset/Kconfig        |  117 +
  drivers/input/touchscreen/hxchipset/Makefile       |  166 +
@@ -21,7 +21,7 @@ Subject: Input - hxchipset: import touchscreen driver from downstream
  .../touchscreen/hxchipset/himax_modular_table.h    |  156 +
  .../input/touchscreen/hxchipset/himax_platform.c   | 1209 +++++
  .../input/touchscreen/hxchipset/himax_platform.h   |  149 +
- 18 files changed, 18746 insertions(+)
+ 18 files changed, 18745 insertions(+)
  create mode 100644 drivers/input/touchscreen/hxchipset/Kconfig
  create mode 100644 drivers/input/touchscreen/hxchipset/Makefile
  create mode 100644 drivers/input/touchscreen/hxchipset/himax_common.c
@@ -40,10 +40,10 @@ Subject: Input - hxchipset: import touchscreen driver from downstream
  create mode 100644 drivers/input/touchscreen/hxchipset/himax_platform.h
 
 diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
-index c821fe3..f8b09a3 100644
+index 5ef49168..b93fb65 100644
 --- a/drivers/input/touchscreen/Kconfig
 +++ b/drivers/input/touchscreen/Kconfig
-@@ -1430,4 +1430,16 @@ config TOUCHSCREEN_HIMAX_HX83112B
+@@ -1431,6 +1431,17 @@ config TOUCHSCREEN_HIMAX_HX83112B
  	  To compile this driver as a module, choose M here: the
  	  module will be called himax_hx83112b.
  
@@ -58,17 +58,19 @@ index c821fe3..f8b09a3 100644
 +	  If unsure, say N.
 +
 +source "drivers/input/touchscreen/hxchipset/Kconfig"
-+
+ source "drivers/input/touchscreen/stm/Kconfig"
+ 
  endif
 diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
-index a81cb5a..271cbd6 100644
+index d3f4ee4..546dc65 100644
 --- a/drivers/input/touchscreen/Makefile
 +++ b/drivers/input/touchscreen/Makefile
-@@ -121,3 +121,4 @@ obj-$(CONFIG_TOUCHSCREEN_IQS5XX)	+= iqs5xx.o
+@@ -121,4 +121,5 @@ obj-$(CONFIG_TOUCHSCREEN_IQS5XX)	+= iqs5xx.o
  obj-$(CONFIG_TOUCHSCREEN_IQS7211)	+= iqs7211.o
  obj-$(CONFIG_TOUCHSCREEN_ZINITIX)	+= zinitix.o
  obj-$(CONFIG_TOUCHSCREEN_HIMAX_HX83112B)	+= himax_hx83112b.o
 +obj-$(CONFIG_TOUCHSCREEN_HIMAX_CHIPSET)	+= hxchipset/
+ obj-$(CONFIG_TOUCHSCREEN_STM_FTS_DOWNSTREAM)		+= stm/
 diff --git a/drivers/input/touchscreen/hxchipset/Kconfig b/drivers/input/touchscreen/hxchipset/Kconfig
 new file mode 100644
 index 00000000..9e5b047
