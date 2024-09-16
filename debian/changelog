@@ -1,3 +1,15 @@
+linux-6.11-qcom (6.11+qcom-1) unstable; urgency=medium
+
+  * d/patches: enable sargo/bonito drivers.
+    Those are currenty missing from our tree, but having those enabled in
+    the defconfig is a first step towards supporting those devices.
+    At the same time, ensure GPU/panels drivers (as well as DISPCC clocks)
+    are built as modules as this seems to improve display reliability.
+  * d/patches: import recent patches from sdm845-mainline
+  * Rebase on 6.11
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Mon, 16 Sep 2024 11:06:22 +0200
+
 linux-6.11-qcom (6.11~rc7+qcom-1) unstable; urgency=medium
 
   * Rebase on 6.11-rc7
