@@ -25,7 +25,7 @@ index 6b05983..825bf7d 100644
  
  #endif /* __DT_BINDINGS_Q6_VOICE_H__ */
 diff --git a/sound/soc/qcom/qdsp6/q6mvm.c b/sound/soc/qcom/qdsp6/q6mvm.c
-index 361d36fb..9c29aba 100644
+index 361d36f..9c29aba 100644
 --- a/sound/soc/qcom/qdsp6/q6mvm.c
 +++ b/sound/soc/qcom/qdsp6/q6mvm.c
 @@ -51,6 +51,8 @@ static inline const char *q6mvm_session_name(enum q6voice_path_type path)
