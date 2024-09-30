@@ -7,7 +7,7 @@ Subject: fixup! fixup! Input - touchscreen: stm-fts
  1 file changed, 2 insertions(+)
 
 diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
-index 4a5a749..5ef49168 100644
+index 4a5a749..5ef4916 100644
 --- a/drivers/input/touchscreen/Kconfig
 +++ b/drivers/input/touchscreen/Kconfig
 @@ -1431,4 +1431,6 @@ config TOUCHSCREEN_HIMAX_HX83112B
