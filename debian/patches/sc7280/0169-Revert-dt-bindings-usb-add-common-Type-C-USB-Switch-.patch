@@ -149,7 +149,7 @@ index 589914d..c0201da 100644
  
  examples:
 diff --git a/Documentation/devicetree/bindings/usb/qcom,wcd939x-usbss.yaml b/Documentation/devicetree/bindings/usb/qcom,wcd939x-usbss.yaml
-index 9634672..7ddfd33 100644
+index 9634672..7ddfd331 100644
 --- a/Documentation/devicetree/bindings/usb/qcom,wcd939x-usbss.yaml
 +++ b/Documentation/devicetree/bindings/usb/qcom,wcd939x-usbss.yaml
 @@ -35,8 +35,13 @@ properties:
@@ -180,7 +180,7 @@ index 9634672..7ddfd33 100644
  examples:
 diff --git a/Documentation/devicetree/bindings/usb/usb-switch.yaml b/Documentation/devicetree/bindings/usb/usb-switch.yaml
 deleted file mode 100644
-index da76118..0000000
+index da76118..00000000
 --- a/Documentation/devicetree/bindings/usb/usb-switch.yaml
 +++ /dev/null
 @@ -1,67 +0,0 @@
