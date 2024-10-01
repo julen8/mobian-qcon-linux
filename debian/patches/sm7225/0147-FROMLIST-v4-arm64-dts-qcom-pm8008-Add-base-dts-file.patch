@@ -12,7 +12,7 @@ Signed-off-by: Satya Priya <quic_c_skakit@quicinc.com>
 
 diff --git a/arch/arm64/boot/dts/qcom/pm8008.dtsi b/arch/arm64/boot/dts/qcom/pm8008.dtsi
 new file mode 100644
-index 0000000..e23478c
+index 00000000..e23478c
 --- /dev/null
 +++ b/arch/arm64/boot/dts/qcom/pm8008.dtsi
 @@ -0,0 +1,57 @@
