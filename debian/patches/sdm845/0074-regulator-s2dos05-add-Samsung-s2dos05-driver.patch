@@ -68,7 +68,7 @@ index a61fa42..712eb27 100644
  obj-$(CONFIG_REGULATOR_S5M8767) += s5m8767.o
 diff --git a/drivers/regulator/s2dos05.c b/drivers/regulator/s2dos05.c
 new file mode 100644
-index 0000000..05e1caa
+index 00000000..05e1caa
 --- /dev/null
 +++ b/drivers/regulator/s2dos05.c
 @@ -0,0 +1,594 @@
@@ -668,7 +668,7 @@ index 0000000..05e1caa
 +MODULE_LICENSE("GPL");
 diff --git a/include/linux/regulator/s2dos05.h b/include/linux/regulator/s2dos05.h
 new file mode 100644
-index 0000000..e33e862
+index 00000000..e33e862
 --- /dev/null
 +++ b/include/linux/regulator/s2dos05.h
 @@ -0,0 +1,173 @@
