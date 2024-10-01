@@ -11,7 +11,7 @@ Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Documentation/devicetree/bindings/leds/qcom,spmi-flash-led.yaml b/Documentation/devicetree/bindings/leds/qcom,spmi-flash-led.yaml
-index 1ba6076..7868569 100644
+index 1ba6076..7868569a 100644
 --- a/Documentation/devicetree/bindings/leds/qcom,spmi-flash-led.yaml
 +++ b/Documentation/devicetree/bindings/leds/qcom,spmi-flash-led.yaml
 @@ -23,11 +23,11 @@ properties:
