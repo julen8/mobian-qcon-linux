@@ -1,0 +1,44 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 30 Jun 2023 12:20:58 +0200
+Subject: arm64: dts: qcom: qcm6490-fairphone-fp5: Add touchscreen
+ (downstream)
+
+---
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 24 ++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+index 8b1dbdc..5f2b6ab 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+@@ -938,6 +938,30 @@ &spi13 {
+ 	status = "okay";
+ 
+ 	/* Goodix touchscreen @ 0 */
++	goodix-berlin@0 {
++		compatible = "goodix,brl-a";
++		reg = <0>;
++		spi-max-frequency = <1000000>;
++
++		goodix,avdd-name = "avdd"; //3.0v
++		avdd-supply = <&vreg_l3c>;
++		goodix,iovdd-name = "iovdd"; //1.8v
++		iovdd-supply = <&vreg_l2c>;
++
++		goodix,irq-gpio = <&tlmm 81 0x0>;
++		goodix,irq-flags = <1>; // 1:trigger rising, 2:trigger falling;
++		goodix,reset-gpio = <&tlmm 105 0x0>;
++
++		goodix,panel-max-x = <1224>;
++		goodix,panel-max-y = <2700>;
++		goodix,panel-max-w = <255>;
++
++		//panel = <&rm692e5_boe_amoled_cmd>;
++
++		goodix.sleep-enable; // enter sleep mode
++		goodix,firmware-name = "GT9897_05.01.FF.17_4D6C5476.bin";
++		goodix,config-name = "goodix_cfg_group_V14.bin";
++	};
+ };
+ 
+ &tlmm {
