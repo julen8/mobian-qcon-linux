@@ -11,8 +11,8 @@ This reverts commit f019f4dff2e4cb8704dc608496e3f2829de3e919.
  drivers/net/wireless/ath/ath11k/core.c | 14 +++-----------
  drivers/net/wireless/ath/ath11k/hw.c   |  2 +-
  drivers/net/wireless/ath/ath11k/hw.h   |  1 -
- drivers/net/wireless/ath/ath11k/mac.c  | 30 +++++++++++-------------------
- 4 files changed, 15 insertions(+), 32 deletions(-)
+ drivers/net/wireless/ath/ath11k/mac.c  | 28 ++++++++++------------------
+ 4 files changed, 14 insertions(+), 31 deletions(-)
 
 diff --git a/drivers/net/wireless/ath/ath11k/core.c b/drivers/net/wireless/ath/ath11k/core.c
 index e719c4a..dd02fdc 100644
@@ -145,7 +145,9 @@ index 1c0f488..0c715d7 100644
 -	if (ab->hw_params.support_dual_stations) {
 -		limits[0].max = 2;
 -		limits[1].max = 1;
--
++	limits[0].max = 1;
++	limits[1].max = 16;
+ 
 -		combinations[0].max_interfaces = ab->hw_params.num_vdevs;
 -		combinations[0].num_different_channels = 2;
 -	} else {
@@ -161,9 +163,6 @@ index 1c0f488..0c715d7 100644
 -							BIT(NL80211_CHAN_WIDTH_80P80) |
 -							BIT(NL80211_CHAN_WIDTH_160);
 -	}
-+	limits[0].max = 1;
-+	limits[1].max = 16;
-+
 +	combinations[0].max_interfaces = 16;
 +	combinations[0].num_different_channels = 1;
 +	combinations[0].radar_detect_widths = BIT(NL80211_CHAN_WIDTH_20_NOHT) |

@@ -58,7 +58,7 @@ Needed for Android 13
 
 diff --git a/arch/arm64/configs/fp4-aosp_defconfig b/arch/arm64/configs/fp4-aosp_defconfig
 new file mode 100644
-index 0000000..63375af
+index 00000000..63375af
 --- /dev/null
 +++ b/arch/arm64/configs/fp4-aosp_defconfig
 @@ -0,0 +1,553 @@
