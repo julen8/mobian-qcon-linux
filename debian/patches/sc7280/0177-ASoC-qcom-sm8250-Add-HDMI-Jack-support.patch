@@ -1,0 +1,34 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 24 Nov 2023 14:13:31 +0100
+Subject: ASoC: qcom: sm8250: Add HDMI Jack support
+
+Use the new support in the common function to set up HDMI Jack support
+for SM8250.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ sound/soc/qcom/sm8250.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/qcom/sm8250.c b/sound/soc/qcom/sm8250.c
+index 274bab28..81259fa 100644
+--- a/sound/soc/qcom/sm8250.c
++++ b/sound/soc/qcom/sm8250.c
+@@ -23,13 +23,16 @@ struct sm8250_snd_data {
+ 	struct sdw_stream_runtime *sruntime[AFE_PORT_MAX];
+ 	struct snd_soc_jack jack;
+ 	bool jack_setup;
++	struct snd_soc_jack hdmi_jack;
++	bool hdmi_jack_setup;
+ };
+ 
+ static int sm8250_snd_init(struct snd_soc_pcm_runtime *rtd)
+ {
+ 	struct sm8250_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
+ 
+-	return qcom_snd_wcd_jack_setup(rtd, &data->jack, &data->jack_setup);
++	return qcom_snd_wcd_jack_setup(rtd, &data->jack, &data->jack_setup,
++				       &data->hdmi_jack, &data->hdmi_jack_setup);
+ }
+ 
+ static int sm8250_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
