@@ -56,7 +56,7 @@ index 546dc65..77296a5 100644
  obj-$(CONFIG_TOUCHSCREEN_STM_FTS_DOWNSTREAM)		+= stm/
 diff --git a/drivers/input/touchscreen/goodix_berlin_a_driver/Kconfig b/drivers/input/touchscreen/goodix_berlin_a_driver/Kconfig
 new file mode 100644
-index 0000000..396268b
+index 00000000..396268b
 --- /dev/null
 +++ b/drivers/input/touchscreen/goodix_berlin_a_driver/Kconfig
 @@ -0,0 +1,20 @@
@@ -82,7 +82,7 @@ index 0000000..396268b
 +endif
 diff --git a/drivers/input/touchscreen/goodix_berlin_a_driver/Makefile b/drivers/input/touchscreen/goodix_berlin_a_driver/Makefile
 new file mode 100644
-index 0000000..903a1cc
+index 00000000..903a1cc
 --- /dev/null
 +++ b/drivers/input/touchscreen/goodix_berlin_a_driver/Makefile
 @@ -0,0 +1,12 @@
@@ -100,7 +100,7 @@ index 0000000..903a1cc
 +				goodix_ts_tools.o
 diff --git a/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_brl_fwupdate.c b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_brl_fwupdate.c
 new file mode 100644
-index 0000000..52abae0
+index 00000000..52abae0
 --- /dev/null
 +++ b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_brl_fwupdate.c
 @@ -0,0 +1,1364 @@
@@ -1470,7 +1470,7 @@ index 0000000..52abae0
 +}
 diff --git a/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_brl_hw.c b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_brl_hw.c
 new file mode 100644
-index 0000000..cbc8f82
+index 00000000..cbc8f82
 --- /dev/null
 +++ b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_brl_hw.c
 @@ -0,0 +1,1716 @@
@@ -3192,7 +3192,7 @@ index 0000000..cbc8f82
 +}
 diff --git a/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_brl_i2c.c b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_brl_i2c.c
 new file mode 100644
-index 0000000..c88afc2
+index 00000000..c88afc2
 --- /dev/null
 +++ b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_brl_i2c.c
 @@ -0,0 +1,264 @@
@@ -3462,7 +3462,7 @@ index 0000000..c88afc2
 +}
 diff --git a/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_brl_spi.c b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_brl_spi.c
 new file mode 100644
-index 0000000..f1a365c
+index 00000000..f1a365c
 --- /dev/null
 +++ b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_brl_spi.c
 @@ -0,0 +1,298 @@
@@ -3766,7 +3766,7 @@ index 0000000..f1a365c
 +}
 diff --git a/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_cfg_bin.c b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_cfg_bin.c
 new file mode 100644
-index 0000000..0e599f1
+index 00000000..0e599f1
 --- /dev/null
 +++ b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_cfg_bin.c
 @@ -0,0 +1,357 @@
@@ -4129,7 +4129,7 @@ index 0000000..0e599f1
 +
 diff --git a/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_core.c b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_core.c
 new file mode 100644
-index 0000000..0a1fafc
+index 00000000..0a1fafc
 --- /dev/null
 +++ b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_core.c
 @@ -0,0 +1,2545 @@
@@ -6680,7 +6680,7 @@ index 0000000..0a1fafc
 +MODULE_LICENSE("GPL v2");
 diff --git a/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_core.h b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_core.h
 new file mode 100644
-index 0000000..7af4bd9
+index 00000000..7af4bd9
 --- /dev/null
 +++ b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_core.h
 @@ -0,0 +1,850 @@
@@ -7536,7 +7536,7 @@ index 0000000..7af4bd9
 +#endif
 diff --git a/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_gesture.c b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_gesture.c
 new file mode 100644
-index 0000000..77fcbd7
+index 00000000..77fcbd7
 --- /dev/null
 +++ b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_gesture.c
 @@ -0,0 +1,454 @@
@@ -7996,7 +7996,7 @@ index 0000000..77fcbd7
 +}
 diff --git a/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_inspect.c b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_inspect.c
 new file mode 100644
-index 0000000..67eff2a
+index 00000000..67eff2a
 --- /dev/null
 +++ b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_inspect.c
 @@ -0,0 +1,2954 @@
@@ -10956,7 +10956,7 @@ index 0000000..67eff2a
 +}
 diff --git a/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_tools.c b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_tools.c
 new file mode 100644
-index 0000000..9a69fee
+index 00000000..9a69fee
 --- /dev/null
 +++ b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_tools.c
 @@ -0,0 +1,503 @@
@@ -11465,7 +11465,7 @@ index 0000000..9a69fee
 +}
 diff --git a/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_utils.c b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_utils.c
 new file mode 100644
-index 0000000..d083c57
+index 00000000..d083c57
 --- /dev/null
 +++ b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_utils.c
 @@ -0,0 +1,278 @@
