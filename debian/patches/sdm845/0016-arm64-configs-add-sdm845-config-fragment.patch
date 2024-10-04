@@ -79,7 +79,7 @@ Signed-off-by: Dzmitry Sankouski <dsankouski@gmail.com>
 
 diff --git a/arch/arm64/configs/sdm845.config b/arch/arm64/configs/sdm845.config
 new file mode 100644
-index 00000000..cab9154
+index 0000000..cab9154
 --- /dev/null
 +++ b/arch/arm64/configs/sdm845.config
 @@ -0,0 +1,1019 @@

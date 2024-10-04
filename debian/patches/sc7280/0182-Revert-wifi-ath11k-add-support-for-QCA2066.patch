@@ -114,7 +114,7 @@ index ccf4ad3..e719c4a 100644
  
  static inline struct ath11k_pdev *ath11k_core_get_single_pdev(struct ath11k_base *ab)
 diff --git a/drivers/net/wireless/ath/ath11k/core.h b/drivers/net/wireless/ath/ath11k/core.h
-index b655967..2655c6b 100644
+index 76faa55..8a7dacc 100644
 --- a/drivers/net/wireless/ath/ath11k/core.h
 +++ b/drivers/net/wireless/ath/ath11k/core.h
 @@ -147,7 +147,6 @@ enum ath11k_hw_rev {
