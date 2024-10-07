@@ -9,7 +9,7 @@ Probably need to add dt-bindings before sending upstream.
  1 file changed, 48 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/input/touchscreen/novatek-nvt-ts.c b/drivers/input/touchscreen/novatek-nvt-ts.c
-index 1a797e4..8baedae 100644
+index 0afee41..fb0f88a 100644
 --- a/drivers/input/touchscreen/novatek-nvt-ts.c
 +++ b/drivers/input/touchscreen/novatek-nvt-ts.c
 @@ -31,9 +31,6 @@
