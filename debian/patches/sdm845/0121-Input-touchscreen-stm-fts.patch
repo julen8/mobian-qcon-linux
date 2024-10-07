@@ -3399,7 +3399,7 @@ index 00000000..dac08a2
 +EXPORT_SYMBOL(fts_production_init);
 diff --git a/drivers/input/touchscreen/stm/ftm4_ts.c b/drivers/input/touchscreen/stm/ftm4_ts.c
 new file mode 100644
-index 00000000..2d7f244
+index 00000000..a0c982c
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/ftm4_ts.c
 @@ -0,0 +1,2277 @@
