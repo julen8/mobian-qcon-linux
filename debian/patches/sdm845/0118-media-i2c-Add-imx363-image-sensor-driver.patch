@@ -32,7 +32,7 @@ index 8ba096b..28740b3 100644
  	tristate "Sony IMX412 sensor support"
  	depends on OF_GPIO
 diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index fbb988b..02c41db 100644
+index fbb988bd..02c41db 100644
 --- a/drivers/media/i2c/Makefile
 +++ b/drivers/media/i2c/Makefile
 @@ -57,6 +57,7 @@ obj-$(CONFIG_VIDEO_IMX319) += imx319.o
@@ -45,7 +45,7 @@ index fbb988b..02c41db 100644
  obj-$(CONFIG_VIDEO_IR_I2C) += ir-kbd-i2c.o
 diff --git a/drivers/media/i2c/imx363.c b/drivers/media/i2c/imx363.c
 new file mode 100644
-index 0000000..f6319f1
+index 00000000..f6319f1
 --- /dev/null
 +++ b/drivers/media/i2c/imx363.c
 @@ -0,0 +1,1514 @@
