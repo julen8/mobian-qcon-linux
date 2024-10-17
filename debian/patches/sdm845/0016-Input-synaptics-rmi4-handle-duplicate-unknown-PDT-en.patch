@@ -20,7 +20,7 @@ Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
  2 files changed, 47 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/input/rmi4/rmi_driver.c b/drivers/input/rmi4/rmi_driver.c
-index aa32371..69ff3e1 100644
+index ef9ea29..aa69227 100644
 --- a/drivers/input/rmi4/rmi_driver.c
 +++ b/drivers/input/rmi4/rmi_driver.c
 @@ -493,12 +493,44 @@ static void rmi_driver_copy_pdt_to_fd(const struct pdt_entry *pdt,
