@@ -42,8 +42,8 @@ Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
  drivers/input/touchscreen/stm/fts_limits.h         | 1064 ++++
  drivers/input/touchscreen/stm/fts_proc.c           | 3485 +++++++++++
  drivers/input/touchscreen/stm/i2c_fts.h            |   89 +
- drivers/input/touchscreen/stmfts.c                 |   83 +-
- 37 files changed, 35871 insertions(+), 27 deletions(-)
+ drivers/input/touchscreen/stmfts.c                 |   85 +-
+ 37 files changed, 35872 insertions(+), 28 deletions(-)
  create mode 100644 drivers/input/touchscreen/stm/Kconfig
  create mode 100644 drivers/input/touchscreen/stm/Makefile
  create mode 100644 drivers/input/touchscreen/stm/ftm4_fwu.c
@@ -109,7 +109,7 @@ index a81cb5a..d3f4ee4 100644
 +obj-$(CONFIG_TOUCHSCREEN_STM_FTS_DOWNSTREAM)		+= stm/
 diff --git a/drivers/input/touchscreen/stm/Kconfig b/drivers/input/touchscreen/stm/Kconfig
 new file mode 100644
-index 00000000..db6eaed
+index 0000000..db6eaed
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/Kconfig
 @@ -0,0 +1,30 @@
@@ -145,7 +145,7 @@ index 00000000..db6eaed
 +	  only be enabled for debugging and not for shipping code.
 diff --git a/drivers/input/touchscreen/stm/Makefile b/drivers/input/touchscreen/stm/Makefile
 new file mode 100644
-index 00000000..31ecf6e
+index 0000000..31ecf6e
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/Makefile
 @@ -0,0 +1,11 @@
@@ -162,7 +162,7 @@ index 00000000..31ecf6e
 +ftm4-objs			+= ftm4_ts.o ftm4_fwu.o ftm4_pdc.o
 diff --git a/drivers/input/touchscreen/stm/ftm4_fwu.c b/drivers/input/touchscreen/stm/ftm4_fwu.c
 new file mode 100644
-index 00000000..5125077
+index 0000000..5125077
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/ftm4_fwu.c
 @@ -0,0 +1,960 @@
@@ -1128,7 +1128,7 @@ index 00000000..5125077
 +EXPORT_SYMBOL(fts_fw_verify_update);
 diff --git a/drivers/input/touchscreen/stm/ftm4_pdc.c b/drivers/input/touchscreen/stm/ftm4_pdc.c
 new file mode 100644
-index 00000000..dac08a2
+index 0000000..dac08a2
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/ftm4_pdc.c
 @@ -0,0 +1,2265 @@
@@ -3399,7 +3399,7 @@ index 00000000..dac08a2
 +EXPORT_SYMBOL(fts_production_init);
 diff --git a/drivers/input/touchscreen/stm/ftm4_ts.c b/drivers/input/touchscreen/stm/ftm4_ts.c
 new file mode 100644
-index 00000000..2d7f244
+index 0000000..2d7f244
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/ftm4_ts.c
 @@ -0,0 +1,2277 @@
@@ -5682,7 +5682,7 @@ index 00000000..2d7f244
 +module_exit(fts_driver_exit);
 diff --git a/drivers/input/touchscreen/stm/ftm4_ts.h b/drivers/input/touchscreen/stm/ftm4_ts.h
 new file mode 100644
-index 00000000..90b7d08
+index 0000000..90b7d08
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/ftm4_ts.h
 @@ -0,0 +1,571 @@
@@ -6259,7 +6259,7 @@ index 00000000..90b7d08
 +#endif /* _LINUX_FTM4_TS_H_ */
 diff --git a/drivers/input/touchscreen/stm/fts.c b/drivers/input/touchscreen/stm/fts.c
 new file mode 100644
-index 00000000..ed33835
+index 0000000..ed33835
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts.c
 @@ -0,0 +1,4789 @@
@@ -11054,7 +11054,7 @@ index 00000000..ed33835
 +//module_exit(fts_driver_exit);
 diff --git a/drivers/input/touchscreen/stm/fts.h b/drivers/input/touchscreen/stm/fts.h
 new file mode 100644
-index 00000000..ca434c1
+index 0000000..ca434c1
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts.h
 @@ -0,0 +1,429 @@
@@ -11489,7 +11489,7 @@ index 00000000..ca434c1
 +#endif
 diff --git a/drivers/input/touchscreen/stm/fts_fw.h b/drivers/input/touchscreen/stm/fts_fw.h
 new file mode 100644
-index 00000000..b1d7c8d
+index 0000000..b1d7c8d
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_fw.h
 @@ -0,0 +1,6146 @@
@@ -17641,7 +17641,7 @@ index 00000000..b1d7c8d
 +#endif
 diff --git a/drivers/input/touchscreen/stm/fts_lib/ftsCompensation.c b/drivers/input/touchscreen/stm/fts_lib/ftsCompensation.c
 new file mode 100644
-index 00000000..53ce7d0
+index 0000000..53ce7d0
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_lib/ftsCompensation.c
 @@ -0,0 +1,953 @@
@@ -18600,7 +18600,7 @@ index 00000000..53ce7d0
 +}
 diff --git a/drivers/input/touchscreen/stm/fts_lib/ftsCompensation.h b/drivers/input/touchscreen/stm/fts_lib/ftsCompensation.h
 new file mode 100644
-index 00000000..34f4c97
+index 0000000..34f4c97
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_lib/ftsCompensation.h
 @@ -0,0 +1,165 @@
@@ -18771,7 +18771,7 @@ index 00000000..34f4c97
 +#endif
 diff --git a/drivers/input/touchscreen/stm/fts_lib/ftsCore.c b/drivers/input/touchscreen/stm/fts_lib/ftsCore.c
 new file mode 100644
-index 00000000..0bd7576
+index 0000000..0bd7576
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_lib/ftsCore.c
 @@ -0,0 +1,1181 @@
@@ -19958,7 +19958,7 @@ index 00000000..0bd7576
 +}
 diff --git a/drivers/input/touchscreen/stm/fts_lib/ftsCore.h b/drivers/input/touchscreen/stm/fts_lib/ftsCore.h
 new file mode 100644
-index 00000000..ea7608c
+index 0000000..ea7608c
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_lib/ftsCore.h
 @@ -0,0 +1,207 @@
@@ -20171,7 +20171,7 @@ index 00000000..ea7608c
 +#endif	/* FTS_CORE_H */
 diff --git a/drivers/input/touchscreen/stm/fts_lib/ftsError.c b/drivers/input/touchscreen/stm/fts_lib/ftsError.c
 new file mode 100644
-index 00000000..2ae4337
+index 0000000..2ae4337
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_lib/ftsError.c
 @@ -0,0 +1,349 @@
@@ -20526,7 +20526,7 @@ index 00000000..2ae4337
 +}
 diff --git a/drivers/input/touchscreen/stm/fts_lib/ftsError.h b/drivers/input/touchscreen/stm/fts_lib/ftsError.h
 new file mode 100644
-index 00000000..f12d9ee
+index 0000000..f12d9ee
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_lib/ftsError.h
 @@ -0,0 +1,231 @@
@@ -20763,7 +20763,7 @@ index 00000000..f12d9ee
 +#endif
 diff --git a/drivers/input/touchscreen/stm/fts_lib/ftsFlash.c b/drivers/input/touchscreen/stm/fts_lib/ftsFlash.c
 new file mode 100644
-index 00000000..1cafa1d
+index 0000000..1cafa1d
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_lib/ftsFlash.c
 @@ -0,0 +1,991 @@
@@ -21760,7 +21760,7 @@ index 00000000..1cafa1d
 +}
 diff --git a/drivers/input/touchscreen/stm/fts_lib/ftsFlash.h b/drivers/input/touchscreen/stm/fts_lib/ftsFlash.h
 new file mode 100644
-index 00000000..708c8ba
+index 0000000..708c8ba
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_lib/ftsFlash.h
 @@ -0,0 +1,115 @@
@@ -21881,7 +21881,7 @@ index 00000000..708c8ba
 +/** @}*/
 diff --git a/drivers/input/touchscreen/stm/fts_lib/ftsFrame.c b/drivers/input/touchscreen/stm/fts_lib/ftsFrame.c
 new file mode 100644
-index 00000000..1ca5789
+index 0000000..1ca5789
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_lib/ftsFrame.c
 @@ -0,0 +1,620 @@
@@ -22507,7 +22507,7 @@ index 00000000..1ca5789
 +}
 diff --git a/drivers/input/touchscreen/stm/fts_lib/ftsFrame.h b/drivers/input/touchscreen/stm/fts_lib/ftsFrame.h
 new file mode 100644
-index 00000000..bdd5125
+index 0000000..bdd5125
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_lib/ftsFrame.h
 @@ -0,0 +1,113 @@
@@ -22626,7 +22626,7 @@ index 00000000..bdd5125
 +#endif
 diff --git a/drivers/input/touchscreen/stm/fts_lib/ftsGesture.c b/drivers/input/touchscreen/stm/fts_lib/ftsGesture.c
 new file mode 100644
-index 00000000..904c2ef
+index 0000000..904c2ef
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_lib/ftsGesture.c
 @@ -0,0 +1,376 @@
@@ -23008,7 +23008,7 @@ index 00000000..904c2ef
 +}
 diff --git a/drivers/input/touchscreen/stm/fts_lib/ftsGesture.h b/drivers/input/touchscreen/stm/fts_lib/ftsGesture.h
 new file mode 100644
-index 00000000..cb59737
+index 0000000..cb59737
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_lib/ftsGesture.h
 @@ -0,0 +1,47 @@
@@ -23061,7 +23061,7 @@ index 00000000..cb59737
 +#endif	/* ! _GESTURE_H_ */
 diff --git a/drivers/input/touchscreen/stm/fts_lib/ftsHardware.h b/drivers/input/touchscreen/stm/fts_lib/ftsHardware.h
 new file mode 100644
-index 00000000..845da2b
+index 0000000..845da2b
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_lib/ftsHardware.h
 @@ -0,0 +1,282 @@
@@ -23349,7 +23349,7 @@ index 00000000..845da2b
 +#endif
 diff --git a/drivers/input/touchscreen/stm/fts_lib/ftsIO.c b/drivers/input/touchscreen/stm/fts_lib/ftsIO.c
 new file mode 100644
-index 00000000..2b745b0
+index 0000000..2b745b0
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_lib/ftsIO.c
 @@ -0,0 +1,924 @@
@@ -24279,7 +24279,7 @@ index 00000000..2b745b0
 +}
 diff --git a/drivers/input/touchscreen/stm/fts_lib/ftsIO.h b/drivers/input/touchscreen/stm/fts_lib/ftsIO.h
 new file mode 100644
-index 00000000..f470991
+index 0000000..f470991
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_lib/ftsIO.h
 @@ -0,0 +1,78 @@
@@ -24363,7 +24363,7 @@ index 00000000..f470991
 +#endif
 diff --git a/drivers/input/touchscreen/stm/fts_lib/ftsSoftware.h b/drivers/input/touchscreen/stm/fts_lib/ftsSoftware.h
 new file mode 100644
-index 00000000..d00fdc8
+index 0000000..d00fdc8
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_lib/ftsSoftware.h
 @@ -0,0 +1,510 @@
@@ -24879,7 +24879,7 @@ index 00000000..d00fdc8
 +#endif
 diff --git a/drivers/input/touchscreen/stm/fts_lib/ftsTest.c b/drivers/input/touchscreen/stm/fts_lib/ftsTest.c
 new file mode 100644
-index 00000000..69659fe
+index 0000000..69659fe
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_lib/ftsTest.c
 @@ -0,0 +1,5268 @@
@@ -30153,7 +30153,7 @@ index 00000000..69659fe
 +}
 diff --git a/drivers/input/touchscreen/stm/fts_lib/ftsTest.h b/drivers/input/touchscreen/stm/fts_lib/ftsTest.h
 new file mode 100644
-index 00000000..7554709
+index 0000000..7554709
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_lib/ftsTest.h
 @@ -0,0 +1,343 @@
@@ -30502,7 +30502,7 @@ index 00000000..7554709
 +#endif
 diff --git a/drivers/input/touchscreen/stm/fts_lib/ftsTime.c b/drivers/input/touchscreen/stm/fts_lib/ftsTime.c
 new file mode 100644
-index 00000000..8c6e9f7
+index 0000000..8c6e9f7
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_lib/ftsTime.c
 @@ -0,0 +1,84 @@
@@ -30592,7 +30592,7 @@ index 00000000..8c6e9f7
 +}
 diff --git a/drivers/input/touchscreen/stm/fts_lib/ftsTime.h b/drivers/input/touchscreen/stm/fts_lib/ftsTime.h
 new file mode 100644
-index 00000000..b38b188
+index 0000000..b38b188
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_lib/ftsTime.h
 @@ -0,0 +1,70 @@
@@ -30668,7 +30668,7 @@ index 00000000..b38b188
 +#endif
 diff --git a/drivers/input/touchscreen/stm/fts_lib/ftsTool.c b/drivers/input/touchscreen/stm/fts_lib/ftsTool.c
 new file mode 100644
-index 00000000..e359b1a
+index 0000000..e359b1a
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_lib/ftsTool.c
 @@ -0,0 +1,730 @@
@@ -31404,7 +31404,7 @@ index 00000000..e359b1a
 +}
 diff --git a/drivers/input/touchscreen/stm/fts_lib/ftsTool.h b/drivers/input/touchscreen/stm/fts_lib/ftsTool.h
 new file mode 100644
-index 00000000..284ef6c
+index 0000000..284ef6c
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_lib/ftsTool.h
 @@ -0,0 +1,58 @@
@@ -31468,7 +31468,7 @@ index 00000000..284ef6c
 +#endif
 diff --git a/drivers/input/touchscreen/stm/fts_limits.h b/drivers/input/touchscreen/stm/fts_limits.h
 new file mode 100644
-index 00000000..5ecfa54
+index 0000000..5ecfa54
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_limits.h
 @@ -0,0 +1,1064 @@
@@ -32538,7 +32538,7 @@ index 00000000..5ecfa54
 +#endif
 diff --git a/drivers/input/touchscreen/stm/fts_proc.c b/drivers/input/touchscreen/stm/fts_proc.c
 new file mode 100644
-index 00000000..bd6ddf3
+index 0000000..bd6ddf3
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/fts_proc.c
 @@ -0,0 +1,3485 @@
@@ -36029,7 +36029,7 @@ index 00000000..bd6ddf3
 +}
 diff --git a/drivers/input/touchscreen/stm/i2c_fts.h b/drivers/input/touchscreen/stm/i2c_fts.h
 new file mode 100644
-index 00000000..e13aa8d
+index 0000000..e13aa8d
 --- /dev/null
 +++ b/drivers/input/touchscreen/stm/i2c_fts.h
 @@ -0,0 +1,89 @@
@@ -36136,18 +36136,19 @@ index 119cd26..a3ffea7 100644
 -		return err;
 -	if (err != sizeof(reg))
 -		return -EIO;
+-
+-	sdata->chip_id = be16_to_cpup((__be16 *)&reg[6]);
+-	sdata->chip_ver = reg[0];
+-	sdata->fw_ver = be16_to_cpup((__be16 *)&reg[2]);
+-	sdata->config_id = reg[4];
+-	sdata->config_ver = reg[5];
 +	// err = i2c_smbus_read_i2c_block_data(sdata->client, STMFTS_READ_INFO,
 +	// 				    sizeof(reg), reg);
 +	// if (err < 0)
 +	// 	return err;
 +	// if (err != sizeof(reg))
 +	// 	return -EIO;
- 
--	sdata->chip_id = be16_to_cpup((__be16 *)&reg[6]);
--	sdata->chip_ver = reg[0];
--	sdata->fw_ver = be16_to_cpup((__be16 *)&reg[2]);
--	sdata->config_id = reg[4];
--	sdata->config_ver = reg[5];
++
 +	// sdata->chip_id = be16_to_cpup((__be16 *)&reg[6]);
 +	// sdata->chip_ver = reg[0];
 +	// sdata->fw_ver = be16_to_cpup((__be16 *)&reg[2]);
