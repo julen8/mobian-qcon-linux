@@ -14,7 +14,7 @@ Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
  1 file changed, 13 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/input/rmi4/rmi_driver.c b/drivers/input/rmi4/rmi_driver.c
-index 69ff3e1..9d7ad13 100644
+index aa69227..01ebeba 100644
 --- a/drivers/input/rmi4/rmi_driver.c
 +++ b/drivers/input/rmi4/rmi_driver.c
 @@ -136,9 +136,14 @@ static int rmi_process_interrupt_requests(struct rmi_device *rmi_dev)
