@@ -70,16 +70,16 @@ index 685cdd1..432fd39 100644
 -	int ret;
 +	struct sw43408_panel *ctx = to_panel_info(panel);
 +	int ret, i;
- 
--	gpiod_set_value(sw43408->reset_gpio, 1);
++
 +	// gpiod_set_value(ctx->reset_gpio, 1);
  
--	ret = regulator_bulk_disable(ARRAY_SIZE(sw43408->supplies), sw43408->supplies);
+-	gpiod_set_value(sw43408->reset_gpio, 1);
 +	// ret = regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
  
--	return ret ? : ctx.accum_err;
+-	ret = regulator_bulk_disable(ARRAY_SIZE(sw43408->supplies), sw43408->supplies);
 +	// msleep(100);
-+
+ 
+-	return ret ? : ctx.accum_err;
 +	for (i = 0; i < ARRAY_SIZE(ctx->supplies); i++) {
 +		ret = regulator_set_load(ctx->supplies[i].consumer,
 +					 regulator_disable_loads[i]);
