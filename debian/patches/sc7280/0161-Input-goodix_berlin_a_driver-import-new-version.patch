@@ -519,7 +519,7 @@ index 0a1fafc..4c79b6e 100644
  	/* init other resources */
  	ret = goodix_ts_stage2_init(cd);
 diff --git a/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_core.h b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_core.h
-index 7af4bd9..fa4aeea 100644
+index 624611a..00b35a9 100644
 --- a/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_core.h
 +++ b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_core.h
 @@ -39,6 +39,11 @@
