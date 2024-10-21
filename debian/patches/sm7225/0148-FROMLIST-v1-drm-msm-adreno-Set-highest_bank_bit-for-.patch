@@ -18,10 +18,10 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  1 file changed, 4 insertions(+)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index c1d7c2a..b656d14 100644
+index 16f6d7a..e72fcaf 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -513,6 +513,10 @@ static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
+@@ -523,6 +523,10 @@ static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
  		/* TODO: Should be 14 but causes corruption at e.g. 1920x1200 on DP */
  		gpu->ubwc_config.highest_bank_bit = 13;
  
