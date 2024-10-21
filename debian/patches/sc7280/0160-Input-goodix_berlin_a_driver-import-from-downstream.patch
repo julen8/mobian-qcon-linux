@@ -6680,7 +6680,7 @@ index 00000000..0a1fafc
 +MODULE_LICENSE("GPL v2");
 diff --git a/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_core.h b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_core.h
 new file mode 100644
-index 00000000..7af4bd9
+index 00000000..624611a
 --- /dev/null
 +++ b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_core.h
 @@ -0,0 +1,850 @@
