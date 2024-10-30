@@ -30,7 +30,7 @@ index 00000000..6b05983
 +
 +#endif /* __DT_BINDINGS_Q6_VOICE_H__ */
 diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-index 675c5d4..2845a83 100644
+index 44f425a..28fb7fc 100644
 --- a/sound/soc/qcom/Kconfig
 +++ b/sound/soc/qcom/Kconfig
 @@ -140,9 +140,13 @@ config SND_SOC_QDSP6
