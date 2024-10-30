@@ -14,10 +14,10 @@ Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
  1 file changed, 22 insertions(+)
 
 diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
-index d9494ab4..a60afb8 100644
+index 5cd6d34..698caeb 100644
 --- a/sound/soc/qcom/sdm845.c
 +++ b/sound/soc/qcom/sdm845.c
-@@ -409,6 +409,28 @@ static int sdm845_snd_startup(struct snd_pcm_substream *substream)
+@@ -410,6 +410,28 @@ static int sdm845_snd_startup(struct snd_pcm_substream *substream)
  					return ret;
  				}
  			}
