@@ -12,7 +12,7 @@ Subject: ASoC: qdsp6: Add shared session management for q6voice services
  create mode 100644 sound/soc/qcom/qdsp6/q6voice-common.h
 
 diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-index 762491d..675c5d4 100644
+index ca7a30e..44f425a 100644
 --- a/sound/soc/qcom/Kconfig
 +++ b/sound/soc/qcom/Kconfig
 @@ -140,6 +140,10 @@ config SND_SOC_QDSP6

@@ -11,7 +11,7 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/sound/soc/qcom/sm8250.c b/sound/soc/qcom/sm8250.c
-index a15dafb..2b386d7 100644
+index 50e175f..038678f 100644
 --- a/sound/soc/qcom/sm8250.c
 +++ b/sound/soc/qcom/sm8250.c
 @@ -23,13 +23,16 @@ struct sm8250_snd_data {
