@@ -1,3 +1,9 @@
+linux-6.12-qcom (6.12~rc6+qcom-1) unstable; urgency=medium
+
+  * Rebase on 6.12-rc6
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Wed, 06 Nov 2024 21:12:41 +0100
+
 linux-6.12-qcom (6.12~rc5+qcom-1) unstable; urgency=medium
 
   * d/patches: rebase on 6.12-rc5
