@@ -12,10 +12,10 @@ Signed-off-by: Joel Selvaraj <joelselvaraj.oss@gmail.com>
  1 file changed, 12 insertions(+)
 
 diff --git a/drivers/input/touchscreen/edt-ft5x06.c b/drivers/input/touchscreen/edt-ft5x06.c
-index 457d533..be9c003 100644
+index a365577..284bbfa 100644
 --- a/drivers/input/touchscreen/edt-ft5x06.c
 +++ b/drivers/input/touchscreen/edt-ft5x06.c
-@@ -1469,6 +1469,10 @@ static const struct edt_i2c_chip_data edt_ft5x06_data = {
+@@ -1486,6 +1486,10 @@ static const struct edt_i2c_chip_data edt_ft5x06_data = {
  	.max_support_points = 5,
  };
  
@@ -26,7 +26,7 @@ index 457d533..be9c003 100644
  static const struct edt_i2c_chip_data edt_ft5506_data = {
  	.max_support_points = 10,
  };
-@@ -1477,12 +1481,18 @@ static const struct edt_i2c_chip_data edt_ft6236_data = {
+@@ -1494,12 +1498,18 @@ static const struct edt_i2c_chip_data edt_ft6236_data = {
  	.max_support_points = 2,
  };
  
@@ -45,7 +45,7 @@ index 457d533..be9c003 100644
  	{ /* sentinel */ }
  };
  MODULE_DEVICE_TABLE(i2c, edt_ft5x06_ts_id);
-@@ -1493,8 +1503,10 @@ static const struct of_device_id edt_ft5x06_of_match[] = {
+@@ -1510,8 +1520,10 @@ static const struct of_device_id edt_ft5x06_of_match[] = {
  	{ .compatible = "edt,edt-ft5406", .data = &edt_ft5x06_data },
  	{ .compatible = "edt,edt-ft5506", .data = &edt_ft5506_data },
  	{ .compatible = "evervision,ev-ft5726", .data = &edt_ft5506_data },
