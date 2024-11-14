@@ -25,7 +25,7 @@ weird...
  1 file changed, 14 insertions(+)
 
 diff --git a/drivers/rpmsg/qcom_glink_native.c b/drivers/rpmsg/qcom_glink_native.c
-index 82d460f..a01671f 100644
+index d877a1a..7d82b69 100644
 --- a/drivers/rpmsg/qcom_glink_native.c
 +++ b/drivers/rpmsg/qcom_glink_native.c
 @@ -944,6 +944,9 @@ static int qcom_glink_rx_data(struct qcom_glink *glink, size_t avail)
@@ -38,7 +38,7 @@ index 82d460f..a01671f 100644
  	}
  
  advance_rx:
-@@ -1578,6 +1581,17 @@ static int qcom_glink_rx_open(struct qcom_glink *glink, unsigned int rcid,
+@@ -1582,6 +1585,17 @@ static int qcom_glink_rx_open(struct qcom_glink *glink, unsigned int rcid,
  		if (ret)
  			goto rcid_remove;
  
