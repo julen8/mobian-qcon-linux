@@ -1,3 +1,9 @@
+linux-6.11-qcom (6.11.11-1) unstable; urgency=medium
+
+  * Rebase on 6.11.11
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Thu, 05 Dec 2024 17:09:39 +0100
+
 linux-6.11-qcom (6.11.10-1) unstable; urgency=medium
 
   * Rebase on 6.11.10
