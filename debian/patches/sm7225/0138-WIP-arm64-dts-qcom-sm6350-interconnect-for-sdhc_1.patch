@@ -7,7 +7,7 @@ Subject: [WIP] arm64: dts: qcom: sm6350: interconnect for sdhc_1
  1 file changed, 7 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/qcom/sm6350.dtsi
-index 7986ddb..5f0feb7 100644
+index 4f8477d..3990255 100644
 --- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
 @@ -843,6 +843,13 @@ sdhc_1: mmc@7c4000 {
