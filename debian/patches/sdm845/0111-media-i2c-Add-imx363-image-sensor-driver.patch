@@ -45,7 +45,7 @@ index fbb988bd..02c41db 100644
  obj-$(CONFIG_VIDEO_IR_I2C) += ir-kbd-i2c.o
 diff --git a/drivers/media/i2c/imx363.c b/drivers/media/i2c/imx363.c
 new file mode 100644
-index 00000000..ff8d25d
+index 00000000..f6319f1
 --- /dev/null
 +++ b/drivers/media/i2c/imx363.c
 @@ -0,0 +1,1514 @@
@@ -63,7 +63,7 @@ index 00000000..ff8d25d
 +#include <media/v4l2-ctrls.h>
 +#include <media/v4l2-device.h>
 +#include <media/v4l2-fwnode.h>
-+#include <linux/unaligned.h>
++#include <asm/unaligned.h>
 +
 +#define IMX363_REG_MODE_SELECT	CCI_REG8(0x0100)
 +#define IMX363_MODE_STANDBY		0x00
