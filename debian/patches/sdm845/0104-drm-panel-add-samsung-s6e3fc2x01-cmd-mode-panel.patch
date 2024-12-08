@@ -16,7 +16,7 @@ Signed-off-by: Caleb Connolly <caleb@connolly.tech>
  create mode 100644 drivers/gpu/drm/panel/panel-samsung-s6e3fc2x01.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 21fdaa1..7ff2000 100644
+index 6bb4ec0..21fe8ef 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
 @@ -7363,6 +7363,11 @@ S:	Maintained
