@@ -9,13 +9,6 @@ RMI4 specification.
 
 Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
 ---
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>
-To: Matthias Schiffer <matthias.schiffer@ew.tq-group.com>
-To: Rob Herring <robh+dt@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-To: Conor Dooley <conor+dt@kernel.org>
-Cc: devicetree@vger.kernel.org
----
  Documentation/devicetree/bindings/input/syna,rmi4.yaml | 10 ++++++++++
  1 file changed, 10 insertions(+)
 
