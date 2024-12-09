@@ -137,7 +137,7 @@ sdm845.config: update to satisfy pmbootstrap kconfig check
 
 diff --git a/arch/arm64/configs/sdm845.config b/arch/arm64/configs/sdm845.config
 new file mode 100644
-index 00000000..0fa43ef
+index 0000000..0fa43ef
 --- /dev/null
 +++ b/arch/arm64/configs/sdm845.config
 @@ -0,0 +1,1027 @@
