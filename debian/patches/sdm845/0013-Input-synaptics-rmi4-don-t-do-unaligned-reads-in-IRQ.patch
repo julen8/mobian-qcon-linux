@@ -10,9 +10,6 @@ so adjust the interrupt handler to not read from an unaligned address.
 Signed-off-by: methanal <baclofen@tuta.io>
 Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
 ---
-This solution does wind up doing the unaligned reads on the CPU instead,
-although I'm not sure how significant of a penalty this is in practise.
----
  drivers/input/rmi4/rmi_driver.c | 20 +++++++++++++-------
  1 file changed, 13 insertions(+), 7 deletions(-)
 
