@@ -15,10 +15,10 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  1 file changed, 19 insertions(+)
 
 diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-index b5447dd2..c97aeb1 100644
+index 6235721..acf3114 100644
 --- a/drivers/remoteproc/qcom_q6v5_pas.c
 +++ b/drivers/remoteproc/qcom_q6v5_pas.c
-@@ -1150,6 +1150,22 @@ static const struct adsp_data sm8550_mpss_resource = {
+@@ -1152,6 +1152,22 @@ static const struct adsp_data sm8550_mpss_resource = {
  	.region_assign_idx = 2,
  };
  
@@ -41,7 +41,7 @@ index b5447dd2..c97aeb1 100644
  static const struct of_device_id adsp_of_match[] = {
  	{ .compatible = "qcom,msm8226-adsp-pil", .data = &adsp_resource_init},
  	{ .compatible = "qcom,msm8953-adsp-pil", .data = &msm8996_adsp_resource},
-@@ -1162,7 +1178,10 @@ static const struct of_device_id adsp_of_match[] = {
+@@ -1164,7 +1180,10 @@ static const struct of_device_id adsp_of_match[] = {
  	{ .compatible = "qcom,qcs404-cdsp-pas", .data = &cdsp_resource_init },
  	{ .compatible = "qcom,qcs404-wcss-pas", .data = &wcss_resource_init },
  	{ .compatible = "qcom,sc7180-mpss-pas", .data = &mpss_resource_init},
