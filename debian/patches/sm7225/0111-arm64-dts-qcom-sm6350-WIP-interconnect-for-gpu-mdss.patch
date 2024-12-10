@@ -7,7 +7,7 @@ Subject: arm64: dts: qcom: sm6350: WIP interconnect for gpu, mdss
  1 file changed, 19 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/qcom/sm6350.dtsi
-index ecb84c8..556d148 100644
+index bbf960e..59d767d 100644
 --- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
 @@ -842,6 +842,13 @@ sdhc_1: mmc@7c4000 {
@@ -33,56 +33,56 @@ index ecb84c8..556d148 100644
  			nvmem-cells = <&gpu_speed_bin>;
  			nvmem-cell-names = "speed_bin";
  
-@@ -1351,42 +1360,49 @@ gpu_opp_table: opp-table {
- 				opp-850000000 {
+@@ -1352,42 +1361,49 @@ opp-850000000 {
  					opp-hz = /bits/ 64 <850000000>;
  					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
+ 					opp-supported-hw = <0x03>;
 +					opp-peak-kBps = <8371200>;
- 					opp-supported-hw = <0x02>;
  				};
  
  				opp-800000000 {
  					opp-hz = /bits/ 64 <800000000>;
  					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
+ 					opp-supported-hw = <0x07>;
 +					opp-peak-kBps = <8371200>;
- 					opp-supported-hw = <0x04>;
  				};
  
  				opp-650000000 {
  					opp-hz = /bits/ 64 <650000000>;
  					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
+ 					opp-supported-hw = <0x0f>;
 +					opp-peak-kBps = <6220000>;
- 					opp-supported-hw = <0x08>;
  				};
  
  				opp-565000000 {
  					opp-hz = /bits/ 64 <565000000>;
  					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
+ 					opp-supported-hw = <0x1f>;
 +					opp-peak-kBps = <5412000>;
- 					opp-supported-hw = <0x10>;
  				};
  
  				opp-430000000 {
  					opp-hz = /bits/ 64 <430000000>;
  					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
+ 					opp-supported-hw = <0x1f>;
 +					opp-peak-kBps = <4068000>;
- 					opp-supported-hw = <0xff>;
  				};
  
  				opp-355000000 {
  					opp-hz = /bits/ 64 <355000000>;
  					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
+ 					opp-supported-hw = <0x1f>;
 +					opp-peak-kBps = <3072000>;
- 					opp-supported-hw = <0xff>;
  				};
  
  				opp-253000000 {
  					opp-hz = /bits/ 64 <253000000>;
  					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
+ 					opp-supported-hw = <0x1f>;
 +					opp-peak-kBps = <2188000>;
- 					opp-supported-hw = <0xff>;
  				};
  			};
+ 		};
 @@ -1979,6 +1995,9 @@ mdss: display-subsystem@ae00000 {
  			reg = <0 0x0ae00000 0 0x1000>;
  			reg-names = "mdss";
