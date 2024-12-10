@@ -16,7 +16,7 @@ Signed-off-by: Mark Brown <broonie@kernel.org>
 
 diff --git a/Documentation/devicetree/bindings/sound/awinic,aw87390.yaml b/Documentation/devicetree/bindings/sound/awinic,aw87390.yaml
 new file mode 100644
-index 0000000..ba9d876
+index 00000000..ba9d876
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/sound/awinic,aw87390.yaml
 @@ -0,0 +1,58 @@
