@@ -1,3 +1,16 @@
+linux-6.1-sdm845 (6.1.120-1) unstable; urgency=medium
+
+  [ Mobot ]
+  * Rebase on 6.1.71
+
+  [ Arnaud Ferraris ]
+  * d/patches: fix build on 6.1.120+
+    The `adsp_data` struct of the `qcom_q6v5_pas` module has been stripped
+    of its `has_aggre2_clk` member, so ensure we don't use it to avoid build
+    issues.
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Sun, 15 Dec 2024 16:19:28 +0100
+
 linux-6.1-sdm845 (6.1.70+sdm845-1) unstable; urgency=medium
 
   * Rebase on 6.1.70
