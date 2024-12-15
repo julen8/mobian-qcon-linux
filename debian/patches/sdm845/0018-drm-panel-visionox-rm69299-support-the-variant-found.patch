@@ -8,8 +8,8 @@ Add support for another variant of the rm69299 panel. This panel is
 
 Signed-off-by: Caleb Connolly <caleb@connolly.tech>
 ---
- drivers/gpu/drm/panel/panel-visionox-rm69299.c | 279 +++++++++++++++++++------
- 1 file changed, 219 insertions(+), 60 deletions(-)
+ drivers/gpu/drm/panel/panel-visionox-rm69299.c | 273 +++++++++++++++++++------
+ 1 file changed, 216 insertions(+), 57 deletions(-)
 
 diff --git a/drivers/gpu/drm/panel/panel-visionox-rm69299.c b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
 index ec228c2..6be456f 100644
@@ -211,23 +211,6 @@ index ec228c2..6be456f 100644
 -		dev_err(ctx->panel.dev, "cmd set tx 0 failed, ret = %d\n", ret);
 -		goto power_off;
 -	}
--
--	ret = mipi_dsi_dcs_write_buffer(ctx->dsi, (u8[]) { 0xc2, 0x08 }, 2);
--	if (ret < 0) {
--		dev_err(ctx->panel.dev, "cmd set tx 1 failed, ret = %d\n", ret);
--		goto power_off;
--	}
--
--	ret = mipi_dsi_dcs_write_buffer(ctx->dsi, (u8[]) { 0x35, 0x00 }, 2);
--	if (ret < 0) {
--		dev_err(ctx->panel.dev, "cmd set tx 2 failed, ret = %d\n", ret);
--		goto power_off;
--	}
--
--	ret = mipi_dsi_dcs_write_buffer(ctx->dsi, (u8[]) { 0x51, 0xff }, 2);
--	if (ret < 0) {
--		dev_err(ctx->panel.dev, "cmd set tx 3 failed, ret = %d\n", ret);
--		goto power_off;
 +	if (ctx->mode == &visionox_rm69299_1080x2160_60hz) {
 +		for (i = 0; i < VISIONOX_RM69299_SHIFT_INIT_SEQ_LEN; i++) {
 +			ret = mipi_dsi_dcs_write_buffer(ctx->dsi,
@@ -246,7 +229,12 @@ index ec228c2..6be456f 100644
 +				"cmd set tx 0 failed, ret = %d\n", ret);
 +			return ret;
 +		}
-+
+ 
+-	ret = mipi_dsi_dcs_write_buffer(ctx->dsi, (u8[]) { 0xc2, 0x08 }, 2);
+-	if (ret < 0) {
+-		dev_err(ctx->panel.dev, "cmd set tx 1 failed, ret = %d\n", ret);
+-		goto power_off;
+-	}
 +		ret = mipi_dsi_dcs_write_buffer(ctx->dsi, (u8[]){ 0xc2, 0x08 },
 +						2);
 +		if (ret < 0) {
@@ -254,7 +242,12 @@ index ec228c2..6be456f 100644
 +				"cmd set tx 1 failed, ret = %d\n", ret);
 +			return ret;
 +		}
-+
+ 
+-	ret = mipi_dsi_dcs_write_buffer(ctx->dsi, (u8[]) { 0x35, 0x00 }, 2);
+-	if (ret < 0) {
+-		dev_err(ctx->panel.dev, "cmd set tx 2 failed, ret = %d\n", ret);
+-		goto power_off;
+-	}
 +		ret = mipi_dsi_dcs_write_buffer(ctx->dsi, (u8[]){ 0x35, 0x00 },
 +						2);
 +		if (ret < 0) {
@@ -262,7 +255,11 @@ index ec228c2..6be456f 100644
 +				"cmd set tx 2 failed, ret = %d\n", ret);
 +			return ret;
 +		}
-+
+ 
+-	ret = mipi_dsi_dcs_write_buffer(ctx->dsi, (u8[]) { 0x51, 0xff }, 2);
+-	if (ret < 0) {
+-		dev_err(ctx->panel.dev, "cmd set tx 3 failed, ret = %d\n", ret);
+-		goto power_off;
 +		ret = mipi_dsi_dcs_write_buffer(ctx->dsi, (u8[]){ 0x51, 0xff },
 +						2);
 +		if (ret < 0) {

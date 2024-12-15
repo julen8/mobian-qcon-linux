@@ -27,17 +27,17 @@ index fe6f2cb..682dd6c 100644
 -		vdd-supply = <&vreg_l28a_3p0>;
 -		vcc-i2c-supply = <&vreg_l14a_1p88>;
 +		interrupts = <125 IRQ_TYPE_EDGE_FALLING>;
-+
+ 
+-		pinctrl-names = "default", "suspend";
+-		pinctrl-0 = <&ts_int_active &ts_reset_active>;
+-		pinctrl-1 = <&ts_int_suspend &ts_reset_suspend>;
 +		avdd-supply = <&vreg_l28a_3p0>;
 +		vddio-supply = <&vreg_l14a_1p88>;
 +
 +		pinctrl-names = "default", "sleep";
 +		pinctrl-0 = <&ts_int_default &ts_reset_default>;
 +		pinctrl-1 = <&ts_int_sleep &ts_reset_sleep>;
- 
--		pinctrl-names = "default", "suspend";
--		pinctrl-0 = <&ts_int_active &ts_reset_active>;
--		pinctrl-1 = <&ts_int_suspend &ts_reset_suspend>;
++
 +		reset-gpio = <&tlmm 99 GPIO_ACTIVE_LOW>;
  
 -		reset-gpio = <&tlmm 99 GPIO_ACTIVE_HIGH>;
