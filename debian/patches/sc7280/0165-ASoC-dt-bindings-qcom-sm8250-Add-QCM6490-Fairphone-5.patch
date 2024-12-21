@@ -1,0 +1,27 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 9 Aug 2024 10:02:39 +0200
+Subject: ASoC: dt-bindings: qcom,sm8250: Add QCM6490 Fairphone 5 sound card
+
+Document the bindings for the sound card on Fairphone 5, which can be
+marked as compatible with QCM6490 IDP sound card.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+index 2e2e014..3ba8f8d 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+@@ -26,6 +26,10 @@ properties:
+               - qcom,sm8550-sndcard
+               - qcom,sm8650-sndcard
+           - const: qcom,sm8450-sndcard
++      - items:
++          - enum:
++              - fairphone,fp5-sndcard
++          - const: qcom,qcm6490-idp-sndcard
+       - enum:
+           - qcom,apq8096-sndcard
+           - qcom,qcm6490-idp-sndcard
