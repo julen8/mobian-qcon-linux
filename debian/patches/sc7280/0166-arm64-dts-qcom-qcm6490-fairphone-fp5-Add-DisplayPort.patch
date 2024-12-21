@@ -1,0 +1,92 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 24 Nov 2023 14:08:10 +0100
+Subject: arm64: dts: qcom: qcm6490-fairphone-fp5: Add DisplayPort sound
+ support
+
+Add the required nodes for sound playback via a connected external
+display (DisplayPort over USB-C).
+
+In user space just the following route needs to be set (e.g. using
+ALSA UCM):
+
+  amixer -c0 cset name='DISPLAY_PORT_RX Audio Mixer MultiMedia1' 1
+
+Afterwards one can play audio on the MultiMedia1 sound device, e.g.:
+
+  aplay -D plughw:0,0 test.wav
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+(from cover letter)
+Unfortunately DisplayPort enablement itself for Fairphone 5 is not
+upstream yet. This is blocked by DSI display bringup upstream which is
+blocked by DSC 1:1:1 not being supported upstream yet and just working
+with a hacky patch. Nevertheless, DisplayPort audio was validated
+working with no additional sound-related changes so once DisplayPort
+gets enabled, sound should also just work upstream.
+---
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 37 ++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+index b411bf5..1bd008f 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+@@ -14,6 +14,8 @@
+ #include <dt-bindings/leds/common.h>
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
++#include <dt-bindings/sound/qcom,q6afe.h>
++#include <dt-bindings/sound/qcom,q6asm.h>
+ #include "sc7280.dtsi"
+ #include "pm7250b.dtsi"
+ #include "pm7325.dtsi"
+@@ -1063,6 +1065,12 @@ &pon_resin {
+ 	status = "okay";
+ };
+ 
++&q6afedai {
++	dai@104 {
++		reg = <DISPLAY_PORT_RX>;
++	};
++};
++
+ &qup_spi13_cs {
+ 	drive-strength = <6>;
+ 	bias-disable;
+@@ -1136,6 +1144,35 @@ &sdhc_2 {
+ 	status = "okay";
+ };
+ 
++&sound {
++	compatible = "fairphone,fp5-sndcard", "qcom,qcm6490-idp-sndcard";
++	model = "Fairphone 5";
++
++	mm1-dai-link {
++		link-name = "MultiMedia1";
++
++		cpu {
++			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA1>;
++		};
++	};
++
++	displayport-rx-dai-link {
++		link-name = "DisplayPort Playback";
++
++		cpu {
++			sound-dai = <&q6afedai DISPLAY_PORT_RX>;
++		};
++
++		platform {
++			sound-dai = <&q6routing>;
++		};
++
++		codec {
++			sound-dai = <&mdss_dp>;
++		};
++	};
++};
++
+ &spi13 {
+ 	status = "okay";
+ 
