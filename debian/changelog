@@ -1,3 +1,11 @@
+linux-6.12-qcom (6.12.6-2) unstable; urgency=medium
+
+  * debian: drop useless "kernel-template" folder.
+    This was committed by accident.
+  * d/patches: import latest patches from sm6350/sc7280-mainline
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Sat, 21 Dec 2024 11:26:03 +0100
+
 linux-6.12-qcom (6.12.6-1) unstable; urgency=medium
 
   * Rebase on 6.12.6
