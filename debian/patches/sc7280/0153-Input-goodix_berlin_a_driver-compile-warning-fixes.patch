@@ -1,0 +1,244 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Mon, 16 Sep 2024 08:48:48 +0200
+Subject: Input - goodix_berlin_a_driver: compile warning fixes
+
+---
+ .../goodix_berlin_a_driver/goodix_brl_fwupdate.c   |  2 +-
+ .../goodix_berlin_a_driver/goodix_brl_hw.c         |  7 ++---
+ .../goodix_berlin_a_driver/goodix_ts_core.c        | 31 +++++++++++-----------
+ .../goodix_berlin_a_driver/goodix_ts_inspect.c     |  6 ++---
+ 4 files changed, 24 insertions(+), 22 deletions(-)
+
+diff --git a/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_brl_fwupdate.c b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_brl_fwupdate.c
+index f010b5c..986ff0b 100644
+--- a/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_brl_fwupdate.c
++++ b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_brl_fwupdate.c
+@@ -938,7 +938,7 @@ static int goodix_update_finish(struct fw_update_ctrl *fwu_ctrl)
+  * @fwu_ctrl: firmware control
+  * return: = 0 update ok, < 0 error or NO_NEED_UPDATE
+  */
+-int goodix_fw_update_proc(struct fw_update_ctrl *fwu_ctrl)
++static int goodix_fw_update_proc(struct fw_update_ctrl *fwu_ctrl)
+ {
+ #define FW_UPDATE_RETRY		2
+ 	int retry0 = FW_UPDATE_RETRY;
+diff --git a/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_brl_hw.c b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_brl_hw.c
+index 5634756..b533031 100644
+--- a/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_brl_hw.c
++++ b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_brl_hw.c
+@@ -287,7 +287,7 @@ ts_err("zmw:name=[%s] line=[%d] avdd",__func__,__LINE__);
+ 	return ret;
+ }
+ 
+-int brl_suspend(struct goodix_ts_core *cd)
++static int brl_suspend(struct goodix_ts_core *cd)
+ {
+ 	u32 cmd_reg = cd->ic_info.misc.cmd_addr;
+ 	u8 sleep_cmd[] = {0x00, 0x00, 0x04, 0x84, 0x88, 0x00};
+@@ -295,14 +295,14 @@ int brl_suspend(struct goodix_ts_core *cd)
+ 	return cd->hw_ops->write(cd, cmd_reg, sleep_cmd, sizeof(sleep_cmd));
+ }
+ 
+-int brl_resume(struct goodix_ts_core *cd)
++static int brl_resume(struct goodix_ts_core *cd)
+ {
+ 	return cd->hw_ops->reset(cd, GOODIX_NORMAL_RESET_DELAY_MS);
+ }
+ 
+ #define GOODIX_GESTURE_CMD_BA	0x12
+ #define GOODIX_GESTURE_CMD		0xA6
+-int brl_gesture(struct goodix_ts_core *cd, int gesture_type)
++static int brl_gesture(struct goodix_ts_core *cd, int gesture_type)
+ {
+ 	struct goodix_ts_cmd cmd;
+ 	u32 type = ~(cd->gesture_type);
+@@ -1363,6 +1363,7 @@ static int goodix_touch_handler(struct goodix_ts_core *cd,
+ 			switch (point_type) {
+ 			case POINT_TYPE_STYLUS_HOVER:
+ 				pen_data->is_hover = true;
++				fallthrough;
+ 			case POINT_TYPE_STYLUS:
+ 				goodix_parse_pen(pen_data, buffer, data);
+ 				checksum_len += BYTES_STYLUS_LEN;
+diff --git a/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_core.c b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_core.c
+index 3175114..2e8889fa 100644
+--- a/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_core.c
++++ b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_core.c
+@@ -41,12 +41,12 @@ static bool tp_if_exist=false;
+ static bool tp_if_suspend=false;
+ struct goodix_ts_core *global_core_data;
+ const u32 CUSTOM_ADDR= 0x10180;
+-const static unsigned char CUSTOM_USB_ONLINE_BUF[2][6]=
++static const unsigned char CUSTOM_USB_ONLINE_BUF[2][6]=
+ {
+ 	{0x00, 0x00, 0x04, 0x10, 0x14, 0x00},
+     {0x00, 0x00, 0x04, 0x11, 0x15, 0x00},
+ };
+-const static unsigned char CUSTOM_SCREEN_BUF[3][8]=
++static const unsigned char CUSTOM_SCREEN_BUF[3][8]=
+ {
+ 	{0x00, 0x00, 0x06, 0x17, 0x30, 0x00, 0x4D, 0x00},
+ 	{0x00, 0x00, 0x06, 0x17, 0x70, 0x01, 0x8E, 0x00},
+@@ -75,7 +75,7 @@ static int goodix_ts_switch_config(struct goodix_ts_core *cd, enum GOODIX_IC_CON
+ 			cd->config_type = type;
+ 	}
+ 
+-	if (type == CFG_TYPE_CHARGE) {
++	if (type == (enum GOODIX_IC_CONFIG_TYPE)CFG_TYPE_CHARGE) {
+ 		ts_debug("ready for sending charge cmd ......");
+ 		ret = cd->hw_ops->write(cd,
+ 								CUSTOM_ADDR,
+@@ -171,6 +171,7 @@ static void goodix_tpusb_online(struct work_struct *work)
+ }
+ 
+ static DEFINE_MUTEX(usb_online_mutex);
++#if 0
+ void tp_get_usb_online(int online)
+ {
+ 	mutex_lock(&usb_online_mutex);
+@@ -190,6 +191,7 @@ void tp_get_usb_online(int online)
+ 	mutex_unlock(&usb_online_mutex);	
+ }
+ EXPORT_SYMBOL_GPL(tp_get_usb_online);
++#endif
+ 
+ static u8 screen_mode=0;
+ /* screen mode show */
+@@ -251,7 +253,7 @@ static ssize_t goodix_ts_screen_mode_store(struct device *dev,
+ #include <drm/drm_panel.h>
+ struct drm_panel *gdix_active_panel;
+ 
+-int check_dt(struct device_node *np)
++static int check_dt(struct device_node *np)
+ {
+ 	int i;
+ 	int count;
+@@ -276,7 +278,7 @@ int check_dt(struct device_node *np)
+ 	return -ENODEV;
+ }
+ 
+-int check_default_tp(struct device_node *dt, const char *prop)
++static int check_default_tp(struct device_node *dt, const char *prop)
+ {
+ 	const char *active_tp;
+ 	const char *compatible;
+@@ -1199,7 +1201,7 @@ static BLOCKING_NOTIFIER_HEAD(ts_notifier_list);
+  * @nb: notifier block to callback on events
+  *  see enum ts_notify_event in goodix_ts_core.h
+  */
+-int goodix_ts_register_notifier(struct notifier_block *nb)
++static int goodix_ts_register_notifier(struct notifier_block *nb)
+ {
+ 	return blocking_notifier_chain_register(&ts_notifier_list, nb);
+ }
+@@ -1209,7 +1211,7 @@ int goodix_ts_register_notifier(struct notifier_block *nb)
+  * @nb: notifier block to callback on events
+  *	see enum ts_notify_event in goodix_ts_core.h
+  */
+-int goodix_ts_unregister_notifier(struct notifier_block *nb)
++static int goodix_ts_unregister_notifier(struct notifier_block *nb)
+ {
+ 	return blocking_notifier_chain_unregister(&ts_notifier_list, nb);
+ }
+@@ -1645,7 +1647,7 @@ static int goodix_ts_power_init(struct goodix_ts_core *core_data)
+  * @core_data: pointer to touch core data
+  * return: 0 ok, <0 failed
+  */
+-int goodix_ts_power_on(struct goodix_ts_core *cd)
++static int goodix_ts_power_on(struct goodix_ts_core *cd)
+ {
+ 	int ret = 0;
+ 
+@@ -1666,7 +1668,7 @@ int goodix_ts_power_on(struct goodix_ts_core *cd)
+  * @core_data: pointer to touch core data
+  * return: 0 ok, <0 failed
+  */
+-int goodix_ts_power_off(struct goodix_ts_core *cd)
++static int goodix_ts_power_off(struct goodix_ts_core *cd)
+ {
+ 	int ret;
+ 
+@@ -1859,7 +1861,7 @@ static int goodix_ts_pen_dev_config(struct goodix_ts_core *core_data)
+ 	return 0;
+ }
+ 
+-void goodix_ts_input_dev_remove(struct goodix_ts_core *core_data)
++static void goodix_ts_input_dev_remove(struct goodix_ts_core *core_data)
+ {
+ 	if (!core_data->input_dev)
+ 		return;
+@@ -1868,7 +1870,7 @@ void goodix_ts_input_dev_remove(struct goodix_ts_core *core_data)
+ 	core_data->input_dev = NULL;
+ }
+ 
+-void goodix_ts_pen_dev_remove(struct goodix_ts_core *core_data)
++static void goodix_ts_pen_dev_remove(struct goodix_ts_core *core_data)
+ {
+ 	if (!core_data->pen_dev)
+ 		return;
+@@ -1988,7 +1990,7 @@ static int goodix_esd_notifier_callback(struct notifier_block *nb,
+ /**
+  * goodix_ts_esd_init - initialize esd protection
+  */
+-int goodix_ts_esd_init(struct goodix_ts_core *cd)
++static int goodix_ts_esd_init(struct goodix_ts_core *cd)
+ {
+ 	struct goodix_ic_info_misc *misc = &cd->ic_info.misc;
+ 	struct goodix_ts_esd *ts_esd = &cd->ts_esd;
+@@ -2208,7 +2210,7 @@ static int goodix_ts_resume(struct goodix_ts_core *core_data)
+  * goodix_ts_fb_notifier_callback - Framebuffer notifier callback
+  * Called by kernel during framebuffer blanck/unblank phrase
+  */
+-int goodix_ts_fb_notifier_callback(struct notifier_block *self,
++static int goodix_ts_fb_notifier_callback(struct notifier_block *self,
+ 	unsigned long event, void *data)
+ {
+ 	struct goodix_ts_core *core_data =
+@@ -2362,7 +2364,7 @@ static void goodix_self_check(struct work_struct *work)
+ 	}
+ }
+ 
+-int goodix_ts_stage2_init(struct goodix_ts_core *cd)
++static int goodix_ts_stage2_init(struct goodix_ts_core *cd)
+ {
+ 	int ret;
+ 
+@@ -2694,7 +2696,6 @@ static void goodix_ts_remove(struct platform_device *pdev)
+ 	struct goodix_ts_core *core_data = platform_get_drvdata(pdev);
+ 	struct goodix_ts_hw_ops *hw_ops = core_data->hw_ops;
+ 	struct goodix_ts_esd *ts_esd = &core_data->ts_esd;
+-	int ret = 0;
+ 
+ 	goodix_ts_unregister_notifier(&core_data->ts_notifier);
+ 	goodix_tools_exit();
+diff --git a/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_inspect.c b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_inspect.c
+index 7b9c9a1..e0380f3 100644
+--- a/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_inspect.c
++++ b/drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_inspect.c
+@@ -123,7 +123,7 @@
+ 
+ 
+ #define ABS(val)			((val < 0)? -(val) : val)
+-#define MAX(a, b)			((a > b)? a : b)
++//#define MAX(a, b)			((a > b)? a : b)
+ 
+ static bool module_initialized;
+ static struct seq_file *g_seq;
+@@ -1989,7 +1989,7 @@ static void goodix_capacitance_test(struct goodix_ts_test *ts_test)
+ 	goodix_cap_test_finish(ts_test);
+ }
+ 
+-char *goodix_strncat(char *dest, char *src, size_t dest_size)
++static char *goodix_strncat(char *dest, char *src, size_t dest_size)
+ {
+ 	size_t dest_len = 0;
+ 
+@@ -1997,7 +1997,7 @@ char *goodix_strncat(char *dest, char *src, size_t dest_size)
+ 	return strncat(&dest[dest_len], src, dest_size - dest_len - 1);
+ }
+ 
+-char *goodix_strncatint(char *dest, int src, char *format, size_t dest_size)
++static char *goodix_strncatint(char *dest, int src, char *format, size_t dest_size)
+ {
+ 	char src_str[MAX_STR_LEN] = {0};
+ 
