@@ -1,0 +1,36 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Mon, 18 Nov 2024 20:50:10 +0100
+Subject: arm64: dts: qcom: qcm6490-fairphone-fp5: Enable EEPROM for rear cam
+
+Add a node for the EEPROM found with the Sony IMX800 rear camera on this
+device and add some comments for the other compoments found with the
+rear cam.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+index 85f0099..4bb9edc 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+@@ -641,7 +641,17 @@ &cci0 {
+ };
+ 
+ &cci0_i2c0 {
+-	/* IMX800 @ 1a */
++	/* actuator@c (asahi-kasei,ak7377) */
++	/* camera@1a (sony,imx800) */
++
++	eeprom@50 {
++		compatible = "puya,p24c256c", "atmel,24c256";
++		reg = <0x50>;
++		vcc-supply = <&vreg_l6p>;
++		read-only;
++	};
++
++	/* actuator@72 (dongwoon,dw9784) OIS */
+ };
+ 
+ &cci0_i2c1 {
