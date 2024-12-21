@@ -1,0 +1,39 @@
+From: Arnaud Ferraris <arnaud.ferraris@collabora.com>
+Date: Fri, 12 Jan 2024 14:20:44 +0100
+Subject: drivers: touchscreen: fix build of downstream drivers
+
+Both the `goodix_berlin_a` (FP5) and `hxchipset` (FP4) downstream
+drivers declare non-static `check_dt()` and `check_default_tp()`
+functions, although none of those is used outside of the file where
+they're declared. This results in a build failure at link time.
+
+Mark those as `static` in order to fix the build.
+
+The `goodix_berlin_a` driver also fails to build on recent versions due
+to an incorrect function prototype, fix this one as well.
+---
+ drivers/input/touchscreen/hxchipset/himax_platform.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/input/touchscreen/hxchipset/himax_platform.c b/drivers/input/touchscreen/hxchipset/himax_platform.c
+index 0bfc25c..0d97eb3 100644
+--- a/drivers/input/touchscreen/hxchipset/himax_platform.c
++++ b/drivers/input/touchscreen/hxchipset/himax_platform.c
+@@ -27,7 +27,7 @@ u8 *gp_rw_buf;
+ #if defined(HX_CONFIG_DRM)
+ struct drm_panel *active_panel;
+ 
+-int check_dt(struct device_node *np)
++static int check_dt(struct device_node *np)
+ {
+ 	int i;
+ 	int count;
+@@ -51,7 +51,7 @@ int check_dt(struct device_node *np)
+ 	return -ENODEV;
+ }
+ 
+-int check_default_tp(struct device_node *dt, const char *prop)
++static int check_default_tp(struct device_node *dt, const char *prop)
+ {
+ 	const char *active_tp;
+ 	const char *compatible;
