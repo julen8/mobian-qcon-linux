@@ -1,0 +1,36 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Wed, 20 Sep 2023 15:20:17 +0200
+Subject: arm64: dts: qcom: qcm6490-fairphone-fp5: Add AW88261 amplifiers
+
+---
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+index 6bc5d09..66493da 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+@@ -728,8 +728,21 @@ ocp96011_sbu_mux: endpoint {
+ &i2c2 {
+ 	status = "okay";
+ 
+-	/* AW88261FCR amplifier @ 34 */
+-	/* AW88261FCR amplifier @ 35 */
++	aw88261_l: audio-codec@34 {
++		compatible = "awinic,aw88261";
++		reg = <0x34>;
++		awinic,audio-channel = <0>;
++		awinic,sync-flag;
++		#sound-dai-cells = <0>;
++	};
++
++	aw88261_r: audio-codec@35 {
++		compatible = "awinic,aw88261";
++		reg = <0x35>;
++		awinic,audio-channel = <1>;
++		awinic,sync-flag;
++		#sound-dai-cells = <0>;
++	};
+ };
+ 
+ &i2c4 {
