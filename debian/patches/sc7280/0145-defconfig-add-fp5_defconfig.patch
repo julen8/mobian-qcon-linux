@@ -10,7 +10,7 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 
 diff --git a/arch/arm64/configs/fp5_defconfig b/arch/arm64/configs/fp5_defconfig
 new file mode 100644
-index 00000000..b2f0187
+index 0000000..b2f0187
 --- /dev/null
 +++ b/arch/arm64/configs/fp5_defconfig
 @@ -0,0 +1,517 @@
