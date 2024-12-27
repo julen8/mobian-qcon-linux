@@ -15,7 +15,7 @@ Signed-off-by: Matti Lehtimäki <matti.lehtimaki@gmail.com>
 
 diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx800.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx800.yaml
 new file mode 100644
-index 00000000..d924b7c
+index 0000000..d924b7c
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx800.yaml
 @@ -0,0 +1,106 @@
