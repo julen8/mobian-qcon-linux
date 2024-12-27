@@ -17,14 +17,6 @@ Afterwards one can play audio on the MultiMedia1 sound device, e.g.:
 
 Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
-(from cover letter)
-Unfortunately DisplayPort enablement itself for Fairphone 5 is not
-upstream yet. This is blocked by DSI display bringup upstream which is
-blocked by DSC 1:1:1 not being supported upstream yet and just working
-with a hacky patch. Nevertheless, DisplayPort audio was validated
-working with no additional sound-related changes so once DisplayPort
-gets enabled, sound should also just work upstream.
----
  arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 37 ++++++++++++++++++++++
  1 file changed, 37 insertions(+)
 
