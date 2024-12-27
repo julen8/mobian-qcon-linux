@@ -7,17 +7,6 @@ using that data.
 
 Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
-I double checked and the Android builds for this platform also have a
-.jsn file for the equivalent of &mpss_root_pd_gps but this is not part
-of sm6350_domains upstream.
-
-But I actually can't find any evidence of this actually being used in
-the AMSS sources. Just some Android proprietary user space seems to try
-and find 'gps/gps_service' but nothing relevant for 'msm/modem/root_pd'
-
-Should we still correct this? Everything appears to work as expected and
-"#define DEBUG" in the driver also doesn't show anything being wrong.
----
  drivers/soc/qcom/qcom_pd_mapper.c | 1 +
  1 file changed, 1 insertion(+)
 
