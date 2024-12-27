@@ -12,7 +12,7 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  1 file changed, 5 insertions(+)
 
 diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 3850c84..246fabc7 100644
+index 3850c84..246fabc 100644
 --- a/drivers/media/platform/qcom/camss/camss.c
 +++ b/drivers/media/platform/qcom/camss/camss.c
 @@ -1995,6 +1995,11 @@ static int camss_of_parse_endpoint_node(struct device *dev,
