@@ -1,0 +1,5 @@
+linux-6.18-sdm845 (6.18.18-1) trixie; urgency=medium
+
+  * Initial 6.18 release
+
+ -- Marco Mattiolo <marco.mattiolo@hotmail.it>  Sun, 15 Mar 2026 18:38:51 +0100
