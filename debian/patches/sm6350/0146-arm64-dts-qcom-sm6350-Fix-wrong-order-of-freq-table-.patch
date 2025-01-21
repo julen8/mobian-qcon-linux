@@ -1,0 +1,35 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Thu, 2 Jan 2025 10:17:49 +0100
+Subject: arm64: dts: qcom: sm6350: Fix wrong order of freq-table-hz for UFS
+
+During upstreaming the order of clocks was adjusted to match the
+upstream sort order, but mistakently freq-table-hz wasn't re-ordered
+with the new order.
+
+Fix that by moving the entry for the ICE clk to the last place.
+
+Fixes: 5a814af5fc22 ("arm64: dts: qcom: sm6350: Add UFS nodes")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/sm6350.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+index 69a484e..17f349a 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+@@ -1184,11 +1184,11 @@ ufs_mem_hc: ufshc@1d84000 {
+ 				<0 0>,
+ 				<0 0>,
+ 				<37500000 150000000>,
+-				<75000000 300000000>,
+ 				<0 0>,
+ 				<0 0>,
+ 				<0 0>,
+-				<0 0>;
++				<0 0>,
++				<75000000 300000000>;
+ 
+ 			status = "disabled";
+ 		};
