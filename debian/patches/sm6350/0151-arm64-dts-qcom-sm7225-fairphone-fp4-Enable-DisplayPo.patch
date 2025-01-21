@@ -1,0 +1,116 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 22 Mar 2024 17:03:05 +0100
+Subject: arm64: dts: qcom: sm7225-fairphone-fp4: Enable DisplayPort over
+ USB-C
+
+Configure the AW35743 used for SBU muxing, and enable the DisplayPort
+output so that DisplayPort over USB-C is working.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts | 57 +++++++++++++++++++++++
+ 1 file changed, 57 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+index ce99d7b..4f366aa 100644
+--- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
++++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+@@ -93,6 +93,27 @@ memory@efe01000 {
+ 		};
+ 	};
+ 
++	sbu-mux {
++		compatible = "awinic,aw35743", "gpio-sbu-mux";
++
++		enable-gpios = <&tlmm 54 GPIO_ACTIVE_LOW>;
++		select-gpios = <&tlmm 93 GPIO_ACTIVE_HIGH>;
++
++		vcc-supply = <&vreg_bob>;
++
++		pinctrl-0 = <&aw35743_mux_default>;
++		pinctrl-names = "default";
++
++		mode-switch;
++		orientation-switch;
++
++		port {
++			sbu_mux_in: endpoint {
++				remote-endpoint = <&pm7250b_typec_sbu_out>;
++			};
++		};
++	};
++
+ 	msm_therm_sensor: thermal-sensor-msm {
+ 		compatible = "generic-adc-thermal";
+ 		#thermal-sensor-cells = <0>;
+@@ -694,6 +715,15 @@ &mdss {
+ 	status = "okay";
+ };
+ 
++&mdss_dp {
++	status = "okay";
++};
++
++&mdss_dp_out {
++	data-lanes = <0 1>;
++	remote-endpoint = <&usb_1_qmpphy_dp_in>;
++};
++
+ &mdss_dsi0 {
+ 	vdda-supply = <&vreg_l22a>;
+ 	status = "okay";
+@@ -926,6 +956,13 @@ connector {
+ 		typec-power-opmode = "default";
+ 		pd-disable;
+ 
++		altmodes {
++			displayport {
++				svid = /bits/ 16 <0xff01>;
++				vdo = <0x00001c46>;
++			};
++		};
++
+ 		ports {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+@@ -943,6 +980,14 @@ pm7250b_ss_in: endpoint {
+ 					remote-endpoint = <&usb_1_qmpphy_out>;
+ 				};
+ 			};
++
++			port@2 {
++				reg = <2>;
++
++				pm7250b_typec_sbu_out: endpoint {
++					remote-endpoint = <&sbu_mux_in>;
++				};
++			};
+ 		};
+ 	};
+ };
+@@ -1049,6 +1094,14 @@ &sdhc_2 {
+ &tlmm {
+ 	gpio-reserved-ranges = <13 4>, <56 2>;
+ 
++	aw35743_mux_default: aw35743-default-state {
++		pins = "gpio54", "gpio93";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-disable;
++		output-low;
++	};
++
+ 	qup_uart1_sleep_cts: qup-uart1-sleep-cts-state {
+ 		pins = "gpio61";
+ 		function = "gpio";
+@@ -1222,6 +1275,10 @@ &usb_1_qmpphy {
+ 	status = "okay";
+ };
+ 
++&usb_1_qmpphy_dp_in {
++	remote-endpoint = <&mdss_dp_out>;
++};
++
+ &usb_1_qmpphy_out {
+ 	remote-endpoint = <&pm7250b_ss_in>;
+ };
