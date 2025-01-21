@@ -1,0 +1,38 @@
+Source: linux-6.18-sdm845
+Section: kernel
+Maintainer: Arnaud Ferraris <aferraris@debian.org>
+Build-Depends:
+ bc,
+ bison,
+ cpio,
+ debhelper-compat (=13),
+ flex | flex:native,
+ kmod,
+ libssl-dev:native,
+ rsync,
+# Needed for Rust
+ rustc:native (>= 1.78.0),
+ bindgen:native (>= 0.65.1),
+ rust-src (>= 1.78.0)
+Standards-Version: 4.7.3
+Homepage: https://salsa.debian.org/Mobian-team/devices/kernels/qcom-linux
+Vcs-Git: https://salsa.debian.org/Mobian-team/devices/kernels/qcom-linux.git
+Vcs-Browser: https://salsa.debian.org/Mobian-team/devices/kernels/qcom-linux
+
+Package: linux-image-6.18-sdm845
+Architecture: arm64
+Depends:
+ initramfs-tools | linux-initramfs-tool,
+ kmod,
+ linux-base,
+Provides: wireguard-modules (= 1.0.0)
+Description: Linux 6.18 for sdm845 devices
+ The linux kernel, modules and corresponding other files for
+ sdm845 devices.
+
+Package: linux-headers-6.18-sdm845
+Architecture: arm64
+Description: Linux kernel headers for sdm845 devices
+ This package provides kernel header files for the sdm845 kernel.
+ .
+ This is useful for people who need to build external modules
