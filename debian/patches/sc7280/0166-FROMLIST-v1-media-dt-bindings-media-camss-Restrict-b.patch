@@ -1,0 +1,377 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Mon, 9 Dec 2024 13:01:05 +0100
+Subject: FROMLIST v1 media: dt-bindings: media: camss: Restrict bus-type
+ property
+
+The CSIPHY of Qualcomm SoCs support both D-PHY and C-PHY standards for
+CSI-2, but not any others so restrict the bus-type property describing
+this to the supported values.
+
+The only exception here is MSM8916 which only supports D-PHY. C-PHY was
+introduced with newer SoCs.
+
+Do note, that currently the Linux driver only supports D-PHY.
+
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ .../bindings/media/qcom,msm8916-camss.yaml         |  8 ++++++
+ .../bindings/media/qcom,msm8953-camss.yaml         | 15 +++++++++++
+ .../bindings/media/qcom,msm8996-camss.yaml         | 20 +++++++++++++++
+ .../bindings/media/qcom,sc8280xp-camss.yaml        | 20 +++++++++++++++
+ .../bindings/media/qcom,sdm660-camss.yaml          | 20 +++++++++++++++
+ .../bindings/media/qcom,sdm845-camss.yaml          | 20 +++++++++++++++
+ .../bindings/media/qcom,sm8250-camss.yaml          | 30 ++++++++++++++++++++++
+ 7 files changed, 133 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/media/qcom,msm8916-camss.yaml b/Documentation/devicetree/bindings/media/qcom,msm8916-camss.yaml
+index 9cc0a96..3de2a3d 100644
+--- a/Documentation/devicetree/bindings/media/qcom,msm8916-camss.yaml
++++ b/Documentation/devicetree/bindings/media/qcom,msm8916-camss.yaml
+@@ -94,6 +94,10 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - data-lanes
+ 
+@@ -113,6 +117,10 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - data-lanes
+ 
+diff --git a/Documentation/devicetree/bindings/media/qcom,msm8953-camss.yaml b/Documentation/devicetree/bindings/media/qcom,msm8953-camss.yaml
+index 8856fba..6d776b0 100644
+--- a/Documentation/devicetree/bindings/media/qcom,msm8953-camss.yaml
++++ b/Documentation/devicetree/bindings/media/qcom,msm8953-camss.yaml
+@@ -112,6 +112,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - data-lanes
+ 
+@@ -131,6 +136,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - data-lanes
+ 
+@@ -150,6 +160,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - data-lanes
+ 
+diff --git a/Documentation/devicetree/bindings/media/qcom,msm8996-camss.yaml b/Documentation/devicetree/bindings/media/qcom,msm8996-camss.yaml
+index 5cb0e33..cae4c4f 100644
+--- a/Documentation/devicetree/bindings/media/qcom,msm8996-camss.yaml
++++ b/Documentation/devicetree/bindings/media/qcom,msm8996-camss.yaml
+@@ -116,6 +116,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - data-lanes
+ 
+@@ -135,6 +140,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - data-lanes
+ 
+@@ -154,6 +164,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - data-lanes
+ 
+@@ -173,6 +188,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - data-lanes
+ 
+diff --git a/Documentation/devicetree/bindings/media/qcom,sc8280xp-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sc8280xp-camss.yaml
+index c0bc317..f9e3f51 100644
+--- a/Documentation/devicetree/bindings/media/qcom,sc8280xp-camss.yaml
++++ b/Documentation/devicetree/bindings/media/qcom,sc8280xp-camss.yaml
+@@ -143,6 +143,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - clock-lanes
+               - data-lanes
+@@ -166,6 +171,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - clock-lanes
+               - data-lanes
+@@ -189,6 +199,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - clock-lanes
+               - data-lanes
+@@ -212,6 +227,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - clock-lanes
+               - data-lanes
+diff --git a/Documentation/devicetree/bindings/media/qcom,sdm660-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sdm660-camss.yaml
+index 584106e..a3e2ee7 100644
+--- a/Documentation/devicetree/bindings/media/qcom,sdm660-camss.yaml
++++ b/Documentation/devicetree/bindings/media/qcom,sdm660-camss.yaml
+@@ -122,6 +122,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - data-lanes
+ 
+@@ -141,6 +146,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - data-lanes
+ 
+@@ -160,6 +170,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - data-lanes
+ 
+@@ -179,6 +194,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - data-lanes
+ 
+diff --git a/Documentation/devicetree/bindings/media/qcom,sdm845-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sdm845-camss.yaml
+index ec4380a0a..98cd0df 100644
+--- a/Documentation/devicetree/bindings/media/qcom,sdm845-camss.yaml
++++ b/Documentation/devicetree/bindings/media/qcom,sdm845-camss.yaml
+@@ -109,6 +109,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - data-lanes
+ 
+@@ -128,6 +133,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - data-lanes
+ 
+@@ -147,6 +157,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - data-lanes
+ 
+@@ -166,6 +181,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - data-lanes
+ 
+diff --git a/Documentation/devicetree/bindings/media/qcom,sm8250-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sm8250-camss.yaml
+index fa5073c..c95533a 100644
+--- a/Documentation/devicetree/bindings/media/qcom,sm8250-camss.yaml
++++ b/Documentation/devicetree/bindings/media/qcom,sm8250-camss.yaml
+@@ -129,6 +129,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - clock-lanes
+               - data-lanes
+@@ -152,6 +157,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - clock-lanes
+               - data-lanes
+@@ -175,6 +185,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - clock-lanes
+               - data-lanes
+@@ -198,6 +213,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - clock-lanes
+               - data-lanes
+@@ -221,6 +241,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - clock-lanes
+               - data-lanes
+@@ -244,6 +269,11 @@ properties:
+                 minItems: 1
+                 maxItems: 4
+ 
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
+             required:
+               - clock-lanes
+               - data-lanes
