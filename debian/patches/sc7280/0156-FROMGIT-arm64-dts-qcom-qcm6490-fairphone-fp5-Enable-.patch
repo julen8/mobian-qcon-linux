@@ -1,0 +1,71 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 3 Jan 2025 12:12:01 +0100
+Subject: FROMGIT arm64: dts: qcom: qcm6490-fairphone-fp5: Enable camera
+ EEPROMs
+
+Configure the EEPROMs which are found on the different camera sensors on
+this device.
+
+The pull-up regulator for these I2C busses is vreg_l6p, the same supply
+that powers VCC of all the EEPROMs.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20250103-fp5-cam-eeprom-v1-5-88dee1b36f8e@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 41 ++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+index cc1f89a..769c66cb 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+@@ -556,6 +556,47 @@ vreg_bob: bob {
+ 	};
+ };
+ 
++&cci0 {
++	status = "okay";
++};
++
++&cci0_i2c0 {
++	/* IMX800 @ 1a */
++
++	eeprom@50 {
++		compatible = "puya,p24c256c", "atmel,24c256";
++		reg = <0x50>;
++		vcc-supply = <&vreg_l6p>;
++		read-only;
++	};
++};
++
++&cci0_i2c1 {
++	/* IMX858 @ 29 */
++
++	eeprom@54 {
++		compatible = "giantec,gt24p128f", "atmel,24c128";
++		reg = <0x54>;
++		vcc-supply = <&vreg_l6p>;
++		read-only;
++	};
++};
++
++&cci1 {
++	status = "okay";
++};
++
++&cci1_i2c1 {
++	/* S5KJN1SQ03 @ 10 */
++
++	eeprom@51 {
++		compatible = "giantec,gt24p128f", "atmel,24c128";
++		reg = <0x51>;
++		vcc-supply = <&vreg_l6p>;
++		read-only;
++	};
++};
++
+ &dispcc {
+ 	/* Disable for now so simple-framebuffer continues working */
+ 	status = "disabled";
