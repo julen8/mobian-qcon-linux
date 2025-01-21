@@ -1,0 +1,94 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 3 Jan 2025 12:12:00 +0100
+Subject: FROMGIT arm64: dts: qcom: qcm6490-fairphone-fp5: Prefix
+ regulator-fixed label
+
+Add the common vreg_ prefix to the labels of the regulator-fixed. Also
+make sure the nodes are sorted alphabetically.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20250103-fp5-cam-eeprom-v1-4-88dee1b36f8e@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 60 +++++++++++-----------
+ 1 file changed, 30 insertions(+), 30 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+index fdc62f1..cc1f89a 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+@@ -108,6 +108,36 @@ pmic_glink_ss_in: endpoint {
+ 		};
+ 	};
+ 
++	vreg_afvdd_2p8: regulator-afvdd-2p8 {
++		compatible = "regulator-fixed";
++		regulator-name = "AFVDD_2P8";
++		regulator-min-microvolt = <2800000>;
++		regulator-max-microvolt = <2800000>;
++		gpio = <&tlmm 68 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		vin-supply = <&vreg_bob>;
++	};
++
++	vreg_ois_avdd0_1p8: regulator-ois-avdd0-1p8 {
++		compatible = "regulator-fixed";
++		regulator-name = "OIS_AVDD0_1P8";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++		gpio = <&tlmm 157 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		vin-supply = <&vreg_bob>;
++	};
++
++	vreg_ois_dvdd_1p1: regulator-ois-dvdd-1p1 {
++		compatible = "regulator-fixed";
++		regulator-name = "OIS_DVDD_1P1";
++		regulator-min-microvolt = <1100000>;
++		regulator-max-microvolt = <1100000>;
++		gpio = <&tlmm 97 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		vin-supply = <&vreg_s8b>;
++	};
++
+ 	reserved-memory {
+ 		cont_splash_mem: cont-splash@e1000000 {
+ 			reg = <0x0 0xe1000000 0x0 0x2300000>;
+@@ -134,36 +164,6 @@ rmtfs_mem: memory@f8500000 {
+ 		};
+ 	};
+ 
+-	ois_avdd0_1p8: regulator-ois-avdd0-1p8 {
+-		compatible = "regulator-fixed";
+-		regulator-name = "OIS_AVDD0_1P8";
+-		regulator-min-microvolt = <1800000>;
+-		regulator-max-microvolt = <1800000>;
+-		gpio = <&tlmm 157 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-		vin-supply = <&vreg_bob>;
+-	};
+-
+-	ois_dvdd_1p1: regulator-ois-dvdd-1p1 {
+-		compatible = "regulator-fixed";
+-		regulator-name = "OIS_DVDD_1P1";
+-		regulator-min-microvolt = <1100000>;
+-		regulator-max-microvolt = <1100000>;
+-		gpio = <&tlmm 97 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-		vin-supply = <&vreg_s8b>;
+-	};
+-
+-	afvdd_2p8: regulator-afvdd-2p8 {
+-		compatible = "regulator-fixed";
+-		regulator-name = "AFVDD_2P8";
+-		regulator-min-microvolt = <2800000>;
+-		regulator-max-microvolt = <2800000>;
+-		gpio = <&tlmm 68 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-		vin-supply = <&vreg_bob>;
+-	};
+-
+ 	thermal-zones {
+ 		camera-thermal {
+ 			polling-delay-passive = <0>;
