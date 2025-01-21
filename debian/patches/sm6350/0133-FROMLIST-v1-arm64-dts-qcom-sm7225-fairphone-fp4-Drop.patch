@@ -1,0 +1,27 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 13 Dec 2024 08:51:21 +0100
+Subject: FROMLIST v1 arm64: dts: qcom: sm7225-fairphone-fp4: Drop extra
+ qcom,msm-id value
+
+The ID 434 is for SM6350 while 459 is for SM7225. Fairphone 4 is only
+SM7225, so drop the unused 434 entry.
+
+Fixes: 4cbea668767d ("arm64: dts: qcom: sm7225: Add device tree for Fairphone 4")
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+index 2ee2561..52b16a4 100644
+--- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
++++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+@@ -32,7 +32,7 @@ / {
+ 	chassis-type = "handset";
+ 
+ 	/* required for bootloader to select correct board */
+-	qcom,msm-id = <434 0x10000>, <459 0x10000>;
++	qcom,msm-id = <459 0x10000>;
+ 	qcom,board-id = <8 32>;
+ 
+ 	aliases {

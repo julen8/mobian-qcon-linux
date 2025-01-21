@@ -1,0 +1,70 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Thu, 2 Jan 2025 10:43:15 +0100
+Subject: arm64: dts: qcom: sm6350: Add OPP table support to UFSHC
+
+UFS host controller, when scaling gears, should choose appropriate
+performance state of RPMh power domain controller along with clock
+frequency. So let's add the OPP table support to specify both clock
+frequency and RPMh performance states replacing the old "freq-table-hz"
+property.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/sm6350.dtsi | 42 +++++++++++++++++++++++++++---------
+ 1 file changed, 32 insertions(+), 10 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+index 17f349a..175e26f 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+@@ -1179,18 +1179,40 @@ ufs_mem_hc: ufshc@1d84000 {
+ 				 <&gcc GCC_UFS_PHY_RX_SYMBOL_0_CLK>,
+ 				 <&gcc GCC_UFS_PHY_RX_SYMBOL_1_CLK>,
+ 				 <&gcc GCC_UFS_PHY_ICE_CORE_CLK>;
+-			freq-table-hz =
+-				<50000000 200000000>,
+-				<0 0>,
+-				<0 0>,
+-				<37500000 150000000>,
+-				<0 0>,
+-				<0 0>,
+-				<0 0>,
+-				<0 0>,
+-				<75000000 300000000>;
++
++			operating-points-v2 = <&ufs_opp_table>;
+ 
+ 			status = "disabled";
++
++			ufs_opp_table: opp-table {
++				compatible = "operating-points-v2";
++
++				opp-50000000 {
++					opp-hz = /bits/ 64 <50000000>,
++						 /bits/ 64 <0>,
++						 /bits/ 64 <0>,
++						 /bits/ 64 <37500000>,
++						 /bits/ 64 <0>,
++						 /bits/ 64 <0>,
++						 /bits/ 64 <0>,
++						 /bits/ 64 <0>,
++						 /bits/ 64 <75000000>;
++					required-opps = <&rpmhpd_opp_low_svs>;
++				};
++
++				opp-200000000 {
++					opp-hz = /bits/ 64 <200000000>,
++						 /bits/ 64 <0>,
++						 /bits/ 64 <0>,
++						 /bits/ 64 <150000000>,
++						 /bits/ 64 <0>,
++						 /bits/ 64 <0>,
++						 /bits/ 64 <0>,
++						 /bits/ 64 <0>,
++						 /bits/ 64 <300000000>;
++					required-opps = <&rpmhpd_opp_nom>;
++				};
++			};
+ 		};
+ 
+ 		ufs_mem_phy: phy@1d87000 {
