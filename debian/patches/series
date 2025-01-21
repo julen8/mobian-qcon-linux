@@ -30,3 +30,6 @@ sm6350/0029-arm64-dts-qcom-sm6350-Add-rpmh-stats-node.patch
 sm6350/0030-fp4_defconfig-enable-options-for-QC-USB-SND-audio-of.patch
 sm6350/0031-fixup-fp4_defconfig-add-defconfig.patch
 sm6350/0032-Revert-ALSA-qc_audio_offload-try-to-reduce-address-s.patch
+debian/0033-wireless-Add-Debian-wireless-regdb-certificates.patch
+mobian/0034-remoteproc-qcom-disable-in-kernel-PD-mapper.patch
+mobian/0035-arm64-configs-add-qcom_defconfig.patch
