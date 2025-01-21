@@ -193,3 +193,6 @@ sdm845/0192-drm-panel-Add-support-for-Samsung-EA8076.patch
 sdm845/0193-arch-arm64-dts-qcom-sdm845-introduce-support-for-Xia.patch
 sdm845/0194-sdm845.config-enable-xiaomi-perseus-related-configs.patch
 sdm845/0195-fixup-power-supply-qcom_smbx-add-smb5-support.patch
+debian/0196-wireless-Add-Debian-wireless-regdb-certificates.patch
+mobian/0197-remoteproc-qcom-disable-in-kernel-PD-mapper.patch
+mobian/0198-arm64-configs-add-qcom_defconfig.patch
