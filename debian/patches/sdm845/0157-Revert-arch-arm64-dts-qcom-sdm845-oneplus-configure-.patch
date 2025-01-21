@@ -9,7 +9,7 @@ This reverts commit fe42ce943b53b5a546dc28f3c99601cba1cf33b9.
  1 file changed, 4 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index fdfac1a..6067e5a 100644
+index 6de1182..c323eabf 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 @@ -950,10 +950,6 @@ dai@1 {

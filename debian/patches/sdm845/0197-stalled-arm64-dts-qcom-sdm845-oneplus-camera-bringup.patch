@@ -15,7 +15,7 @@ Signed-off-by: David Heidelberg <david@ixit.cz>
  3 files changed, 100 insertions(+), 100 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index 6067e5a..30a9ba3 100644
+index c323eabf..17936de 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 @@ -243,6 +243,20 @@ panel_vddi_poc_1p8: panel-vddi-poc-regulator {

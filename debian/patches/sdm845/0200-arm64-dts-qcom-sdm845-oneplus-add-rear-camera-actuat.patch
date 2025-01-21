@@ -10,7 +10,7 @@ Signed-off-by: Vasiliy Doylov <nekocwd@mainlining.org>
  1 file changed, 51 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index 30a9ba3..f09879e 100644
+index 17936de..050486c 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 @@ -705,6 +705,50 @@ imx519_ep: endpoint {

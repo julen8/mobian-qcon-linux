@@ -7,7 +7,7 @@ Subject: arch: arm64: dts: qcom: sdm845-oneplus: specify cvd v2.3
  1 file changed, 2 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index fdfac1a..4dbc9ed 100644
+index 6de1182..7b57977 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 @@ -945,6 +945,8 @@ dai@5 {
