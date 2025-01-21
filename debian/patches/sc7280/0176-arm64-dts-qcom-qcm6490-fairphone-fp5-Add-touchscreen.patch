@@ -1,0 +1,36 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 30 Jun 2023 12:20:58 +0200
+Subject: arm64: dts: qcom: qcm6490-fairphone-fp5: Add touchscreen node
+
+Add a node for the GT9897 touchscreen found on this smartphone connected
+via SPI.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+index 377e92c..582b192 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+@@ -1069,7 +1069,18 @@ &sdhc_2 {
+ &spi13 {
+ 	status = "okay";
+ 
+-	/* Goodix touchscreen @ 0 */
++	touchscreen@0 {
++		compatible = "goodix,gt9897";
++		reg = <0>;
++		interrupt-parent = <&tlmm>;
++		interrupts = <81 IRQ_TYPE_LEVEL_LOW>;
++		reset-gpios = <&tlmm 105 GPIO_ACTIVE_LOW>;
++		avdd-supply = <&vreg_l3c>;
++		vddio-supply = <&vreg_l2c>;
++		spi-max-frequency = <1000000>;
++		touchscreen-size-x = <1224>;
++		touchscreen-size-y = <2700>;
++	};
+ };
+ 
+ &tlmm {
