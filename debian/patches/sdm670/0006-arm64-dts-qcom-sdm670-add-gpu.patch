@@ -1,17 +1,22 @@
 From: Richard Acayan <mailingradian@gmail.com>
-Date: Thu, 6 Oct 2022 20:00:03 -0400
+Date: Tue, 6 Aug 2024 17:44:57 -0400
 Subject: [PATCH] arm64: dts: qcom: sdm670: add gpu
 
 The Snapdragon 670 has the Adreno A615 GPU. Add it along with its device
 tree dependencies.
 
 Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+Link: https://lore.kernel.org/r/20240806214452.16406-10-mailingradian@gmail.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+(cherry picked from commit cd89483a1327c0317a655cca1daf9521c7ec7529)
+Link: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
 ---
  arch/arm64/boot/dts/qcom/sdm670.dtsi | 180 +++++++++++++++++++++++++++++++++++
  1 file changed, 180 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670.dtsi b/arch/arm64/boot/dts/qcom/sdm670.dtsi
-index 187c669..5c274a3 100644
+index c93dd06..0b2d5c0 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm670.dtsi
 @@ -8,6 +8,7 @@
