@@ -1,6 +1,6 @@
 From: Luca Weiss <luca.weiss@fairphone.com>
 Date: Fri, 8 Nov 2024 08:54:40 +0100
-Subject: WIP media: i2c: Add driver for Sony IMX858 sensor
+Subject: [PATCH] WIP media: i2c: Add driver for Sony IMX858 sensor
 
 Add a driver for the IMX858 sensor with 50.3MP resolution.
 
@@ -13,10 +13,10 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  create mode 100644 drivers/media/i2c/imx858.c
 
 diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 4f7b0a1..837d85b 100644
+index b44fd95..feadde5 100644
 --- a/drivers/media/i2c/Kconfig
 +++ b/drivers/media/i2c/Kconfig
-@@ -274,6 +274,17 @@ config VIDEO_IMX415
+@@ -264,6 +264,17 @@ config VIDEO_IMX415
  	  To compile this driver as a module, choose M here: the
  	  module will be called imx415.
  
@@ -35,11 +35,11 @@ index 4f7b0a1..837d85b 100644
  	tristate
  
 diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index 215f240..c75999f 100644
+index b8584a7..a52af76 100644
 --- a/drivers/media/i2c/Makefile
 +++ b/drivers/media/i2c/Makefile
-@@ -60,6 +60,7 @@ obj-$(CONFIG_VIDEO_IMX355) += imx355.o
- obj-$(CONFIG_VIDEO_IMX363) += imx363.o
+@@ -59,6 +59,7 @@ obj-$(CONFIG_VIDEO_IMX335) += imx335.o
+ obj-$(CONFIG_VIDEO_IMX355) += imx355.o
  obj-$(CONFIG_VIDEO_IMX412) += imx412.o
  obj-$(CONFIG_VIDEO_IMX415) += imx415.o
 +obj-$(CONFIG_VIDEO_IMX858) += imx858.o
