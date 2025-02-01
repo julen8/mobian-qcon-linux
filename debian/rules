@@ -6,7 +6,7 @@ include /usr/share/dpkg/architecture.mk
 srctree ?= .
 
 KVER=6.13
-KVENDOR=qcom
+KVENDOR=sc7280
 KREL=$(KVER)-$(KVENDOR)
 
 ifneq ($(filter cross,$(DEB_BUILD_PROFILES)),)
