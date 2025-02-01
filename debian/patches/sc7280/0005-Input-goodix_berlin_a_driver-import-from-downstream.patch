@@ -1,6 +1,6 @@
 From: Luca Weiss <luca.weiss@fairphone.com>
 Date: Fri, 28 Apr 2023 08:47:41 +0200
-Subject: Input - goodix_berlin_a_driver: import from downstream
+Subject: [PATCH] Input - goodix_berlin_a_driver: import from downstream
 
 ---
  drivers/input/touchscreen/Kconfig                  |    2 +
@@ -34,24 +34,24 @@ Subject: Input - goodix_berlin_a_driver: import from downstream
  create mode 100644 drivers/input/touchscreen/goodix_berlin_a_driver/goodix_ts_utils.c
 
 diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
-index f7dfd85..ba97307 100644
+index 1ac26fc..6216f06 100644
 --- a/drivers/input/touchscreen/Kconfig
 +++ b/drivers/input/touchscreen/Kconfig
-@@ -1403,4 +1403,6 @@ config TOUCHSCREEN_HIMAX_CHIPSET
- 
- source "drivers/input/touchscreen/hxchipset/Kconfig"
+@@ -1388,4 +1388,6 @@ config TOUCHSCREEN_HIMAX_HX83112B
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called himax_hx83112b.
  
 +source "drivers/input/touchscreen/goodix_berlin_a_driver/Kconfig"
 +
  endif
 diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
-index 08fcb95..b2248aa 100644
+index 82bc837..e7dab85 100644
 --- a/drivers/input/touchscreen/Makefile
 +++ b/drivers/input/touchscreen/Makefile
-@@ -119,3 +119,4 @@ obj-$(CONFIG_TOUCHSCREEN_ZINITIX)	+= zinitix.o
+@@ -117,3 +117,4 @@ obj-$(CONFIG_TOUCHSCREEN_IQS5XX)	+= iqs5xx.o
+ obj-$(CONFIG_TOUCHSCREEN_IQS7211)	+= iqs7211.o
+ obj-$(CONFIG_TOUCHSCREEN_ZINITIX)	+= zinitix.o
  obj-$(CONFIG_TOUCHSCREEN_HIMAX_HX83112B)	+= himax_hx83112b.o
- obj-$(CONFIG_TOUCHSCREEN_STM_FTS_DOWNSTREAM)		+= stm/
- obj-$(CONFIG_TOUCHSCREEN_HIMAX_CHIPSET)	+= hxchipset/
 +obj-$(CONFIG_TOUCHSCREEN_GOODIX_BRL) += goodix_berlin_a_driver/
 diff --git a/drivers/input/touchscreen/goodix_berlin_a_driver/Kconfig b/drivers/input/touchscreen/goodix_berlin_a_driver/Kconfig
 new file mode 100644
