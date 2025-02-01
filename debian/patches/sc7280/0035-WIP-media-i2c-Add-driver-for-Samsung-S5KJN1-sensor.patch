@@ -13,10 +13,10 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  create mode 100644 drivers/media/i2c/s5kjn1.c
 
 diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 28740b3..4f7b0a1 100644
+index 8ba096b..b44fd95 100644
 --- a/drivers/media/i2c/Kconfig
 +++ b/drivers/media/i2c/Kconfig
-@@ -700,6 +700,13 @@ config VIDEO_S5K6A3
+@@ -690,6 +690,13 @@ config VIDEO_S5K6A3
  	  This is a V4L2 sensor driver for Samsung S5K6A3 raw
  	  camera sensor.
  
@@ -31,10 +31,10 @@ index 28740b3..4f7b0a1 100644
  	tristate "ST VGXY61 sensor support"
  	select V4L2_CCI_I2C
 diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index 02c41db..215f240 100644
+index fbb988bd..b8584a7 100644
 --- a/drivers/media/i2c/Makefile
 +++ b/drivers/media/i2c/Makefile
-@@ -121,6 +121,7 @@ obj-$(CONFIG_VIDEO_RJ54N1) += rj54n1cb0c.o
+@@ -120,6 +120,7 @@ obj-$(CONFIG_VIDEO_RJ54N1) += rj54n1cb0c.o
  obj-$(CONFIG_VIDEO_S5C73M3) += s5c73m3/
  obj-$(CONFIG_VIDEO_S5K5BAF) += s5k5baf.o
  obj-$(CONFIG_VIDEO_S5K6A3) += s5k6a3.o
