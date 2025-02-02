@@ -104,7 +104,7 @@ sound: codecs: tfa98xx: fix .remove decleration
  create mode 100644 sound/soc/codecs/tfa98xx-downstream/tfa_service.h
 
 diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 7092842..7309149 100644
+index 0d9d1d2..a3a0b9a 100644
 --- a/sound/soc/codecs/Kconfig
 +++ b/sound/soc/codecs/Kconfig
 @@ -261,6 +261,7 @@ config SND_SOC_ALL_CODECS
