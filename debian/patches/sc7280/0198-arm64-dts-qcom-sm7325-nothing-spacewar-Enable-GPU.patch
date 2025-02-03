@@ -1,0 +1,24 @@
+From: Danila Tikhonov <danila@jiaxyga.com>
+Date: Tue, 21 Jan 2025 02:24:51 +0300
+Subject: arm64: dts: qcom: sm7325-nothing-spacewar: Enable GPU
+
+Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
+---
+ arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts b/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts
+index a1ba961..d3008a8 100644
+--- a/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts
++++ b/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts
+@@ -764,6 +764,10 @@ &gpi_dma1 {
+ 	status = "okay";
+ };
+ 
++&gpu {
++	status = "okay";
++};
++
+ &gpu_zap_shader {
+ 	firmware-name = "qcom/sm7325/nothing/spacewar/a660_zap.mbn";
+ };

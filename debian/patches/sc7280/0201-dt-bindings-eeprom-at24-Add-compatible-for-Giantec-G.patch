@@ -1,0 +1,23 @@
+From: Danila Tikhonov <danila@jiaxyga.com>
+Date: Sat, 11 Jan 2025 21:56:27 +0300
+Subject: dt-bindings: eeprom: at24: Add compatible for Giantec GT24P128E
+
+Add the compatible for another 128Kb EEPROM from Giantec.
+
+Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
+---
+ Documentation/devicetree/bindings/eeprom/at24.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/eeprom/at24.yaml b/Documentation/devicetree/bindings/eeprom/at24.yaml
+index e76f744..95abe77 100644
+--- a/Documentation/devicetree/bindings/eeprom/at24.yaml
++++ b/Documentation/devicetree/bindings/eeprom/at24.yaml
+@@ -135,6 +135,7 @@ properties:
+           - const: atmel,24c64
+       - items:
+           - enum:
++              - giantec,gt24p128e
+               - giantec,gt24p128f
+               - renesas,r1ex24128
+               - samsung,s524ad0xd1

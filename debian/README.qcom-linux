@@ -5,7 +5,9 @@ For out-of-tree device support, patches were imported from the following
 community-maintained kernel forks:
   * sdm845: https://gitlab.com/sdm845-mainline/linux
   * sm6350: https://github.com/sm6350-mainline/linux
+  * sc7280: https://github.com/sc7280-mainline/linux
 
 Those patchsets were last synced on the following dates:
   * sdm845: 2025-01-21
   * sm6350: 2025-01-21
+  * sc7280: 2025-02-03

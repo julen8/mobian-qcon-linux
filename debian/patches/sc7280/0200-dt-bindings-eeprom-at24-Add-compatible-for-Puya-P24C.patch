@@ -1,0 +1,23 @@
+From: Danila Tikhonov <danila@jiaxyga.com>
+Date: Sat, 11 Jan 2025 22:13:57 +0300
+Subject: dt-bindings: eeprom: at24: Add compatible for Puya P24C64F
+
+Add the compatible for an 64Kb EEPROM from Puya.
+
+Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
+---
+ Documentation/devicetree/bindings/eeprom/at24.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/eeprom/at24.yaml b/Documentation/devicetree/bindings/eeprom/at24.yaml
+index c9e4afb..e76f744 100644
+--- a/Documentation/devicetree/bindings/eeprom/at24.yaml
++++ b/Documentation/devicetree/bindings/eeprom/at24.yaml
+@@ -131,6 +131,7 @@ properties:
+           - const: atmel,24c32
+       - items:
+           - const: onnn,n24s64b
++          - const: puya,p24c64f
+           - const: atmel,24c64
+       - items:
+           - enum:

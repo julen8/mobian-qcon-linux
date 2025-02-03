@@ -1,0 +1,27 @@
+From: Danila Tikhonov <danila@jiaxyga.com>
+Date: Tue, 21 Jan 2025 00:50:18 +0300
+Subject: arm64: dts: qcom: sm7325-nothing-spacewar: Enable CAMSS
+
+Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
+---
+ arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts b/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts
+index d3008a8..c1dd285 100644
+--- a/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts
++++ b/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts
+@@ -720,6 +720,13 @@ vreg_bob: bob {
+ 	};
+ };
+ 
++&camss {
++	vdda-phy-supply = <&vreg_l10c_0p88>;
++	vdda-pll-supply = <&vreg_l6b_1p2>;
++
++	status = "okay";
++};
++
+ &cci0 {
+ 	status = "okay";
+ };

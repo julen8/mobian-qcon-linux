@@ -1,0 +1,107 @@
+From: Danila Tikhonov <danila@jiaxyga.com>
+Date: Tue, 21 Jan 2025 01:12:29 +0300
+Subject: fixup! arm64: dts: qcom: sm7325-nothing-spacewar: Add touchscreen
+ support
+
+Fix the touchscreen node according to the driver changes.
+
+Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
+---
+ .../boot/dts/qcom/sm7325-nothing-spacewar.dts      | 43 ++++++----------------
+ 1 file changed, 12 insertions(+), 31 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts b/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts
+index 3fd987d..3dc82d4 100644
+--- a/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts
++++ b/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts
+@@ -671,10 +671,7 @@ regulators-1 {
+ 
+ 		vdd-l1-l12-supply = <&vreg_s1b_1p856>;
+ 		vdd-l2-l8-supply = <&vreg_s1b_1p856>;
+-		/*
+-		 * Doesn't work with always-on TS regulators :/
+-		 * vdd-l3-l4-l5-l7-l13-supply = <&vreg_bob>;
+-		 */
++		vdd-l3-l4-l5-l7-l13-supply = <&vreg_bob>;
+ 		vdd-l6-l9-l11-supply = <&vreg_bob>;
+ 		vdd-l10-supply = <&vreg_s7b_0p952>;
+ 
+@@ -736,7 +733,6 @@ vreg_l3c_3p0: ldo3 {
+ 			regulator-min-microvolt = <2800000>;
+ 			regulator-max-microvolt = <3540000>;
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-			regulator-always-on;
+ 		};
+ 
+ 		vdd_px5:
+@@ -777,7 +773,6 @@ vreg_l8c_1p8: ldo8 {
+ 			regulator-min-microvolt = <1620000>;
+ 			regulator-max-microvolt = <2000000>;
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-			regulator-always-on;
+ 		};
+ 
+ 		vreg_l9c_2p96: ldo9 {
+@@ -1435,7 +1430,7 @@ focaltech@0 {
+ 
+ 		interrupt-parent = <&tlmm>;
+ 		interrupts = <81 0x2008>;
+-		focaltech,reset-gpio = <&tlmm 105 GPIO_ACTIVE_HIGH>;
++		reset-gpios = <&tlmm 105 GPIO_ACTIVE_HIGH>;
+ 		focaltech,irq-gpio = <&tlmm 81 0x2008>;
+ 		focaltech,display-coords = <0 0 1080 2400>;
+ 		focaltech,max-touch-number = <10>;
+@@ -1444,12 +1439,10 @@ focaltech@0 {
+ 		vdd-supply = <&vdd_ts>;
+ 		iovdd-supply = <&vreg_l8c_1p8>;
+ 
+-		pinctrl-0 = <&ts_active>;
+-		pinctrl-1 = <&ts_release>;
+-		pinctrl-2 = <&ts_suspend>;
+-		pinctrl-names = "pmx_ts_active",
+-				"pmx_ts_release",
+-				"pmx_ts_suspend";
++		pinctrl-names = "default";
++		pinctrl-0 = <&ts_int_n>,
++			    <&ts_reset_n>;
++
+ 		focaltech,trusted-touch-mode = "vm_mode";
+ 		focaltech,touch-environment = "pvm";
+ 		focaltech,trusted-touch-spi-irq = <601>;
+@@ -1599,30 +1592,18 @@ pri_mi2s_sleep: pri-mi2s-sleep-state {
+ 		input-enable;
+ 	};
+ 
+-	/*
+-	 * Schematic names:
+-	 * gpio81  - ts_int_n
+-	 * gpio105 - ts_reset_n
+-	 */
+-	ts_active: ts-active-state {
+-		pins = "gpio81", "gpio105";
++	ts_int_n: ts-int-n-state {
++		pins = "gpio81";
+ 		function = "gpio";
+ 		drive-strength = <8>;
+ 		bias-pull-up;
+ 	};
+ 
+-	ts_release: ts_release-state {
+-		pins = "gpio81", "gpio105";
++	ts_reset_n: ts-reset-n-state {
++		pins = "gpio105";
+ 		function = "gpio";
+-		drive-strength = <2>;
+-		bias-disable;
+-	};
+-
+-	ts_suspend: ts-suspend-state {
+-		pins = "gpio81", "gpio105";
+-		function = "gpio";
+-		drive-strength = <2>;
+-		bias-pull-down;
++		drive-strength = <8>;
++		bias-pull-up;
+ 	};
+ };
+ 

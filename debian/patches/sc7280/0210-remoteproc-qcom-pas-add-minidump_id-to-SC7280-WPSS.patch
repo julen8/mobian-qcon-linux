@@ -1,0 +1,24 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 24 Jan 2025 15:38:57 +0100
+Subject: remoteproc: qcom: pas: add minidump_id to SC7280 WPSS
+
+Add the minidump ID to the wpss resources, based on msm-5.4 devicetree.
+
+Fixes: 300ed425dfa9 ("remoteproc: qcom_q6v5_pas: Add SC7280 ADSP, CDSP & WPSS")
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ drivers/remoteproc/qcom_q6v5_pas.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+index 97c4bdd..a78d429 100644
+--- a/drivers/remoteproc/qcom_q6v5_pas.c
++++ b/drivers/remoteproc/qcom_q6v5_pas.c
+@@ -1348,6 +1348,7 @@ static const struct adsp_data sc7280_wpss_resource = {
+ 	.crash_reason_smem = 626,
+ 	.firmware_name = "wpss.mdt",
+ 	.pas_id = 6,
++	.minidump_id = 4,
+ 	.auto_boot = false,
+ 	.proxy_pd_names = (char*[]){
+ 		"cx",
