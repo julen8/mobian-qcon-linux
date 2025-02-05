@@ -235,7 +235,7 @@ index a439fa2..ad1677b 100644
  
  static void himax_himax_data_init(void)
 diff --git a/drivers/input/touchscreen/hxchipset/himax_ic_HX83112.c b/drivers/input/touchscreen/hxchipset/himax_ic_HX83112.c
-index 971a4c16..83df2d6 100644
+index 971a4c1..83df2d6 100644
 --- a/drivers/input/touchscreen/hxchipset/himax_ic_HX83112.c
 +++ b/drivers/input/touchscreen/hxchipset/himax_ic_HX83112.c
 @@ -507,25 +507,25 @@ static bool hx83112_chip_detect(void)

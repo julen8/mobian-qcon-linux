@@ -71,7 +71,7 @@ index 04c54a4..08fcb95 100644
 +obj-$(CONFIG_TOUCHSCREEN_HIMAX_CHIPSET)	+= hxchipset/
 diff --git a/drivers/input/touchscreen/hxchipset/Kconfig b/drivers/input/touchscreen/hxchipset/Kconfig
 new file mode 100644
-index 00000000..9e5b047
+index 0000000..9e5b047
 --- /dev/null
 +++ b/drivers/input/touchscreen/hxchipset/Kconfig
 @@ -0,0 +1,117 @@
@@ -194,7 +194,7 @@ index 00000000..9e5b047
 +
 diff --git a/drivers/input/touchscreen/hxchipset/Makefile b/drivers/input/touchscreen/hxchipset/Makefile
 new file mode 100644
-index 00000000..48ab92a
+index 0000000..48ab92a
 --- /dev/null
 +++ b/drivers/input/touchscreen/hxchipset/Makefile
 @@ -0,0 +1,166 @@
@@ -366,7 +366,7 @@ index 00000000..48ab92a
 +endif
 diff --git a/drivers/input/touchscreen/hxchipset/himax_common.c b/drivers/input/touchscreen/hxchipset/himax_common.c
 new file mode 100644
-index 00000000..81bbbbb
+index 0000000..81bbbbb
 --- /dev/null
 +++ b/drivers/input/touchscreen/hxchipset/himax_common.c
 @@ -0,0 +1,3430 @@
@@ -3802,7 +3802,7 @@ index 00000000..81bbbbb
 +
 diff --git a/drivers/input/touchscreen/hxchipset/himax_common.h b/drivers/input/touchscreen/hxchipset/himax_common.h
 new file mode 100644
-index 00000000..afa1bfd
+index 0000000..afa1bfd
 --- /dev/null
 +++ b/drivers/input/touchscreen/hxchipset/himax_common.h
 @@ -0,0 +1,604 @@
@@ -4412,7 +4412,7 @@ index 00000000..afa1bfd
 +#endif
 diff --git a/drivers/input/touchscreen/hxchipset/himax_debug.c b/drivers/input/touchscreen/hxchipset/himax_debug.c
 new file mode 100644
-index 00000000..a439fa2
+index 0000000..a439fa2
 --- /dev/null
 +++ b/drivers/input/touchscreen/hxchipset/himax_debug.c
 @@ -0,0 +1,3139 @@
@@ -7557,7 +7557,7 @@ index 00000000..a439fa2
 +
 diff --git a/drivers/input/touchscreen/hxchipset/himax_debug.h b/drivers/input/touchscreen/hxchipset/himax_debug.h
 new file mode 100644
-index 00000000..1de7db3
+index 0000000..1de7db3
 --- /dev/null
 +++ b/drivers/input/touchscreen/hxchipset/himax_debug.h
 @@ -0,0 +1,157 @@
@@ -7720,7 +7720,7 @@ index 00000000..1de7db3
 +#endif
 diff --git a/drivers/input/touchscreen/hxchipset/himax_ic_HX83112.c b/drivers/input/touchscreen/hxchipset/himax_ic_HX83112.c
 new file mode 100644
-index 00000000..971a4c16
+index 0000000..971a4c1
 --- /dev/null
 +++ b/drivers/input/touchscreen/hxchipset/himax_ic_HX83112.c
 @@ -0,0 +1,592 @@
@@ -8318,7 +8318,7 @@ index 00000000..971a4c16
 +
 diff --git a/drivers/input/touchscreen/hxchipset/himax_ic_HX83112.h b/drivers/input/touchscreen/hxchipset/himax_ic_HX83112.h
 new file mode 100644
-index 00000000..7ab7f8e
+index 0000000..7ab7f8e
 --- /dev/null
 +++ b/drivers/input/touchscreen/hxchipset/himax_ic_HX83112.h
 @@ -0,0 +1,29 @@
@@ -8353,7 +8353,7 @@ index 00000000..7ab7f8e
 +#define hx83112f_notouch_frame            0
 diff --git a/drivers/input/touchscreen/hxchipset/himax_ic_core.h b/drivers/input/touchscreen/hxchipset/himax_ic_core.h
 new file mode 100644
-index 00000000..b600b99
+index 0000000..b600b99
 --- /dev/null
 +++ b/drivers/input/touchscreen/hxchipset/himax_ic_core.h
 @@ -0,0 +1,1005 @@
@@ -9364,7 +9364,7 @@ index 00000000..b600b99
 +#endif
 diff --git a/drivers/input/touchscreen/hxchipset/himax_ic_incell_core.c b/drivers/input/touchscreen/hxchipset/himax_ic_incell_core.c
 new file mode 100644
-index 00000000..e5810c4
+index 0000000..e5810c4
 --- /dev/null
 +++ b/drivers/input/touchscreen/hxchipset/himax_ic_incell_core.c
 @@ -0,0 +1,4881 @@
@@ -14251,7 +14251,7 @@ index 00000000..e5810c4
 +/* CORE_INIT */
 diff --git a/drivers/input/touchscreen/hxchipset/himax_inspection.c b/drivers/input/touchscreen/hxchipset/himax_inspection.c
 new file mode 100644
-index 00000000..ca5e8da
+index 0000000..ca5e8da
 --- /dev/null
 +++ b/drivers/input/touchscreen/hxchipset/himax_inspection.c
 @@ -0,0 +1,2429 @@
@@ -16686,7 +16686,7 @@ index 00000000..ca5e8da
 +}
 diff --git a/drivers/input/touchscreen/hxchipset/himax_inspection.h b/drivers/input/touchscreen/hxchipset/himax_inspection.h
 new file mode 100644
-index 00000000..552be83
+index 0000000..552be83
 --- /dev/null
 +++ b/drivers/input/touchscreen/hxchipset/himax_inspection.h
 @@ -0,0 +1,296 @@
@@ -16988,7 +16988,7 @@ index 00000000..552be83
 +extern void himax_inspect_data_clear(void);
 diff --git a/drivers/input/touchscreen/hxchipset/himax_modular.h b/drivers/input/touchscreen/hxchipset/himax_modular.h
 new file mode 100644
-index 00000000..707a1f4
+index 0000000..707a1f4
 --- /dev/null
 +++ b/drivers/input/touchscreen/hxchipset/himax_modular.h
 @@ -0,0 +1,374 @@
@@ -17368,7 +17368,7 @@ index 00000000..707a1f4
 +#endif
 diff --git a/drivers/input/touchscreen/hxchipset/himax_modular_table.h b/drivers/input/touchscreen/hxchipset/himax_modular_table.h
 new file mode 100644
-index 00000000..df3f84e
+index 0000000..df3f84e
 --- /dev/null
 +++ b/drivers/input/touchscreen/hxchipset/himax_modular_table.h
 @@ -0,0 +1,156 @@
@@ -17530,7 +17530,7 @@ index 00000000..df3f84e
 +#endif
 diff --git a/drivers/input/touchscreen/hxchipset/himax_platform.c b/drivers/input/touchscreen/hxchipset/himax_platform.c
 new file mode 100644
-index 00000000..006f797
+index 0000000..006f797
 --- /dev/null
 +++ b/drivers/input/touchscreen/hxchipset/himax_platform.c
 @@ -0,0 +1,1209 @@
@@ -18745,7 +18745,7 @@ index 00000000..006f797
 +MODULE_LICENSE("GPL");
 diff --git a/drivers/input/touchscreen/hxchipset/himax_platform.h b/drivers/input/touchscreen/hxchipset/himax_platform.h
 new file mode 100644
-index 00000000..0c01246
+index 0000000..0c01246
 --- /dev/null
 +++ b/drivers/input/touchscreen/hxchipset/himax_platform.h
 @@ -0,0 +1,149 @@

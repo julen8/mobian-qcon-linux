@@ -9,7 +9,7 @@ Subject: arm64: configs: add qcom_defconfig
 
 diff --git a/arch/arm64/configs/qcom_defconfig b/arch/arm64/configs/qcom_defconfig
 new file mode 100644
-index 0000000..adeb7d34
+index 0000000..adeb7d3
 --- /dev/null
 +++ b/arch/arm64/configs/qcom_defconfig
 @@ -0,0 +1,1003 @@
