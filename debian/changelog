@@ -1,3 +1,13 @@
+linux-6.13-qcom (6.13.1-1) unstable; urgency=medium
+
+  [ Marco Mattiolo ]
+  * Drop d/p/sc7280/ patches and re-number remaining ones
+
+  [ Mobot ]
+  * Rebase on 6.13.1
+
+ -- Mobot <group_9279_bot_322d6e899378048e14b6d1f9dce111eb@noreply.salsa.debian.org>  Wed, 05 Feb 2025 03:21:36 +0000
+
 linux-6.13-qcom (6.13-1) unstable; urgency=medium
 
   * Initial 6.13 release
