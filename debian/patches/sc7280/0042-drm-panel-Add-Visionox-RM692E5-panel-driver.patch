@@ -16,7 +16,7 @@ Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
  create mode 100644 drivers/gpu/drm/panel/panel-visionox-rm692e5.c
 
 diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index d7469c5..66b28271 100644
+index d7469c5..66b2827 100644
 --- a/drivers/gpu/drm/panel/Kconfig
 +++ b/drivers/gpu/drm/panel/Kconfig
 @@ -996,6 +996,16 @@ config DRM_PANEL_VISIONOX_RM69299
