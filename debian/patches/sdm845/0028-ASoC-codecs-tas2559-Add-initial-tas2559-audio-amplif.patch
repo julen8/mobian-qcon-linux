@@ -73,7 +73,7 @@ index a3a0b9a..84b8542 100644
  config SND_SOC_LPASS_RX_MACRO
  	depends on COMMON_CLK
 diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index 683156d9..94e28ec 100644
+index 0c76709..deb1eb2 100644
 --- a/sound/soc/codecs/Makefile
 +++ b/sound/soc/codecs/Makefile
 @@ -409,6 +409,10 @@ snd-soc-tas2780-y := tas2780.o
