@@ -248,7 +248,7 @@ index 584106e..a3e2ee7 100644
                - data-lanes
  
 diff --git a/Documentation/devicetree/bindings/media/qcom,sdm845-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sdm845-camss.yaml
-index ec4380a0a..98cd0df 100644
+index ec4380a..98cd0df 100644
 --- a/Documentation/devicetree/bindings/media/qcom,sdm845-camss.yaml
 +++ b/Documentation/devicetree/bindings/media/qcom,sdm845-camss.yaml
 @@ -109,6 +109,11 @@ properties:
