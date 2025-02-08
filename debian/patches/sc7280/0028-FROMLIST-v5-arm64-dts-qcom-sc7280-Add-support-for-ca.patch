@@ -12,7 +12,7 @@ Signed-off-by: Vikram Sharma <quic_vikramsa@quicinc.com>
  1 file changed, 170 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 3d84106..e1576c5 100644
+index 8fbc95c..4d61de6 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
 @@ -4419,6 +4419,176 @@ cci1_i2c1: i2c-bus@1 {
