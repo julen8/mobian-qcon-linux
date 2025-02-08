@@ -125,7 +125,7 @@ index 7f8cfdd..a955a00 100644
  	if (error) {
  		dev_err(cd->dev, "failed get ic info data, %d\n", error);
 diff --git a/drivers/input/touchscreen/goodix_berlin_i2c.c b/drivers/input/touchscreen/goodix_berlin_i2c.c
-index ad7a60d9..b3fd063 100644
+index ad7a60d..b3fd063 100644
 --- a/drivers/input/touchscreen/goodix_berlin_i2c.c
 +++ b/drivers/input/touchscreen/goodix_berlin_i2c.c
 @@ -53,8 +53,12 @@ static const struct i2c_device_id goodix_berlin_i2c_id[] = {
