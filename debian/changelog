@@ -1,3 +1,9 @@
+linux-6.13-qcom (6.13.2-1) unstable; urgency=medium
+
+  * Rebase on 6.13.2
+
+ -- Mobot <group_9279_bot_322d6e899378048e14b6d1f9dce111eb@noreply.salsa.debian.org>  Sun, 09 Feb 2025 03:25:28 +0000
+
 linux-6.13-qcom (6.13.1-1) unstable; urgency=medium
 
   [ Marco Mattiolo ]
