@@ -131,7 +131,7 @@ index 0b9e87d..8bb67ae 100644
  	tristate "NXP Semiconductors TFA9879 amplifier"
  	depends on I2C
 diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index f37e82d..ef56c3f 100644
+index d7ad795..b48ec51 100644
 --- a/sound/soc/codecs/Makefile
 +++ b/sound/soc/codecs/Makefile
 @@ -306,6 +306,10 @@ snd-soc-tas2770-y := tas2770.o
