@@ -10,7 +10,7 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  1 file changed, 4 insertions(+)
 
 diff --git a/include/dt-bindings/clock/qcom,dispcc-sm6350.h b/include/dt-bindings/clock/qcom,dispcc-sm6350.h
-index cb54aae..61426a8 100644
+index cb54aae..61426a80 100644
 --- a/include/dt-bindings/clock/qcom,dispcc-sm6350.h
 +++ b/include/dt-bindings/clock/qcom,dispcc-sm6350.h
 @@ -42,6 +42,10 @@
