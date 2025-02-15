@@ -7,5 +7,23 @@ community-maintained kernel forks:
   * sm7225: https://github.com/sm6350-mainline/linux
 
 Those patchsets were last synced on the following dates:
-  * sdm845: 2024-12-08
+  * sdm845: 2025-02-14
   * sm7225: 2024-12-21
+
+Following patches were backported from the sdm845/6.13-release branch of the
+sdm845-mainline repository:
+  * debian/patches/sdm845/0128-arm64-dts-qcom-sdm845-oneplus-use-guard-pages.patch
+  * debian/patches/sdm845/0129-media-qcom-camss-csiphy-3ph-Add-Gen2-v1.1-MIPI-CSI-2-CPHY-init.patch
+  * debian/patches/sdm845/0130-media-qcom-camss-Add-sdm845-c-phy-basic-support.patch
+  * debian/patches/sdm845/0131-media-qcom-camss-Prepare-CSID-for-C-PHY-support.patch
+  * debian/patches/sdm845/0132-media-i2c-Add-imx371-image-sensor-driver.patch
+  * debian/patches/sdm845/0133-media-i2c-Add-imx376-image-sensor-driver.patch
+  * debian/patches/sdm845/0134-media-i2c-Add-imx519-image-sensor-driver.patch
+  * debian/patches/sdm845/0135-arm64-dts-qcom-sdm845-oneplus-camera-bringup.patch
+  (following 6 come from https://gitlab.com/sdm845-mainline/linux/-/merge_requests/113)
+  * debian/patches/sdm845/0136-fixup!-media-i2c-Add-imx371-image-sensor-driver.patch
+  * debian/patches/sdm845/0137-fixup!-media-i2c-Add-imx376-image-sensor-driver.patch
+  * debian/patches/sdm845/0138-fixup!-media-i2c-Add-imx519-image-sensor-driver.patch
+  * debian/patches/sdm845/0139-fixup!-arm64-dts-qcom-sdm845-oneplus-camera-bringup.patch
+  * debian/patches/sdm845/0140-fixup-media-i2c-Add-imx371-image-sensor-driver.patch
+  * debian/patches/sdm845/0141-fixup-media-i2c-Add-imx376-image-sensor-driver.patch
