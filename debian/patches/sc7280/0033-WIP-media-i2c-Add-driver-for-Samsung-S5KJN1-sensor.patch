@@ -31,7 +31,7 @@ index 8ba096b..b44fd95 100644
  	tristate "ST VGXY61 sensor support"
  	select V4L2_CCI_I2C
 diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index fbb988b..b8584a7 100644
+index fbb988bd..b8584a7 100644
 --- a/drivers/media/i2c/Makefile
 +++ b/drivers/media/i2c/Makefile
 @@ -120,6 +120,7 @@ obj-$(CONFIG_VIDEO_RJ54N1) += rj54n1cb0c.o

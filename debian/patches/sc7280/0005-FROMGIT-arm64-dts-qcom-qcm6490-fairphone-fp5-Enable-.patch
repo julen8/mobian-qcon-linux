@@ -18,7 +18,7 @@ Signed-off-by: Bjorn Andersson <andersson@kernel.org>
  1 file changed, 41 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-index cc1f89a..769c66c 100644
+index cc1f89a..769c66cb 100644
 --- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
 +++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
 @@ -556,6 +556,47 @@ vreg_bob: bob {
