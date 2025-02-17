@@ -100,7 +100,7 @@ index 67fb11c..789e1b8 100644
  };
  
 diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
-index 9da7f48..ffce0a0 100644
+index 9da7f48f..ffce0a0 100644
 --- a/drivers/media/platform/qcom/camss/camss.h
 +++ b/drivers/media/platform/qcom/camss/camss.h
 @@ -77,13 +77,13 @@ enum pm_domain {
