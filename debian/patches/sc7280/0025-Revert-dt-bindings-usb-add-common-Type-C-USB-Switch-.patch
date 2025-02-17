@@ -149,7 +149,7 @@ index 589914d..c0201da 100644
  
  examples:
 diff --git a/Documentation/devicetree/bindings/usb/qcom,wcd939x-usbss.yaml b/Documentation/devicetree/bindings/usb/qcom,wcd939x-usbss.yaml
-index 9634672..7ddfd33 100644
+index 9634672..7ddfd331 100644
 --- a/Documentation/devicetree/bindings/usb/qcom,wcd939x-usbss.yaml
 +++ b/Documentation/devicetree/bindings/usb/qcom,wcd939x-usbss.yaml
 @@ -35,8 +35,13 @@ properties:
