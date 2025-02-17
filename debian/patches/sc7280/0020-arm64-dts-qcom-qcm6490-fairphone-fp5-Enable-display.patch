@@ -10,7 +10,7 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  1 file changed, 89 insertions(+), 5 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-index 769c66c..cc4ff2c 100644
+index 769c66cb..cc4ff2c 100644
 --- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
 +++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
 @@ -138,6 +138,34 @@ vreg_ois_dvdd_1p1: regulator-ois-dvdd-1p1 {
