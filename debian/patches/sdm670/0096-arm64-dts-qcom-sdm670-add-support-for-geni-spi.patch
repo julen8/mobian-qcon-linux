@@ -12,7 +12,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 400 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670.dtsi b/arch/arm64/boot/dts/qcom/sdm670.dtsi
-index 594d308..7eb145a 100644
+index 293cc30..30dabc8 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm670.dtsi
 @@ -868,6 +868,26 @@ i2c0: i2c@880000 {
