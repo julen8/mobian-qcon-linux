@@ -22,7 +22,7 @@ index 0ab58cd..a7d6aba 100644
 +obj-$(CONFIG_SND_SOC_QDSP6_Q6VOICE) += q6mvm.o q6voice-common.o
 diff --git a/sound/soc/qcom/qdsp6/q6mvm.c b/sound/soc/qcom/qdsp6/q6mvm.c
 new file mode 100644
-index 0000000..361d36f
+index 0000000..361d36fb
 --- /dev/null
 +++ b/sound/soc/qcom/qdsp6/q6mvm.c
 @@ -0,0 +1,160 @@
