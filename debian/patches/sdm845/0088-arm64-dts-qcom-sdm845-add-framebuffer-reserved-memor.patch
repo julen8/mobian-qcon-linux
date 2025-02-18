@@ -116,7 +116,7 @@ index 72a8e86..fc9954a 100644
  			compatible = "shared-dma-pool";
  			alloc-ranges = <0x0 0x00000000 0x0 0xffffffff>;
 diff --git a/arch/arm64/boot/dts/qcom/sdm850.dtsi b/arch/arm64/boot/dts/qcom/sdm850.dtsi
-index da9f6fb..b787575 100644
+index da9f6fbe..b787575 100644
 --- a/arch/arm64/boot/dts/qcom/sdm850.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm850.dtsi
 @@ -7,6 +7,8 @@
