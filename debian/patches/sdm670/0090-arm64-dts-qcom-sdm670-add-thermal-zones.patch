@@ -15,7 +15,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 558 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670.dtsi b/arch/arm64/boot/dts/qcom/sdm670.dtsi
-index 241594b..594d308 100644
+index 241594b..293cc30 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm670.dtsi
 @@ -25,6 +25,7 @@
