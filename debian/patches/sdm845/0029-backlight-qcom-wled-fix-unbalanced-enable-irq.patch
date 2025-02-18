@@ -41,7 +41,7 @@ and disabling of the irq.
  1 file changed, 11 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backlight/qcom-wled.c
-index 9afe701..0704000 100644
+index 9afe701..07040003 100644
 --- a/drivers/video/backlight/qcom-wled.c
 +++ b/drivers/video/backlight/qcom-wled.c
 @@ -197,6 +197,7 @@ struct wled {

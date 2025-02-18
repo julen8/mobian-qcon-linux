@@ -47,7 +47,7 @@ index 88d604f..46810e0 100644
 +
  endif # POWER_SUPPLY
 diff --git a/drivers/power/supply/Makefile b/drivers/power/supply/Makefile
-index 32ee9e0..21349cb 100644
+index 32ee9e0f..21349cb 100644
 --- a/drivers/power/supply/Makefile
 +++ b/drivers/power/supply/Makefile
 @@ -119,3 +119,4 @@ obj-$(CONFIG_BATTERY_UG3105)	+= ug3105_battery.o
