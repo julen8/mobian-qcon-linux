@@ -54,7 +54,7 @@ index 9f2eef6..88d604f 100644
  	tristate "Qualcomm PMI8998 PMIC charger driver"
  	depends on MFD_SPMI_PMIC
 diff --git a/drivers/power/supply/Makefile b/drivers/power/supply/Makefile
-index 59c4a9f..32ee9e0 100644
+index 59c4a9f..32ee9e0f 100644
 --- a/drivers/power/supply/Makefile
 +++ b/drivers/power/supply/Makefile
 @@ -116,5 +116,6 @@ obj-$(CONFIG_BATTERY_ACER_A500)	+= acer_a500_battery.o
