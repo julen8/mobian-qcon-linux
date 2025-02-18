@@ -14,7 +14,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 61 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-index cf9b0ea..05d1e6a 100644
+index cf9b0ea..bc264e2f 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 @@ -287,6 +287,55 @@ codec {
