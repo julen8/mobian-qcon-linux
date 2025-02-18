@@ -6121,7 +6121,7 @@ index 0000000..7bd0a99
 +#endif /* _TFA9873_TFAFIELDNAMES_B0_H */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa9874_tfafieldnames.h b/sound/soc/codecs/tfa98xx-downstream/tfa9874_tfafieldnames.h
 new file mode 100644
-index 0000000..7fba0d6
+index 0000000..7fba0d68
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa9874_tfafieldnames.h
 @@ -0,0 +1,843 @@
@@ -9843,7 +9843,7 @@ index 0000000..f015fe7
 +#endif /* _TFA9878_TFAFIELDNAMES_H */
 diff --git a/sound/soc/codecs/tfa98xx-downstream/tfa9887_tfafieldnames.h b/sound/soc/codecs/tfa98xx-downstream/tfa9887_tfafieldnames.h
 new file mode 100644
-index 0000000..ace4348
+index 0000000..ace43485
 --- /dev/null
 +++ b/sound/soc/codecs/tfa98xx-downstream/tfa9887_tfafieldnames.h
 @@ -0,0 +1,72 @@
