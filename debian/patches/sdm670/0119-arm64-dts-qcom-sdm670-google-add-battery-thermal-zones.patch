@@ -12,7 +12,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 74 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-index 72f8350..2fbd880 100644
+index 398aea1..5abd24b 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 @@ -362,6 +362,72 @@ xo_crit: trip-point2 {
