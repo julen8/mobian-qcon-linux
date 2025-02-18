@@ -1,3 +1,15 @@
+linux-6.13-sdm670 (6.13.3-1) unstable; urgency=medium
+
+  [ Marco Mattiolo ]
+  * Import sdm670-mainline patches
+  * Add Mobian patches
+  * Refresh patches from sdm670-mainline, re-number and update d/README.sdm670-linux
+
+  [ Mobot ]
+  * Rebase on 6.13.3
+
+ -- Mobot <group_9279_bot_322d6e899378048e14b6d1f9dce111eb@noreply.salsa.debian.org>  Tue, 18 Feb 2025 01:34:33 +0000
+
 linux-6.13-sdm670 (6.13.2-1) unstable; urgency=medium
 
   * Initial 6.13 release
