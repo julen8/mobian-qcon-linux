@@ -13,7 +13,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 11 insertions(+), 9 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-index 0936a5a..973e380 100644
+index dd21486..974b425 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 @@ -416,9 +416,16 @@ cam_front_ldo: cam-front-ldo-regulator {
