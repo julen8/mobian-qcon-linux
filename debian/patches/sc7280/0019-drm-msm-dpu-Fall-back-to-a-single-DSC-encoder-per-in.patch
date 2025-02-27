@@ -7,7 +7,7 @@ Subject: drm/msm/dpu: Fall back to a single DSC encoder per interface
  1 file changed, 25 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 83de756..e25a3df 100644
+index 67f5fc6..698948b 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
 @@ -622,9 +622,10 @@ bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc)
