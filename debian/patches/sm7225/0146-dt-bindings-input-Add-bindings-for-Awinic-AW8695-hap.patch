@@ -12,7 +12,7 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 
 diff --git a/Documentation/devicetree/bindings/input/awinic,aw8695-haptics.yaml b/Documentation/devicetree/bindings/input/awinic,aw8695-haptics.yaml
 new file mode 100644
-index 0000000..9f573da
+index 00000000..9f573da
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/input/awinic,aw8695-haptics.yaml
 @@ -0,0 +1,133 @@
