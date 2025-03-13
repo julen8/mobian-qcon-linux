@@ -23,7 +23,7 @@ Series-changes: 2
 
 diff --git a/Documentation/devicetree/bindings/regulator/samsung,s2dos05.yaml b/Documentation/devicetree/bindings/regulator/samsung,s2dos05.yaml
 new file mode 100644
-index 0000000..6905377
+index 00000000..6905377
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/regulator/samsung,s2dos05.yaml
 @@ -0,0 +1,89 @@
