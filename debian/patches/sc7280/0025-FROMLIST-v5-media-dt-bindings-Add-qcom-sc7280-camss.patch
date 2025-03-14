@@ -15,7 +15,7 @@ Signed-off-by: Vikram Sharma <quic_vikramsa@quicinc.com>
 
 diff --git a/Documentation/devicetree/bindings/media/qcom,sc7280-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sc7280-camss.yaml
 new file mode 100644
-index 0000000..b27d4af
+index 00000000..b27d4af
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/media/qcom,sc7280-camss.yaml
 @@ -0,0 +1,415 @@
