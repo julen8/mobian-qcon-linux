@@ -16,7 +16,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 88 insertions(+), 2 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-index 52b9fba..dd21486 100644
+index 53be290..9cc43ed 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 @@ -416,6 +416,20 @@ cam_front_ldo: cam-front-ldo-regulator {
@@ -120,7 +120,7 @@ index 52b9fba..dd21486 100644
  	cam_front_ldo_pin: cam-front-state {
  		pins = "gpio4";
  		function = "normal";
-@@ -1158,6 +1223,20 @@ rt5514_spi: audio-codec@0 {
+@@ -1162,6 +1227,20 @@ rt5514_spi: audio-codec@0 {
  &tlmm {
  	gpio-reserved-ranges = <0 4>, <81 4>;
  
@@ -141,7 +141,7 @@ index 52b9fba..dd21486 100644
  	cam_front_default: cam-front-default-state {
  		pins = "gpio9";
  		function = "gpio";
-@@ -1166,6 +1245,13 @@ cam_front_default: cam-front-default-state {
+@@ -1170,6 +1249,13 @@ cam_front_default: cam-front-default-state {
  	};
  
  	cam_mclk_default: cam-default-state {
