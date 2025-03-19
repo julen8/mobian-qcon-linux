@@ -14,10 +14,10 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 61 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-index cf9b0ea..bc264e2f 100644
+index fc3bd4f..53be290 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-@@ -287,6 +287,55 @@ codec {
+@@ -313,6 +313,55 @@ codec {
  		};
  	};
  
@@ -73,7 +73,7 @@ index cf9b0ea..bc264e2f 100644
  	/*
  	 * The touchscreen regulator seems to be controlled somehow by a gpio.
  	 * Model it as a fixed regulator and keep it on. Without schematics we
-@@ -883,6 +932,18 @@ &mss_pil {
+@@ -918,6 +967,18 @@ &mss_pil {
  	status = "okay";
  };
  
