@@ -15,7 +15,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 558 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670.dtsi b/arch/arm64/boot/dts/qcom/sdm670.dtsi
-index 241594b..293cc30 100644
+index 67f75c0..30dabc8 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm670.dtsi
 @@ -25,6 +25,7 @@
@@ -90,7 +90,7 @@ index 241594b..293cc30 100644
  			next-level-cache = <&l2_700>;
  			l2_700: l2-cache {
  				compatible = "cache";
-@@ -1613,6 +1622,8 @@ gpu: gpu@5000000 {
+@@ -2013,6 +2022,8 @@ gpu: gpu@5000000 {
  			nvmem-cells = <&gpu_speed_bin>;
  			nvmem-cell-names = "speed_bin";
  
@@ -99,7 +99,7 @@ index 241594b..293cc30 100644
  			status = "disabled";
  
  			gpu_opp_table: opp-table {
-@@ -2396,6 +2407,28 @@ pdc_reset: reset-controller@b2e0000 {
+@@ -2796,6 +2807,28 @@ pdc_reset: reset-controller@b2e0000 {
  			#reset-cells = <1>;
  		};
  
@@ -128,7 +128,7 @@ index 241594b..293cc30 100644
  		aoss_reset: reset-controller@c2a0000 {
  			compatible = "qcom,sdm845-aoss-cc";
  			reg = <0 0x0c2a0000 0 0x31000>;
-@@ -2853,4 +2886,529 @@ lpass_codec: audio-codec@62ec0000 {
+@@ -3253,4 +3286,529 @@ lpass_codec: audio-codec@62ec0000 {
  			status = "disabled";
  		};
  	};

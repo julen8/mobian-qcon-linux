@@ -9,16 +9,16 @@ device tree. Document the IMX355 to support defining it in device tree.
 
 Signed-off-by: Richard Acayan <mailingradian@gmail.com>
 ---
- .../devicetree/bindings/media/i2c/sony,imx355.yaml | 117 +++++++++++++++++++++
- 1 file changed, 117 insertions(+)
+ .../devicetree/bindings/media/i2c/sony,imx355.yaml | 120 +++++++++++++++++++++
+ 1 file changed, 120 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml
 
 diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml
 new file mode 100644
-index 0000000..6c3fbfb
+index 0000000..9ecd20f
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml
-@@ -0,0 +1,117 @@
+@@ -0,0 +1,120 @@
 +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +
 +%YAML 1.2
@@ -104,6 +104,9 @@ index 0000000..6c3fbfb
 +
 +examples:
 +  - |
++    #include <dt-bindings/clock/qcom,camcc-sdm845.h>
++    #include <dt-bindings/gpio/gpio.h>
++
 +    camera@1a {
 +        compatible = "sony,imx355";
 +        reg = <0x1a>;

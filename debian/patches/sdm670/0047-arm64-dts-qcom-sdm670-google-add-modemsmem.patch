@@ -11,7 +11,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 5 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-index 154fcb2..fb2b552 100644
+index 9995867..6735005 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 @@ -80,6 +80,11 @@ key-vol-up {

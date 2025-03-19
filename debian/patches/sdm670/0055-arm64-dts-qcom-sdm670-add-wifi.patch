@@ -12,10 +12,10 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  2 files changed, 35 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-index f837888..125ec6e 100644
+index dfe24e0..a8b2953 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-@@ -893,3 +893,14 @@ &venus {
+@@ -896,3 +896,14 @@ &venus {
  	firmware-name = "qcom/sdm670/sargo/venus.mbn";
  	status = "okay";
  };

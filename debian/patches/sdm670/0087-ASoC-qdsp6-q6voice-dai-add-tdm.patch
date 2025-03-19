@@ -11,10 +11,10 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 760 insertions(+)
 
 diff --git a/sound/soc/qcom/qdsp6/q6voice-dai.c b/sound/soc/qcom/qdsp6/q6voice-dai.c
-index 45851b7..d55fa38 100644
+index 478e0eb..7964f50 100644
 --- a/sound/soc/qcom/qdsp6/q6voice-dai.c
 +++ b/sound/soc/qcom/qdsp6/q6voice-dai.c
-@@ -198,6 +198,86 @@ static const struct snd_kcontrol_new cs_voice_tx_mixer_controls[] = {
+@@ -246,6 +246,86 @@ static const struct snd_kcontrol_new cs_voice_tx_mixer_controls[] = {
  		       q6voice_get_mixer_capture, q6voice_put_mixer_capture),
  	SOC_SINGLE_EXT("QUIN_MI2S_TX", QUINARY_MI2S_TX, CS_VOICE, 1, 0,
  		       q6voice_get_mixer_capture, q6voice_put_mixer_capture),
@@ -101,7 +101,7 @@ index 45851b7..d55fa38 100644
  	SOC_SINGLE_EXT("INT0_MI2S_TX", INT0_MI2S_TX, CS_VOICE, 1, 0,
  		       q6voice_get_mixer_capture, q6voice_put_mixer_capture),
  	SOC_SINGLE_EXT("INT1_MI2S_TX", INT1_MI2S_TX, CS_VOICE, 1, 0,
-@@ -225,6 +305,86 @@ static const struct snd_kcontrol_new voicemmode1_tx_mixer_controls[] = {
+@@ -273,6 +353,86 @@ static const struct snd_kcontrol_new voicemmode1_tx_mixer_controls[] = {
  		       q6voice_get_mixer_capture, q6voice_put_mixer_capture),
  	SOC_SINGLE_EXT("QUIN_MI2S_TX", QUINARY_MI2S_TX, VOICEMMODE1, 1, 0,
  		       q6voice_get_mixer_capture, q6voice_put_mixer_capture),
@@ -188,7 +188,7 @@ index 45851b7..d55fa38 100644
  	SOC_SINGLE_EXT("INT0_MI2S_TX", INT0_MI2S_TX, VOICEMMODE1, 1, 0,
  		       q6voice_get_mixer_capture, q6voice_put_mixer_capture),
  	SOC_SINGLE_EXT("INT1_MI2S_TX", INT1_MI2S_TX, VOICEMMODE1, 1, 0,
-@@ -276,6 +436,286 @@ static const struct snd_kcontrol_new quinary_mi2s_rx_mixer_controls[] = {
+@@ -324,6 +484,286 @@ static const struct snd_kcontrol_new quinary_mi2s_rx_mixer_controls[] = {
  		       q6voice_get_mixer_playback, q6voice_put_mixer_playback),
  };
  
@@ -475,7 +475,7 @@ index 45851b7..d55fa38 100644
  static const struct snd_kcontrol_new int0_mi2s_rx_mixer_controls[] = {
  	SOC_SINGLE_EXT("CS-Voice", INT0_MI2S_RX, CS_VOICE, 1, 0,
  		       q6voice_get_mixer_playback, q6voice_put_mixer_playback),
-@@ -351,6 +791,126 @@ static const struct snd_soc_dapm_widget q6voice_dapm_widgets[] = {
+@@ -399,6 +839,126 @@ static const struct snd_soc_dapm_widget q6voice_dapm_widgets[] = {
  	SND_SOC_DAPM_MIXER("QUIN_MI2S_RX Voice Mixer", SND_SOC_NOPM, 0, 0,
  			   quinary_mi2s_rx_mixer_controls,
  			   ARRAY_SIZE(quinary_mi2s_rx_mixer_controls)),
@@ -602,7 +602,7 @@ index 45851b7..d55fa38 100644
  	SND_SOC_DAPM_MIXER("INT0_MI2S_RX Voice Mixer", SND_SOC_NOPM, 0, 0,
  			   int0_mi2s_rx_mixer_controls,
  			   ARRAY_SIZE(int0_mi2s_rx_mixer_controls)),
-@@ -380,6 +940,46 @@ static const struct snd_soc_dapm_route q6voice_dapm_routes[] = {
+@@ -428,6 +988,46 @@ static const struct snd_soc_dapm_route q6voice_dapm_routes[] = {
  	{ "CS-Voice Capture Mixer",	"TERT_MI2S_TX",	"TERT_MI2S_TX" },
  	{ "CS-Voice Capture Mixer",	"QUAT_MI2S_TX",	"QUAT_MI2S_TX" },
  	{ "CS-Voice Capture Mixer",	"QUIN_MI2S_TX",	"QUIN_MI2S_TX" },
@@ -649,7 +649,7 @@ index 45851b7..d55fa38 100644
  	{ "CS-Voice Capture Mixer",	"INT0_MI2S_TX", "INT0_MI2S_TX" },
  	{ "CS-Voice Capture Mixer",	"INT1_MI2S_TX", "INT1_MI2S_TX" },
  	{ "CS-Voice Capture Mixer",	"INT2_MI2S_TX", "INT2_MI2S_TX" },
-@@ -393,6 +993,46 @@ static const struct snd_soc_dapm_route q6voice_dapm_routes[] = {
+@@ -441,6 +1041,46 @@ static const struct snd_soc_dapm_route q6voice_dapm_routes[] = {
  	{ "VoiceMMode1 Capture Mixer",	"TERT_MI2S_TX",	"TERT_MI2S_TX" },
  	{ "VoiceMMode1 Capture Mixer",	"QUAT_MI2S_TX",	"QUAT_MI2S_TX" },
  	{ "VoiceMMode1 Capture Mixer",	"QUIN_MI2S_TX",	"QUIN_MI2S_TX" },
@@ -696,7 +696,7 @@ index 45851b7..d55fa38 100644
  	{ "VoiceMMode1 Capture Mixer",	"INT0_MI2S_TX",	"INT0_MI2S_TX" },
  	{ "VoiceMMode1 Capture Mixer",	"INT1_MI2S_TX",	"INT1_MI2S_TX" },
  	{ "VoiceMMode1 Capture Mixer",	"INT2_MI2S_TX",	"INT2_MI2S_TX" },
-@@ -407,6 +1047,46 @@ static const struct snd_soc_dapm_route q6voice_dapm_routes[] = {
+@@ -455,6 +1095,46 @@ static const struct snd_soc_dapm_route q6voice_dapm_routes[] = {
  	{ "TERT_MI2S_RX Voice Mixer",	"CS-Voice",	"CS-VOICE_DL1" },
  	{ "QUAT_MI2S_RX Voice Mixer",	"CS-Voice",	"CS-VOICE_DL1" },
  	{ "QUIN_MI2S_RX Voice Mixer",	"CS-Voice",	"CS-VOICE_DL1" },
@@ -743,7 +743,7 @@ index 45851b7..d55fa38 100644
  	{ "INT0_MI2S_RX Voice Mixer",	"CS-Voice",	"CS-VOICE_DL1" },
  	{ "INT1_MI2S_RX Voice Mixer",	"CS-Voice",	"CS-VOICE_DL1" },
  	{ "INT2_MI2S_RX Voice Mixer",	"CS-Voice",	"CS-VOICE_DL1" },
-@@ -419,6 +1099,46 @@ static const struct snd_soc_dapm_route q6voice_dapm_routes[] = {
+@@ -467,6 +1147,46 @@ static const struct snd_soc_dapm_route q6voice_dapm_routes[] = {
  	{ "TERT_MI2S_RX Voice Mixer",	"VoiceMMode1",	"VOICEMMODE1_DL1" },
  	{ "QUAT_MI2S_RX Voice Mixer",	"VoiceMMode1",	"VOICEMMODE1_DL1" },
  	{ "QUIN_MI2S_RX Voice Mixer",	"VoiceMMode1",	"VOICEMMODE1_DL1" },
@@ -790,7 +790,7 @@ index 45851b7..d55fa38 100644
  	{ "INT0_MI2S_RX Voice Mixer",	"VoiceMMode1",	"VOICEMMODE1_DL1" },
  	{ "INT1_MI2S_RX Voice Mixer",	"VoiceMMode1",	"VOICEMMODE1_DL1" },
  	{ "INT2_MI2S_RX Voice Mixer",	"VoiceMMode1",	"VOICEMMODE1_DL1" },
-@@ -432,6 +1152,46 @@ static const struct snd_soc_dapm_route q6voice_dapm_routes[] = {
+@@ -480,6 +1200,46 @@ static const struct snd_soc_dapm_route q6voice_dapm_routes[] = {
  	{ "TERT_MI2S_RX",		NULL,		"TERT_MI2S_RX Voice Mixer" },
  	{ "QUAT_MI2S_RX",		NULL,		"QUAT_MI2S_RX Voice Mixer" },
  	{ "QUIN_MI2S_RX",		NULL,		"QUIN_MI2S_RX Voice Mixer" },

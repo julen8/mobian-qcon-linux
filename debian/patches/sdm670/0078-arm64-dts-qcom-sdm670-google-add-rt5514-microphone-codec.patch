@@ -12,10 +12,10 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 129 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-index bc264e2f..807d4e3 100644
+index 0f359c6..82a8e6d 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-@@ -195,13 +195,15 @@ sound {
+@@ -194,13 +194,15 @@ sound {
  		pinctrl-names = "default";
  		pinctrl-0 = <&cdc_pdm_default>,
  			    <&cdc_dmic_default>,
@@ -32,7 +32,7 @@ index bc264e2f..807d4e3 100644
  
  		mm1-dai-link {
  			link-name = "MultiMedia1";
-@@ -227,6 +229,14 @@ cpu {
+@@ -226,6 +228,30 @@ cpu {
  			};
  		};
  
@@ -44,13 +44,6 @@ index bc264e2f..807d4e3 100644
 +			};
 +		};
 +
- 		voicemmode1-dai-link {
- 			link-name = "VoiceMMode1";
- 
-@@ -235,6 +245,22 @@ cpu {
- 			};
- 		};
- 
 +		pri-tdm-tx-link {
 +			link-name = "Primary TDM0 Capture";
 +
@@ -70,7 +63,7 @@ index bc264e2f..807d4e3 100644
  		sec-tdm-rx-link {
  			link-name = "Secondary TDM0 Playback";
  
-@@ -817,6 +843,12 @@ cs35l36_bottom: audio-codec@41 {
+@@ -762,6 +788,12 @@ cs35l36_bottom: audio-codec@41 {
  		#sound-dai-cells = <1>;
  	};
  
@@ -83,7 +76,7 @@ index bc264e2f..807d4e3 100644
  	drv2624: haptics@5a {
  		compatible = "ti,drv2624";
  		reg = <0x5a>;
-@@ -980,6 +1012,7 @@ &pm660l_codec {
+@@ -913,6 +945,7 @@ &pm660l_codec {
  	vdd-micbias-supply = <&vreg_l7b_3p125>;
  
  	qcom,micbias-lvl = <2500>;
@@ -91,7 +84,7 @@ index bc264e2f..807d4e3 100644
  
  	status = "okay";
  };
-@@ -1032,6 +1065,17 @@ &qupv3_id_1 {
+@@ -965,6 +998,17 @@ &qupv3_id_1 {
  };
  
  &q6afedai {
@@ -109,7 +102,7 @@ index bc264e2f..807d4e3 100644
  	dai@28 {
  		reg = <SECONDARY_TDM_RX_0>;
  
-@@ -1066,6 +1110,10 @@ dai@1 {
+@@ -999,6 +1043,10 @@ dai@1 {
  	dai@2 {
  		reg = <2>;
  	};
@@ -119,8 +112,8 @@ index bc264e2f..807d4e3 100644
 +	};
  };
  
- &q6voicedai {
-@@ -1088,6 +1136,22 @@ &sdhc_1 {
+ &sdhc_1 {
+@@ -1015,6 +1063,22 @@ &sdhc_1 {
  	status = "okay";
  };
  
@@ -143,7 +136,7 @@ index bc264e2f..807d4e3 100644
  &tlmm {
  	gpio-reserved-ranges = <0 4>, <81 4>;
  
-@@ -1164,6 +1228,70 @@ mode-pins {
+@@ -1091,6 +1155,70 @@ mode-pins {
  		};
  	};
  

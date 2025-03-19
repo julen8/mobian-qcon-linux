@@ -16,10 +16,10 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  3 files changed, 49 insertions(+), 6 deletions(-)
 
 diff --git a/sound/soc/qcom/qdsp6/q6voice-dai.c b/sound/soc/qcom/qdsp6/q6voice-dai.c
-index d55fa38..0799884 100644
+index 93318d1..e8fb390 100644
 --- a/sound/soc/qcom/qdsp6/q6voice-dai.c
 +++ b/sound/soc/qcom/qdsp6/q6voice-dai.c
-@@ -1234,8 +1234,12 @@ static int q6voice_dai_probe(struct platform_device *pdev)
+@@ -341,8 +341,12 @@ static int q6voice_dai_probe(struct platform_device *pdev)
  {
  	struct device *dev = &pdev->dev;
  	struct q6voice *v;

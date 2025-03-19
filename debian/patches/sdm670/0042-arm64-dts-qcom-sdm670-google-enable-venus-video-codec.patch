@@ -11,10 +11,10 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 5 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-index 3fcc4cf..5434f20 100644
+index 47c3e77d..12326ae 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-@@ -781,3 +781,8 @@ &usb_1_dwc3 {
+@@ -784,3 +784,8 @@ &usb_1_dwc3 {
  	phy-names = "usb2-phy";
  	maximum-speed = "high-speed";
  };
