@@ -12,10 +12,10 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  2 files changed, 46 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-index 4e20944..f837888 100644
+index 08d2aae..dfe24e0 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-@@ -625,6 +625,11 @@ drv2624: haptics@5a {
+@@ -628,6 +628,11 @@ drv2624: haptics@5a {
  	};
  };
  

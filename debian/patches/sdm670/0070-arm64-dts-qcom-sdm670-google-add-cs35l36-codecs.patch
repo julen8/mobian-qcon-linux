@@ -14,7 +14,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 148 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-index 9f83101..403f2d0 100644
+index 70de44e..80efbfd 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 @@ -12,6 +12,7 @@
@@ -59,7 +59,7 @@ index 9f83101..403f2d0 100644
  	};
  
  	/*
-@@ -637,6 +656,62 @@ &i2c10 {
+@@ -640,6 +659,62 @@ &i2c10 {
  	clock-frequency = <400000>;
  	status = "okay";
  
@@ -122,7 +122,7 @@ index 9f83101..403f2d0 100644
  	drv2624: haptics@5a {
  		compatible = "ti,drv2624";
  		reg = <0x5a>;
-@@ -668,6 +743,31 @@ &ipa {
+@@ -671,6 +746,31 @@ &ipa {
  	status = "okay";
  };
  
@@ -154,7 +154,7 @@ index 9f83101..403f2d0 100644
  &mdss {
  	status = "okay";
  };
-@@ -787,6 +887,19 @@ &qupv3_id_1 {
+@@ -790,6 +890,19 @@ &qupv3_id_1 {
  	status = "okay";
  };
  
@@ -174,7 +174,7 @@ index 9f83101..403f2d0 100644
  &q6asmdai {
  	dai@0 {
  		reg = <0>;
-@@ -834,6 +947,40 @@ mclk2-pins {
+@@ -837,6 +950,40 @@ mclk2-pins {
  		};
  	};
  

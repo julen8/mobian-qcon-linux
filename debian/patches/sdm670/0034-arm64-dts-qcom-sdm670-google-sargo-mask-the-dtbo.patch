@@ -503,7 +503,7 @@ index 0000000..a6d3ef5
 +	};
 +};
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts b/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
-index 311b036..6c0b8f6 100644
+index 7e68bec..1f97be8 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
 @@ -16,6 +16,7 @@

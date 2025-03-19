@@ -15,7 +15,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 50 insertions(+)
 
 diff --git a/sound/soc/qcom/qdsp6/q6voice-dai.c b/sound/soc/qcom/qdsp6/q6voice-dai.c
-index 0799884..7964f50 100644
+index e8fb390..0da168ff 100644
 --- a/sound/soc/qcom/qdsp6/q6voice-dai.c
 +++ b/sound/soc/qcom/qdsp6/q6voice-dai.c
 @@ -2,6 +2,7 @@
@@ -80,7 +80,7 @@ index 0799884..7964f50 100644
  static const struct snd_kcontrol_new cs_voice_tx_mixer_controls[] = {
  	SOC_SINGLE_EXT("PRI_MI2S_TX", PRIMARY_MI2S_TX, CS_VOICE, 1, 0,
  		       q6voice_get_mixer_capture, q6voice_put_mixer_capture),
-@@ -1219,6 +1267,8 @@ static const struct snd_soc_component_driver q6voice_dai_component = {
+@@ -326,6 +374,8 @@ static const struct snd_soc_component_driver q6voice_dai_component = {
  	.name = DRV_NAME,
  	.open = q6voice_dai_open,
  

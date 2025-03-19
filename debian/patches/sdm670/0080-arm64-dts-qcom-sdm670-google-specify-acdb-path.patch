@@ -13,10 +13,10 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 4 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-index 52be04a..42847a3 100644
+index 82a8e6d..44c94f9 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-@@ -1193,6 +1193,10 @@ dai@3 {
+@@ -1049,6 +1049,10 @@ dai@3 {
  	};
  };
  
@@ -24,6 +24,6 @@ index 52be04a..42847a3 100644
 +	qcom,acdb-name = "qcom/sdm670/sargo/Global_cal.acdb";
 +};
 +
- &q6voicedai {
- 	dai@1 {
- 		reg = <VOICEMMODE1>;
+ &sdhc_1 {
+ 	supports-cqe;
+ 	mmc-hs200-1_8v;

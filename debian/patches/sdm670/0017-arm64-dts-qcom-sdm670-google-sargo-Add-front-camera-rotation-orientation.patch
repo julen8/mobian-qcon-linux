@@ -1,0 +1,28 @@
+From: Robert Mader <robert.mader@collabora.com>
+Date: Tue, 23 Jul 2024 19:20:04 +0200
+Subject: [PATCH] arm64: dts: qcom: sdm670-google-sargo: Add front camera
+ rotation/orientation
+
+So it gets properly reported to clients like libcamera.
+
+Signed-off-by: Robert Mader <robert.mader@collabora.com>
+[richard: rebase onto patch series]
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts b/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
+index 311b036..7e68bec 100644
+--- a/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
++++ b/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
+@@ -476,6 +476,9 @@ camera@1a {
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&cam_front_default>;
+ 
++		rotation = <270>;
++		orientation = <0>;
++
+ 		port {
+ 			cam_front_endpoint: endpoint {
+ 				data-lanes = <0 1 2 3>;

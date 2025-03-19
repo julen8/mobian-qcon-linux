@@ -12,7 +12,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 84 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-index 403f2d0..3dc4d33e 100644
+index 80efbfd..0f359c6 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 @@ -57,6 +57,12 @@ framebuffer: framebuffer@9c000000 {
@@ -85,7 +85,7 @@ index 403f2d0..3dc4d33e 100644
  	};
  
  	/*
-@@ -743,6 +790,17 @@ &ipa {
+@@ -746,6 +793,17 @@ &ipa {
  	status = "okay";
  };
  
@@ -103,7 +103,7 @@ index 403f2d0..3dc4d33e 100644
  &lpi_tlmm {
  	sec_tdm_default: sec-tdm-default-state {
  		misc-pins {
-@@ -840,6 +898,22 @@ &pm660_rradc {
+@@ -843,6 +901,22 @@ &pm660_rradc {
  	status = "okay";
  };
  
@@ -126,7 +126,7 @@ index 403f2d0..3dc4d33e 100644
  &pm660l_flash {
  	status = "okay";
  
-@@ -898,6 +972,16 @@ dai@28 {
+@@ -901,6 +975,16 @@ dai@28 {
  		qcom,tdm-data-delay = <1>;
  		qcom,tdm-data-align = <0>;
  	};

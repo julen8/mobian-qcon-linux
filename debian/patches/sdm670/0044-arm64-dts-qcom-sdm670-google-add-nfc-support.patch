@@ -10,10 +10,10 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 35 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-index bee9cfc..154fcb2 100644
+index 77d988b..9995867 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-@@ -503,6 +503,28 @@ zap-shader {
+@@ -506,6 +506,28 @@ zap-shader {
  	};
  };
  
@@ -42,7 +42,7 @@ index bee9cfc..154fcb2 100644
  &i2c9 {
  	clock-frequency = <100000>;
  	status = "okay";
-@@ -767,6 +789,19 @@ drv2624_default_state: drv2624-default-state {
+@@ -770,6 +792,19 @@ drv2624_default_state: drv2624-default-state {
  		bias-disable;
  		output-low;
  	};

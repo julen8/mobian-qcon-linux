@@ -11,7 +11,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 15 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-index 3dc4d33e..cf9b0ea 100644
+index 44c94f9..fc3bd4f 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 @@ -14,6 +14,7 @@
@@ -22,7 +22,7 @@ index 3dc4d33e..cf9b0ea 100644
  #include "sdm670.dtsi"
  #include "pm660.dtsi"
  #include "pm660l.dtsi"
-@@ -226,6 +227,14 @@ cpu {
+@@ -236,6 +237,14 @@ cpu {
  			};
  		};
  
@@ -34,11 +34,11 @@ index 3dc4d33e..cf9b0ea 100644
 +			};
 +		};
 +
- 		sec-tdm-rx-link {
- 			link-name = "Secondary TDM0 Playback";
+ 		pri-tdm-tx-link {
+ 			link-name = "Primary TDM0 Capture";
  
-@@ -998,6 +1007,12 @@ dai@2 {
- 	};
+@@ -1053,6 +1062,12 @@ &q6core {
+ 	qcom,acdb-name = "qcom/sdm670/sargo/Global_cal.acdb";
  };
  
 +&q6voicedai {

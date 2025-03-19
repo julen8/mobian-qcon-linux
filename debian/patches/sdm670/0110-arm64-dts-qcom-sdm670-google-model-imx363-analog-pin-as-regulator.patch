@@ -13,7 +13,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 11 insertions(+), 9 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-index dd21486..974b425 100644
+index 9cc43ed..bde87ab 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 @@ -416,9 +416,16 @@ cam_front_ldo: cam-front-ldo-regulator {
@@ -46,7 +46,7 @@ index dd21486..974b425 100644
  		vio-supply = <&cam_vio_ldo>;
  
  		pinctrl-names = "default";
-@@ -1224,11 +1231,6 @@ &tlmm {
+@@ -1228,11 +1235,6 @@ &tlmm {
  	gpio-reserved-ranges = <0 4>, <81 4>;
  
  	cam_rear_default: cam-rear-default-state {

@@ -9,17 +9,17 @@ like with other devices.
 
 Signed-off-by: Richard Acayan <mailingradian@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi | 739 ++++++++++++++++++++
- arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts   | 743 +--------------------
- 2 files changed, 755 insertions(+), 727 deletions(-)
+ arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi | 742 ++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts   | 746 +--------------------
+ 2 files changed, 758 insertions(+), 730 deletions(-)
  create mode 100644 arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 new file mode 100644
-index 0000000..ae130a8
+index 0000000..ed0775b
 --- /dev/null
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-@@ -0,0 +1,739 @@
+@@ -0,0 +1,742 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Device tree for Google Pixel 3a, adapted from google-blueline device tree,
@@ -490,6 +490,9 @@ index 0000000..ae130a8
 +		pinctrl-names = "default";
 +		pinctrl-0 = <&cam_front_default>;
 +
++		rotation = <270>;
++		orientation = <0>;
++
 +		port {
 +			cam_front_endpoint: endpoint {
 +				data-lanes = <0 1 2 3>;
@@ -760,10 +763,10 @@ index 0000000..ae130a8
 +	maximum-speed = "high-speed";
 +};
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts b/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
-index d7dc6cc..7a3e2499 100644
+index 2fa7ecb..7a3e2499 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
-@@ -1,748 +1,37 @@
+@@ -1,751 +1,37 @@
 -// SPDX-License-Identifier: GPL-2.0
 +// SPDX-License-Identifier: GPL-2.0-only
  /*
@@ -985,8 +988,8 @@ index d7dc6cc..7a3e2499 100644
 -		pinctrl-names = "default";
 -		pinctrl-0 = <&cam_vio_pin>;
 -	};
- };
- 
+-};
+-
 -&apps_rsc {
 -	regulators-0 {
 -		compatible = "qcom,pm660-rpmh-regulators";
@@ -1203,29 +1206,20 @@ index d7dc6cc..7a3e2499 100644
 -			regulator-enable-ramp-delay = <500>;
 -		};
 -	};
-+&battery {
-+	charge-full-design-microamp-hours = <3000000>;
- };
- 
+-};
+-
 -&camss {
 -	vdda-phy-supply = <&vreg_l1a_1p225>;
-+&framebuffer {
-+	reg = <0 0x9c000000 0 (1080 * 2220 * 4)>;
-+	width = <1080>;
-+	height = <2220>;
-+	stride = <(1080 * 4)>;
- 	status = "okay";
- };
- 
+-	status = "okay";
+-};
+-
 -&camss_endpoint1 {
 -	clock-lanes = <7>;
 -	data-lanes = <0 1 2 3>;
 -	remote-endpoint = <&cam_front_endpoint>;
-+&panel {
-+	compatible = "samsung,s6e3fa7-ams559nk06";
- 	status = "okay";
- };
- 
+-	status = "okay";
+-};
+-
 -&cci {
 -	pinctrl-names = "default", "sleep";
 -	pinctrl-0 = <&cci1_default &cam_mclk_default>;
@@ -1256,6 +1250,9 @@ index d7dc6cc..7a3e2499 100644
 -		pinctrl-names = "default";
 -		pinctrl-0 = <&cam_front_default>;
 -
+-		rotation = <270>;
+-		orientation = <0>;
+-
 -		port {
 -			cam_front_endpoint: endpoint {
 -				data-lanes = <0 1 2 3>;
@@ -1274,8 +1271,8 @@ index d7dc6cc..7a3e2499 100644
 -
 -&gpi_dma1 {
 -	status = "okay";
--};
--
+ };
+ 
 -&gpu {
 -	status = "okay";
 -
@@ -1283,11 +1280,18 @@ index d7dc6cc..7a3e2499 100644
 -		memory-region = <&gpu_mem>;
 -		firmware-name = "qcom/sdm670/sargo/a615_zap.mbn";
 -	};
--};
--
++&battery {
++	charge-full-design-microamp-hours = <3000000>;
+ };
+ 
 -&i2c9 {
 -	clock-frequency = <100000>;
--	status = "okay";
++&framebuffer {
++	reg = <0 0x9c000000 0 (1080 * 2220 * 4)>;
++	width = <1080>;
++	height = <2220>;
++	stride = <(1080 * 4)>;
+ 	status = "okay";
 -
 -	synaptics-rmi4-i2c@20 {
 -		compatible = "syna,rmi4-i2c";
@@ -1317,12 +1321,14 @@ index d7dc6cc..7a3e2499 100644
 -			syna,sensor-type = <1>;
 -		};
 -	};
--};
--
+ };
+ 
 -&mdss {
--	status = "okay";
--};
--
++&panel {
++	compatible = "samsung,s6e3fa7-ams559nk06";
+ 	status = "okay";
+ };
+ 
 -&mdss_dsi0 {
 -	vdda-supply = <&vreg_l1a_1p225>;
 -	status = "okay";
