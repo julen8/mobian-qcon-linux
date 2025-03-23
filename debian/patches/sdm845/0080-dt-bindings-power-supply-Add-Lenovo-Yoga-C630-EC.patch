@@ -15,7 +15,7 @@ Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 diff --git a/Documentation/devicetree/bindings/power/supply/lenovo,yoga-c630-ec.yaml b/Documentation/devicetree/bindings/power/supply/lenovo,yoga-c630-ec.yaml
 new file mode 100644
-index 00000000..3797734
+index 0000000..3797734
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/power/supply/lenovo,yoga-c630-ec.yaml
 @@ -0,0 +1,83 @@
