@@ -45,7 +45,7 @@ index fbb988bd..02c41db 100644
  obj-$(CONFIG_VIDEO_IR_I2C) += ir-kbd-i2c.o
 diff --git a/drivers/media/i2c/imx363.c b/drivers/media/i2c/imx363.c
 new file mode 100644
-index 00000000..ff8d25d
+index 0000000..ff8d25d
 --- /dev/null
 +++ b/drivers/media/i2c/imx363.c
 @@ -0,0 +1,1514 @@
