@@ -14,11 +14,11 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/input/touchscreen/goodix_berlin_core.c b/drivers/input/touchscreen/goodix_berlin_core.c
-index 3fc03cf..e273fb8 100644
+index 141c646..7f8cfdd 100644
 --- a/drivers/input/touchscreen/goodix_berlin_core.c
 +++ b/drivers/input/touchscreen/goodix_berlin_core.c
 @@ -263,7 +263,7 @@ static int goodix_berlin_power_on(struct goodix_berlin_core *cd)
- 		goto err_iovdd_disable;
+ 		goto err_vddio_disable;
  	}
  
 -	/* Vendor waits 15ms for IOVDD to settle */
