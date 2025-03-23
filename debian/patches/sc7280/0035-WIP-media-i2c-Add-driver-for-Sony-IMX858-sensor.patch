@@ -48,7 +48,7 @@ index b8584a7..a52af76 100644
  obj-$(CONFIG_VIDEO_KS0127) += ks0127.o
 diff --git a/drivers/media/i2c/imx858.c b/drivers/media/i2c/imx858.c
 new file mode 100644
-index 00000000..e12b4d1
+index 0000000..e12b4d1
 --- /dev/null
 +++ b/drivers/media/i2c/imx858.c
 @@ -0,0 +1,1416 @@
