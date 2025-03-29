@@ -1,3 +1,14 @@
+linux-6.13-sdm670 (6.13.9-1) unstable; urgency=medium
+
+  [ Marco Mattiolo ]
+  * Refresh and re-order patches from sdm670-mainline, update d/README.sdm670-linux
+  * Enable CONFIG_DYNAMIC_DEBUG
+
+  [ Mobot ]
+  * Rebase on 6.13.9
+
+ -- Mobot <group_9279_bot_322d6e899378048e14b6d1f9dce111eb@noreply.salsa.debian.org>  Sat, 29 Mar 2025 01:35:21 +0000
+
 linux-6.13-sdm670 (6.13.8-1) unstable; urgency=medium
 
   * Rebase on 6.13.8
