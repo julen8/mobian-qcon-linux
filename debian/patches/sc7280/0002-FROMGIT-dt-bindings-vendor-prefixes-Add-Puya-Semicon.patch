@@ -14,10 +14,10 @@ Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
  1 file changed, 2 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index da01616..7e743a9 100644
+index a985e22..2771328 100644
 --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
 +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1204,6 +1204,8 @@ patternProperties:
+@@ -1206,6 +1206,8 @@ patternProperties:
      description: PulsedLight, Inc
    "^purism,.*":
      description: Purism, SPC
