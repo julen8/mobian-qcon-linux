@@ -7,7 +7,7 @@ Subject: drm/msm/dpu: Fall back to a single DSC encoder per interface
  1 file changed, 25 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 67f5fc6..698948b 100644
+index ebdfb76..0922f78 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
 @@ -622,9 +622,10 @@ bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc)
@@ -58,7 +58,7 @@ index 67f5fc6..698948b 100644
  		topology.num_intf = 1;
  	}
  
-@@ -2027,25 +2034,26 @@ static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
+@@ -2026,25 +2033,26 @@ static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
  	struct dpu_hw_pingpong *hw_pp[MAX_CHANNELS_PER_ENC];
  	int this_frame_slices;
  	int intf_ip_w, enc_ip_w;
@@ -91,7 +91,7 @@ index 67f5fc6..698948b 100644
  	if (dpu_encoder_use_dsc_merge(enc_master->parent))
  		dsc_common_mode |= DSC_MODE_MULTIPLEX;
  	if (enc_master->intf_mode == INTF_MODE_VIDEO)
-@@ -2054,14 +2062,10 @@ static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
+@@ -2053,14 +2061,10 @@ static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
  	this_frame_slices = pic_width / dsc->slice_width;
  	intf_ip_w = this_frame_slices * dsc->slice_width;
  
