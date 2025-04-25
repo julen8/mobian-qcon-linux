@@ -21,7 +21,7 @@ Link: https://lore.kernel.org/r/20231218155927.368881-1-robdclark@gmail.com
  1 file changed, 2 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 702b8d4b..16f6d7a 100644
+index d903ad9..16e5b16 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 @@ -1271,12 +1271,7 @@ static void a6xx_recover(struct msm_gpu *gpu)
