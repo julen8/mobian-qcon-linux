@@ -13,10 +13,10 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  create mode 100644 drivers/media/i2c/s5kjn1.c
 
 diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 8ba096b..b44fd95 100644
+index 85ecb2a..7c8a3528 100644
 --- a/drivers/media/i2c/Kconfig
 +++ b/drivers/media/i2c/Kconfig
-@@ -690,6 +690,13 @@ config VIDEO_S5K6A3
+@@ -691,6 +691,13 @@ config VIDEO_S5K6A3
  	  This is a V4L2 sensor driver for Samsung S5K6A3 raw
  	  camera sensor.
  
