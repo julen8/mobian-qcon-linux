@@ -13,10 +13,10 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  create mode 100644 drivers/media/i2c/imx858.c
 
 diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index b44fd95..feadde5 100644
+index 7c8a3528..ca6141c 100644
 --- a/drivers/media/i2c/Kconfig
 +++ b/drivers/media/i2c/Kconfig
-@@ -264,6 +264,17 @@ config VIDEO_IMX415
+@@ -265,6 +265,17 @@ config VIDEO_IMX415
  	  To compile this driver as a module, choose M here: the
  	  module will be called imx415.
  
