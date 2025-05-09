@@ -51,7 +51,7 @@ Fixes:
  create mode 100644 sound/soc/codecs/tas2559.h
 
 diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index a3a0b9a..84b8542 100644
+index 01794bd..b282cca 100644
 --- a/sound/soc/codecs/Kconfig
 +++ b/sound/soc/codecs/Kconfig
 @@ -350,6 +350,7 @@ config SND_SOC_ALL_CODECS
@@ -62,7 +62,7 @@ index a3a0b9a..84b8542 100644
  	help
  	  Normally ASoC codec drivers are only built if a machine driver which
  	  uses them is also built since they are only usable with a machine
-@@ -2593,6 +2594,9 @@ config SND_SOC_LPASS_VA_MACRO
+@@ -2592,6 +2593,9 @@ config SND_SOC_LPASS_VA_MACRO
  	select REGMAP_MMIO
  	select SND_SOC_LPASS_MACRO_COMMON
  	tristate "Qualcomm VA Macro in LPASS(Low Power Audio SubSystem)"
