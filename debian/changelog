@@ -1,3 +1,9 @@
+linux-6.12-qcom (6.12.30-1) unstable; urgency=medium
+
+  * Rebase on 6.12.30
+
+ -- Mobot <group_9279_bot_322d6e899378048e14b6d1f9dce111eb@noreply.salsa.debian.org>  Thu, 22 May 2025 15:35:50 +0000
+
 linux-6.12-qcom (6.12.29-1) unstable; urgency=medium
 
   * Rebase on 6.12.29
