@@ -15,7 +15,7 @@ Link: https://lore.kernel.org/r/20231025144601.268645-3-krzysztof.kozlowski@lina
  1 file changed, 6 insertions(+)
 
 diff --git a/sound/soc/codecs/wsa884x.c b/sound/soc/codecs/wsa884x.c
-index 560a2c0..ea18006 100644
+index 18b0ee8..1282df1 100644
 --- a/sound/soc/codecs/wsa884x.c
 +++ b/sound/soc/codecs/wsa884x.c
 @@ -1829,6 +1829,12 @@ static int wsa884x_set_stream(struct snd_soc_dai *dai,
