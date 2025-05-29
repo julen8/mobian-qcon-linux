@@ -53,7 +53,7 @@ index df7e93a..7d2490c 100644
  		break;
  	}
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 446604c..ce33c02 100644
+index 57b183d..5049004 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe.c
 +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
 @@ -333,11 +333,11 @@ static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
@@ -70,7 +70,7 @@ index 446604c..ce33c02 100644
  		switch (sink_code) {
  		case MEDIA_BUS_FMT_YUYV8_1X16:
  		{
-@@ -1692,9 +1692,9 @@ static int vfe_bpl_align(struct vfe_device *vfe)
+@@ -1696,9 +1696,9 @@ static int vfe_bpl_align(struct vfe_device *vfe)
  	int ret = 8;
  
  	switch (vfe->camss->res->version) {
