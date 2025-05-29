@@ -69,7 +69,7 @@ index 47f0b6b..64b7b2b7 100644
  
  extern const struct csiphy_hw_ops csiphy_ops_2ph_1_0;
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index ce33c02..78f2b90 100644
+index 5049004..deebf70 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe.c
 +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
 @@ -334,6 +334,7 @@ static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
@@ -80,7 +80,7 @@ index ce33c02..78f2b90 100644
  	case CAMSS_8x96:
  	case CAMSS_8250:
  	case CAMSS_8280XP:
-@@ -1692,6 +1693,7 @@ static int vfe_bpl_align(struct vfe_device *vfe)
+@@ -1696,6 +1697,7 @@ static int vfe_bpl_align(struct vfe_device *vfe)
  	int ret = 8;
  
  	switch (vfe->camss->res->version) {
