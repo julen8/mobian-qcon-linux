@@ -16,10 +16,10 @@ Signed-off-by: Vikram Sharma <quic_vikramsa@quicinc.com>
  3 files changed, 138 insertions(+), 68 deletions(-)
 
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 83c5a36..446604c 100644
+index 8f6b0ec..57b183d 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe.c
 +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -1794,9 +1794,9 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
+@@ -1798,9 +1798,9 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
  				&video_out->vdev.entity, 0,
  				MEDIA_LNK_FL_IMMUTABLE | MEDIA_LNK_FL_ENABLED);
  		if (ret < 0) {
