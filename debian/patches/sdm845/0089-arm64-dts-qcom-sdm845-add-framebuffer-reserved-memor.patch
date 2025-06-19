@@ -34,7 +34,7 @@ index 99dafc6..57ed447 100644
  		memory@f0800000 {
  			reg = <0 0xf0800000 0 0x1000>;
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
-index 59e7700..a3b0aff 100644
+index 94a95d7e..0268020 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
 +++ b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
 @@ -64,11 +64,6 @@ vreg_s4a_1p8: pm8998-smps4 {
