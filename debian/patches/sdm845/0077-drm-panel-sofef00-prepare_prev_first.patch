@@ -11,10 +11,10 @@ Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/panel/panel-samsung-sofef00.c b/drivers/gpu/drm/panel/panel-samsung-sofef00.c
-index 0a00d44..4a3ae41 100644
+index 7e5a33b..82123a2 100644
 --- a/drivers/gpu/drm/panel/panel-samsung-sofef00.c
 +++ b/drivers/gpu/drm/panel/panel-samsung-sofef00.c
-@@ -259,6 +259,7 @@ static int sofef00_panel_probe(struct mipi_dsi_device *dsi)
+@@ -236,6 +236,7 @@ static int sofef00_panel_probe(struct mipi_dsi_device *dsi)
  
  	drm_panel_init(&ctx->panel, dev, &sofef00_panel_panel_funcs,
  		       DRM_MODE_CONNECTOR_DSI);
