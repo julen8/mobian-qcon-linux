@@ -8,10 +8,10 @@ Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
  1 file changed, 5 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/gpu/drm/panel/panel-samsung-sofef00.c b/drivers/gpu/drm/panel/panel-samsung-sofef00.c
-index 04ce925..0a00d44 100644
+index 49cfa84..7e5a33b 100644
 --- a/drivers/gpu/drm/panel/panel-samsung-sofef00.c
 +++ b/drivers/gpu/drm/panel/panel-samsung-sofef00.c
-@@ -81,24 +81,24 @@ static int sofef00_panel_on(struct sofef00_panel *ctx)
+@@ -80,24 +80,24 @@ static int sofef00_panel_on(struct sofef00_panel *ctx)
  	return 0;
  }
  
@@ -40,7 +40,7 @@ index 04ce925..0a00d44 100644
  		return ret;
  	}
  	msleep(160);
-@@ -133,12 +133,6 @@ static int sofef00_panel_prepare(struct drm_panel *panel)
+@@ -132,12 +132,6 @@ static int sofef00_panel_prepare(struct drm_panel *panel)
  static int sofef00_panel_unprepare(struct drm_panel *panel)
  {
  	struct sofef00_panel *ctx = to_sofef00_panel(panel);
@@ -53,7 +53,7 @@ index 04ce925..0a00d44 100644
  
  	regulator_disable(ctx->supply);
  
-@@ -194,6 +188,7 @@ static int sofef00_panel_get_modes(struct drm_panel *panel, struct drm_connector
+@@ -178,6 +172,7 @@ static int sofef00_panel_get_modes(struct drm_panel *panel, struct drm_connector
  
  static const struct drm_panel_funcs sofef00_panel_panel_funcs = {
  	.prepare = sofef00_panel_prepare,
