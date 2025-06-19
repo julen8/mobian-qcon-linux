@@ -41,7 +41,7 @@ and disabling of the irq.
  1 file changed, 11 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backlight/qcom-wled.c
-index 1012909..6d3016e 100644
+index b19e5f7..206c6e2 100644
 --- a/drivers/video/backlight/qcom-wled.c
 +++ b/drivers/video/backlight/qcom-wled.c
 @@ -197,6 +197,7 @@ struct wled {
@@ -77,7 +77,7 @@ index 1012909..6d3016e 100644
  		}
  	}
  
-@@ -1725,6 +1732,8 @@ static void wled_remove(struct platform_device *pdev)
+@@ -1727,6 +1734,8 @@ static void wled_remove(struct platform_device *pdev)
  	cancel_delayed_work_sync(&wled->ovp_work);
  	disable_irq(wled->short_irq);
  	disable_irq(wled->ovp_irq);
