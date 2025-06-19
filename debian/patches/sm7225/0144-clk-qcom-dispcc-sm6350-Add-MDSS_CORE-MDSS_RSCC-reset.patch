@@ -10,7 +10,7 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  1 file changed, 7 insertions(+)
 
 diff --git a/drivers/clk/qcom/dispcc-sm6350.c b/drivers/clk/qcom/dispcc-sm6350.c
-index 2bc6b5f..17f7674 100644
+index d52fd4b..16948f4 100644
 --- a/drivers/clk/qcom/dispcc-sm6350.c
 +++ b/drivers/clk/qcom/dispcc-sm6350.c
 @@ -678,6 +678,11 @@ static struct clk_branch disp_cc_xo_clk = {
@@ -24,8 +24,8 @@ index 2bc6b5f..17f7674 100644
 +
  static struct gdsc mdss_gdsc = {
  	.gdscr = 0x1004,
- 	.pd = {
-@@ -742,6 +747,8 @@ static const struct qcom_cc_desc disp_cc_sm6350_desc = {
+ 	.en_rest_wait_val = 0x2,
+@@ -745,6 +750,8 @@ static const struct qcom_cc_desc disp_cc_sm6350_desc = {
  	.num_clks = ARRAY_SIZE(disp_cc_sm6350_clocks),
  	.gdscs = disp_cc_sm6350_gdscs,
  	.num_gdscs = ARRAY_SIZE(disp_cc_sm6350_gdscs),
