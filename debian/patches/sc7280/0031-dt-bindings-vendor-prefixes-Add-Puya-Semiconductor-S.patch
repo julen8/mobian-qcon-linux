@@ -11,10 +11,10 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 71a1a39..b47f1a2 100644
+index af9a8d4..add6eba 100644
 --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
 +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1194,6 +1194,8 @@ patternProperties:
+@@ -1196,6 +1196,8 @@ patternProperties:
      description: PulsedLight, Inc
    "^purism,.*":
      description: Purism, SPC
