@@ -8,10 +8,10 @@ Required for MAX98927 speaker audio to work on the OnePlus 6.
  1 file changed, 2 insertions(+)
 
 diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
-index a479d7e..5cd6d34 100644
+index 314ff68..09e4498 100644
 --- a/sound/soc/qcom/sdm845.c
 +++ b/sound/soc/qcom/sdm845.c
-@@ -367,10 +367,12 @@ static int sdm845_snd_startup(struct snd_pcm_substream *substream)
+@@ -371,10 +371,12 @@ static int sdm845_snd_startup(struct snd_pcm_substream *substream)
  		snd_soc_dai_set_fmt(codec_dai, codec_dai_fmt);
  		break;
  	case QUATERNARY_MI2S_RX:
