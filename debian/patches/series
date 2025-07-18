@@ -114,3 +114,5 @@ sdm670/0113-arm64-dts-qcom-sdm670-google-add-battery-thermal-zones.patch
 sdm670/0114-power-supply-qcom_pmi8998_charger-increase-default-current-to-3-Amps.patch
 sdm670/0115-arm64-dts-qcom-sdm670-add-cdsp.patch
 sdm670/0116-arm64-dts-qcom-sdm670-google-enable-cdsp.patch
+debian/0117-wireless-Add-Debian-wireless-regdb-certificates.patch
+mobian/0118-arm64-configs-add-sdm670_defconfig.patch
