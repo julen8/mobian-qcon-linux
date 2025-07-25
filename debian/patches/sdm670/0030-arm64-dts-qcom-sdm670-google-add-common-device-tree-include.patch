@@ -16,7 +16,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 new file mode 100644
-index 00000000..9e2e36e
+index 0000000..9e2e36e
 --- /dev/null
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 @@ -0,0 +1,729 @@
@@ -961,8 +961,8 @@ index b129c85..7a3e2499 100644
 -		pinctrl-0 = <&cam_vio_pin>;
 -		pinctrl-names = "default";
 -	};
- };
- 
+-};
+-
 -&apps_rsc {
 -	regulators-0 {
 -		compatible = "qcom,pm660-rpmh-regulators";
@@ -1179,10 +1179,8 @@ index b129c85..7a3e2499 100644
 -			regulator-enable-ramp-delay = <500>;
 -		};
 -	};
-+&battery {
-+	charge-full-design-microamp-hours = <3000000>;
- };
- 
+-};
+-
 -&camss {
 -	vdda-phy-supply = <&vreg_l1a_1p225>;
 -	vdda-pll-supply = <&vreg_s6a_0p87>;
@@ -1205,14 +1203,9 @@ index b129c85..7a3e2499 100644
 -	pinctrl-1 = <&cci1_sleep>;
 -	pinctrl-names = "default", "sleep";
 -
-+&framebuffer {
-+	reg = <0 0x9c000000 0 (1080 * 2220 * 4)>;
-+	width = <1080>;
-+	height = <2220>;
-+	stride = <(1080 * 4)>;
- 	status = "okay";
- };
- 
+-	status = "okay";
+-};
+-
 -&cci_i2c1 {
 -	camera@1a {
 -		compatible = "sony,imx355";
@@ -1253,11 +1246,9 @@ index b129c85..7a3e2499 100644
 -};
 -
 -&gpi_dma1 {
-+&panel {
-+	compatible = "samsung,s6e3fa7-ams559nk06";
- 	status = "okay";
- };
- 
+-	status = "okay";
+-};
+-
 -&gpu {
 -	status = "okay";
 -
@@ -1299,15 +1290,22 @@ index b129c85..7a3e2499 100644
 -			syna,sensor-type = <1>;
 -		};
 -	};
--};
--
+ };
+ 
 -&mdss {
 -	status = "okay";
--};
--
++&battery {
++	charge-full-design-microamp-hours = <3000000>;
+ };
+ 
 -&mdss_dsi0 {
 -	vdda-supply = <&vreg_l1a_1p225>;
--	status = "okay";
++&framebuffer {
++	reg = <0 0x9c000000 0 (1080 * 2220 * 4)>;
++	width = <1080>;
++	height = <2220>;
++	stride = <(1080 * 4)>;
+ 	status = "okay";
 -
 -	panel: panel@0 {
 -		compatible = "samsung,s6e3fa7-ams559nk06";
@@ -1331,13 +1329,15 @@ index b129c85..7a3e2499 100644
 -&mdss_dsi0_out {
 -	remote-endpoint = <&panel_in>;
 -	data-lanes = <0 1 2 3>;
--};
--
+ };
+ 
 -&mdss_dsi0_phy {
 -	vdds-supply = <&vreg_l1b_0p925>;
--	status = "okay";
--};
--
++&panel {
++	compatible = "samsung,s6e3fa7-ams559nk06";
+ 	status = "okay";
+ };
+ 
 -&mdss_mdp {
 -	status = "okay";
 -};
