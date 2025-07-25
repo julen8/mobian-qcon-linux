@@ -9,7 +9,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/cache/qcom,llcc.yaml b/Documentation/devicetree/bindings/cache/qcom,llcc.yaml
-index e5effbb4..f1cc493 100644
+index e5effbb..f1cc493 100644
 --- a/Documentation/devicetree/bindings/cache/qcom,llcc.yaml
 +++ b/Documentation/devicetree/bindings/cache/qcom,llcc.yaml
 @@ -31,6 +31,7 @@ properties:
