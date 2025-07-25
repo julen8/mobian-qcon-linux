@@ -94,13 +94,13 @@ index f3ae9d7..93318d1 100644
  {
  	struct q6voice *v = snd_soc_dai_get_drvdata(dai);
 +	enum q6voice_path_type path = q6voice_get_path(dai->driver->id);
- 
--	q6voice_stop(v, Q6VOICE_PATH_VOICE, substream->stream);
++
 +	if (path == Q6VOICE_PATH_COUNT) {
 +		dev_err(dai->dev, "Invalid DAI ID %u\n", dai->driver->id);
 +		return;
 +	}
-+
+ 
+-	q6voice_stop(v, Q6VOICE_PATH_VOICE, substream->stream);
 +	q6voice_stop(v, path, substream->stream);
  }
  
@@ -334,7 +334,7 @@ index f3ae9d7..93318d1 100644
  	{ "SEC_MI2S_RX",		NULL,		"SEC_MI2S_RX Voice Mixer" },
  	{ "TERT_MI2S_RX",		NULL,		"TERT_MI2S_RX Voice Mixer" },
 diff --git a/sound/soc/qcom/qdsp6/q6voice.h b/sound/soc/qcom/qdsp6/q6voice.h
-index 5b2d2dd..13b058c7 100644
+index 5b2d2dd..13b058c 100644
 --- a/sound/soc/qcom/qdsp6/q6voice.h
 +++ b/sound/soc/qcom/qdsp6/q6voice.h
 @@ -3,14 +3,14 @@
