@@ -129,7 +129,7 @@ index d575190..b553da3 100644
  	}
  
 diff --git a/sound/soc/qcom/qdsp6/q6voice.h b/sound/soc/qcom/qdsp6/q6voice.h
-index 13b058c7..a1e3300 100644
+index 13b058c..a1e3300 100644
 --- a/sound/soc/qcom/qdsp6/q6voice.h
 +++ b/sound/soc/qcom/qdsp6/q6voice.h
 @@ -16,7 +16,7 @@ enum q6voice_path_type {

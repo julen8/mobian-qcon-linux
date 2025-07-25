@@ -24,7 +24,7 @@ index 333265b..e88227d 100644
  
 -static int sofef00_on(struct sofef00 *ctx)
 +static int sofef00_prepare(struct drm_panel *panel)
- {
++{
 +	struct sofef00 *ctx = to_sofef00(panel);
 +
 +	if (ctx->prepared)
@@ -37,7 +37,7 @@ index 333265b..e88227d 100644
 +}
 +
 +static int sofef00_enable(struct drm_panel *panel)
-+{
+ {
 +	struct sofef00 *ctx = to_sofef00(panel);
  	struct mipi_dsi_device *dsi = ctx->dsi;
  	struct device *dev = &dsi->dev;

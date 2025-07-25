@@ -39,7 +39,7 @@ index 28fb7fc..3f2a25c 100644
  	tristate "SoC Machine driver for SDM845 boards"
  	depends on QCOM_APR && I2C && SOUNDWIRE
 diff --git a/sound/soc/qcom/Makefile b/sound/soc/qcom/Makefile
-index 16db7b5..ad55bc20 100644
+index 16db7b5..ad55bc2 100644
 --- a/sound/soc/qcom/Makefile
 +++ b/sound/soc/qcom/Makefile
 @@ -24,6 +24,7 @@ snd-soc-apq8016-sbc-y := apq8016_sbc.o
@@ -60,7 +60,7 @@ index 16db7b5..ad55bc20 100644
  obj-$(CONFIG_SND_SOC_QCOM_COMMON) += snd-soc-qcom-common.o
 diff --git a/sound/soc/qcom/sdm660-internal.c b/sound/soc/qcom/sdm660-internal.c
 new file mode 100644
-index 00000000..142365e
+index 0000000..142365e
 --- /dev/null
 +++ b/sound/soc/qcom/sdm660-internal.c
 @@ -0,0 +1,399 @@
