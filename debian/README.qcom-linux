@@ -27,3 +27,10 @@ sdm845-mainline repository:
   * debian/patches/sdm845/0139-fixup!-arm64-dts-qcom-sdm845-oneplus-camera-bringup.patch
   * debian/patches/sdm845/0140-fixup-media-i2c-Add-imx371-image-sensor-driver.patch
   * debian/patches/sdm845/0141-fixup-media-i2c-Add-imx376-image-sensor-driver.patch
+
+Following patches were backported from the sdm845/6.16-dev branch of the
+sdm845-mainline repository:
+  * debian/patches/sdm845/0141-MAINTAINERS-Add-entry-for-Onsemi-LC898217XC-lens-voi.patch
+  * debian/patches/sdm845/0142-media-dt-bindings-Add-LC898217XC-documentation.patch
+  * debian/patches/sdm845/0143-media-i2c-Add-driver-for-LC898217XC-VCM.patch
+  * debian/patches/sdm845/0144-arm64-dts-qcom-sdm845-oneplus-add-rear-camera-actuat.patch
