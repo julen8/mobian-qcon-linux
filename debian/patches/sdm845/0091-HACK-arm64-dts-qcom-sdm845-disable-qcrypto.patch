@@ -14,7 +14,7 @@ Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
  1 file changed, 5 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-index 9bb6a35..bbbf26c 100644
+index c934a46..88cbad8 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
 @@ -2735,6 +2735,11 @@ crypto: crypto@1dfa000 {
