@@ -14,7 +14,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 92 insertions(+)
 
 diff --git a/drivers/power/supply/qcom_pmi8998_charger.c b/drivers/power/supply/qcom_pmi8998_charger.c
-index 8428f91..ecc341b 100644
+index b72296f..ab1b6c7 100644
 --- a/drivers/power/supply/qcom_pmi8998_charger.c
 +++ b/drivers/power/supply/qcom_pmi8998_charger.c
 @@ -22,6 +22,7 @@

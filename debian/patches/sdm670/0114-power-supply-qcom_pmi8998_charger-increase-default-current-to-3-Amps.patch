@@ -14,7 +14,7 @@ limit until there's support for negotiating the input current.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/power/supply/qcom_pmi8998_charger.c b/drivers/power/supply/qcom_pmi8998_charger.c
-index ecc341b..26dac19 100644
+index ab1b6c7..0a6242a 100644
 --- a/drivers/power/supply/qcom_pmi8998_charger.c
 +++ b/drivers/power/supply/qcom_pmi8998_charger.c
 @@ -916,7 +916,7 @@ static const struct smb2_register smb2_init_seq[] = {
