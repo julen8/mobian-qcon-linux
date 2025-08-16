@@ -15,7 +15,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 27 insertions(+)
 
 diff --git a/drivers/power/supply/qcom_pmi8998_charger.c b/drivers/power/supply/qcom_pmi8998_charger.c
-index 74a8d8e..8428f91 100644
+index 8b641b8..b72296f 100644
 --- a/drivers/power/supply/qcom_pmi8998_charger.c
 +++ b/drivers/power/supply/qcom_pmi8998_charger.c
 @@ -519,6 +519,30 @@ static int smb2_get_prop_status(struct smb2_chip *chip, int *val)
