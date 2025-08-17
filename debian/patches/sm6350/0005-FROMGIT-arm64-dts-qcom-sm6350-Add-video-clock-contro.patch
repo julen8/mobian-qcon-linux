@@ -1,0 +1,39 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Mon, 24 Mar 2025 09:41:04 +0100
+Subject: FROMGIT arm64: dts: qcom: sm6350: Add video clock controller
+
+Add a node for the videocc found on the SM6350 SoC.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20250324-sm6350-videocc-v2-4-cc22386433f4@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/sm6350.dtsi | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+index f80b21d..ba1d5c8 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+@@ -1953,6 +1953,20 @@ usb_1_dwc3_ss_out: endpoint {
+ 			};
+ 		};
+ 
++		videocc: clock-controller@aaf0000 {
++			compatible = "qcom,sm6350-videocc";
++			reg = <0x0 0x0aaf0000 0x0 0x10000>;
++			clocks = <&gcc GCC_VIDEO_AHB_CLK>,
++				 <&rpmhcc RPMH_CXO_CLK>,
++				 <&sleep_clk>;
++			clock-names = "iface",
++				      "bi_tcxo",
++				      "sleep_clk";
++			#clock-cells = <1>;
++			#reset-cells = <1>;
++			#power-domain-cells = <1>;
++		};
++
+ 		cci0: cci@ac4a000 {
+ 			compatible = "qcom,sm6350-cci", "qcom,msm8996-cci";
+ 			reg = <0x0 0x0ac4a000 0x0 0x1000>;
