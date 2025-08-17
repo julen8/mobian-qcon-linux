@@ -3,7 +3,7 @@ Patches origin
 
 For out-of-tree device support, patches were imported from the following
 community-maintained kernel forks:
-  * sm7225: https://github.com/sm6350-mainline/linux
+  * sm6350: https://github.com/sm6350-mainline/linux
 
 Those patchsets were last synced on the following dates:
-  * sm7225: 2024-12-21
+  * sm6350: 2024-12-21
