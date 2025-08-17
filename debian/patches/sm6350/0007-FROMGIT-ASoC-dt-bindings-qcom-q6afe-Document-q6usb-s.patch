@@ -1,0 +1,45 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Wed, 23 Jul 2025 16:03:38 +0200
+Subject: FROMGIT ASoC: dt-bindings: qcom,q6afe: Document q6usb subnode
+
+Document the subnode for Q6USB, used for USB audio offloading.
+
+Cc: Wesley Cheng <quic_wcheng@quicinc.com>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Link: https://patch.msgid.link/20250723-fp4-usb-audio-offload-v3-1-6be84ed4fc39@fairphone.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ Documentation/devicetree/bindings/sound/qcom,q6afe.yaml | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/sound/qcom,q6afe.yaml b/Documentation/devicetree/bindings/sound/qcom,q6afe.yaml
+index 297aa36..268f707 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,q6afe.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,q6afe.yaml
+@@ -29,6 +29,12 @@ properties:
+     unevaluatedProperties: false
+     description: Qualcomm DSP audio ports
+ 
++  usbd:
++    type: object
++    $ref: /schemas/sound/qcom,q6usb.yaml#
++    unevaluatedProperties: false
++    description: Qualcomm DSP USB audio ports
++
+ required:
+   - compatible
+   - dais
+@@ -64,5 +70,12 @@ examples:
+                     qcom,sd-lines = <0 1 2 3>;
+                 };
+             };
++
++            usbd {
++                compatible = "qcom,q6usb";
++                #sound-dai-cells = <1>;
++                iommus = <&apps_smmu 0x180f 0x0>;
++                qcom,usb-audio-intr-idx = /bits/ 16 <2>;
++            };
+         };
+     };

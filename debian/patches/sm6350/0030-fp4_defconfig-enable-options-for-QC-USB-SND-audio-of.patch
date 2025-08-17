@@ -1,0 +1,32 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Thu, 20 Mar 2025 15:46:44 +0100
+Subject: fp4_defconfig: enable options for QC USB SND audio offloading
+
+---
+ arch/arm64/configs/fp4_defconfig | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/arm64/configs/fp4_defconfig b/arch/arm64/configs/fp4_defconfig
+index f3a3dad..9d9247c 100644
+--- a/arch/arm64/configs/fp4_defconfig
++++ b/arch/arm64/configs/fp4_defconfig
+@@ -205,8 +205,11 @@ CONFIG_LOGO=y
+ CONFIG_SOUND=y
+ CONFIG_SND=y
+ CONFIG_SND_USB_AUDIO=y
++CONFIG_SND_USB_AUDIO_QMI=y
+ CONFIG_SND_SOC=y
++CONFIG_SND_SOC_USB=y
+ CONFIG_SND_SOC_QCOM=y
++CONFIG_SND_SOC_QDSP6_USB=y
+ CONFIG_SND_SOC_SM8250=y
+ CONFIG_HIDRAW=y
+ # CONFIG_HID_A4TECH is not set
+@@ -226,6 +229,7 @@ CONFIG_USB=y
+ CONFIG_USB_ANNOUNCE_NEW_DEVICES=y
+ CONFIG_USB_OTG=y
+ CONFIG_USB_XHCI_HCD=y
++CONFIG_USB_XHCI_SIDEBAND=y
+ CONFIG_USB_EHCI_HCD=y
+ CONFIG_USB_EHCI_ROOT_HUB_TT=y
+ CONFIG_USB_EHCI_HCD_PLATFORM=y
