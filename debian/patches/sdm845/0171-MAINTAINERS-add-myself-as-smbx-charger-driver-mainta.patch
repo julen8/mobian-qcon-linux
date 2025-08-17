@@ -1,0 +1,30 @@
+From: Casey Connolly <casey.connolly@linaro.org>
+Date: Thu, 19 Jun 2025 16:55:18 +0200
+Subject: MAINTAINERS: add myself as smbx charger driver maintainer
+
+Missed when this originally went upstream, add myself to the MAINTAINERS
+file for this driver.
+
+Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
+---
+ MAINTAINERS | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 07107b1..c848645 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -20570,6 +20570,13 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/mtd/qcom,nandc.yaml
+ F:	drivers/mtd/nand/raw/qcom_nandc.c
+ 
++QUALCOMM SMB2 CHARGER DRIVER
++M:	Casey Connolly <casey.connolly@linaro.org>
++L:	linux-arm-msm@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/power/supply/qcom,pmi8998-charger.yaml
++F:	drivers/power/supply/qcom_smbx_charger.c
++
+ QUALCOMM QSEECOM DRIVER
+ M:	Maximilian Luz <luzmaximilian@gmail.com>
+ L:	linux-arm-msm@vger.kernel.org

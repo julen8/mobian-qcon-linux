@@ -1,0 +1,60 @@
+From: Casey Connolly <casey.connolly@linaro.org>
+Date: Thu, 19 Jun 2025 16:55:10 +0200
+Subject: arm64: dts: qcom: sdm845-oneplus-*: set
+ constant-charge-current-max-microamp
+
+Set the maximum constant charge current to use for this battery. While
+the battery is likely comfortably capable of 4A or so, OnePlus didn't
+include a secondary charger IC for parallel charging (instead they have
+their proprietary Dash Charging). It's possible that this value could be
+safely increased after some testing (and when we have support for
+modelling the charger as a cooling device properly), but for now this
+value is acceptable.
+
+This is references from qcom,usb-icl-ua property in the downstream
+vendor devicetree.
+
+Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
+---
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts | 8 ++++++++
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts    | 8 ++++++++
+ 2 files changed, 16 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+index 918765c..dc3bc5d 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+@@ -21,6 +21,14 @@ battery: battery {
+ 		charge-full-design-microamp-hours = <3300000>;
+ 		voltage-min-design-microvolt = <3400000>;
+ 		voltage-max-design-microvolt = <4400000>;
++
++		/*
++		 * Typical designs have multiple charger ICs which can handle more
++		 * current but the OnePlus 6/T do not, hence the lower limit. This
++		 * does not apply when using the Dash Charger, however this is not
++		 * yet supported.
++		 */
++		constant-charge-current-max-microamp = <1800000>;
+ 	};
+ 
+ 	main_cam_ois: main-cam-ois-regulator {
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
+index 288becdb..fc8632d 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
+@@ -20,6 +20,14 @@ battery: battery {
+ 		charge-full-design-microamp-hours = <3700000>;
+ 		voltage-min-design-microvolt = <3400000>;
+ 		voltage-max-design-microvolt = <4400000>;
++
++		/*
++		 * Typical designs have multiple charger ICs which can handle more
++		 * current but the OnePlus 6/T do not, hence the lower limit. This
++		 * does not apply when using the Dash Charger, however this is not
++		 * yet supported.
++		 */
++		constant-charge-current-max-microamp = <1800000>;
+ 	};
+ 
+ 	main_cam_ois: main-cam-ois-regulator {
