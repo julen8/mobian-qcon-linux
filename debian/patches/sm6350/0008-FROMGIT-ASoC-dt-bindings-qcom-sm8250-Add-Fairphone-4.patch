@@ -1,0 +1,27 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Wed, 23 Jul 2025 16:03:39 +0200
+Subject: FROMGIT ASoC: dt-bindings: qcom,sm8250: Add Fairphone 4 sound card
+
+Document the bindings for the sound card on Fairphone 4 which uses the
+older non-audioreach audio architecture.
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Link: https://patch.msgid.link/20250723-fp4-usb-audio-offload-v3-2-6be84ed4fc39@fairphone.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+index 590eb17..115a178 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+@@ -28,6 +28,7 @@ properties:
+               - qcom,sm8750-sndcard
+           - const: qcom,sm8450-sndcard
+       - enum:
++          - fairphone,fp4-sndcard
+           - fairphone,fp5-sndcard
+           - qcom,apq8096-sndcard
+           - qcom,qcm6490-idp-sndcard

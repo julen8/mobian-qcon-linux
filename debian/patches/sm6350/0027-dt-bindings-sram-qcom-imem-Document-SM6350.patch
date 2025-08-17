@@ -1,0 +1,23 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 1 Aug 2025 10:01:02 +0200
+Subject: dt-bindings: sram: qcom,imem: Document SM6350
+
+Add compatible for SM6350 IMEM.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ Documentation/devicetree/bindings/sram/qcom,imem.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/sram/qcom,imem.yaml b/Documentation/devicetree/bindings/sram/qcom,imem.yaml
+index 2711f90..15e661a 100644
+--- a/Documentation/devicetree/bindings/sram/qcom,imem.yaml
++++ b/Documentation/devicetree/bindings/sram/qcom,imem.yaml
+@@ -31,6 +31,7 @@ properties:
+           - qcom,sdm845-imem
+           - qcom,sdx55-imem
+           - qcom,sdx65-imem
++          - qcom,sm6350-imem
+           - qcom,sm6375-imem
+           - qcom,sm8450-imem
+       - const: syscon

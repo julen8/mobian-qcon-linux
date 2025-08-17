@@ -1,0 +1,30 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 14 Mar 2025 10:17:04 +0100
+Subject: FROMLIST v1 arm64: dts: qcom: sm6350: Add interconnect support to
+ UFS
+
+Define the two NoC paths used by UFS: ufs-ddr and cpu-ufs.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/sm6350.dtsi | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+index ad8f3fa..b74f173 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+@@ -1178,6 +1178,13 @@ ufs_mem_hc: ufshc@1d84000 {
+ 
+ 			operating-points-v2 = <&ufs_opp_table>;
+ 
++			interconnects = <&aggre1_noc MASTER_UFS_MEM QCOM_ICC_TAG_ALWAYS
++					 &clk_virt SLAVE_EBI_CH0 QCOM_ICC_TAG_ALWAYS>,
++					<&gem_noc MASTER_AMPSS_M0 QCOM_ICC_TAG_ACTIVE_ONLY
++					 &config_noc SLAVE_UFS_MEM_CFG QCOM_ICC_TAG_ACTIVE_ONLY>;
++			interconnect-names = "ufs-ddr",
++					     "cpu-ufs";
++
+ 			status = "disabled";
+ 
+ 			ufs_opp_table: opp-table {
