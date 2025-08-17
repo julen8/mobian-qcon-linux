@@ -19,7 +19,7 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  create mode 100644 drivers/input/misc/aw8695-haptics.c
 
 diff --git a/drivers/input/misc/Kconfig b/drivers/input/misc/Kconfig
-index df77c0f..055a48c 100644
+index 6a852c7..1919b93 100644
 --- a/drivers/input/misc/Kconfig
 +++ b/drivers/input/misc/Kconfig
 @@ -126,6 +126,17 @@ config INPUT_ATMEL_CAPTOUCH
@@ -41,7 +41,7 @@ index df77c0f..055a48c 100644
  	tristate "NXP BBNSM Power Key Driver"
  	depends on ARCH_MXC || COMPILE_TEST
 diff --git a/drivers/input/misc/Makefile b/drivers/input/misc/Makefile
-index ff1ce5d..2afef1c 100644
+index 4f7f736..9ae60aa 100644
 --- a/drivers/input/misc/Makefile
 +++ b/drivers/input/misc/Makefile
 @@ -22,6 +22,7 @@ obj-$(CONFIG_INPUT_ATC260X_ONKEY)	+= atc260x-onkey.o
@@ -54,7 +54,7 @@ index ff1ce5d..2afef1c 100644
  obj-$(CONFIG_INPUT_CM109)		+= cm109.o
 diff --git a/drivers/input/misc/aw8695-haptics.c b/drivers/input/misc/aw8695-haptics.c
 new file mode 100644
-index 0000000..65bdfca
+index 00000000..65bdfca
 --- /dev/null
 +++ b/drivers/input/misc/aw8695-haptics.c
 @@ -0,0 +1,1390 @@
