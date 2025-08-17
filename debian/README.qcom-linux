@@ -4,11 +4,9 @@ Patches origin
 For out-of-tree device support, patches were imported from the following
 community-maintained kernel forks:
   * sdm845: https://gitlab.com/sdm845-mainline/linux
-  * sm7225: https://github.com/sm6350-mainline/linux
 
 Those patchsets were last synced on the following dates:
   * sdm845: 2025-02-14
-  * sm7225: 2024-12-21
 
 Following patches were backported from the sdm845/6.13-release branch of the
 sdm845-mainline repository:
