@@ -1,0 +1,128 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 1 Aug 2025 12:18:49 +0200
+Subject: Revert "ALSA: qc_audio_offload: try to reduce address space
+ confusion"
+
+This is breaking USB audio offloading on Qualcomm devices
+
+[  420.463176] q6afe-dai 3000000.remoteproc:glink-edge:apr:service@4:dais: AFE Port already open
+[  420.472676] ------------[ cut here ]------------
+[  420.472691] WARNING: CPU: 2 PID: 175 at sound/usb/qcom/qc_audio_offload.c:1056 handle_uaudio_stream_req+0xea8/0x13f8 [snd_usb_audio_qmi]
+[  420.472726] Modules linked in: rfcomm zram zsmalloc zstd_compress algif_hash algif_skcipher bnep nft_reject_inet nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 nf_tables nfnetlink ipv6 fuse uhid uinput snd_usb_audio_qmi q6asm_dai q6routing q6afe_dai q6usb q6afe_clocks q6adm q6asm snd_q6dsp_common q6afe q6core apr pdr_interface snd_soc_sm8250 snd_soc_qcom
+_common snd_soc_qcom_offload_utils snd_soc_qcom_sdw soundwire_bus soc_usb snd_soc_core snd_compress snd_usb_audio ath10k_snoc ath10k_core snd_hwdep snd_usbmidi_lib ath fastrpc snd_pcm mac80211 hci_uart qrtr_smd snd_timer btqca qcom_pd_mapper snd_rawmidi bluetooth libarc4 qcom_pdr_msg cfg80211 snd soundcore ecdh_generic ecc rfkill qrtr qcom_stats qcom_q6v5_pas ipa qcom_pil_info qcom_q6v5 qcom_common
+[  420.473018] CPU: 2 UID: 0 PID: 175 Comm: kworker/u32:9 Tainted: G        W           6.16.0 #1-postmarketos-qcom-sm6350 NONE
+[  420.473033] Tainted: [W]=WARN
+[  420.473038] Hardware name: Fairphone 4 (DT)
+[  420.473045] Workqueue: qmi_msg_handler qmi_data_ready_work
+[  420.473065] pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[  420.473075] pc : handle_uaudio_stream_req+0xea8/0x13f8 [snd_usb_audio_qmi]
+[  420.473091] lr : handle_uaudio_stream_req+0xc84/0x13f8 [snd_usb_audio_qmi]
+[  420.473104] sp : ffff800082f939a0
+[  420.473110] x29: ffff800082f93b10 x28: ffff0000cfb796b8 x27: 0000000000008000
+[  420.473128] x26: ffff0000842afc80 x25: ffffa8e75a23b0e0 x24: 0000000000008000
+[  420.473145] x23: ffffa8e75a23bcf0 x22: ffff800082f93bd0 x21: 0000000000000000
+[  420.473161] x20: ffff800082f93c98 x19: ffff0000939bb740 x18: ffffa8e77925a4d0
+[  420.473178] x17: ffffffffffffffff x16: ffffa8e777ef9728 x15: ffffa8e77925a000
+[  420.473194] x14: 0000000000000000 x13: 0000000000000dc0 x12: ffff800080000000
+[  420.473211] x11: 0000000000000cc0 x10: 0000000000000001 x9 : ffffa8e77944b880
+[  420.473227] x8 : ffffd719b5f4d000 x7 : ffff00009033da18 x6 : 0000000000000000
+[  420.473244] x5 : 0000000000000000 x4 : ffff800082f93938 x3 : 0000000000000000
+[  420.473260] x2 : 0000000000000000 x1 : ffff0000857790c0 x0 : 0000000000000000
+[  420.473277] Call trace:
+[  420.473283]  handle_uaudio_stream_req+0xea8/0x13f8 [snd_usb_audio_qmi] (P)
+[  420.473300]  qmi_invoke_handler+0xbc/0x108
+[  420.473314]  qmi_handle_message+0x90/0x1a8
+[  420.473326]  qmi_data_ready_work+0x210/0x390
+[  420.473339]  process_one_work+0x150/0x3a0
+[  420.473351]  worker_thread+0x288/0x480
+[  420.473362]  kthread+0x118/0x1e0
+[  420.473375]  ret_from_fork+0x10/0x20
+[  420.473390] ---[ end trace 0000000000000000 ]---
+[  420.479244] qcom-q6afe aprsvc:service:4:4: cmd = 0x100e5 returned error = 0x1
+[  420.479540] qcom-q6afe aprsvc:service:4:4: DSP returned error[1]
+[  420.479558] qcom-q6afe aprsvc:service:4:4: AFE enable for port 0x7000 failed -22
+[  420.479572] q6afe-dai 3000000.remoteproc:glink-edge:apr:service@4:dais: fail to start AFE port 88
+[  420.479583] q6afe-dai 3000000.remoteproc:glink-edge:apr:service@4:dais: ASoC error (-22): at snd_soc_dai_prepare() on USB_RX
+
+This reverts commit 3335a1bbd62417fc60a043c7f64684c99cb841a2.
+---
+ sound/usb/qcom/qc_audio_offload.c | 32 +++++++++++---------------------
+ 1 file changed, 11 insertions(+), 21 deletions(-)
+
+diff --git a/sound/usb/qcom/qc_audio_offload.c b/sound/usb/qcom/qc_audio_offload.c
+index a25c5a5..1fe40ff 100644
+--- a/sound/usb/qcom/qc_audio_offload.c
++++ b/sound/usb/qcom/qc_audio_offload.c
+@@ -78,9 +78,9 @@ struct intf_info {
+ 	size_t data_xfer_ring_size;
+ 	unsigned long sync_xfer_ring_va;
+ 	size_t sync_xfer_ring_size;
+-	dma_addr_t xfer_buf_iova;
++	unsigned long xfer_buf_iova;
+ 	size_t xfer_buf_size;
+-	dma_addr_t xfer_buf_dma;
++	phys_addr_t xfer_buf_dma;
+ 	u8 *xfer_buf_cpu;
+ 
+ 	/* USB endpoint information */
+@@ -1018,12 +1018,11 @@ static int uaudio_transfer_buffer_setup(struct snd_usb_substream *subs,
+ 					struct mem_info_v01 *mem_info)
+ {
+ 	struct sg_table xfer_buf_sgt;
+-	dma_addr_t xfer_buf_dma;
+ 	void *xfer_buf;
+ 	phys_addr_t xfer_buf_pa;
+ 	u32 len = xfer_buf_len;
+ 	bool dma_coherent;
+-	dma_addr_t xfer_buf_dma_sysdev;
++	unsigned long iova;
+ 	u32 remainder;
+ 	u32 mult;
+ 	int ret;
+@@ -1046,38 +1045,29 @@ static int uaudio_transfer_buffer_setup(struct snd_usb_substream *subs,
+ 		len = MAX_XFER_BUFF_LEN;
+ 	}
+ 
+-	/* get buffer mapped into subs->dev */
+-	xfer_buf = usb_alloc_coherent(subs->dev, len, GFP_KERNEL, &xfer_buf_dma);
++	xfer_buf = usb_alloc_coherent(subs->dev, len, GFP_KERNEL, &xfer_buf_pa);
+ 	if (!xfer_buf)
+ 		return -ENOMEM;
+ 
+-	/* Remapping is not possible if xfer_buf is outside of linear map */
+-	xfer_buf_pa = virt_to_phys(xfer_buf);
+-	if (WARN_ON(!page_is_ram(PFN_DOWN(xfer_buf_pa)))) {
+-		ret = -ENXIO;
+-		goto unmap_sync;
+-	}
+ 	dma_get_sgtable(subs->dev->bus->sysdev, &xfer_buf_sgt, xfer_buf,
+-			xfer_buf_dma, len);
+-
+-	/* map the physical buffer into sysdev as well */
+-	xfer_buf_dma_sysdev = uaudio_iommu_map(MEM_XFER_BUF, dma_coherent,
+-					       xfer_buf_pa, len, &xfer_buf_sgt);
+-	if (!xfer_buf_dma_sysdev) {
++			xfer_buf_pa, len);
++	iova = uaudio_iommu_map(MEM_XFER_BUF, dma_coherent, xfer_buf_pa, len,
++			      &xfer_buf_sgt);
++	if (!iova) {
+ 		ret = -ENOMEM;
+ 		goto unmap_sync;
+ 	}
+ 
+-	mem_info->dma = xfer_buf_dma;
++	mem_info->dma = xfer_buf_pa;
+ 	mem_info->size = len;
+-	mem_info->iova = PREPEND_SID_TO_IOVA(xfer_buf_dma_sysdev, uaudio_qdev->data->sid);
++	mem_info->iova = PREPEND_SID_TO_IOVA(iova, uaudio_qdev->data->sid);
+ 	*xfer_buf_cpu = xfer_buf;
+ 	sg_free_table(&xfer_buf_sgt);
+ 
+ 	return 0;
+ 
+ unmap_sync:
+-	usb_free_coherent(subs->dev, len, xfer_buf, xfer_buf_dma);
++	usb_free_coherent(subs->dev, len, xfer_buf, xfer_buf_pa);
+ 
+ 	return ret;
+ }
