@@ -1,0 +1,22 @@
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Fri, 13 Jun 2025 18:44:22 -0500
+Subject: arch: arm64: dts: qcom: sdm845: fix address and size cells for
+ q6voicedai
+
+---
+ arch/arm64/boot/dts/qcom/sdm845.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
+index cd92229..78542d5 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
+@@ -985,6 +985,8 @@ q6mvm: apr-service@9 {
+ 
+ 					q6voicedai: dais {
+ 						compatible = "qcom,q6voice-dais";
++						#address-cells = <1>;
++						#size-cells = <0>;
+ 						#sound-dai-cells = <1>;
+ 					};
+ 				};

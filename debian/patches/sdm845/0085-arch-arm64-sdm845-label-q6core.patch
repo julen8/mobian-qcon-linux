@@ -1,0 +1,24 @@
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Mon, 28 Apr 2025 17:56:26 -0500
+Subject: arch: arm64: sdm845: label q6core
+
+so we can override the qcom,acdb-name property in the device dts.
+
+Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
+---
+ arch/arm64/boot/dts/qcom/sdm845.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
+index 4b5ed57..cd92229 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
+@@ -936,7 +936,7 @@ apr {
+ 				#size-cells = <0>;
+ 				qcom,intents = <512 20>;
+ 
+-				service@3 {
++				q6core: service@3 {
+ 					reg = <APR_SVC_ADSP_CORE>;
+ 					compatible = "qcom,q6core";
+ 					qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";

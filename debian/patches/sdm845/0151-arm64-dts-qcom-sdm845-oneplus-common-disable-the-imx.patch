@@ -1,0 +1,115 @@
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Thu, 6 Mar 2025 16:56:30 -0600
+Subject: arm64: dts: qcom: sdm845-oneplus-common: disable the imx519 sensor
+
+Since it doesnt currently work.
+
+Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
+---
+ .../arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 86 +++++++++++-----------
+ 1 file changed, 44 insertions(+), 42 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+index 7cc5fe7..3697ce6 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+@@ -548,14 +548,15 @@ &camss {
+ 	ports {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+-		port@0 {
+-			reg = <0>;
+-			csiphy0_ep: endpoint {
+-				bus-type = <MEDIA_BUS_TYPE_CSI2_CPHY>;
+-				data-lanes = <0 1 2>;
+-				remote-endpoint = <&imx519_ep>;
+-			};
+-		};
++		// Disable IMX519 as it doesn't work currently
++		// port@0 {
++		// 	reg = <0>;
++		// 	csiphy0_ep: endpoint {
++		// 		bus-type = <MEDIA_BUS_TYPE_CSI2_CPHY>;
++		// 		data-lanes = <0 1 2>;
++		// 		remote-endpoint = <&imx519_ep>;
++		// 	};
++		// };
+ 
+ 		port@1 {
+ 			reg = <1>;
+@@ -578,40 +579,41 @@ csiphy2_ep: endpoint {
+ };
+ 
+ &cci_i2c0 {
+-	rear_cam: camera@1a {
+-		compatible = "sony,imx519";
+-		reg = <0x1a>;
+-
+-		reset-gpios = <&tlmm 28 GPIO_ACTIVE_LOW>;
+-		pinctrl-names = "default", "sleep";
+-		pinctrl-0 = <&main_cam_default>;
+-		pinctrl-1 = <&main_cam_sleep>;
+-
+-		clocks = <&clock_camcc CAM_CC_MCLK0_CLK>;
+-		clock-names = "xclk";
+-		clock-frequency = <24000000>;
+-		assigned-clocks = <&clock_camcc CAM_CC_MCLK0_CLK>;
+-		assigned-clock-rates = <24000000>;
+-
+-		power-domains = <&clock_camcc TITAN_TOP_GDSC>;
+-
+-		vana-supply = <&main_cam_vana>;
+-		vcore-supply = <&main_cam_vdig>;
+-		vio-supply = <&cam_vio_1p8>;
+-
+-		orientation = <1>; /* Rear camera */
+-		rotation = <90>;
+-
+-		status = "okay";
+-
+-		port {
+-			imx519_ep: endpoint {
+-				remote-endpoint = <&csiphy0_ep>;
+-				data-lanes = <1 2 3>;
+-				link-frequencies = /bits/ 64 <500399375>;
+-			};
+-		};
+-	};
++	// Disable IMX519 as it doesn't work currently
++	// rear_cam: camera@1a {
++	// 	compatible = "sony,imx519";
++	// 	reg = <0x1a>;
++
++	// 	reset-gpios = <&tlmm 28 GPIO_ACTIVE_LOW>;
++	// 	pinctrl-names = "default", "sleep";
++	// 	pinctrl-0 = <&main_cam_default>;
++	// 	pinctrl-1 = <&main_cam_sleep>;
++
++	// 	clocks = <&clock_camcc CAM_CC_MCLK0_CLK>;
++	// 	clock-names = "xclk";
++	// 	clock-frequency = <24000000>;
++	// 	assigned-clocks = <&clock_camcc CAM_CC_MCLK0_CLK>;
++	// 	assigned-clock-rates = <24000000>;
++
++	// 	power-domains = <&clock_camcc TITAN_TOP_GDSC>;
++
++	// 	vana-supply = <&main_cam_vana>;
++	// 	vcore-supply = <&main_cam_vdig>;
++	// 	vio-supply = <&cam_vio_1p8>;
++
++	// 	orientation = <1>; /* Rear camera */
++	// 	rotation = <90>;
++
++	// 	status = "okay";
++
++	// 	port {
++	// 		imx519_ep: endpoint {
++	// 			remote-endpoint = <&csiphy0_ep>;
++	// 			data-lanes = <1 2 3>;
++	// 			link-frequencies = /bits/ 64 <500399375>;
++	// 		};
++	// 	};
++	// };
+ 
+ 	front_cam: camera@10 {
+ 		compatible = "sony,imx371";
