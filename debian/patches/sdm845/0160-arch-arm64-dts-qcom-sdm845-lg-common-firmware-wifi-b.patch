@@ -1,0 +1,690 @@
+From: Paul Sajna <hello@paulsajna.com>
+Date: Sun, 16 Mar 2025 23:58:22 -0700
+Subject: arch: arm64: dts: qcom: sdm845-lg-common:
+ firmware,wifi,bluetooth,panel,gpu
+
+fix dark corner in backlight, remove unused spis
+
+Co-authored-by: Amir Dahan <system64fumo@protonmail.com>
+Signed-off-by: Paul Sajna <hello@paulsajna.com>
+Signed-off-by: Amir Dahan <system64fumo@protonmail.com>
+---
+ arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 189 ++++++++++------
+ arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts  | 291 ++++++++++---------------
+ 2 files changed, 238 insertions(+), 242 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+index 76b6072..c5bdd43 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+@@ -40,20 +40,17 @@ reserved-memory {
+ 		#size-cells = <2>;
+ 		ranges;
+ 
+-		qseecom_mem: memory@b2000000 {
+-			reg = <0 0xb2000000 0 0x1800000>;
++		ipa_fw_mem: memory@8c400000 {
++			reg = <0 0x8c400000 0 0x10000>;
+ 			no-map;
+ 		};
+ 
++
+ 		gpu_mem: memory@8c415000 {
+ 			reg = <0 0x8c415000 0 0x2000>;
+ 			no-map;
+ 		};
+ 
+-		ipa_fw_mem: memory@8c400000 {
+-			reg = <0 0x8c400000 0 0x10000>;
+-			no-map;
+-		};
+ 
+ 		adsp_mem: memory@8c500000 {
+ 			reg = <0 0x8c500000 0 0x1e00000>;
+@@ -95,6 +92,11 @@ spss_mem: memory@99000000 {
+ 			no-map;
+ 		};
+ 
++		qseecom_mem: memory@b2000000 {
++			reg = <0 0xb2000000 0 0x1800000>;
++			no-map;
++		};
++
+ 		/* rmtfs lower guard */
+ 		memory@f0800000 {
+ 			reg = <0 0xf0800000 0 0x1000>;
+@@ -159,13 +161,10 @@ vreg_s4a_1p8: pm8998-smps4-regulator {
+ 
+ 	aliases {
+ 		serial0 = &uart9;
++		serial1 = &uart6;
+ 	};
+ };
+ 
+-&adsp_pas {
+-	status = "okay";
+-};
+-
+ &apps_rsc {
+ 	regulators-0 {
+ 		compatible = "qcom,pm8998-rpmh-regulators";
+@@ -450,12 +449,15 @@ vreg_s3c_0p6: smps3 {
+ 	};
+ };
+ 
+-&cdsp_pas {
++
++&adsp_pas {
+ 	status = "okay";
++	firmware-name = "qcom/sdm845/judy/adsp.mbn";
+ };
+ 
+-&dispcc {
+-	status = "disabled";
++&cdsp_pas {
++	status = "okay";
++	firmware-name = "qcom/sdm845/judy/cdsp.mbn";
+ };
+ 
+ &gcc {
+@@ -471,23 +473,38 @@ &gpu {
+ 
+ 	zap-shader {
+ 		memory-region = <&gpu_mem>;
++		firmware-name = "qcom/sdm845/judy/a630_zap.mbn";
+ 	};
+ };
+ 
+ &ipa {
+ 	qcom,gsi-loader = "modem";
++	memory-region = <&ipa_fw_mem>;
++	firmware-name = "qcom/sdm845/judy/ipa_fws.mbn";
+ 	status = "okay";
+ };
+ 
+ &mss_pil {
+ 	status = "okay";
++	firmware-name = "qcom/sdm845/judy/mba.mbn", "qcom/sdm845/judy/modem.mbn";
+ };
+ 
+ &pm8998_resin {
+-	linux,code = <KEY_VOLUMEDOWN>;
+ 	status = "okay";
++	linux,code = <KEY_VOLUMEDOWN>;
++};
++
++&qup_uart9_rx {
++	drive-strength = <2>;
++	bias-pull-up;
+ };
+ 
++&qup_uart9_tx {
++	drive-strength = <2>;
++	bias-disable;
++};
++
++
+ &sdhc_2 {
+ 	status = "okay";
+ 
+@@ -500,57 +517,7 @@ &sdhc_2 {
+ 	vqmmc-supply = <&vddpx_2>;
+ };
+ 
+-/*
+- * UFS works partially and only with clk_ignore_unused.
+- * Sometimes it crashes with I/O errors.
+- */
+-&ufs_mem_hc {
+-	status = "okay";
+-
+-	reset-gpios = <&tlmm 150 GPIO_ACTIVE_LOW>;
+-
+-	vcc-supply = <&vreg_l20a_2p95>;
+-	vcc-max-microamp = <600000>;
+-};
+-
+-&ufs_mem_phy {
+-	status = "okay";
+-
+-	vdda-phy-supply = <&vdda_ufs1_core>;
+-	vdda-pll-supply = <&vdda_ufs1_1p2>;
+-};
+-
+-&usb_1 {
+-	status = "okay";
+-};
+-
+-&usb_1_dwc3 {
+-	/* TODO: these devices have usb id pin */
+-	dr_mode = "peripheral";
+-};
+-
+-&usb_1_hsphy {
+-	status = "okay";
+-
+-	vdd-supply = <&vdda_usb1_ss_core>;
+-	vdda-pll-supply = <&vdda_qusb_hs0_1p8>;
+-	vdda-phy-dpdm-supply = <&vdda_qusb_hs0_3p1>;
+-
+-	qcom,imp-res-offset-value = <8>;
+-	qcom,hstx-trim-value = <QUSB2_V2_HSTX_TRIM_21_6_MA>;
+-	qcom,preemphasis-level = <QUSB2_V2_PREEMPHASIS_5_PERCENT>;
+-	qcom,preemphasis-width = <QUSB2_V2_PREEMPHASIS_WIDTH_HALF_BIT>;
+-};
+-
+-&usb_1_qmpphy {
+-	status = "okay";
+-
+-	vdda-phy-supply = <&vdda_usb1_ss_1p2>;
+-	vdda-pll-supply = <&vdda_usb1_ss_core>;
+-};
+-
+ /* PINCTRL - additions to nodes defined in sdm845.dtsi */
+-
+ &tlmm {
+ 	gpio-reserved-ranges = <28 4>, <81 4>;
+ 
+@@ -587,6 +554,8 @@ sd_card_det_n: sd-card-det-n-state {
+ 	};
+ };
+ 
++
++
+ &pm8998_gpios {
+ 	vol_up_pin_a: vol-up-active-state {
+ 		pins = "gpio6";
+@@ -598,14 +567,29 @@ vol_up_pin_a: vol-up-active-state {
+ };
+ 
+ 
+-&qup_uart9_rx {
+-	drive-strength = <2>;
+-	bias-pull-up;
++
++&qupv3_id_1 {
++	status = "okay";
+ };
+ 
+-&qup_uart9_tx {
+-	drive-strength = <2>;
+-	bias-disable;
++&uart6 {
++	status = "okay";
++	pinctrl-0 = <&qup_uart6_4pin>;
++
++	bluetooth {
++		compatible = "qcom,wcn3990-bt";
++		/*
++		 * This path is relative to the qca/
++		 * subdir under lib/firmware.
++		 */
++		firmware-name = "judy/crnv21.bin";
++
++		vddio-supply = <&vreg_s4a_1p8>;
++		vddxo-supply = <&vreg_l7a_1p8>;
++		vddrf-supply = <&vreg_l17a_1p3>;
++		vddch0-supply = <&vreg_l25a_3p3>;
++		max-speed = <3200000>;
++	};
+ };
+ 
+ &uart9 {
+@@ -613,6 +597,69 @@ &uart9 {
+ 	status = "okay";
+ };
+ 
+-&qupv3_id_1 {
++/*
++ * UFS works partially and only with clk_ignore_unused.
++ * Sometimes it crashes with I/O errors.
++ */
++&ufs_mem_hc {
++	status = "okay";
++
++	reset-gpios = <&tlmm 150 GPIO_ACTIVE_LOW>;
++
++	vcc-supply = <&vreg_l20a_2p95>;
++	vcc-max-microamp = <600000>;
++};
++
++&ufs_mem_phy {
++	status = "okay";
++
++	vdda-phy-supply = <&vdda_ufs1_core>;
++	vdda-pll-supply = <&vdda_ufs1_1p2>;
++};
++
++&usb_1 {
++	status = "okay";
++};
++
++&usb_1_dwc3 {
++	/* TODO: these devices have usb id pin */
++	dr_mode = "peripheral";
++};
++
++&usb_1_hsphy {
++	status = "okay";
++
++	vdd-supply = <&vdda_usb1_ss_core>;
++	vdda-pll-supply = <&vdda_qusb_hs0_1p8>;
++	vdda-phy-dpdm-supply = <&vdda_qusb_hs0_3p1>;
++
++	qcom,imp-res-offset-value = <8>;
++	qcom,hstx-trim-value = <QUSB2_V2_HSTX_TRIM_21_6_MA>;
++	qcom,preemphasis-level = <QUSB2_V2_PREEMPHASIS_5_PERCENT>;
++	qcom,preemphasis-width = <QUSB2_V2_PREEMPHASIS_WIDTH_HALF_BIT>;
++};
++
++&usb_1_qmpphy {
++	status = "okay";
++
++	vdda-phy-supply = <&vdda_usb1_ss_1p2>;
++	vdda-pll-supply = <&vdda_usb1_ss_core>;
++};
++
++
++&venus {
++	status = "okay";
++	firmware-name = "qcom/sdm845/judy/venus.mbn";
++};
++
++&wifi {
+ 	status = "okay";
++	vdd-0.8-cx-mx-supply = <&vreg_l5a_0p8>;
++	vdd-1.8-xo-supply = <&vreg_l7a_1p8>;
++	vdd-1.3-rfa-supply = <&vreg_l17a_1p3>;
++	vdd-3.3-ch0-supply = <&vreg_l25a_3p3>;
++	vdd-3.3-ch1-supply = <&vreg_l23a_3p3>;
++
++	qcom,snoc-host-cap-skip-quirk;
++	qcom,ath10k-calibration-variant = "lg_judy";
+ };
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts b/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
+index 9db6218f..6db84d6 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
+@@ -14,6 +14,8 @@ / {
+ 	model = "LG G7 ThinQ";
+ 	compatible = "lg,judyln", "qcom,sdm845";
+ 	chassis-type = "handset";
++	qcom,msm-id = <321 0x20001>;
++	qcom,board-id = <0x020C0008 0>;
+ 
+ 	chosen {
+ 		framebuffer@9d400000 {
+@@ -25,6 +27,13 @@ framebuffer@9d400000 {
+ 			format = "a8r8g8b8";
+ 			lab-supply = <&lab>;
+ 			ibb-supply = <&ibb>;
++
++			panel = <&fb_panel>;
++
++			fb_panel: fb-panel {
++				width-mm = <72>;
++				height-mm = <153>;
++			};
+ 		};
+ 	};
+ 
+@@ -67,110 +76,36 @@ battery: battery {
+ 	};
+ };
+ 
+-&adsp_pas {
+-	firmware-name = "qcom/sdm845/judyln/adsp.mbn";
+-};
+-
+-&cdsp_pas {
+-	firmware-name = "qcom/sdm845/judyln/cdsp.mbn";
+-};
+-
+ &gmu {
+ 	status = "okay";
+ };
+ 
+-&gpu {
++&i2c10 {
+ 	status = "okay";
+ 
+-	zap-shader {
+-		memory-region = <&gpu_mem>;
+-		firmware-name = "qcom/sdm845/judyln/a630_zap.mbn";
++	tfa9894_codec: tfa9894@34 {
++		#sound-dai-cells = <1>;
++		compatible = "nxp,tfa9894";
++		reg = <0x34>;
+ 	};
+ };
+ 
+-&ipa {
+-	qcom,gsi-loader = "self";
+-	memory-region = <&ipa_fw_mem>;
+-	firmware-name = "qcom/sdm845/judyln/ipa_fws.mbn";
+-};
+-
+-&mss_pil {
+-	firmware-name = "qcom/sdm845/judyln/mba.mbn", "qcom/sdm845/judyln/modem.mbn";
+-};
+-
+-&venus {
+-	firmware-name = "qcom/sdm845/judyln/venus.mbn";
++&ibb {
++	regulator-min-microvolt = <4600000>;
++	regulator-max-microvolt = <6000000>;
++	regulator-over-current-protection;
++	regulator-pull-down;
++	regulator-soft-start;
++	regulator-always-on;
++	qcom,discharge-resistor-kohms = <300>;
+ };
+ 
+-&tlmm {
+-	thinq_key_default: thinq-key-default-state {
+-		pins = "gpio89";
+-		function = "gpio";
+-
+-		drive-strength = <2>;
+-		bias-pull-up;
+-	};
+-
+-	hall_sensor_default: hall-sensor-default-state {
+-		pins = "gpio4";
+-		function = "gpio";
+-
+-		drive-strength = <2>;
+-		bias-disable;
+-	};
+-
+-	qupv3_se11_spi_pins: qupv3_se11_spi_pins {
+-		qupv3_se11_spi_active: qupv3_se11_spi_active {
+-			mux {
+-				pins = "gpio31", "gpio32", "gpio33",
+-							"gpio34";
+-				function = "qup11";
+-			};
+-
+-			config {
+-				pins = "gpio31", "gpio32", "gpio33",
+-							"gpio34";
+-				drive-strength = <6>;
+-				bias-disable;
+-			};
+-		};
+-
+-		qupv3_se11_spi_sleep: qupv3_se11_spi_sleep {
+-			mux {
+-				pins = "gpio31", "gpio32", "gpio33",
+-							"gpio34";
+-				function = "gpio";
+-			};
+-
+-			config {
+-				pins = "gpio31", "gpio32", "gpio33",
+-							"gpio34";
+-				drive-strength = <6>;
+-				bias-disable;
+-			};
+-		};
+-	};
+-
+-	sde_dsi_active: sde-dsi-active-state {
+-		pins = "gpio6";
+-		function = "gpio";
+-		drive-strength = <8>;
+-		bias-disable;
+-	};
+-
+-	sde_dsi_sleep: sde-dsi-sleep-state {
+-		pins = "gpio6";
+-		function = "gpio";
+-		drive-strength = <2>;
+-		bias-pull-down;
+-	};
+-
+-	sde_te_active_sleep: sde-te-active-sleep-state {
+-		pins = "gpio10";
+-		function = "mdp_vsync";
+-		drive-strength = <2>;
+-		bias-pull-down;
+-	};
++&lab {
++	regulator-min-microvolt = <4600000>;
++	regulator-max-microvolt = <6000000>;
++	regulator-over-current-protection;
++	regulator-pull-down;
++	regulator-soft-start;
+ };
+ 
+ &mdss {
+@@ -182,16 +117,18 @@ &mdss_dsi0 {
+ 	vdda-supply = <&vdda_mipi_dsi0_1p2>;
+ 
+ 	display_panel: panel@0 {
+-		status = "okay";
+ 		reg = <0>;
+-		vddi-supply = <&vreg_l14a_1p88>;
+-		vpnl-supply = <&vreg_l28a_3p0>;
+-		reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
++		compatible = "lg,sw49410";
++
++		ibb-supply = <&ibb>;
++		lab-supply = <&lab>;
+ 
+ 		backlight = <&pmi8998_wled>;
+-		pinctrl-0 = <&sde_dsi_active &sde_te_active_sleep>;
+-		pinctrl-1 = <&sde_dsi_sleep &sde_te_active_sleep>;
++		reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
++
+ 		pinctrl-names = "default", "sleep";
++		pinctrl-0 = <&sde_dsi_active &sde_te_active>;
++		pinctrl-1 = <&sde_dsi_sleep &sde_te_sleep>;
+ 
+ 		port {
+ 			panel_in: endpoint {
+@@ -211,10 +148,6 @@ &mdss_dsi0_out {
+ 	data-lanes = <0 1 2 3>;
+ };
+ 
+-&qupv3_id_0 {
+-	status = "okay";
+-};
+-
+ &pmi8998_charger {
+ 	status = "okay";
+ 	monitored-battery = <&battery>;
+@@ -226,6 +159,21 @@ &pmi8998_fg {
+ 	power-supplies = <&pmi8998_charger>;
+ };
+ 
++&pmi8998_flash {
++	status = "okay";
++
++	led-0 {
++		label = "flash";
++		function = LED_FUNCTION_FLASH;
++		color = <LED_COLOR_ID_WHITE>;
++		led-sources = <1>;
++		led-max-microamp = <850000>;
++		flash-max-microamp = <850000>;
++		flash-max-timeout-us = <500000>;
++	};
++
++};
++
+ &pmi8998_haptics {
+ 	status = "okay";
+ 	reg = <0xc000 0x100>;
+@@ -260,35 +208,13 @@ led@2 {
+ 
+ &pmi8998_wled {
+ 	status = "okay";
+-	qcom,current-boost-limit = <970>;
+-	qcom,ovp-millivolt = <29600>;
+-	qcom,current-limit-microamp = <20000>;
+-	qcom,num-strings = <2>;
+-	qcom,switching-freq = <600>;
+-	qcom,external-pfet;
+-	qcom,cabc;
+ };
+ 
+-&pmi8998_flash {
+-	status = "okay";
+-
+-	led-0 {
+-		label = "flash";
+-		function = LED_FUNCTION_FLASH;
+-		color = <LED_COLOR_ID_WHITE>;
+-		led-sources = <1>;
+-		led-max-microamp = <850000>;
+-		flash-max-microamp = <850000>;
+-		flash-max-timeout-us = <500000>;
+-	};
+-
+-};
+-
+-&spi7 {
++&qupv3_id_0 {
+ 	status = "okay";
+ };
+ 
+-&spi15 {
++&spi5 {
+ 	status = "okay";
+ 
+ 	num-cs = <1>;
+@@ -347,66 +273,89 @@ sw49410@0 {
+ 		h_drag_test_start_x = <1163>;
+ 		h_drag_test_end_x = <276>;
+ 		h_drag_test_y = <2184>;
++
++		pinctrl-names = "touch_pin_active", "touch_pin_sleep";
++		pinctrl-0 = <&ts_reset_active &ts_int_active>;
++		pinctrl-1 = <&ts_reset_suspend &ts_int_suspend>;
+ 	};
+ };
+ 
+-&uart6 {
+-	status = "okay";
+-
+-	pinctrl-0 = <&qup_uart6_4pin>;
+ 
+-	bluetooth {
+-		compatible = "qcom,wcn3990-bt";
+-
+-		/*
+-		 * This path is relative to the qca/
+-		 * subdir under lib/firmware.
+-		 */
+-		firmware-name = "judyln/crnv21.bin";
++&tlmm {
++	thinq_key_default: thinq-key-default-state {
++		pins = "gpio89";
++		function = "gpio";
+ 
+-		vddio-supply = <&vreg_s4a_1p8>;
+-		vddxo-supply = <&vreg_l7a_1p8>;
+-		vddrf-supply = <&vreg_l17a_1p3>;
+-		vddch0-supply = <&vreg_l25a_3p3>;
+-		max-speed = <3200000>;
++		drive-strength = <2>;
++		bias-pull-up;
+ 	};
+-};
+ 
+-&i2c3 {
+-	status = "okay";
+-};
++	hall_sensor_default: hall-sensor-default-state {
++		pins = "gpio4";
++		function = "gpio";
+ 
+-&i2c12 {
+-	status = "okay";
+-};
++		drive-strength = <2>;
++		bias-disable;
++	};
+ 
+-&i2c14 {
+-	status = "okay";
+-};
++    ts_reset_active: ts_reset_active {
++        pins = "gpio32";
++        function = "gpio";
++        drive-strength = <6>;
++        bias-pull-up;
++    };
++
++    ts_reset_suspend: ts_reset_suspend {
++        pins = "gpio32";
++        function = "gpio";
++        drive-strength = <6>;
++        bias-pull-up;
++    };
++
++    ts_int_active: ts_int_active {
++        pins = "gpio31";
++        function = "gpio";
++        drive-strength = <2>;
++        bias-pull-up;
++    };
++
++    ts_int_suspend: ts_int_suspend {
++        pins = "gpio31";
++        function = "gpio";
++        drive-strength = <2>;
++        bias-disable;
++    };
+ 
+-&i2c10 {
+-	status = "okay";
++	sde_dsi_active: sde-dsi-active-state {
++		pins = "gpio6";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-disable;
++	};
+ 
+-	tfa9894_codec: tfa9894@34 {
+-		#sound-dai-cells = <1>;
+-		compatible = "nxp,tfa9894";
+-		reg = <0x34>;
++	sde_dsi_sleep: sde-dsi-sleep-state {
++		pins = "gpio6";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-down;
+ 	};
+-};
+ 
+-&wifi {
+-	status = "okay";
+-	vdd-0.8-cx-mx-supply = <&vreg_l5a_0p8>;
+-	vdd-1.8-xo-supply = <&vreg_l7a_1p8>;
+-	vdd-1.3-rfa-supply = <&vreg_l17a_1p3>;
+-	vdd-3.3-ch0-supply = <&vreg_l25a_3p3>;
+-	vdd-3.3-ch1-supply = <&vreg_l23a_3p3>;
++	sde_te_active: sde-te-active-state {
++		pins = "gpio10";
++		function = "mdp_vsync";
++		drive-strength = <2>;
++		bias-disable;
++	};
+ 
+-	qcom,snoc-host-cap-8bit-quirk;
++	sde_te_sleep: sde-te-sleep-state {
++		pins = "gpio10";
++		function = "mdp_vsync";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
+ };
+ 
+ &usb_1_dwc3 {
+ 	dr_mode = "peripheral";
+-	maximum-speed = "super-speed";
+-	usb-role-switch;
++	maximum-speed = "high-speed";
+ };
