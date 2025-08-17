@@ -1,0 +1,25 @@
+From: Caleb Connolly <caleb.connolly@linaro.org>
+Date: Wed, 17 Apr 2024 16:12:23 +0100
+Subject: drm/panel: ebbg-ft8719: prepare_prev_first
+
+This corrects the host initialisation sequence so that we can send
+DSI/DCS commands in prepare().
+
+Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
+---
+ drivers/gpu/drm/panel/panel-ebbg-ft8719.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
+index 2c45c89..c7df385a 100644
+--- a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
++++ b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
+@@ -199,6 +199,8 @@ static int ebbg_ft8719_probe(struct mipi_dsi_device *dsi)
+ 	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+ 			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
+ 
++	ctx->panel.prepare_prev_first = true;
++
+ 	ret = drm_panel_of_backlight(&ctx->panel);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
