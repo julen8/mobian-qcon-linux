@@ -32,3 +32,4 @@ sdm845-mainline repository:
   * debian/patches/sdm845/0142-media-dt-bindings-Add-LC898217XC-documentation.patch
   * debian/patches/sdm845/0143-media-i2c-Add-driver-for-LC898217XC-VCM.patch
   * debian/patches/sdm845/0144-arm64-dts-qcom-sdm845-oneplus-add-rear-camera-actuat.patch
+  * debian/patches/sdm845/0145-power-supply-qcom_fg-invert-charging-current.patch
