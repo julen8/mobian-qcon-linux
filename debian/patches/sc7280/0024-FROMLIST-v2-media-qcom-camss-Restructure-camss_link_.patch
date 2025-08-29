@@ -33,7 +33,7 @@ index 8f6b0ec..57b183d 100644
  		}
  	}
 diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 8c3bce7..b0bc009 100644
+index d00475d..1d0e0a2 100644
 --- a/drivers/media/platform/qcom/camss/camss.c
 +++ b/drivers/media/platform/qcom/camss/camss.c
 @@ -1828,14 +1828,83 @@ static int camss_init_subdevices(struct camss *camss)
