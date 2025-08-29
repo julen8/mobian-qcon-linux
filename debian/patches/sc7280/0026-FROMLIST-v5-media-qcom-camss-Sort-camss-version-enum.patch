@@ -82,10 +82,10 @@ index 57b183d..5049004 100644
  		break;
  	default:
 diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index b0bc009..c160214 100644
+index 1d0e0a2..7d72e12 100644
 --- a/drivers/media/platform/qcom/camss/camss.c
 +++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -2510,10 +2510,10 @@ static const struct camss_resources sc8280xp_resources = {
+@@ -2512,10 +2512,10 @@ static const struct camss_resources sc8280xp_resources = {
  static const struct of_device_id camss_dt_match[] = {
  	{ .compatible = "qcom,msm8916-camss", .data = &msm8916_resources },
  	{ .compatible = "qcom,msm8996-camss", .data = &msm8996_resources },
