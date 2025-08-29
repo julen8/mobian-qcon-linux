@@ -89,7 +89,7 @@ index 5049004..deebf70 100644
  	case CAMSS_8280XP:
  	case CAMSS_845:
 diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index c160214..3850c84 100644
+index 7d72e12..8fd43c7 100644
 --- a/drivers/media/platform/qcom/camss/camss.c
 +++ b/drivers/media/platform/qcom/camss/camss.c
 @@ -1112,6 +1112,300 @@ static const struct resources_icc icc_res_sm8250[] = {
@@ -393,7 +393,7 @@ index c160214..3850c84 100644
  static const struct camss_subdev_resources csiphy_res_sc8280xp[] = {
  	/* CSIPHY0 */
  	{
-@@ -2507,9 +2801,24 @@ static const struct camss_resources sc8280xp_resources = {
+@@ -2509,9 +2803,24 @@ static const struct camss_resources sc8280xp_resources = {
  	.link_entities = camss_link_entities
  };
  
