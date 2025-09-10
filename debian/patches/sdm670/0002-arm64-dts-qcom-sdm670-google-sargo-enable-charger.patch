@@ -1,0 +1,53 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Mon, 30 Jun 2025 18:41:59 -0400
+Subject: [PATCH] arm64: dts: qcom: sdm670-google-sargo: enable charger
+
+The Pixel 3a has a rechargeable 3000 mAh battery. Describe it and enable
+its charging controller in PM660.
+
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20250630224158.249726-2-mailingradian@gmail.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+(cherry picked from commit 8839b8e6e849e209b52bf0ae4d0770d89c036b0e)
+Link: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts b/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
+index 74b5d9c..d014228 100644
+--- a/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
++++ b/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
+@@ -33,6 +33,14 @@ / {
+ 
+ 	aliases { };
+ 
++	battery: battery {
++		compatible = "simple-battery";
++
++		voltage-min-design-microvolt = <3312000>;
++		voltage-max-design-microvolt = <4400000>;
++		charge-full-design-microamp-hours = <3000000>;
++	};
++
+ 	chosen {
+ 		stdout-path = "serial0:115200n8";
+ 
+@@ -478,6 +486,15 @@ &mdss_mdp {
+ 	status = "okay";
+ };
+ 
++&pm660_charger {
++	monitored-battery = <&battery>;
++	status = "okay";
++};
++
++&pm660_rradc {
++	status = "okay";
++};
++
+ &pm660l_flash {
+ 	status = "okay";
+ 
