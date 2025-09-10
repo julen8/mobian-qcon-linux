@@ -1,0 +1,28 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Wed, 30 Jul 2025 19:57:56 -0400
+Subject: [PATCH] media: venus: increase compressed frame size
+
+When encoding 1920x1080 on the Pixel 3a (SDM670), the firmware sends
+buffer requirements with an encoded frame size of 2088960, while the
+driver calculates a size of 1568768. Remove the math that scales the
+compressed frame size by 3/4, since the result would be too small for
+the encoder to output frames to.
+
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ drivers/media/platform/qcom/venus/helpers.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/media/platform/qcom/venus/helpers.c b/drivers/media/platform/qcom/venus/helpers.c
+index 8295542..25bec9c 100644
+--- a/drivers/media/platform/qcom/venus/helpers.c
++++ b/drivers/media/platform/qcom/venus/helpers.c
+@@ -1106,7 +1106,7 @@ u32 venus_helper_get_framesz(u32 v4l2_fmt, u32 width, u32 height)
+ 	}
+ 
+ 	if (compressed) {
+-		sz = ALIGN(height, 32) * ALIGN(width, 32) * 3 / 2 / 2;
++		sz = ALIGN(height, 32) * ALIGN(width, 32);
+ 		if (width < 1280 || height < 720)
+ 			sz *= 8;
+ 		return ALIGN(sz, SZ_4K);

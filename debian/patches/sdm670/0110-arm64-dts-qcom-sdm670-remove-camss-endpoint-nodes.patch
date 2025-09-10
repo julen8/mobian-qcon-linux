@@ -1,0 +1,46 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Tue, 1 Jul 2025 19:21:24 -0400
+Subject: [PATCH] arm64: dts: qcom: sdm670: remove camss endpoint nodes
+
+There is no need to add these by default for all of SDM670. Originally,
+they were added so there could be a label for each port. This is
+unnecessary if the endpoints are all added in a fixup to the camss node.
+
+Suggested-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Link: https://lore.kernel.org/r/488281f6-5e5d-4864-8220-63e2a0b2d7f2@linaro.org
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/sdm670.dtsi | 12 ------------
+ 1 file changed, 12 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm670.dtsi b/arch/arm64/boot/dts/qcom/sdm670.dtsi
+index bf9e8bb..069f091 100644
+--- a/arch/arm64/boot/dts/qcom/sdm670.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm670.dtsi
+@@ -2526,26 +2526,14 @@ ports {
+ 
+ 				port@0 {
+ 					reg = <0>;
+-
+-					camss_endpoint0: endpoint {
+-						status = "disabled";
+-					};
+ 				};
+ 
+ 				port@1 {
+ 					reg = <1>;
+-
+-					camss_endpoint1: endpoint {
+-						status = "disabled";
+-					};
+ 				};
+ 
+ 				port@2 {
+ 					reg = <2>;
+-
+-					camss_endpoint2: endpoint {
+-						status = "disabled";
+-					};
+ 				};
+ 			};
+ 		};
