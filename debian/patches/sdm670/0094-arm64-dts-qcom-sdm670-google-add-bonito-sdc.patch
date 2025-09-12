@@ -25,7 +25,7 @@ index 669b888..5a3db59 100644
  dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-cheza-r3.dtb
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-bonito-sdc.dts b/arch/arm64/boot/dts/qcom/sdm670-google-bonito-sdc.dts
 new file mode 100644
-index 00000000..3131174
+index 0000000..3131174
 --- /dev/null
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-bonito-sdc.dts
 @@ -0,0 +1,42 @@
