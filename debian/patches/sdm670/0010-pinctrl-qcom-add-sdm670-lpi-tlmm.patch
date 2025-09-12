@@ -48,7 +48,7 @@ index 954f529..d433213 100644
  obj-$(CONFIG_PINCTRL_SDX65) += pinctrl-sdx65.o
 diff --git a/drivers/pinctrl/qcom/pinctrl-sdm670-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-sdm670-lpass-lpi.c
 new file mode 100644
-index 00000000..7210fae
+index 0000000..7210fae
 --- /dev/null
 +++ b/drivers/pinctrl/qcom/pinctrl-sdm670-lpass-lpi.c
 @@ -0,0 +1,178 @@
