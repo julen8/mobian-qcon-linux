@@ -48,7 +48,7 @@ index 714cbac..23a1cef 100644
  obj-$(CONFIG_DRM_PANEL_SHARP_LS037V7DW01) += panel-sharp-ls037v7dw01.o
 diff --git a/drivers/gpu/drm/panel/panel-samsung-sofef00-bonito.c b/drivers/gpu/drm/panel/panel-samsung-sofef00-bonito.c
 new file mode 100644
-index 00000000..99fc0e7
+index 0000000..99fc0e7
 --- /dev/null
 +++ b/drivers/gpu/drm/panel/panel-samsung-sofef00-bonito.c
 @@ -0,0 +1,293 @@

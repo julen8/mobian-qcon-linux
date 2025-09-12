@@ -10,7 +10,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
 
 diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,sdm670-lpass-lpi-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,sdm670-lpass-lpi-pinctrl.yaml
 new file mode 100644
-index 00000000..96d3f40
+index 0000000..96d3f40
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/pinctrl/qcom,sdm670-lpass-lpi-pinctrl.yaml
 @@ -0,0 +1,83 @@

@@ -59,7 +59,7 @@ index 985ce2a..9a0da62 100644
  obj-$(CONFIG_SND_SOC_QCOM_COMMON) += snd-soc-qcom-common.o
 diff --git a/sound/soc/qcom/sdm660-internal.c b/sound/soc/qcom/sdm660-internal.c
 new file mode 100644
-index 00000000..11faa68
+index 0000000..11faa68
 --- /dev/null
 +++ b/sound/soc/qcom/sdm660-internal.c
 @@ -0,0 +1,399 @@
