@@ -12,7 +12,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  2 files changed, 35 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-index 6c82166..32737629 100644
+index 6c82166..3273762 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
 @@ -883,3 +883,14 @@ &venus {

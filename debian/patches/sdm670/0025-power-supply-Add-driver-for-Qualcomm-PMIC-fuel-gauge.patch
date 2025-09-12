@@ -69,7 +69,7 @@ index 4f5f8e3..04c00d4 100644
  obj-$(CONFIG_FUEL_GAUGE_MM8013)	+= mm8013.o
 diff --git a/drivers/power/supply/qcom_fg.c b/drivers/power/supply/qcom_fg.c
 new file mode 100644
-index 00000000..271a0fc
+index 0000000..271a0fc
 --- /dev/null
 +++ b/drivers/power/supply/qcom_fg.c
 @@ -0,0 +1,1318 @@
