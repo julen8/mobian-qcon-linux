@@ -1,3 +1,9 @@
+linux-6.16-sdm670 (6.16.7-1) unstable; urgency=medium
+
+  * Rebase on 6.16.7
+
+ -- Mobot <group_9279_bot_3d620cd42b5548cd487aa9eaff458c11@noreply.salsa.debian.org>  Fri, 12 Sep 2025 01:36:53 +0000
+
 linux-6.16-sdm670 (6.16.6-1) unstable; urgency=medium
 
   * Initial 6.16 release
