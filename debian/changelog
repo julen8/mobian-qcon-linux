@@ -1,3 +1,14 @@
+linux-6.12-sm6350 (6.12.47-1) trixie; urgency=medium
+
+  [ Marco Mattiolo ]
+  * Add DYNAMIC_DEBUG,SECURITY_LANDLOCK and _APPARMOR kconfigs
+  * d/watch: drop uscan options
+
+  [ Mobot ]
+  * Rebase on 6.12.47
+
+ -- Mobot <group_9279_bot_3d620cd42b5548cd487aa9eaff458c11@noreply.salsa.debian.org>  Tue, 16 Sep 2025 11:38:35 +0000
+
 linux-6.12-sm6350 (6.12.46-1) unstable; urgency=medium
 
   * Rebase on 6.12.46
