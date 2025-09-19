@@ -1,3 +1,14 @@
+linux-6.12-sdm845 (6.12.48-1) trixie; urgency=medium
+
+  [ Marco Mattiolo ]
+  * Add DYNAMIC_DEBUG,SECURITY_LANDLOCK and _APPARMOR kconfigs
+  * Backport "invert charging current" patch from 6.16 branch
+
+  [ Mobot ]
+  * Rebase on 6.12.48
+
+ -- Mobot <group_9279_bot_3d620cd42b5548cd487aa9eaff458c11@noreply.salsa.debian.org>  Fri, 19 Sep 2025 15:37:22 +0000
+
 linux-6.12-sdm845 (6.12.47-1) unstable; urgency=medium
 
   * Rebase on 6.12.47
