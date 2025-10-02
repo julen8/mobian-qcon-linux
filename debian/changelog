@@ -1,5 +1,6 @@
-linux-6.16-sdm845 (6.16.9-1) UNRELEASED; urgency=medium
+linux-6.16-sdm845 (6.16.9-1) unstable; urgency=medium
 
+  [ Marco Mattiolo ]
   * Initial 6.16 release
 
- -- Marco Mattiolo <marco.mattiolo@hotmail.it>  Mon, 22 Sep 2025 19:05:29 +0200
+ -- Arnaud Ferraris <aferraris@debian.org>  Thu, 02 Oct 2025 14:02:32 +0200
