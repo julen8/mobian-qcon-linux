@@ -1,5 +1,6 @@
-linux-6.16-sm6350 (6.16.9-1) UNRELEASED; urgency=medium
+linux-6.16-sm6350 (6.16.9-1) unstable; urgency=medium
 
+  [ Marco Mattiolo ]
   * Initial 6.16 release
 
- -- Marco Mattiolo <marco.mattiolo@hotmail.it>  Thu, 02 Oct 2025 18:35:07 +0200
+ -- Arnaud Ferraris <aferraris@debian.org>  Thu, 02 Oct 2025 23:11:18 +0200
