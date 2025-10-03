@@ -57,7 +57,7 @@ index 282bdfd..0508571 100644
  obj-$(CONFIG_SND_SOC_TAS2559) += snd-soc-tas2559.o
 diff --git a/sound/soc/codecs/tas2557.c b/sound/soc/codecs/tas2557.c
 new file mode 100644
-index 00000000..4d35f2a
+index 0000000..4d35f2a
 --- /dev/null
 +++ b/sound/soc/codecs/tas2557.c
 @@ -0,0 +1,1957 @@
@@ -2020,7 +2020,7 @@ index 00000000..4d35f2a
 +MODULE_LICENSE("GPL v2");
 diff --git a/sound/soc/codecs/tas2557.h b/sound/soc/codecs/tas2557.h
 new file mode 100644
-index 00000000..b7d54437
+index 0000000..b7d5443
 --- /dev/null
 +++ b/sound/soc/codecs/tas2557.h
 @@ -0,0 +1,377 @@

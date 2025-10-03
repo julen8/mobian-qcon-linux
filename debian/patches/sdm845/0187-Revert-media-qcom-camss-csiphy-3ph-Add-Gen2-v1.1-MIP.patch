@@ -9,7 +9,7 @@ This reverts commit 4530b94fdaa01c2769a6ef7a9effcc22e04cb4d6.
  1 file changed, 64 deletions(-)
 
 diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-index 446f166..f732a76 100644
+index dcef0bb..88c0ba4 100644
 --- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
 +++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
 @@ -65,7 +65,6 @@ struct csiphy_lane_regs {

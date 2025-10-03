@@ -10,7 +10,7 @@ This reverts commit bdcc7a2b5f4d6ad96797e6cfc4f58b6741f1b6f8.
  3 files changed, 3 deletions(-)
 
 diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen2.c b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
-index aa995a7..2a1746dc 100644
+index aa995a7..2a1746d 100644
 --- a/drivers/media/platform/qcom/camss/camss-csid-gen2.c
 +++ b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
 @@ -183,7 +183,6 @@ static void __csid_configure_rx(struct csid_device *csid,

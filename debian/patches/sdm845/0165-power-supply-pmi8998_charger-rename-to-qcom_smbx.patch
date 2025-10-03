@@ -29,7 +29,7 @@ index b0cfc64..20e6418 100644
  obj-$(CONFIG_LENOVO_YOGA_C630_EC)	+= yoga-c630-ec.o
 diff --git a/drivers/power/supply/qcom_pmi8998_charger.c b/drivers/power/supply/qcom_pmi8998_charger.c
 deleted file mode 100644
-index cd3cb47..00000000
+index cd3cb47..0000000
 --- a/drivers/power/supply/qcom_pmi8998_charger.c
 +++ /dev/null
 @@ -1,1052 +0,0 @@
@@ -1087,7 +1087,7 @@ index cd3cb47..00000000
 -MODULE_LICENSE("GPL");
 diff --git a/drivers/power/supply/qcom_smbx.c b/drivers/power/supply/qcom_smbx.c
 new file mode 100644
-index 00000000..b1cb925
+index 0000000..b1cb925
 --- /dev/null
 +++ b/drivers/power/supply/qcom_smbx.c
 @@ -0,0 +1,1052 @@

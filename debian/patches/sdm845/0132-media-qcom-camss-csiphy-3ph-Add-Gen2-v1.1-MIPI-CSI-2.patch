@@ -15,7 +15,7 @@ Signed-off-by: David Heidelberg <david@ixit.cz>
  1 file changed, 64 insertions(+)
 
 diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-index f732a76..446f166 100644
+index 88c0ba4..dcef0bb 100644
 --- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
 +++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
 @@ -65,6 +65,7 @@ struct csiphy_lane_regs {
