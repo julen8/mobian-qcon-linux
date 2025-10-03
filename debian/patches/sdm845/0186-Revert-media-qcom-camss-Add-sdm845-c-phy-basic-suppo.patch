@@ -10,7 +10,7 @@ This reverts commit 5dd5a338cc7d80e201fd45f0af1b4d0e3fb3caf0.
  3 files changed, 5 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-index 47be97f..446f166 100644
+index 8e8429e..dcef0bb 100644
 --- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
 +++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
 @@ -880,7 +880,6 @@ static int csiphy_init(struct csiphy_device *csiphy)
@@ -57,7 +57,7 @@ index 076fa70..ab91273 100644
  	struct csiphy_lane *data;
  	struct csiphy_lane clk;
 diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index ad92345..06f4287 100644
+index ce42405..1507c79 100644
 --- a/drivers/media/platform/qcom/camss/camss.c
 +++ b/drivers/media/platform/qcom/camss/camss.c
 @@ -3006,13 +3006,9 @@ static int camss_of_parse_endpoint_node(struct device *dev,
