@@ -46,11 +46,11 @@ _common snd_soc_qcom_offload_utils snd_soc_qcom_sdw soundwire_bus soc_usb snd_so
 
 This reverts commit 3335a1bbd62417fc60a043c7f64684c99cb841a2.
 ---
- sound/usb/qcom/qc_audio_offload.c | 32 +++++++++++---------------------
- 1 file changed, 11 insertions(+), 21 deletions(-)
+ sound/usb/qcom/qc_audio_offload.c | 26 +++++++++++---------------
+ 1 file changed, 11 insertions(+), 15 deletions(-)
 
 diff --git a/sound/usb/qcom/qc_audio_offload.c b/sound/usb/qcom/qc_audio_offload.c
-index a25c5a5..1fe40ff 100644
+index 9ad76ff..9d78a4f 100644
 --- a/sound/usb/qcom/qc_audio_offload.c
 +++ b/sound/usb/qcom/qc_audio_offload.c
 @@ -78,9 +78,9 @@ struct intf_info {
@@ -65,7 +65,7 @@ index a25c5a5..1fe40ff 100644
  	u8 *xfer_buf_cpu;
  
  	/* USB endpoint information */
-@@ -1029,12 +1029,11 @@ static int uaudio_transfer_buffer_setup(struct snd_usb_substream *subs,
+@@ -1029,11 +1029,10 @@ static int uaudio_transfer_buffer_setup(struct snd_usb_substream *subs,
  					struct mem_info_v01 *mem_info)
  {
  	struct sg_table xfer_buf_sgt;
@@ -78,7 +78,6 @@ index a25c5a5..1fe40ff 100644
  	u32 remainder;
  	u32 mult;
  	int ret;
- 
 @@ -1056,32 +1055,29 @@ static int uaudio_transfer_buffer_setup(struct snd_usb_substream *subs,
  		len = MAX_XFER_BUFF_LEN;
  	}

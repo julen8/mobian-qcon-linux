@@ -54,7 +54,7 @@ index 6d91804..2386c45b 100644
  obj-$(CONFIG_INPUT_CM109)		+= cm109.o
 diff --git a/drivers/input/misc/aw8695-haptics.c b/drivers/input/misc/aw8695-haptics.c
 new file mode 100644
-index 00000000..e68d5c3
+index 0000000..e68d5c3
 --- /dev/null
 +++ b/drivers/input/misc/aw8695-haptics.c
 @@ -0,0 +1,1126 @@
