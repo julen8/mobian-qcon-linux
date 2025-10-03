@@ -12,7 +12,7 @@ Signed-off-by: David Heidelberg <david@ixit.cz>
  3 files changed, 3 insertions(+)
 
 diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen2.c b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
-index 2a1746dc..aa995a7 100644
+index 2a1746d..aa995a7 100644
 --- a/drivers/media/platform/qcom/camss/camss-csid-gen2.c
 +++ b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
 @@ -183,6 +183,7 @@ static void __csid_configure_rx(struct csid_device *csid,

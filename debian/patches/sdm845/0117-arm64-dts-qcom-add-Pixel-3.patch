@@ -40,7 +40,7 @@ index 669b888..8f84bf5 100644
  dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-mtp.dtb
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
 new file mode 100644
-index 00000000..f1e1f0a
+index 0000000..f1e1f0a
 --- /dev/null
 +++ b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
 @@ -0,0 +1,676 @@

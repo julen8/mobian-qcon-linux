@@ -12,7 +12,7 @@ Signed-off-by: David Heidelberg <david@ixit.cz>
  3 files changed, 16 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-index 446f166..47be97f 100644
+index dcef0bb..8e8429e 100644
 --- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
 +++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
 @@ -880,6 +880,7 @@ static int csiphy_init(struct csiphy_device *csiphy)
@@ -59,7 +59,7 @@ index ab91273..076fa70 100644
  	struct csiphy_lane *data;
  	struct csiphy_lane clk;
 diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 06f4287..ad92345 100644
+index 1507c79..ce42405 100644
 --- a/drivers/media/platform/qcom/camss/camss.c
 +++ b/drivers/media/platform/qcom/camss/camss.c
 @@ -3006,9 +3006,13 @@ static int camss_of_parse_endpoint_node(struct device *dev,

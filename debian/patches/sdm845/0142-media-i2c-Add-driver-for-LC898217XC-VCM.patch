@@ -52,7 +52,7 @@ index 9369810..de4e1df 100644
  obj-$(CONFIG_VIDEO_LT6911UXE) += lt6911uxe.o
 diff --git a/drivers/media/i2c/lc898217xc.c b/drivers/media/i2c/lc898217xc.c
 new file mode 100644
-index 00000000..86afbf8
+index 0000000..86afbf8
 --- /dev/null
 +++ b/drivers/media/i2c/lc898217xc.c
 @@ -0,0 +1,240 @@

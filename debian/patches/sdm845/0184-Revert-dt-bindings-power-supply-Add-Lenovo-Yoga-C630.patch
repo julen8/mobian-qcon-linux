@@ -10,7 +10,7 @@ This reverts commit f5a1ccca2a88ee44ac35ef3d1ad3df64d027f992.
 
 diff --git a/Documentation/devicetree/bindings/power/supply/lenovo,yoga-c630-ec.yaml b/Documentation/devicetree/bindings/power/supply/lenovo,yoga-c630-ec.yaml
 deleted file mode 100644
-index 3797734..00000000
+index 3797734..0000000
 --- a/Documentation/devicetree/bindings/power/supply/lenovo,yoga-c630-ec.yaml
 +++ /dev/null
 @@ -1,83 +0,0 @@
