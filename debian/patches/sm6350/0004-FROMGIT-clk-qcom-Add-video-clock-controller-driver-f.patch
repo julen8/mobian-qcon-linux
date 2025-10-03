@@ -52,7 +52,7 @@ index 96862e9..70895bc 100644
  obj-$(CONFIG_SM_VIDEOCC_8250) += videocc-sm8250.o
 diff --git a/drivers/clk/qcom/videocc-sm6350.c b/drivers/clk/qcom/videocc-sm6350.c
 new file mode 100644
-index 00000000..34bdc5a
+index 0000000..34bdc5a
 --- /dev/null
 +++ b/drivers/clk/qcom/videocc-sm6350.c
 @@ -0,0 +1,355 @@
