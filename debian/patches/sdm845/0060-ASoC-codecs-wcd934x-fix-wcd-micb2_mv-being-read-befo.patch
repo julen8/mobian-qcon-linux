@@ -7,7 +7,7 @@ Subject: ASoC: codecs: wcd934x: fix wcd->micb2_mv being read before assigned
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/sound/soc/codecs/wcd934x.c b/sound/soc/codecs/wcd934x.c
-index c7f1b28..cf5bd40 100644
+index 01f8d12..9b356b5 100644
 --- a/sound/soc/codecs/wcd934x.c
 +++ b/sound/soc/codecs/wcd934x.c
 @@ -3006,6 +3006,7 @@ static int wcd934x_mbhc_init(struct snd_soc_component *component)
@@ -27,7 +27,7 @@ index c7f1b28..cf5bd40 100644
  	snd_soc_add_component_controls(component, impedance_detect_controls,
  				       ARRAY_SIZE(impedance_detect_controls));
  	snd_soc_add_component_controls(component, hph_type_detect_controls,
-@@ -5874,7 +5877,6 @@ static int wcd934x_codec_parse_data(struct wcd934x_codec *wcd)
+@@ -5883,7 +5886,6 @@ static int wcd934x_codec_parse_data(struct wcd934x_codec *wcd)
  	cfg->anc_micbias = MIC_BIAS_2;
  	cfg->v_hs_max = WCD_MBHC_HS_V_MAX;
  	cfg->num_btn = WCD934X_MBHC_MAX_BUTTONS;
