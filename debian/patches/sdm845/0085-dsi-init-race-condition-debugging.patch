@@ -12,7 +12,7 @@ Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
  5 files changed, 10 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-index 7ce709c..bb1c777 100644
+index c461a6d..824c00b 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
 @@ -4543,6 +4543,8 @@ mdss: display-subsystem@ae00000 {
