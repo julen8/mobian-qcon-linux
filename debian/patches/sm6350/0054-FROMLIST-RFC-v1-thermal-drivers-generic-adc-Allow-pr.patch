@@ -1,0 +1,42 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 10 Oct 2025 10:36:18 +0200
+Subject: FROMLIST RFC v1 thermal/drivers/generic-adc: Allow probe without TZ
+ registration
+
+If the devicetree node is not referenced in a zone under /thermal-zones,
+devm_thermal_of_zone_register will fail with -ENODEV.
+
+Since the driver is now also registering as an IIO device, allow the
+probe to continue without the thermal zone.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ drivers/thermal/thermal-generic-adc.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/thermal/thermal-generic-adc.c b/drivers/thermal/thermal-generic-adc.c
+index 14aef68..d315339 100644
+--- a/drivers/thermal/thermal-generic-adc.c
++++ b/drivers/thermal/thermal-generic-adc.c
+@@ -183,14 +183,14 @@ static int gadc_thermal_probe(struct platform_device *pdev)
+ 						    &gadc_thermal_ops);
+ 	if (IS_ERR(gti->tz_dev)) {
+ 		ret = PTR_ERR(gti->tz_dev);
+-		if (ret != -EPROBE_DEFER)
+-			dev_err(dev,
+-				"Thermal zone sensor register failed: %d\n",
+-				ret);
+-		return ret;
+-	}
++		if (ret == -EPROBE_DEFER)
++			return ret;
+ 
+-	devm_thermal_add_hwmon_sysfs(dev, gti->tz_dev);
++		dev_info(dev, "Thermal zone sensor register failed: %d\n",
++			 ret);
++	} else {
++		devm_thermal_add_hwmon_sysfs(dev, gti->tz_dev);
++	}
+ 
+ 	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
+ 	if (!indio_dev)

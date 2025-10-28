@@ -1,0 +1,20 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 31 Oct 2025 15:41:26 +0100
+Subject: fixup! fp4_defconfig: add defconfig
+
+---
+ arch/arm64/configs/fp4_defconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/configs/fp4_defconfig b/arch/arm64/configs/fp4_defconfig
+index 1d362a1..ed35969 100644
+--- a/arch/arm64/configs/fp4_defconfig
++++ b/arch/arm64/configs/fp4_defconfig
+@@ -211,6 +211,7 @@ CONFIG_DRM_MSM=y
+ # CONFIG_DRM_MSM_DSI_7NM_PHY is not set
+ # CONFIG_DRM_MSM_HDMI is not set
+ CONFIG_DRM_PANEL_HIMAX_HX83112A=y
++CONFIG_DRM_PANEL_SAMSUNG_SOFEF01=y
+ CONFIG_FB=y
+ CONFIG_BACKLIGHT_CLASS_DEVICE=y
+ CONFIG_BACKLIGHT_QCOM_WLED=y
