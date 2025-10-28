@@ -35,8 +35,17 @@ debian/%: debian/%.in
 	    -e 's/@KVENDOR@/$(KVENDOR)/g' \
 		$< > $@
 
-.config: arch/arm64/configs/$(KVENDOR)_defconfig
-	$(BUILD) $(KVENDOR)_defconfig
+CONFIGS= \
+	debian.config \
+	debian.arm64.config \
+	mobian.config \
+	$(KVENDOR).config
+
+CONFIGS := $(foreach config, $(CONFIGS), debian/config/$(config))
+
+.config: $(CONFIGS)
+	cat $(CONFIGS) > .config
+	$(BUILD) olddefconfig
 
 build-arch: .config
 	$(BUILD) -f $(srctree)/Makefile
