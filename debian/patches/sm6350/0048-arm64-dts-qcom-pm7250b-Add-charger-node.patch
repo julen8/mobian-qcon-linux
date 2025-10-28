@@ -1,0 +1,40 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Thu, 2 Jan 2025 10:16:58 +0100
+Subject: arm64: dts: qcom: pm7250b: Add charger node
+
+Add a node for the charger/SMB5 block found on the PM7250B.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/pm7250b.dtsi | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/pm7250b.dtsi b/arch/arm64/boot/dts/qcom/pm7250b.dtsi
+index 0761e6b..8e24f67 100644
+--- a/arch/arm64/boot/dts/qcom/pm7250b.dtsi
++++ b/arch/arm64/boot/dts/qcom/pm7250b.dtsi
+@@ -50,6 +50,24 @@ pm7250b_vbus: usb-vbus-regulator@1100 {
+ 			status = "disabled";
+ 		};
+ 
++		pm7250b_charger: charger@1000 {
++			compatible = "qcom,pm7250b-charger";
++			reg = <0x1000>;
++			interrupts = <PM7250B_SID 0x13 0x4 IRQ_TYPE_EDGE_BOTH>,
++				     <PM7250B_SID 0x12 0x2 IRQ_TYPE_EDGE_BOTH>,
++				     <PM7250B_SID 0x16 0x1 IRQ_TYPE_EDGE_RISING>,
++				     <PM7250B_SID 0x13 0x7 IRQ_TYPE_EDGE_RISING>;
++			interrupt-names = "usb-plugin",
++					  "bat-ov",
++					  "wdog-bark",
++					  "usbin-icl-change";
++			io-channels = <&pm7250b_adc ADC5_USB_IN_I>,
++				      <&pm7250b_adc ADC5_USB_IN_V_16>;
++			io-channel-names = "usbin_i",
++					   "usbin_v";
++			status = "disabled";
++		};
++
+ 		pm7250b_typec: typec@1500 {
+ 			compatible = "qcom,pm7250b-typec", "qcom,pm8150b-typec";
+ 			reg = <0x1500>,

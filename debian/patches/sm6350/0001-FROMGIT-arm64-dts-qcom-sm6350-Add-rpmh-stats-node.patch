@@ -1,0 +1,31 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 1 Aug 2025 15:40:59 +0200
+Subject: FROMGIT arm64: dts: qcom: sm6350: Add rpmh-stats node
+
+The qcom_stats driver allows querying sleep stats from various
+remoteprocs. Add a node to enable it.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20250801-sm6350-rpmh-stats-v1-1-f1fb649d1095@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/sm6350.dtsi | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+index ff1eb2c..be16cd5 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+@@ -2479,6 +2479,11 @@ aoss_qmp: power-management@c300000 {
+ 			#clock-cells = <0>;
+ 		};
+ 
++		sram@c3f0000 {
++			compatible = "qcom,rpmh-stats";
++			reg = <0x0 0x0c3f0000 0x0 0x400>;
++		};
++
+ 		spmi_bus: spmi@c440000 {
+ 			compatible = "qcom,spmi-pmic-arb";
+ 			reg = <0x0 0x0c440000 0x0 0x1100>,
