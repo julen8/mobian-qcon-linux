@@ -1,0 +1,91 @@
+From: Luca Weiss <luca@lucaweiss.eu>
+Date: Tue, 9 Sep 2025 08:02:14 -0700
+Subject: FROMGIT Input: pm8941-pwrkey - disable wakeup for resin by default
+
+'Resin' (*Res*et *In*put) is usually connected to a volume down button
+on devices, which is usually not expected to wake up the device from
+suspend.
+
+On the other hand, pwrkey should keep wakeup on. So do not enable wakeup
+for resin unless the "wakeup-source" property is specified in
+devicetree.
+
+Note, that this does change behavior by turning off wakeup by default
+for 'resin' and requiring a new dt property to be added to turn it on
+again. But since this is not expected behavior in the first place, and
+most users will not expect this, I'd argue this change is acceptable.
+
+Signed-off-by: Luca Weiss <luca@lucaweiss.eu>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Link: https://lore.kernel.org/r/20250909-resin-wakeup-v1-2-46159940e02b@lucaweiss.eu
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
+ drivers/input/misc/pm8941-pwrkey.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/input/misc/pm8941-pwrkey.c b/drivers/input/misc/pm8941-pwrkey.c
+index d952c16..53249d2 100644
+--- a/drivers/input/misc/pm8941-pwrkey.c
++++ b/drivers/input/misc/pm8941-pwrkey.c
+@@ -60,6 +60,7 @@ struct pm8941_data {
+ 	bool		supports_ps_hold_poff_config;
+ 	bool		supports_debounce_config;
+ 	bool		has_pon_pbs;
++	bool		wakeup_source_default;
+ 	const char	*name;
+ 	const char	*phys;
+ };
+@@ -245,7 +246,7 @@ static DEFINE_SIMPLE_DEV_PM_OPS(pm8941_pwr_key_pm_ops,
+ static int pm8941_pwrkey_probe(struct platform_device *pdev)
+ {
+ 	struct pm8941_pwrkey *pwrkey;
+-	bool pull_up;
++	bool pull_up, wakeup;
+ 	struct device *parent;
+ 	struct device_node *regmap_node;
+ 	const __be32 *addr;
+@@ -402,8 +403,11 @@ static int pm8941_pwrkey_probe(struct platform_device *pdev)
+ 		}
+ 	}
+ 
++	wakeup = pwrkey->data->wakeup_source_default ||
++		of_property_read_bool(pdev->dev.of_node, "wakeup-source");
++
+ 	platform_set_drvdata(pdev, pwrkey);
+-	device_init_wakeup(&pdev->dev, 1);
++	device_init_wakeup(&pdev->dev, wakeup);
+ 
+ 	return 0;
+ }
+@@ -424,6 +428,7 @@ static const struct pm8941_data pwrkey_data = {
+ 	.supports_ps_hold_poff_config = true,
+ 	.supports_debounce_config = true,
+ 	.has_pon_pbs = false,
++	.wakeup_source_default = true,
+ };
+ 
+ static const struct pm8941_data resin_data = {
+@@ -434,6 +439,7 @@ static const struct pm8941_data resin_data = {
+ 	.supports_ps_hold_poff_config = true,
+ 	.supports_debounce_config = true,
+ 	.has_pon_pbs = false,
++	.wakeup_source_default = false,
+ };
+ 
+ static const struct pm8941_data pon_gen3_pwrkey_data = {
+@@ -443,6 +449,7 @@ static const struct pm8941_data pon_gen3_pwrkey_data = {
+ 	.supports_ps_hold_poff_config = false,
+ 	.supports_debounce_config = false,
+ 	.has_pon_pbs = true,
++	.wakeup_source_default = true,
+ };
+ 
+ static const struct pm8941_data pon_gen3_resin_data = {
+@@ -452,6 +459,7 @@ static const struct pm8941_data pon_gen3_resin_data = {
+ 	.supports_ps_hold_poff_config = false,
+ 	.supports_debounce_config = false,
+ 	.has_pon_pbs = true,
++	.wakeup_source_default = false,
+ };
+ 
+ static const struct of_device_id pm8941_pwr_key_id_table[] = {

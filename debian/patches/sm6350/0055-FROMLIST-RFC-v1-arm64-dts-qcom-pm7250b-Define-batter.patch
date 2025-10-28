@@ -1,0 +1,54 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Thu, 26 Sep 2024 08:39:29 +0200
+Subject: FROMLIST RFC v1 arm64: dts: qcom: pm7250b: Define battery
+ temperature ADC channels
+
+Add the definition for these ADC channels to the PM7250B definition.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/pm7250b.dtsi | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/pm7250b.dtsi b/arch/arm64/boot/dts/qcom/pm7250b.dtsi
+index 8e24f67..208a4e2 100644
+--- a/arch/arm64/boot/dts/qcom/pm7250b.dtsi
++++ b/arch/arm64/boot/dts/qcom/pm7250b.dtsi
+@@ -174,6 +174,22 @@ channel@1e {
+ 				label = "chg_mid";
+ 			};
+ 
++			channel@2a {
++				reg = <ADC5_BAT_THERM_30K_PU>;
++				qcom,hw-settle-time = <200>;
++				qcom,pre-scaling = <1 1>;
++				qcom,ratiometric;
++				label = "bat_therm_30k";
++			};
++
++			channel@4a {
++				reg = <ADC5_BAT_THERM_100K_PU>;
++				qcom,hw-settle-time = <200>;
++				qcom,pre-scaling = <1 1>;
++				qcom,ratiometric;
++				label = "bat_therm_100k";
++			};
++
+ 			channel@4b {
+ 				reg = <ADC5_BAT_ID_100K_PU>;
+ 				qcom,hw-settle-time = <200>;
+@@ -182,6 +198,14 @@ channel@4b {
+ 				label = "bat_id";
+ 			};
+ 
++			channel@6a {
++				reg = <ADC5_BAT_THERM_400K_PU>;
++				qcom,hw-settle-time = <200>;
++				qcom,pre-scaling = <1 1>;
++				qcom,ratiometric;
++				label = "bat_therm_400k";
++			};
++
+ 			channel@83 {
+ 				reg = <ADC5_VPH_PWR>;
+ 				qcom,pre-scaling = <1 3>;

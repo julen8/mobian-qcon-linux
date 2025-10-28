@@ -1,0 +1,46 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Thu, 1 May 2025 08:48:50 +0200
+Subject: FROMGIT arm64: dts: qcom: sm6350: Add q6usbdai node
+
+Add a node for q6usb which handles USB audio offloading, allowing to
+play audio via a USB-C headset with lower power consumption and enabling
+some other features.
+
+We also need to set num-hc-interrupters for the dwc3 for the q6usb to be
+able to use its sideband interrupter.
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20250501-fp4-usb-audio-offload-v2-4-30f4596281cd@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/sm6350.dtsi | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+index be16cd5..555e342 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+@@ -1351,6 +1351,13 @@ q6afecc: clock-controller {
+ 							compatible = "qcom,q6afe-clocks";
+ 							#clock-cells = <2>;
+ 						};
++
++						q6usbdai: usbd {
++							compatible = "qcom,q6usb";
++							iommus = <&apps_smmu 0x100f 0x0>;
++							#sound-dai-cells = <1>;
++							qcom,usb-audio-intr-idx = /bits/ 16 <2>;
++						};
+ 					};
+ 
+ 					q6asm: service@7 {
+@@ -1979,6 +1986,7 @@ usb_1_dwc3: usb@a600000 {
+ 				reg = <0x0 0x0a600000 0x0 0xcd00>;
+ 				interrupts = <GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>;
+ 				iommus = <&apps_smmu 0x540 0x0>;
++				num-hc-interrupters = /bits/ 16 <3>;
+ 				snps,dis_u2_susphy_quirk;
+ 				snps,dis_enblslpm_quirk;
+ 				snps,has-lpm-erratum;

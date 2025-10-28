@@ -1,0 +1,43 @@
+From: erebion <erebion@erebion.eu>
+Date: Tue, 16 Sep 2025 18:59:32 +0200
+Subject: arm64: dts: qcom: sm6350-lena: Add flash LED
+
+Add a node for the camera flash LED found on the Xperia 10 III
+
+Signed-off-by: erebion <erebion@erebion.eu>
+---
+ .../arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+index cadd1d8..2ce6b81 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
++++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+@@ -4,6 +4,7 @@
+  */
+ /dts-v1/;
+ 
++#include <dt-bindings/leds/common.h>
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ #include "sm6350.dtsi"
+@@ -361,6 +362,19 @@ &mdss_dsi0_phy {
+ 	status = "okay";
+ };
+ 
++&pm6150l_flash {
++	status = "okay";
++
++	led-0 {
++		function = LED_FUNCTION_FLASH;
++		color = <LED_COLOR_ID_WHITE>; // guess
++		led-sources = <1>;
++		led-max-microamp = <180000>;
++		flash-max-microamp = <1000000>;
++		flash-max-timeout-us = <1280000>;
++	};
++};
++
+ &pm6150l_gpios {
+ 	panel_reset_pin: panel-reset-state {
+ 		pins = "gpio9";
