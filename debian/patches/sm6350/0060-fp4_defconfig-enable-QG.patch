@@ -1,0 +1,20 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 20 Jun 2025 10:50:45 +0200
+Subject: fp4_defconfig: enable QG
+
+---
+ arch/arm64/configs/fp4_defconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/configs/fp4_defconfig b/arch/arm64/configs/fp4_defconfig
+index aaf3ddd..1d362a1 100644
+--- a/arch/arm64/configs/fp4_defconfig
++++ b/arch/arm64/configs/fp4_defconfig
+@@ -170,6 +170,7 @@ CONFIG_PINCTRL_SM6350=y
+ CONFIG_PINCTRL_QCOM_SPMI_PMIC=y
+ CONFIG_POWER_RESET_MSM=y
+ CONFIG_POWER_RESET_QCOM_PON=y
++CONFIG_BATTERY_QCOM_QG=y
+ CONFIG_CHARGER_QCOM_SMB2=y
+ CONFIG_THERMAL=y
+ CONFIG_THERMAL_GOV_POWER_ALLOCATOR=y

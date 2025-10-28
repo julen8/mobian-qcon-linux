@@ -1,0 +1,45 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Thu, 26 Sep 2024 08:43:15 +0200
+Subject: arm64: dts: qcom: pm7250b: Add qgauge node
+
+Add a node for the fuel gauge found on the PM7250B PMIC, named
+qgauge/qg along with the SDAM for it.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/pm7250b.dtsi | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/pm7250b.dtsi b/arch/arm64/boot/dts/qcom/pm7250b.dtsi
+index 208a4e2..ff8ec83 100644
+--- a/arch/arm64/boot/dts/qcom/pm7250b.dtsi
++++ b/arch/arm64/boot/dts/qcom/pm7250b.dtsi
+@@ -235,6 +235,28 @@ pm7250b_adc_tm: adc-tm@3500 {
+ 			status = "disabled";
+ 		};
+ 
++		pm7250b_qgauge: battery@4800 {
++			compatible = "qcom,pm7250b-qg", "qcom,pm6150-qg";
++			reg = <0x4800>;
++
++			io-channels = <0>, /* to be provided by board */
++				      <&pm7250b_adc ADC5_BAT_ID_100K_PU>;
++			io-channel-names = "batt-therm",
++					   "batt-id";
++
++			nvmem = <&pm7250b_qg_sdam>;
++
++			status = "disabled";
++		};
++
++		pm7250b_qg_sdam: nvram@b100 {
++			compatible = "qcom,spmi-sdam";
++			reg = <0xb100>;
++			#address-cells = <1>;
++			#size-cells = <1>;
++			ranges = <0 0xb100 0x100>;
++		};
++
+ 		pm7250b_gpios: gpio@c000 {
+ 			compatible = "qcom,pm7250b-gpio", "qcom,spmi-gpio";
+ 			reg = <0xc000>;
