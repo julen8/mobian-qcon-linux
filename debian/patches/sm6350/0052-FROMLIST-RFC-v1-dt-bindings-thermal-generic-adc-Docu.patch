@@ -1,0 +1,34 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 10 Oct 2025 09:37:09 +0200
+Subject: FROMLIST RFC v1 dt-bindings: thermal: generic-adc: Document
+ #io-channel-cells
+
+Document the property to allow using this sensor with io-channels.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ Documentation/devicetree/bindings/thermal/generic-adc-thermal.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/thermal/generic-adc-thermal.yaml b/Documentation/devicetree/bindings/thermal/generic-adc-thermal.yaml
+index 12e6418..317fc39 100644
+--- a/Documentation/devicetree/bindings/thermal/generic-adc-thermal.yaml
++++ b/Documentation/devicetree/bindings/thermal/generic-adc-thermal.yaml
+@@ -24,6 +24,9 @@ properties:
+   '#thermal-sensor-cells':
+     const: 0
+ 
++  "#io-channel-cells":
++    const: 0
++
+   io-channels:
+     maxItems: 1
+ 
+@@ -58,6 +61,7 @@ examples:
+     thermal-sensor {
+         compatible = "generic-adc-thermal";
+         #thermal-sensor-cells = <0>;
++        #io-channel-cells = <0>;
+         io-channels = <&ads1015 1>;
+         io-channel-names = "sensor-channel";
+         temperature-lookup-table = <
