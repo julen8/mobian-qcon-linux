@@ -1,3 +1,10 @@
+linux-6.16-sdm670 (6.16.12-2) unstable; urgency=medium
+
+  * d/patches: backport gamma correction patch.
+    Because it applied almost seamlessly and it just works.
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Mon, 03 Nov 2025 21:49:20 +0100
+
 linux-6.16-sdm670 (6.16.12-1) unstable; urgency=medium
 
   * Rebase on 6.16.12
