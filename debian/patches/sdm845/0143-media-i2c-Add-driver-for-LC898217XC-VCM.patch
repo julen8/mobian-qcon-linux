@@ -17,7 +17,7 @@ Signed-off-by: Vasiliy Doylov <nekocwd@mainlining.org>
  create mode 100644 drivers/media/i2c/lc898217xc.c
 
 diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index e115d40..88c9b75 100644
+index 1a40826..b69eac6 100644
 --- a/drivers/media/i2c/Kconfig
 +++ b/drivers/media/i2c/Kconfig
 @@ -838,6 +838,17 @@ config VIDEO_DW9807_VCM
