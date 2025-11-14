@@ -10,7 +10,7 @@ Subject: [PATCH] media: i2c: Add imx376 image sensor driver
  create mode 100644 drivers/media/i2c/imx376.c
 
 diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 1ad155d..05a32d2 100644
+index bd8e318..a9ba6a3 100644
 --- a/drivers/media/i2c/Kconfig
 +++ b/drivers/media/i2c/Kconfig
 @@ -264,6 +264,16 @@ config VIDEO_IMX371
