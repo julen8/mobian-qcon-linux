@@ -9,65 +9,93 @@ Signed-off-by: Suresh Vankadara <quic_svankada@quicinc.com>
 Signed-off-by: Trishansh Bhardwaj <quic_tbhardwa@quicinc.com>
 Signed-off-by: Vikram Sharma <quic_vikramsa@quicinc.com>
 ---
- .../bindings/media/qcom,sc7280-camss.yaml          | 415 +++++++++++++++++++++
- 1 file changed, 415 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/media/qcom,sc7280-camss.yaml
+ ...om,sm8250-camss.yaml => qcom,sc7280-camss.yaml} | 388 +++++++++------------
+ 1 file changed, 170 insertions(+), 218 deletions(-)
+ copy Documentation/devicetree/bindings/media/{qcom,sm8250-camss.yaml => qcom,sc7280-camss.yaml} (50%)
 
-diff --git a/Documentation/devicetree/bindings/media/qcom,sc7280-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sc7280-camss.yaml
-new file mode 100644
-index 0000000..b27d4af
---- /dev/null
+diff --git a/Documentation/devicetree/bindings/media/qcom,sm8250-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sc7280-camss.yaml
+similarity index 50%
+copy from Documentation/devicetree/bindings/media/qcom,sm8250-camss.yaml
+copy to Documentation/devicetree/bindings/media/qcom,sc7280-camss.yaml
+index fa5073c..b27d4af 100644
+--- a/Documentation/devicetree/bindings/media/qcom,sm8250-camss.yaml
 +++ b/Documentation/devicetree/bindings/media/qcom,sc7280-camss.yaml
-@@ -0,0 +1,415 @@
+@@ -1,35 +1,28 @@
+-# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+-
 +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
+ %YAML 1.2
+ ---
+-$id: http://devicetree.org/schemas/media/qcom,sm8250-camss.yaml#
 +$id: http://devicetree.org/schemas/media/qcom,sc7280-camss.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Qualcomm CAMSS ISP
 +title: Qualcomm SC7280 CAMSS ISP
-+
-+maintainers:
+ 
+ maintainers:
+-  - Robert Foss <robert.foss@linaro.org>
 +  - Azam Sadiq Pasha Kapatrala Syed <akapatra@quicinc.com>
 +  - Hariram Purushothaman <hariramp@quicinc.com>
-+
+ 
+-description: |
 +description:
-+  The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
-+
-+properties:
-+  compatible:
+   The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
+ 
+ properties:
+   compatible:
+-    const: qcom,sm8250-camss
 +    const: qcom,sc7280-camss
-+
-+  clocks:
+ 
+   clocks:
+-    minItems: 37
+-    maxItems: 37
 +    maxItems: 32
-+
-+  clock-names:
-+    items:
-+      - const: camnoc_axi
-+      - const: csiphy0
-+      - const: csiphy0_timer
-+      - const: csiphy1
-+      - const: csiphy1_timer
-+      - const: csiphy2
-+      - const: csiphy2_timer
-+      - const: csiphy3
-+      - const: csiphy3_timer
-+      - const: csiphy4
-+      - const: csiphy4_timer
+ 
+   clock-names:
+     items:
+-      - const: cam_ahb_clk
+-      - const: cam_hf_axi
+-      - const: cam_sf_axi
+       - const: camnoc_axi
+-      - const: camnoc_axi_src
+-      - const: core_ahb
+-      - const: cpas_ahb
+       - const: csiphy0
+       - const: csiphy0_timer
+       - const: csiphy1
+@@ -40,69 +33,74 @@ properties:
+       - const: csiphy3_timer
+       - const: csiphy4
+       - const: csiphy4_timer
+-      - const: csiphy5
+-      - const: csiphy5_timer
+-      - const: slow_ahb_src
+-      - const: vfe0_ahb
+-      - const: vfe0_axi
 +      - const: gcc_camera_ahb
 +      - const: gcc_cam_hf_axi
 +      - const: soc_ahb
-+      - const: vfe0
+       - const: vfe0
 +      - const: vfe0_axi
-+      - const: vfe0_cphy_rx
-+      - const: vfe0_csid
+       - const: vfe0_cphy_rx
+       - const: vfe0_csid
+-      - const: vfe0_areg
+-      - const: vfe1_ahb
+-      - const: vfe1_axi
 +      - const: vfe0_lite
 +      - const: vfe0_lite_cphy_rx
 +      - const: vfe0_lite_csid
-+      - const: vfe1
+       - const: vfe1
 +      - const: vfe1_axi
-+      - const: vfe1_cphy_rx
-+      - const: vfe1_csid
+       - const: vfe1_cphy_rx
+       - const: vfe1_csid
+-      - const: vfe1_areg
+-      - const: vfe_lite_ahb
+-      - const: vfe_lite_axi
+-      - const: vfe_lite
+-      - const: vfe_lite_cphy_rx
+-      - const: vfe_lite_csid
 +      - const: vfe1_lite
 +      - const: vfe1_lite_cphy_rx
 +      - const: vfe1_lite_csid
@@ -75,46 +103,65 @@ index 0000000..b27d4af
 +      - const: vfe2_axi
 +      - const: vfe2_cphy_rx
 +      - const: vfe2_csid
-+
-+  interrupts:
+ 
+   interrupts:
+-    minItems: 14
+-    maxItems: 14
 +    maxItems: 15
-+
-+  interrupt-names:
-+    items:
+ 
+   interrupt-names:
+     items:
 +      - const: csid0
 +      - const: csid0_lite
 +      - const: csid1
 +      - const: csid1_lite
 +      - const: csid2
-+      - const: csiphy0
-+      - const: csiphy1
-+      - const: csiphy2
-+      - const: csiphy3
-+      - const: csiphy4
-+      - const: vfe0
+       - const: csiphy0
+       - const: csiphy1
+       - const: csiphy2
+       - const: csiphy3
+       - const: csiphy4
+-      - const: csiphy5
+-      - const: csid0
+-      - const: csid1
+-      - const: csid2
+-      - const: csid3
+       - const: vfe0
 +      - const: vfe0_lite
-+      - const: vfe1
+       - const: vfe1
+-      - const: vfe_lite0
+-      - const: vfe_lite1
+-
+-  iommus:
+-    minItems: 8
+-    maxItems: 8
 +      - const: vfe1_lite
 +      - const: vfe2
-+
-+  interconnects:
+ 
+   interconnects:
+-    minItems: 4
+-    maxItems: 4
 +    maxItems: 2
-+
-+  interconnect-names:
-+    items:
+ 
+   interconnect-names:
+     items:
+-      - const: cam_ahb
+-      - const: cam_hf_0_mnoc
+-      - const: cam_sf_0_mnoc
+-      - const: cam_sf_icp_mnoc
 +      - const: ahb
 +      - const: hf_0
 +
 +  iommus:
 +    maxItems: 1
-+
-+  power-domains:
-+    items:
-+      - description: IFE0 GDSC - Image Front End, Global Distributed Switch Controller.
-+      - description: IFE1 GDSC - Image Front End, Global Distributed Switch Controller.
+ 
+   power-domains:
+     items:
+       - description: IFE0 GDSC - Image Front End, Global Distributed Switch Controller.
+       - description: IFE1 GDSC - Image Front End, Global Distributed Switch Controller.
 +      - description: IFE2 GDSC - Image Front End, Global Distributed Switch Controller.
-+      - description: Titan GDSC - Titan ISP Block, Global Distributed Switch Controller.
-+
+       - description: Titan GDSC - Titan ISP Block, Global Distributed Switch Controller.
+ 
 +  power-domain-names:
 +    items:
 +      - const: ife0
@@ -122,167 +169,195 @@ index 0000000..b27d4af
 +      - const: ife2
 +      - const: top
 +
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
-+
-+    description:
-+      CSI input ports.
-+
-+    properties:
-+      port@0:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description:
-+          Input port for receiving CSI data.
-+
-+        properties:
-+          endpoint:
-+            $ref: video-interfaces.yaml#
-+            unevaluatedProperties: false
-+
-+            properties:
-+              data-lanes:
-+                minItems: 1
-+                maxItems: 4
-+
-+            required:
-+              - data-lanes
-+
-+      port@1:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description:
-+          Input port for receiving CSI data.
-+
-+        properties:
-+          endpoint:
-+            $ref: video-interfaces.yaml#
-+            unevaluatedProperties: false
-+
-+            properties:
-+              data-lanes:
-+                minItems: 1
-+                maxItems: 4
-+
-+            required:
-+              - data-lanes
-+
-+      port@2:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description:
-+          Input port for receiving CSI data.
-+
-+        properties:
-+          endpoint:
-+            $ref: video-interfaces.yaml#
-+            unevaluatedProperties: false
-+
-+            properties:
-+              data-lanes:
-+                minItems: 1
-+                maxItems: 4
-+
-+            required:
-+              - data-lanes
-+
-+      port@3:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description:
-+          Input port for receiving CSI data.
-+
-+        properties:
-+          endpoint:
-+            $ref: video-interfaces.yaml#
-+            unevaluatedProperties: false
-+
-+            properties:
-+              data-lanes:
-+                minItems: 1
-+                maxItems: 4
-+
-+            required:
-+              - data-lanes
-+
-+      port@4:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description:
-+          Input port for receiving CSI data.
-+
-+        properties:
-+          endpoint:
-+            $ref: video-interfaces.yaml#
-+            unevaluatedProperties: false
-+
-+            properties:
-+              data-lanes:
-+                minItems: 1
-+                maxItems: 4
-+
-+            required:
-+              - data-lanes
-+
-+  reg:
+   ports:
+     $ref: /schemas/graph.yaml#/properties/ports
+ 
+@@ -122,15 +120,11 @@ properties:
+             unevaluatedProperties: false
+ 
+             properties:
+-              clock-lanes:
+-                maxItems: 1
+-
+               data-lanes:
+                 minItems: 1
+                 maxItems: 4
+ 
+             required:
+-              - clock-lanes
+               - data-lanes
+ 
+       port@1:
+@@ -145,15 +139,11 @@ properties:
+             unevaluatedProperties: false
+ 
+             properties:
+-              clock-lanes:
+-                maxItems: 1
+-
+               data-lanes:
+                 minItems: 1
+                 maxItems: 4
+ 
+             required:
+-              - clock-lanes
+               - data-lanes
+ 
+       port@2:
+@@ -168,15 +158,11 @@ properties:
+             unevaluatedProperties: false
+ 
+             properties:
+-              clock-lanes:
+-                maxItems: 1
+-
+               data-lanes:
+                 minItems: 1
+                 maxItems: 4
+ 
+             required:
+-              - clock-lanes
+               - data-lanes
+ 
+       port@3:
+@@ -191,15 +177,11 @@ properties:
+             unevaluatedProperties: false
+ 
+             properties:
+-              clock-lanes:
+-                maxItems: 1
+-
+               data-lanes:
+                 minItems: 1
+                 maxItems: 4
+ 
+             required:
+-              - clock-lanes
+               - data-lanes
+ 
+       port@4:
+@@ -214,56 +196,33 @@ properties:
+             unevaluatedProperties: false
+ 
+             properties:
+-              clock-lanes:
+-                maxItems: 1
+-
+               data-lanes:
+                 minItems: 1
+                 maxItems: 4
+ 
+             required:
+-              - clock-lanes
+-              - data-lanes
+-
+-      port@5:
+-        $ref: /schemas/graph.yaml#/$defs/port-base
+-        unevaluatedProperties: false
+-        description:
+-          Input port for receiving CSI data.
+-
+-        properties:
+-          endpoint:
+-            $ref: video-interfaces.yaml#
+-            unevaluatedProperties: false
+-
+-            properties:
+-              clock-lanes:
+-                maxItems: 1
+-
+-              data-lanes:
+-                minItems: 1
+-                maxItems: 4
+-
+-            required:
+-              - clock-lanes
+               - data-lanes
+ 
+   reg:
+-    minItems: 10
+-    maxItems: 10
 +    maxItems: 15
-+
-+  reg-names:
-+    items:
+ 
+   reg-names:
+     items:
 +      - const: csid0
 +      - const: csid0_lite
 +      - const: csid1
 +      - const: csid1_lite
 +      - const: csid2
-+      - const: csiphy0
-+      - const: csiphy1
-+      - const: csiphy2
-+      - const: csiphy3
-+      - const: csiphy4
-+      - const: vfe0
+       - const: csiphy0
+       - const: csiphy1
+       - const: csiphy2
+       - const: csiphy3
+       - const: csiphy4
+-      - const: csiphy5
+       - const: vfe0
 +      - const: vfe0_lite
-+      - const: vfe1
+       - const: vfe1
+-      - const: vfe_lite0
+-      - const: vfe_lite1
 +      - const: vfe1_lite
 +      - const: vfe2
-+
-+  vdda-phy-supply:
-+    description:
-+      Phandle to a regulator supply to PHY core block.
-+
-+  vdda-pll-supply:
-+    description:
-+      Phandle to 1.8V regulator supply to PHY refclk pll block.
-+
-+required:
-+  - compatible
+ 
+   vdda-phy-supply:
+     description:
+@@ -274,17 +233,18 @@ properties:
+       Phandle to 1.8V regulator supply to PHY refclk pll block.
+ 
+ required:
+-  - clock-names
+-  - clocks
+   - compatible
+-  - interconnects
+-  - interconnect-names
 +  - reg
 +  - reg-names
 +  - clocks
 +  - clock-names
-+  - interrupts
-+  - interrupt-names
+   - interrupts
+   - interrupt-names
 +  - interconnects
 +  - interconnect-names
-+  - iommus
-+  - power-domains
+   - iommus
+   - power-domains
+-  - reg
+-  - reg-names
 +  - power-domain-names
-+  - vdda-phy-supply
-+  - vdda-pll-supply
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
+   - vdda-phy-supply
+   - vdda-pll-supply
+ 
+@@ -292,83 +252,51 @@ additionalProperties: false
+ 
+ examples:
+   - |
 +    #include <dt-bindings/clock/qcom,camcc-sc7280.h>
 +    #include <dt-bindings/clock/qcom,gcc-sc7280.h>
 +    #include <dt-bindings/interconnect/qcom,sc7280.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/power/qcom-rpmpd.h>
-+
-+    soc {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
+     #include <dt-bindings/interrupt-controller/arm-gic.h>
+-    #include <dt-bindings/clock/qcom,camcc-sm8250.h>
+-    #include <dt-bindings/interconnect/qcom,sm8250.h>
+-    #include <dt-bindings/clock/qcom,gcc-sm8250.h>
+     #include <dt-bindings/power/qcom-rpmpd.h>
+ 
+     soc {
+         #address-cells = <2>;
+         #size-cells = <2>;
+ 
+-        camss: camss@ac6a000 {
+-            compatible = "qcom,sm8250-camss";
+-
+-            reg = <0 0xac6a000 0 0x2000>,
+-                  <0 0xac6c000 0 0x2000>,
+-                  <0 0xac6e000 0 0x1000>,
+-                  <0 0xac70000 0 0x1000>,
+-                  <0 0xac72000 0 0x1000>,
+-                  <0 0xac74000 0 0x1000>,
+-                  <0 0xacb4000 0 0xd000>,
+-                  <0 0xacc3000 0 0xd000>,
+-                  <0 0xacd9000 0 0x2200>,
+-                  <0 0xacdb200 0 0x2200>;
+-            reg-names = "csiphy0",
 +        camss: camss@acaf000 {
 +            compatible = "qcom,sc7280-camss";
 +
@@ -307,41 +382,105 @@ index 0000000..b27d4af
 +                        "csid1_lite",
 +                        "csid2",
 +                        "csiphy0",
-+                        "csiphy1",
-+                        "csiphy2",
-+                        "csiphy3",
-+                        "csiphy4",
-+                        "vfe0",
+                         "csiphy1",
+                         "csiphy2",
+                         "csiphy3",
+                         "csiphy4",
+-                        "csiphy5",
+                         "vfe0",
 +                        "vfe0_lite",
-+                        "vfe1",
+                         "vfe1",
+-                        "vfe_lite0",
+-                        "vfe_lite1";
+-
+-            vdda-phy-supply = <&vreg_l5a_0p88>;
+-            vdda-pll-supply = <&vreg_l9a_1p2>;
+-
+-            interrupts = <GIC_SPI 477 IRQ_TYPE_LEVEL_HIGH>,
+-                         <GIC_SPI 478 IRQ_TYPE_LEVEL_HIGH>,
+-                         <GIC_SPI 479 IRQ_TYPE_LEVEL_HIGH>,
+-                         <GIC_SPI 448 IRQ_TYPE_LEVEL_HIGH>,
+-                         <GIC_SPI 86 IRQ_TYPE_LEVEL_HIGH>,
+-                         <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>,
+-                         <GIC_SPI 464 IRQ_TYPE_LEVEL_HIGH>,
+-                         <GIC_SPI 466 IRQ_TYPE_LEVEL_HIGH>,
+-                         <GIC_SPI 468 IRQ_TYPE_LEVEL_HIGH>,
+-                         <GIC_SPI 359 IRQ_TYPE_LEVEL_HIGH>,
+-                         <GIC_SPI 465 IRQ_TYPE_LEVEL_HIGH>,
+-                         <GIC_SPI 467 IRQ_TYPE_LEVEL_HIGH>,
+-                         <GIC_SPI 469 IRQ_TYPE_LEVEL_HIGH>,
+-                         <GIC_SPI 360 IRQ_TYPE_LEVEL_HIGH>;
+-            interrupt-names = "csiphy0",
+-                              "csiphy1",
+-                              "csiphy2",
+-                              "csiphy3",
+-                              "csiphy4",
+-                              "csiphy5",
+-                              "csid0",
+-                              "csid1",
+-                              "csid2",
+-                              "csid3",
+-                              "vfe0",
+-                              "vfe1",
+-                              "vfe_lite0",
+-                              "vfe_lite1";
+-
+-            power-domains = <&camcc IFE_0_GDSC>,
+-                            <&camcc IFE_1_GDSC>,
+-                            <&camcc TITAN_TOP_GDSC>;
 +                        "vfe1_lite",
 +                        "vfe2";
-+
+ 
+-            clocks = <&gcc GCC_CAMERA_AHB_CLK>,
+-                     <&gcc GCC_CAMERA_HF_AXI_CLK>,
+-                     <&gcc GCC_CAMERA_SF_AXI_CLK>,
+-                     <&camcc CAM_CC_CAMNOC_AXI_CLK>,
+-                     <&camcc CAM_CC_CAMNOC_AXI_CLK_SRC>,
+-                     <&camcc CAM_CC_CORE_AHB_CLK>,
+-                     <&camcc CAM_CC_CPAS_AHB_CLK>,
 +            clocks = <&camcc CAM_CC_CAMNOC_AXI_CLK>,
-+                     <&camcc CAM_CC_CSIPHY0_CLK>,
-+                     <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
-+                     <&camcc CAM_CC_CSIPHY1_CLK>,
-+                     <&camcc CAM_CC_CSI1PHYTIMER_CLK>,
-+                     <&camcc CAM_CC_CSIPHY2_CLK>,
-+                     <&camcc CAM_CC_CSI2PHYTIMER_CLK>,
-+                     <&camcc CAM_CC_CSIPHY3_CLK>,
-+                     <&camcc CAM_CC_CSI3PHYTIMER_CLK>,
-+                     <&camcc CAM_CC_CSIPHY4_CLK>,
-+                     <&camcc CAM_CC_CSI4PHYTIMER_CLK>,
+                      <&camcc CAM_CC_CSIPHY0_CLK>,
+                      <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
+                      <&camcc CAM_CC_CSIPHY1_CLK>,
+@@ -379,33 +307,28 @@ examples:
+                      <&camcc CAM_CC_CSI3PHYTIMER_CLK>,
+                      <&camcc CAM_CC_CSIPHY4_CLK>,
+                      <&camcc CAM_CC_CSI4PHYTIMER_CLK>,
+-                     <&camcc CAM_CC_CSIPHY5_CLK>,
+-                     <&camcc CAM_CC_CSI5PHYTIMER_CLK>,
+-                     <&camcc CAM_CC_SLOW_AHB_CLK_SRC>,
+-                     <&camcc CAM_CC_IFE_0_AHB_CLK>,
+-                     <&camcc CAM_CC_IFE_0_AXI_CLK>,
 +                     <&gcc GCC_CAMERA_AHB_CLK>,
 +                     <&gcc GCC_CAMERA_HF_AXI_CLK>,
 +                     <&camcc CAM_CC_CPAS_AHB_CLK>,
-+                     <&camcc CAM_CC_IFE_0_CLK>,
+                      <&camcc CAM_CC_IFE_0_CLK>,
 +                     <&camcc CAM_CC_IFE_0_AXI_CLK>,
-+                     <&camcc CAM_CC_IFE_0_CPHY_RX_CLK>,
-+                     <&camcc CAM_CC_IFE_0_CSID_CLK>,
+                      <&camcc CAM_CC_IFE_0_CPHY_RX_CLK>,
+                      <&camcc CAM_CC_IFE_0_CSID_CLK>,
+-                     <&camcc CAM_CC_IFE_0_AREG_CLK>,
+-                     <&camcc CAM_CC_IFE_1_AHB_CLK>,
+-                     <&camcc CAM_CC_IFE_1_AXI_CLK>,
 +                     <&camcc CAM_CC_IFE_LITE_0_CLK>,
 +                     <&camcc CAM_CC_IFE_LITE_0_CPHY_RX_CLK>,
 +                     <&camcc CAM_CC_IFE_LITE_0_CSID_CLK>,
-+                     <&camcc CAM_CC_IFE_1_CLK>,
+                      <&camcc CAM_CC_IFE_1_CLK>,
 +                     <&camcc CAM_CC_IFE_1_AXI_CLK>,
-+                     <&camcc CAM_CC_IFE_1_CPHY_RX_CLK>,
-+                     <&camcc CAM_CC_IFE_1_CSID_CLK>,
+                      <&camcc CAM_CC_IFE_1_CPHY_RX_CLK>,
+                      <&camcc CAM_CC_IFE_1_CSID_CLK>,
+-                     <&camcc CAM_CC_IFE_1_AREG_CLK>,
+-                     <&camcc CAM_CC_IFE_LITE_AHB_CLK>,
+-                     <&camcc CAM_CC_IFE_LITE_AXI_CLK>,
+-                     <&camcc CAM_CC_IFE_LITE_CLK>,
+-                     <&camcc CAM_CC_IFE_LITE_CPHY_RX_CLK>,
+-                     <&camcc CAM_CC_IFE_LITE_CSID_CLK>;
+-            clock-names = "cam_ahb_clk",
+-                          "cam_hf_axi",
+-                          "cam_sf_axi",
+-                          "camnoc_axi",
+-                          "camnoc_axi_src",
+-                          "core_ahb",
+-                          "cpas_ahb",
 +                     <&camcc CAM_CC_IFE_LITE_1_CLK>,
 +                     <&camcc CAM_CC_IFE_LITE_1_CPHY_RX_CLK>,
 +                     <&camcc CAM_CC_IFE_LITE_1_CSID_CLK>,
@@ -350,30 +489,59 @@ index 0000000..b27d4af
 +                     <&camcc CAM_CC_IFE_2_CPHY_RX_CLK>,
 +                     <&camcc CAM_CC_IFE_2_CSID_CLK>;
 +            clock-names = "camnoc_axi",
-+                          "csiphy0",
-+                          "csiphy0_timer",
-+                          "csiphy1",
-+                          "csiphy1_timer",
-+                          "csiphy2",
-+                          "csiphy2_timer",
-+                          "csiphy3",
-+                          "csiphy3_timer",
-+                          "csiphy4",
-+                          "csiphy4_timer",
+                           "csiphy0",
+                           "csiphy0_timer",
+                           "csiphy1",
+@@ -416,44 +339,73 @@ examples:
+                           "csiphy3_timer",
+                           "csiphy4",
+                           "csiphy4_timer",
+-                          "csiphy5",
+-                          "csiphy5_timer",
+-                          "slow_ahb_src",
+-                          "vfe0_ahb",
+-                          "vfe0_axi",
 +                          "gcc_camera_ahb",
 +                          "gcc_cam_hf_axi",
 +                          "soc_ahb",
-+                          "vfe0",
+                           "vfe0",
 +                          "vfe0_axi",
-+                          "vfe0_cphy_rx",
-+                          "vfe0_csid",
+                           "vfe0_cphy_rx",
+                           "vfe0_csid",
+-                          "vfe0_areg",
+-                          "vfe1_ahb",
+-                          "vfe1_axi",
 +                          "vfe0_lite",
 +                          "vfe0_lite_cphy_rx",
 +                          "vfe0_lite_csid",
-+                          "vfe1",
+                           "vfe1",
 +                          "vfe1_axi",
-+                          "vfe1_cphy_rx",
-+                          "vfe1_csid",
+                           "vfe1_cphy_rx",
+                           "vfe1_csid",
+-                          "vfe1_areg",
+-                          "vfe_lite_ahb",
+-                          "vfe_lite_axi",
+-                          "vfe_lite",
+-                          "vfe_lite_cphy_rx",
+-                          "vfe_lite_csid";
+-
+-            iommus = <&apps_smmu 0x800 0x400>,
+-                     <&apps_smmu 0x801 0x400>,
+-                     <&apps_smmu 0x840 0x400>,
+-                     <&apps_smmu 0x841 0x400>,
+-                     <&apps_smmu 0xC00 0x400>,
+-                     <&apps_smmu 0xC01 0x400>,
+-                     <&apps_smmu 0xC40 0x400>,
+-                     <&apps_smmu 0xC41 0x400>;
+-
+-            interconnects = <&gem_noc MASTER_AMPSS_M0 &config_noc SLAVE_CAMERA_CFG>,
+-                            <&mmss_noc MASTER_CAMNOC_HF &mc_virt SLAVE_EBI_CH0>,
+-                            <&mmss_noc MASTER_CAMNOC_SF &mc_virt SLAVE_EBI_CH0>,
+-                            <&mmss_noc MASTER_CAMNOC_ICP &mc_virt SLAVE_EBI_CH0>;
+-            interconnect-names = "cam_ahb",
+-                                 "cam_hf_0_mnoc",
+-                                 "cam_sf_0_mnoc",
+-                                 "cam_sf_icp_mnoc";
 +                          "vfe1_lite",
 +                          "vfe1_lite_cphy_rx",
 +                          "vfe1_lite_csid",
@@ -427,10 +595,6 @@ index 0000000..b27d4af
 +
 +            vdda-phy-supply = <&vreg_l10c_0p88>;
 +            vdda-pll-supply = <&vreg_l6b_1p2>;
-+
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+            };
-+        };
-+    };
+ 
+             ports {
+                 #address-cells = <1>;
