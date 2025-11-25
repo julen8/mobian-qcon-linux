@@ -1,0 +1,5 @@
+linux-6.18-sm7150 (6.18~rc7-1) UNRELEASED; urgency=medium
+
+  * Initial 6.18 release
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Thu, 06 Oct 2022 14:38:14 +0200
