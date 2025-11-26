@@ -1,0 +1,24 @@
+From: Jens Reidel <adrian@travitia.xyz>
+Date: Mon, 11 Mar 2024 00:01:51 +0100
+Subject: dts: xiaomi-davinci: add charge-full-design-microamp-hours
+
+Signed-off-by: Jens Reidel <adrian@travitia.xyz>
+---
+ arch/arm64/boot/dts/qcom/sm7150-xiaomi-davinci.dts | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm7150-xiaomi-davinci.dts b/arch/arm64/boot/dts/qcom/sm7150-xiaomi-davinci.dts
+index 8901aa1..1f3cded 100644
+--- a/arch/arm64/boot/dts/qcom/sm7150-xiaomi-davinci.dts
++++ b/arch/arm64/boot/dts/qcom/sm7150-xiaomi-davinci.dts
+@@ -89,6 +89,10 @@ rmtfs_mem: rmtfs@f2e01000 {
+ 	};
+ };
+ 
++&battery {
++	charge-full-design-microamp-hours = <4000000>;
++};
++
+ &framebuffer {
+ 	reg = <0x0 0x9c000000 0x0 (1080 * 2340 * 4)>;
+ 	height = <2340>;
