@@ -25,7 +25,6 @@ sm6350/0024-arm64-dts-qcom-sm7225-fairphone-fp4-Add-camera-EEPRO.patch
 sm6350/0025-fixup-fp4_defconfig-add-defconfig.patch
 sm6350/0026-FROMLIST-v1-clk-qcom-camcc-sm6350-Fix-PLL-config-of-.patch
 sm6350/0027-FROMLIST-v1-clk-qcom-camcc-sm6350-Specify-Titan-GDSC.patch
-sm6350/0028-FROMLIST-v1-drm-msm-Fix-GEM-free-for-imported-dma-bu.patch
 sm6350/0029-FROMGIT-media-qcom-camss-remove-.link_entities-callb.patch
 sm6350/0030-FROMLIST-v1-dt-bindings-media-camss-Add-qcom-sm6350-.patch
 sm6350/0031-FROMLIST-v1-media-qcom-camss-Add-SM6350-support.patch
