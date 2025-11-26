@@ -1,0 +1,27 @@
+From: Danila Tikhonov <danila@jiaxyga.com>
+Date: Fri, 8 Sep 2023 21:33:13 +0300
+Subject: FROMLIST: dt-bindings: net: qcom,ipa: Add the SM7150 compatible
+
+SM7150 and SC7180 both use IPA v4.2. Define corresponding compatible
+string, having the SC7180 as a fallback.
+
+Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
+---
+ Documentation/devicetree/bindings/net/qcom,ipa.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/net/qcom,ipa.yaml b/Documentation/devicetree/bindings/net/qcom,ipa.yaml
+index b4a7991..efd644b 100644
+--- a/Documentation/devicetree/bindings/net/qcom,ipa.yaml
++++ b/Documentation/devicetree/bindings/net/qcom,ipa.yaml
+@@ -54,6 +54,10 @@ properties:
+           - qcom,sm6350-ipa
+           - qcom,sm8350-ipa
+           - qcom,sm8550-ipa
++      - items:
++          - enum:
++              - qcom,sm7150-ipa
++          - const: qcom,sc7180-ipa
+       - items:
+           - enum:
+               - qcom,sm8650-ipa
