@@ -1,0 +1,79 @@
+From: Danila Tikhonov <danila@jiaxyga.com>
+Date: Fri, 21 Feb 2025 22:35:04 +0300
+Subject: FROMLIST: dt-bindings: clock: qcom-rpmhcc: Add the SM7150 compatible
+
+Update the documentation for clock rpmh driver on SM7150 SoCs.
+
+Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
+---
+ .../devicetree/bindings/clock/qcom,rpmhcc.yaml     | 57 ++++++++++++----------
+ 1 file changed, 31 insertions(+), 26 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml b/Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml
+index 78fa057..2c4a285 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml
+@@ -16,32 +16,37 @@ description: |
+ 
+ properties:
+   compatible:
+-    enum:
+-      - qcom,glymur-rpmh-clk
+-      - qcom,milos-rpmh-clk
+-      - qcom,qcs615-rpmh-clk
+-      - qcom,qdu1000-rpmh-clk
+-      - qcom,sa8775p-rpmh-clk
+-      - qcom,sar2130p-rpmh-clk
+-      - qcom,sc7180-rpmh-clk
+-      - qcom,sc7280-rpmh-clk
+-      - qcom,sc8180x-rpmh-clk
+-      - qcom,sc8280xp-rpmh-clk
+-      - qcom,sdm670-rpmh-clk
+-      - qcom,sdm845-rpmh-clk
+-      - qcom,sdx55-rpmh-clk
+-      - qcom,sdx65-rpmh-clk
+-      - qcom,sdx75-rpmh-clk
+-      - qcom,sm4450-rpmh-clk
+-      - qcom,sm6350-rpmh-clk
+-      - qcom,sm8150-rpmh-clk
+-      - qcom,sm8250-rpmh-clk
+-      - qcom,sm8350-rpmh-clk
+-      - qcom,sm8450-rpmh-clk
+-      - qcom,sm8550-rpmh-clk
+-      - qcom,sm8650-rpmh-clk
+-      - qcom,sm8750-rpmh-clk
+-      - qcom,x1e80100-rpmh-clk
++    oneOf:
++      - enum:
++        - qcom,glymur-rpmh-clk
++        - qcom,milos-rpmh-clk
++        - qcom,qcs615-rpmh-clk
++        - qcom,qdu1000-rpmh-clk
++        - qcom,sa8775p-rpmh-clk
++        - qcom,sar2130p-rpmh-clk
++        - qcom,sc7180-rpmh-clk
++        - qcom,sc7280-rpmh-clk
++        - qcom,sc8180x-rpmh-clk
++        - qcom,sc8280xp-rpmh-clk
++        - qcom,sdm670-rpmh-clk
++        - qcom,sdm845-rpmh-clk
++        - qcom,sdx55-rpmh-clk
++        - qcom,sdx65-rpmh-clk
++        - qcom,sdx75-rpmh-clk
++        - qcom,sm4450-rpmh-clk
++        - qcom,sm6350-rpmh-clk
++        - qcom,sm8150-rpmh-clk
++        - qcom,sm8250-rpmh-clk
++        - qcom,sm8350-rpmh-clk
++        - qcom,sm8450-rpmh-clk
++        - qcom,sm8550-rpmh-clk
++        - qcom,sm8650-rpmh-clk
++        - qcom,sm8750-rpmh-clk
++        - qcom,x1e80100-rpmh-clk
++      - items:
++        - enum:
++          - qcom,sm7150-rpmh-clk
++        - const: qcom,sc7180-rpmh-clk
+ 
+   clocks:
+     maxItems: 1

@@ -1,0 +1,50 @@
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Date: Wed, 22 Oct 2025 02:44:48 +0300
+Subject: FROMGIT: clk: qcom: camcc-sm7150: Specify Titan GDSC power domain as
+ a parent to IPEx and BPS
+
+When a consumer turns on/off a power domain dependent on another power
+domain in hardware, the parent power domain shall be turned on/off by
+the power domain provider as well, and to get it the power domain hardware
+hierarchy shall be described in the CAMCC driver.
+
+Establish the power domain hierarchy with a Titan GDSC set as a parent of
+other GDSC power domains provided by the SM7150 camera clock controller,
+including IPE0/1 and BPS ones.
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Signed-off-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+---
+ drivers/clk/qcom/camcc-sm7150.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/clk/qcom/camcc-sm7150.c b/drivers/clk/qcom/camcc-sm7150.c
+index 590548c..8b06af8 100644
+--- a/drivers/clk/qcom/camcc-sm7150.c
++++ b/drivers/clk/qcom/camcc-sm7150.c
+@@ -1842,6 +1842,7 @@ static struct gdsc camcc_bps_gdsc = {
+ 		.name = "camcc_bps_gdsc",
+ 	},
+ 	.flags = HW_CTRL | POLL_CFG_GDSCR,
++	.parent = &camcc_titan_top_gdsc.pd,
+ 	.pwrsts = PWRSTS_OFF_ON,
+ };
+ 
+@@ -1871,6 +1872,7 @@ static struct gdsc camcc_ipe_0_gdsc = {
+ 		.name = "camcc_ipe_0_gdsc",
+ 	},
+ 	.flags = HW_CTRL | POLL_CFG_GDSCR,
++	.parent = &camcc_titan_top_gdsc.pd,
+ 	.pwrsts = PWRSTS_OFF_ON,
+ };
+ 
+@@ -1880,6 +1882,7 @@ static struct gdsc camcc_ipe_1_gdsc = {
+ 		.name = "camcc_ipe_1_gdsc",
+ 	},
+ 	.flags = HW_CTRL | POLL_CFG_GDSCR,
++	.parent = &camcc_titan_top_gdsc.pd,
+ 	.pwrsts = PWRSTS_OFF_ON,
+ };
+ 

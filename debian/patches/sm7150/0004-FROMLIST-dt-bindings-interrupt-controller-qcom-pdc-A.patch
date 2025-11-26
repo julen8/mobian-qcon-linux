@@ -1,0 +1,25 @@
+From: David Wronek <david@mainlining.org>
+Date: Fri, 8 Sep 2023 22:00:13 +0300
+Subject: FROMLIST: dt-bindings: interrupt-controller: qcom-pdc: Add the
+ SM7150 compatible
+
+Add a compatible for the Power Domain Controller on SM7150 platforms.
+
+Signed-off-by: David Wronek <david@mainlining.org>
+Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
+---
+ Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml b/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml
+index 38d0c2d..75b80c1 100644
+--- a/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml
++++ b/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml
+@@ -44,6 +44,7 @@ properties:
+           - qcom,sdx75-pdc
+           - qcom,sm4450-pdc
+           - qcom,sm6350-pdc
++          - qcom,sm7150-pdc
+           - qcom,sm8150-pdc
+           - qcom,sm8250-pdc
+           - qcom,sm8350-pdc
