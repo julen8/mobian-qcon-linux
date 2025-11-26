@@ -16,8 +16,8 @@ diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/drivers/
 index 88c0ba4..557432b 100644
 --- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
 +++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-@@ -319,6 +319,126 @@ csiphy_lane_regs lane_regs_sm8250[] = {
- 	{0x0884, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
+@@ -403,6 +403,126 @@ csiphy_lane_regs lane_regs_qcm2290[] = {
+ 	{0x0664, 0x3f, 0x00, CSIPHY_DEFAULT_PARAMS},
  };
  
 +/* GEN2 1.2.3 2PH */
@@ -148,12 +148,12 @@ index 88c0ba4..557432b 100644
  
  	switch (version) {
 +	case CAMSS_6350:
+ 	case CAMSS_2290:
  	case CAMSS_7280:
  	case CAMSS_8250:
- 	case CAMSS_8280XP:
 @@ -829,6 +950,10 @@ static int csiphy_init(struct csiphy_device *csiphy)
- 		regs->lane_regs = &lane_regs_sdm845[0];
- 		regs->lane_array_size = ARRAY_SIZE(lane_regs_sdm845);
+ 		regs->lane_regs = &lane_regs_qcm2290[0];
+ 		regs->lane_array_size = ARRAY_SIZE(lane_regs_qcm2290);
  		break;
 +	case CAMSS_6350:
 +		regs->lane_regs = &lane_regs_sm6350[0];
@@ -466,5 +466,5 @@ index 1d0f83e..2d23452 100644
  enum camss_version {
 +	CAMSS_6350,
  	CAMSS_660,
+ 	CAMSS_2290,
  	CAMSS_7280,
- 	CAMSS_8x16,
