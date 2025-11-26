@@ -1,0 +1,23 @@
+From: Jens Reidel <adrian@mainlining.org>
+Date: Thu, 14 Aug 2025 05:06:31 +0200
+Subject: dt-bindings: crypto: qcom,prng: document SM7150
+
+Document SM7150 compatible for True Random Number Generator.
+
+Signed-off-by: Jens Reidel <adrian@mainlining.org>
+---
+ Documentation/devicetree/bindings/crypto/qcom,prng.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/crypto/qcom,prng.yaml b/Documentation/devicetree/bindings/crypto/qcom,prng.yaml
+index ed7e16b..0a9b0e7 100644
+--- a/Documentation/devicetree/bindings/crypto/qcom,prng.yaml
++++ b/Documentation/devicetree/bindings/crypto/qcom,prng.yaml
+@@ -25,6 +25,7 @@ properties:
+               - qcom,sa8255p-trng
+               - qcom,sa8775p-trng
+               - qcom,sc7280-trng
++              - qcom,sm7150-trng
+               - qcom,sm8450-trng
+               - qcom,sm8550-trng
+               - qcom,sm8650-trng
