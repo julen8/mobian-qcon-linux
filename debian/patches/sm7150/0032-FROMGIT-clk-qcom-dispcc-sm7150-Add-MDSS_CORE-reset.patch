@@ -1,0 +1,43 @@
+From: Jens Reidel <adrian@mainlining.org>
+Date: Fri, 19 Sep 2025 12:38:55 +0200
+Subject: FROMGIT: clk: qcom: dispcc-sm7150: Add MDSS_CORE reset
+
+Add the offsets for a reset inside the dispcc on SM7150 SoC.
+
+Signed-off-by: Jens Reidel <adrian@mainlining.org>
+---
+ drivers/clk/qcom/dispcc-sm7150.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/clk/qcom/dispcc-sm7150.c b/drivers/clk/qcom/dispcc-sm7150.c
+index bdfff24..0a7f6ec 100644
+--- a/drivers/clk/qcom/dispcc-sm7150.c
++++ b/drivers/clk/qcom/dispcc-sm7150.c
+@@ -20,6 +20,7 @@
+ #include "clk-regmap-divider.h"
+ #include "common.h"
+ #include "gdsc.h"
++#include "reset.h"
+ 
+ enum {
+ 	DT_BI_TCXO,
+@@ -951,6 +952,10 @@ static struct gdsc *dispcc_sm7150_gdscs[] = {
+ 	[MDSS_GDSC] = &mdss_gdsc,
+ };
+ 
++static const struct qcom_reset_map dispcc_sm7150_resets[] = {
++	[DISPCC_MDSS_CORE_BCR] = { 0x2000 },
++};
++
+ static const struct regmap_config dispcc_sm7150_regmap_config = {
+ 	.reg_bits	= 32,
+ 	.reg_stride	= 4,
+@@ -965,6 +970,8 @@ static const struct qcom_cc_desc dispcc_sm7150_desc = {
+ 	.num_clks = ARRAY_SIZE(dispcc_sm7150_clocks),
+ 	.gdscs = dispcc_sm7150_gdscs,
+ 	.num_gdscs = ARRAY_SIZE(dispcc_sm7150_gdscs),
++	.resets = dispcc_sm7150_resets,
++	.num_resets = ARRAY_SIZE(dispcc_sm7150_resets),
+ };
+ 
+ static const struct of_device_id dispcc_sm7150_match_table[] = {
