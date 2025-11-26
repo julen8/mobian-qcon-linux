@@ -1,0 +1,94 @@
+From: Jens Reidel <adrian@mainlining.org>
+Date: Thu, 18 Sep 2025 16:02:48 +0200
+Subject: FROMLIST: dt-bindings: input: document Goodix GTX8 Touchscreen ICs
+
+Document the Goodix GT9886 and GT9896 which are part of the GTX8 series
+of Touchscreen controller ICs from Goodix.
+
+Signed-off-by: Jens Reidel <adrian@mainlining.org>
+---
+ .../{himax,hx83112b.yaml => goodix,gt9886.yaml}    | 35 +++++++++++++---------
+ 1 file changed, 21 insertions(+), 14 deletions(-)
+ copy Documentation/devicetree/bindings/input/touchscreen/{himax,hx83112b.yaml => goodix,gt9886.yaml} (51%)
+
+diff --git a/Documentation/devicetree/bindings/input/touchscreen/himax,hx83112b.yaml b/Documentation/devicetree/bindings/input/touchscreen/goodix,gt9886.yaml
+similarity index 51%
+copy from Documentation/devicetree/bindings/input/touchscreen/himax,hx83112b.yaml
+copy to Documentation/devicetree/bindings/input/touchscreen/goodix,gt9886.yaml
+index f5cfacb..b163503 100644
+--- a/Documentation/devicetree/bindings/input/touchscreen/himax,hx83112b.yaml
++++ b/Documentation/devicetree/bindings/input/touchscreen/goodix,gt9886.yaml
+@@ -1,13 +1,13 @@
+-# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+ %YAML 1.2
+ ---
+-$id: http://devicetree.org/schemas/input/touchscreen/himax,hx83112b.yaml#
++$id: http://devicetree.org/schemas/input/touchscreen/goodix,gt9886.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Himax hx83112b touchscreen controller
++title: Goodix GTX8 series touchscreen controller
+ 
+ maintainers:
+-  - Job Noorman <job@noorman.info>
++  - Jens Reidel <adrian@mainlining.org>
+ 
+ allOf:
+   - $ref: touchscreen.yaml#
+@@ -15,8 +15,8 @@ allOf:
+ properties:
+   compatible:
+     enum:
+-      - himax,hx83100a
+-      - himax,hx83112b
++      - goodix,gt9886
++      - goodix,gt9896
+ 
+   reg:
+     maxItems: 1
+@@ -27,6 +27,12 @@ properties:
+   reset-gpios:
+     maxItems: 1
+ 
++  avdd-supply:
++    description: Analog power supply regulator on AVDD pin
++
++  vddio-supply:
++    description: power supply regulator on VDDIO pin
++
+   touchscreen-inverted-x: true
+   touchscreen-inverted-y: true
+   touchscreen-size-x: true
+@@ -39,7 +45,7 @@ required:
+   - compatible
+   - reg
+   - interrupts
+-  - reset-gpios
++  - avdd-supply
+   - touchscreen-size-x
+   - touchscreen-size-y
+ 
+@@ -50,14 +56,15 @@ examples:
+     i2c {
+       #address-cells = <1>;
+       #size-cells = <0>;
+-      touchscreen@48 {
+-        compatible = "himax,hx83112b";
+-        reg = <0x48>;
+-        interrupt-parent = <&tlmm>;
+-        interrupts = <65 IRQ_TYPE_LEVEL_LOW>;
++      touchscreen@5d {
++        compatible = "goodix,gt9886";
++        reg = <0x5d>;
++        interrupt-parent = <&gpio>;
++        interrupts = <9 IRQ_TYPE_LEVEL_LOW>;
++        reset-gpios = <&gpio1 8 GPIO_ACTIVE_LOW>;
++        avdd-supply = <&ts_avdd>;
+         touchscreen-size-x = <1080>;
+-        touchscreen-size-y = <2160>;
+-        reset-gpios = <&tlmm 64 GPIO_ACTIVE_LOW>;
++        touchscreen-size-y = <2340>;
+       };
+     };
+ 
