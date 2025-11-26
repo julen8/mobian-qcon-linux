@@ -1,0 +1,22 @@
+From: Jens Reidel <adrian@mainlining.org>
+Date: Thu, 23 Oct 2025 13:23:48 +0200
+Subject: video: backlight: qcom-wled: Set don't enable WLED OVP IRQ upfront
+
+Signed-off-by: Jens Reidel <adrian@mainlining.org>
+---
+ drivers/video/backlight/qcom-wled.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backlight/qcom-wled.c
+index a63bb42..9cb90c3 100644
+--- a/drivers/video/backlight/qcom-wled.c
++++ b/drivers/video/backlight/qcom-wled.c
+@@ -1598,7 +1598,7 @@ static int wled_configure_ovp_irq(struct wled *wled,
+ 	}
+ 
+ 	rc = devm_request_threaded_irq(wled->dev, wled->ovp_irq, NULL,
+-				       wled_ovp_irq_handler, IRQF_ONESHOT,
++				       wled_ovp_irq_handler, IRQF_ONESHOT | IRQF_NO_AUTOEN,
+ 				       "wled_ovp_irq", wled);
+ 	if (rc < 0) {
+ 		dev_err(wled->dev, "Unable to request ovp_irq (err:%d)\n",
