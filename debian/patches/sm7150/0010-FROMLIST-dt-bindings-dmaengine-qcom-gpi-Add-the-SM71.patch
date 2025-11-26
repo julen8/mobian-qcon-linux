@@ -1,0 +1,25 @@
+From: Danila Tikhonov <danila@jiaxyga.com>
+Date: Fri, 8 Sep 2023 21:23:18 +0300
+Subject: FROMLIST: dt-bindings: dmaengine: qcom: gpi: Add the SM7150
+ compatible
+
+Add a compatible for the GPI DMA controller on SM7150. It uses the same
+0x0 offset as SDM845.
+
+Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
+---
+ Documentation/devicetree/bindings/dma/qcom,gpi.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/dma/qcom,gpi.yaml b/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
+index bbe4da2..589d0ae 100644
+--- a/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
++++ b/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
+@@ -47,6 +47,7 @@ properties:
+               - qcom,qcs615-gpi-dma
+               - qcom,sdm670-gpi-dma
+               - qcom,sm6125-gpi-dma
++              - qcom,sm7150-gpi-dma
+               - qcom,sm8150-gpi-dma
+               - qcom,sm8250-gpi-dma
+           - const: qcom,sdm845-gpi-dma
