@@ -1,0 +1,25 @@
+From: Jens Reidel <adrian@mainlining.org>
+Date: Fri, 19 Sep 2025 12:35:45 +0200
+Subject: FROMGIT: dt-bindings: clock: sm7150-dispcc: Add MDSS_CORE reset
+
+Add the index for a reset inside the dispcc on SM7150 SoC.
+
+Signed-off-by: Jens Reidel <adrian@mainlining.org>
+---
+ include/dt-bindings/clock/qcom,sm7150-dispcc.h | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/include/dt-bindings/clock/qcom,sm7150-dispcc.h b/include/dt-bindings/clock/qcom,sm7150-dispcc.h
+index fc1fefe..1e4e643 100644
+--- a/include/dt-bindings/clock/qcom,sm7150-dispcc.h
++++ b/include/dt-bindings/clock/qcom,sm7150-dispcc.h
+@@ -53,6 +53,9 @@
+ #define DISPCC_SLEEP_CLK			41
+ #define DISPCC_SLEEP_CLK_SRC			42
+ 
++/* DISPCC resets */
++#define DISPCC_MDSS_CORE_BCR			0
++
+ /* DISPCC GDSCR */
+ #define MDSS_GDSC				0
+ 
