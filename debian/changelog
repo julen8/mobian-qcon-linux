@@ -1,3 +1,9 @@
+linux-6.18-sm7150 (6.18-1) unstable; urgency=medium
+
+  * Rebase on 6.18
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Mon, 01 Dec 2025 11:54:41 +0100
+
 linux-6.18-sm7150 (6.18~rc7-1) unstable; urgency=medium
 
   * Initial 6.18 release
