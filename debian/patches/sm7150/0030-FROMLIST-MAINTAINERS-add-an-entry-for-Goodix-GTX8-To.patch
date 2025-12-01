@@ -11,7 +11,7 @@ Signed-off-by: Jens Reidel <adrian@mainlining.org>
  1 file changed, 7 insertions(+)
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 6df89b1..22867e2 100644
+index e8f0614..752a6fa 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
 @@ -10572,6 +10572,13 @@ M:	Maud Spierings <maudspierings@gocontroll.com>
