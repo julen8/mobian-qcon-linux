@@ -13,7 +13,7 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  4 files changed, 377 insertions(+)
 
 diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-index 88c0ba4..557432b 100644
+index a128a42..b3f9347 100644
 --- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
 +++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
 @@ -403,6 +403,126 @@ csiphy_lane_regs lane_regs_qcm2290[] = {
@@ -143,7 +143,7 @@ index 88c0ba4..557432b 100644
  /* GEN2 2.1.2 2PH DPHY mode */
  static const struct
  csiphy_lane_regs lane_regs_sm8550[] = {
-@@ -744,6 +864,7 @@ static bool csiphy_is_gen2(u32 version)
+@@ -828,6 +948,7 @@ static bool csiphy_is_gen2(u32 version)
  	bool ret = false;
  
  	switch (version) {
@@ -151,7 +151,7 @@ index 88c0ba4..557432b 100644
  	case CAMSS_2290:
  	case CAMSS_7280:
  	case CAMSS_8250:
-@@ -829,6 +950,10 @@ static int csiphy_init(struct csiphy_device *csiphy)
+@@ -918,6 +1039,10 @@ static int csiphy_init(struct csiphy_device *csiphy)
  		regs->lane_regs = &lane_regs_qcm2290[0];
  		regs->lane_array_size = ARRAY_SIZE(lane_regs_qcm2290);
  		break;
@@ -457,7 +457,7 @@ index aa0f6e2..d44932e 100644
  	{ .compatible = "qcom,sm8550-camss", .data = &sm8550_resources },
  	{ .compatible = "qcom,x1e80100-camss", .data = &x1e80100_resources },
 diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
-index 1d0f83e..2d23452 100644
+index f85ace1..3edc4b1 100644
 --- a/drivers/media/platform/qcom/camss/camss.h
 +++ b/drivers/media/platform/qcom/camss/camss.h
 @@ -77,6 +77,7 @@ enum pm_domain {

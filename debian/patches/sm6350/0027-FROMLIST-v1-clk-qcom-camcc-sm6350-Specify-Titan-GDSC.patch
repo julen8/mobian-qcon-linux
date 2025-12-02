@@ -17,7 +17,7 @@ Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
  1 file changed, 7 insertions(+)
 
 diff --git a/drivers/clk/qcom/camcc-sm6350.c b/drivers/clk/qcom/camcc-sm6350.c
-index 8780639..7df12c13 100644
+index 8780639..7df12c1 100644
 --- a/drivers/clk/qcom/camcc-sm6350.c
 +++ b/drivers/clk/qcom/camcc-sm6350.c
 @@ -1689,6 +1689,8 @@ static struct clk_branch camcc_sys_tmr_clk = {
