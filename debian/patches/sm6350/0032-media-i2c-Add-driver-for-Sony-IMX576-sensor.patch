@@ -11,7 +11,7 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
  create mode 100644 drivers/media/i2c/imx576.c
 
 diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 6237fe8..f245e1a6e 100644
+index 1f5a308..c9ba3eb 100644
 --- a/drivers/media/i2c/Kconfig
 +++ b/drivers/media/i2c/Kconfig
 @@ -267,6 +267,17 @@ config VIDEO_IMX415
@@ -46,7 +46,7 @@ index 5873d29..057dca9 100644
  obj-$(CONFIG_VIDEO_KS0127) += ks0127.o
 diff --git a/drivers/media/i2c/imx576.c b/drivers/media/i2c/imx576.c
 new file mode 100644
-index 00000000..86945a1
+index 0000000..86945a1
 --- /dev/null
 +++ b/drivers/media/i2c/imx576.c
 @@ -0,0 +1,1259 @@
