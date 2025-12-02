@@ -12,7 +12,7 @@ Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 
 diff --git a/Documentation/devicetree/bindings/media/qcom,sm6350-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sm6350-camss.yaml
 new file mode 100644
-index 00000000..e816986
+index 0000000..e816986
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/media/qcom,sm6350-camss.yaml
 @@ -0,0 +1,349 @@

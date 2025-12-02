@@ -126,10 +126,10 @@ index e08e70b..aa0f6e2 100644
  
  static const struct of_device_id camss_dt_match[] = {
 diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
-index 63c0afe..1d0f83e 100644
+index 377707d..f85ace1 100644
 --- a/drivers/media/platform/qcom/camss/camss.h
 +++ b/drivers/media/platform/qcom/camss/camss.h
-@@ -107,7 +107,6 @@ struct camss_resources {
+@@ -108,7 +108,6 @@ struct camss_resources {
  	const unsigned int csiphy_num;
  	const unsigned int csid_num;
  	const unsigned int vfe_num;
