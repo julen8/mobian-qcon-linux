@@ -1,3 +1,9 @@
+linux-6.17-sm6350 (6.17.11-1) unstable; urgency=medium
+
+  * Rebase on 6.17.11
+
+ -- Mobot <group_9279_bot_3d620cd42b5548cd487aa9eaff458c11@noreply.salsa.debian.org>  Sun, 07 Dec 2025 06:36:48 +0000
+
 linux-6.17-sm6350 (6.17.10-1) unstable; urgency=medium
 
   * Rebase on 6.17.10
