@@ -11,7 +11,7 @@ Subject: [PATCH] media: i2c: Add imx519 image sensor driver
  create mode 100644 drivers/media/i2c/imx519.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 90c0319..7b206b6 100644
+index 1985a56..a5ec955 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
 @@ -21551,6 +21551,14 @@ T:	git git://linuxtv.org/media.git
