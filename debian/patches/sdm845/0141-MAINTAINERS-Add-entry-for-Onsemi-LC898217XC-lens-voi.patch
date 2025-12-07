@@ -10,7 +10,7 @@ Signed-off-by: Vasiliy Doylov <nekocwd@mainlining.org>
  1 file changed, 8 insertions(+)
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 7b206b6..1a5b25f 100644
+index a5ec955..47cb97e 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
 @@ -17249,6 +17249,14 @@ S:	Supported
