@@ -44,7 +44,7 @@ index cc482d3..8de6cfb 100644
  obj-$(CONFIG_DRM_PANEL_SAMSUNG_LD9040) += panel-samsung-ld9040.o
 diff --git a/drivers/gpu/drm/panel/panel-samsung-ams667yr01.c b/drivers/gpu/drm/panel/panel-samsung-ams667yr01.c
 new file mode 100644
-index 00000000..5f92d08
+index 0000000..5f92d08
 --- /dev/null
 +++ b/drivers/gpu/drm/panel/panel-samsung-ams667yr01.c
 @@ -0,0 +1,385 @@
