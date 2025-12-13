@@ -33,7 +33,7 @@ index 992782c..fd46a3a 100644
  dtb-$(CONFIG_ARCH_QCOM)	+= sm8150-hdk.dtb
 diff --git a/arch/arm64/boot/dts/qcom/sm7150-xiaomi-surya-huaxing.dts b/arch/arm64/boot/dts/qcom/sm7150-xiaomi-surya-huaxing.dts
 new file mode 100644
-index 00000000..c0fafcf
+index 0000000..c0fafcf
 --- /dev/null
 +++ b/arch/arm64/boot/dts/qcom/sm7150-xiaomi-surya-huaxing.dts
 @@ -0,0 +1,25 @@
@@ -64,7 +64,7 @@ index 00000000..c0fafcf
 +};
 diff --git a/arch/arm64/boot/dts/qcom/sm7150-xiaomi-surya-tianma.dts b/arch/arm64/boot/dts/qcom/sm7150-xiaomi-surya-tianma.dts
 new file mode 100644
-index 00000000..78821647
+index 0000000..7882164
 --- /dev/null
 +++ b/arch/arm64/boot/dts/qcom/sm7150-xiaomi-surya-tianma.dts
 @@ -0,0 +1,25 @@
@@ -95,7 +95,7 @@ index 00000000..78821647
 +};
 diff --git a/arch/arm64/boot/dts/qcom/sm7150-xiaomi-surya.dtsi b/arch/arm64/boot/dts/qcom/sm7150-xiaomi-surya.dtsi
 new file mode 100644
-index 00000000..f0be66e
+index 0000000..f0be66e
 --- /dev/null
 +++ b/arch/arm64/boot/dts/qcom/sm7150-xiaomi-surya.dtsi
 @@ -0,0 +1,462 @@
