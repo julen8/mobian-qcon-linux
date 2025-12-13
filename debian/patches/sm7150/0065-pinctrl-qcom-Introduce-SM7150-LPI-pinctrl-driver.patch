@@ -46,7 +46,7 @@ index 567d305..683c339 100644
  obj-$(CONFIG_PINCTRL_SM8250_LPASS_LPI) += pinctrl-sm8250-lpass-lpi.o
 diff --git a/drivers/pinctrl/qcom/pinctrl-sm7150-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-sm7150-lpass-lpi.c
 new file mode 100644
-index 00000000..94b9b87
+index 0000000..94b9b87
 --- /dev/null
 +++ b/drivers/pinctrl/qcom/pinctrl-sm7150-lpass-lpi.c
 @@ -0,0 +1,154 @@
