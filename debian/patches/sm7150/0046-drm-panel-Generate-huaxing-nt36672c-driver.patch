@@ -45,7 +45,7 @@ index 3615a76..b8c1260 100644
  obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9341) += panel-ilitek-ili9341.o
 diff --git a/drivers/gpu/drm/panel/panel-huaxing-nt36672c.c b/drivers/gpu/drm/panel/panel-huaxing-nt36672c.c
 new file mode 100644
-index 00000000..428ee60
+index 0000000..428ee60
 --- /dev/null
 +++ b/drivers/gpu/drm/panel/panel-huaxing-nt36672c.c
 @@ -0,0 +1,341 @@

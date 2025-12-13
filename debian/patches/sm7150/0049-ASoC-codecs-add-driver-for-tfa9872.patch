@@ -53,7 +53,7 @@ index bd95a7c..63be76f 100644
  obj-$(CONFIG_SND_SOC_TLV320ADC3XXX)	+= snd-soc-tlv320adc3xxx.o
 diff --git a/sound/soc/codecs/tfa9872.c b/sound/soc/codecs/tfa9872.c
 new file mode 100644
-index 00000000..26bed43
+index 0000000..26bed43
 --- /dev/null
 +++ b/sound/soc/codecs/tfa9872.c
 @@ -0,0 +1,317 @@
