@@ -47,7 +47,7 @@ index 57cdd8d..2a7ea73 100644
  obj-$(CONFIG_VIDEO_SAA6588) += saa6588.o
 diff --git a/drivers/media/i2c/s5k3l6xx.c b/drivers/media/i2c/s5k3l6xx.c
 new file mode 100644
-index 00000000..20ae1e0
+index 0000000..20ae1e0
 --- /dev/null
 +++ b/drivers/media/i2c/s5k3l6xx.c
 @@ -0,0 +1,1582 @@
