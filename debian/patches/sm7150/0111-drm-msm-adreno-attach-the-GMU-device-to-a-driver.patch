@@ -28,10 +28,10 @@ Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
  6 files changed, 194 insertions(+), 196 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 4e6dc16..4dfdba5 100644
+index 21a3f9b..9c57ebe 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -1862,11 +1862,14 @@ void a6xx_gmu_sysprof_setup(struct msm_gpu *gpu)
+@@ -1866,11 +1866,14 @@ void a6xx_gmu_sysprof_setup(struct msm_gpu *gpu)
  	pm_runtime_put(&gpu->pdev->dev);
  }
  
@@ -49,7 +49,7 @@ index 4e6dc16..4dfdba5 100644
  
  	mutex_lock(&gmu->lock);
  	if (!gmu->initialized) {
-@@ -1906,9 +1909,6 @@ void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu)
+@@ -1910,9 +1913,6 @@ void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu)
  		free_irq(gmu->gmu_irq, gmu);
  		free_irq(gmu->hfi_irq, gmu);
  	}
@@ -59,7 +59,7 @@ index 4e6dc16..4dfdba5 100644
  }
  
  static int cxpd_notifier_cb(struct notifier_block *nb,
-@@ -1922,195 +1922,137 @@ static int cxpd_notifier_cb(struct notifier_block *nb,
+@@ -1926,195 +1926,137 @@ static int cxpd_notifier_cb(struct notifier_block *nb,
  	return 0;
  }
  
@@ -354,7 +354,7 @@ index 4e6dc16..4dfdba5 100644
  	}
  
  	gmu->cxpd = dev_pm_domain_attach_by_name(gmu->dev, "cx");
-@@ -2125,11 +2067,13 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+@@ -2129,11 +2071,13 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
  		goto detach_cxpd;
  	}
  
@@ -373,7 +373,7 @@ index 4e6dc16..4dfdba5 100644
  	}
  
  	init_completion(&gmu->pd_gate);
-@@ -2142,18 +2086,20 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+@@ -2146,18 +2090,20 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
  	 */
  	gmu->gxpd = dev_pm_domain_attach_by_name(gmu->dev, "gx");
  
@@ -403,7 +403,7 @@ index 4e6dc16..4dfdba5 100644
  
  	gmu->initialized = true;
  
-@@ -2173,16 +2119,57 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+@@ -2177,16 +2123,57 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
  
  err_mmio:
  	iounmap(gmu->mmio);
@@ -470,10 +470,10 @@ index 4e6dc16..4dfdba5 100644
 +	platform_driver_unregister(&a6xx_gmu_drv);
 +}
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index b8f8ae9..d418f49 100644
+index 6f7ed07..18e8478 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -2352,8 +2352,6 @@ static void a6xx_destroy(struct msm_gpu *gpu)
+@@ -2358,8 +2358,6 @@ static void a6xx_destroy(struct msm_gpu *gpu)
  
  	a6xx_llc_slices_destroy(a6xx_gpu);
  
@@ -482,7 +482,7 @@ index b8f8ae9..d418f49 100644
  	adreno_gpu_cleanup(adreno_gpu);
  
  	kfree(a6xx_gpu);
-@@ -2689,10 +2687,6 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+@@ -2695,10 +2693,6 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
  	if (adreno_is_a618(adreno_gpu) || adreno_is_7c3(adreno_gpu))
  		priv->gpu_clamp_to_idle = true;
  
