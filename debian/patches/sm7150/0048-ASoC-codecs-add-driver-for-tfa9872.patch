@@ -16,10 +16,10 @@ ASoC: tfa9872: Remove non_legacy_dai_naming
  create mode 100644 sound/soc/codecs/tfa9872.c
 
 diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 160c076..91f8aa0 100644
+index 91ac99b..469b53b 100644
 --- a/sound/soc/codecs/Kconfig
 +++ b/sound/soc/codecs/Kconfig
-@@ -2151,6 +2151,11 @@ config SND_SOC_TDA7419
+@@ -2152,6 +2152,11 @@ config SND_SOC_TDA7419
  	depends on I2C
  	select REGMAP_I2C
  
@@ -32,10 +32,10 @@ index 160c076..91f8aa0 100644
  	tristate "NXP Semiconductors TFA9879 amplifier"
  	depends on I2C
 diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index bd95a7c..63be76f 100644
+index da40774..564198f 100644
 --- a/sound/soc/codecs/Makefile
 +++ b/sound/soc/codecs/Makefile
-@@ -320,6 +320,7 @@ snd-soc-tas2781-comlib-i2c-y := tas2781-comlib-i2c.o
+@@ -321,6 +321,7 @@ snd-soc-tas2781-comlib-i2c-y := tas2781-comlib-i2c.o
  snd-soc-tas2781-fmwlib-y := tas2781-fmwlib.o
  snd-soc-tas2781-i2c-y := tas2781-i2c.o
  snd-soc-tas2783-sdw-y := tas2783-sdw.o
@@ -43,7 +43,7 @@ index bd95a7c..63be76f 100644
  snd-soc-tfa9879-y := tfa9879.o
  snd-soc-tfa989x-y := tfa989x.o
  snd-soc-tlv320adc3xxx-y := tlv320adc3xxx.o
-@@ -752,6 +753,7 @@ obj-$(CONFIG_SND_SOC_TAS5805M)	+= snd-soc-tas5805m.o
+@@ -754,6 +755,7 @@ obj-$(CONFIG_SND_SOC_TAS5805M)	+= snd-soc-tas5805m.o
  obj-$(CONFIG_SND_SOC_TAS6424)	+= snd-soc-tas6424.o
  obj-$(CONFIG_SND_SOC_TDA7419)	+= snd-soc-tda7419.o
  obj-$(CONFIG_SND_SOC_TAS2770) += snd-soc-tas2770.o
