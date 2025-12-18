@@ -17,10 +17,10 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 5 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/net/wireless/ath/ath10k/mac.c b/drivers/net/wireless/ath/ath10k/mac.c
-index 154ac7a..344a7df 100644
+index da6f795..73aa930 100644
 --- a/drivers/net/wireless/ath/ath10k/mac.c
 +++ b/drivers/net/wireless/ath/ath10k/mac.c
-@@ -325,9 +325,11 @@ static int ath10k_install_key(struct ath10k_vif *arvif,
+@@ -324,9 +324,11 @@ static int ath10k_install_key(struct ath10k_vif *arvif,
  	if (ret)
  		return ret;
  
