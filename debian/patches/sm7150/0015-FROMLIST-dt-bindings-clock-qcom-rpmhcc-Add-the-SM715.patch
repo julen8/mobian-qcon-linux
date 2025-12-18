@@ -10,7 +10,7 @@ Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
  1 file changed, 31 insertions(+), 26 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml b/Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml
-index 78fa057..2c4a285 100644
+index 78fa0572..2c4a285 100644
 --- a/Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml
 +++ b/Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml
 @@ -16,32 +16,37 @@ description: |
