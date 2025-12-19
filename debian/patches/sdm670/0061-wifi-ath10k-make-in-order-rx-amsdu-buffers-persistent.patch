@@ -31,10 +31,10 @@ index 603f6de..ec89717 100644
  
  struct ath10k_htt_tx_ops {
 diff --git a/drivers/net/wireless/ath/ath10k/htt_rx.c b/drivers/net/wireless/ath/ath10k/htt_rx.c
-index 7d28ae5..7b0cb2d 100644
+index 42b7596..b499f8e 100644
 --- a/drivers/net/wireless/ath/ath10k/htt_rx.c
 +++ b/drivers/net/wireless/ath/ath10k/htt_rx.c
-@@ -293,6 +293,8 @@ void ath10k_htt_rx_free(struct ath10k_htt *htt)
+@@ -296,6 +296,8 @@ void ath10k_htt_rx_free(struct ath10k_htt *htt)
  	skb_queue_purge(&htt->rx_in_ord_compl_q);
  	skb_queue_purge(&htt->tx_fetch_ind_q);
  
@@ -43,7 +43,7 @@ index 7d28ae5..7b0cb2d 100644
  	spin_lock_bh(&htt->rx_ring.lock);
  	ath10k_htt_rx_ring_free(htt);
  	spin_unlock_bh(&htt->rx_ring.lock);
-@@ -842,6 +844,8 @@ int ath10k_htt_rx_alloc(struct ath10k_htt *htt)
+@@ -845,6 +847,8 @@ int ath10k_htt_rx_alloc(struct ath10k_htt *htt)
  	skb_queue_head_init(&htt->tx_fetch_ind_q);
  	atomic_set(&htt->num_mpdus_ready, 0);
  
@@ -52,7 +52,7 @@ index 7d28ae5..7b0cb2d 100644
  	ath10k_dbg(ar, ATH10K_DBG_BOOT, "htt rx ring size %d fill_level %d\n",
  		   htt->rx_ring.size, htt->rx_ring.fill_level);
  	return 0;
-@@ -3159,6 +3163,10 @@ static int ath10k_htt_rx_extract_amsdu(struct ath10k_hw_params *hw,
+@@ -3162,6 +3166,10 @@ static int ath10k_htt_rx_extract_amsdu(struct ath10k_hw_params *hw,
  	if (WARN_ON(!skb_queue_empty(amsdu)))
  		return -EINVAL;
  
@@ -63,7 +63,7 @@ index 7d28ae5..7b0cb2d 100644
  	while ((msdu = __skb_dequeue(list))) {
  		__skb_queue_tail(amsdu, msdu);
  
-@@ -3260,7 +3268,6 @@ static int ath10k_htt_rx_in_ord_ind(struct ath10k *ar, struct sk_buff *skb)
+@@ -3263,7 +3271,6 @@ static int ath10k_htt_rx_in_ord_ind(struct ath10k *ar, struct sk_buff *skb)
  	struct ath10k_htt *htt = &ar->htt;
  	struct htt_resp *resp = (void *)skb->data;
  	struct ieee80211_rx_status *status = &htt->rx_status;
@@ -71,7 +71,7 @@ index 7d28ae5..7b0cb2d 100644
  	struct sk_buff_head amsdu;
  	u16 peer_id;
  	u16 msdu_count;
-@@ -3295,16 +3302,32 @@ static int ath10k_htt_rx_in_ord_ind(struct ath10k *ar, struct sk_buff *skb)
+@@ -3298,16 +3305,32 @@ static int ath10k_htt_rx_in_ord_ind(struct ath10k *ar, struct sk_buff *skb)
  		return -EINVAL;
  	}
  
@@ -107,7 +107,7 @@ index 7d28ae5..7b0cb2d 100644
  
  	if (ret < 0) {
  		ath10k_warn(ar, "failed to pop paddr list: %d\n", ret);
-@@ -3316,11 +3339,12 @@ static int ath10k_htt_rx_in_ord_ind(struct ath10k *ar, struct sk_buff *skb)
+@@ -3319,11 +3342,12 @@ static int ath10k_htt_rx_in_ord_ind(struct ath10k *ar, struct sk_buff *skb)
  	 * separately.
  	 */
  	if (offload)
@@ -123,7 +123,7 @@ index 7d28ae5..7b0cb2d 100644
  		switch (ret) {
  		case 0:
  			/* Note: The in-order indication may report interleaved
-@@ -3336,12 +3360,15 @@ static int ath10k_htt_rx_in_ord_ind(struct ath10k *ar, struct sk_buff *skb)
+@@ -3339,12 +3363,15 @@ static int ath10k_htt_rx_in_ord_ind(struct ath10k *ar, struct sk_buff *skb)
  			ath10k_htt_rx_h_enqueue(ar, &amsdu, status);
  			break;
  		case -EAGAIN:
