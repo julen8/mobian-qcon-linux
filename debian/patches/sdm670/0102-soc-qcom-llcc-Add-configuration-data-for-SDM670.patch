@@ -9,7 +9,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  1 file changed, 28 insertions(+)
 
 diff --git a/drivers/soc/qcom/llcc-qcom.c b/drivers/soc/qcom/llcc-qcom.c
-index 133dc48..be3196d 100644
+index 0278e18..b892cb2 100644
 --- a/drivers/soc/qcom/llcc-qcom.c
 +++ b/drivers/soc/qcom/llcc-qcom.c
 @@ -769,6 +769,17 @@ static const struct llcc_slice_config sc8280xp_data[] = {
