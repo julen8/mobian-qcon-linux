@@ -51,10 +51,10 @@ Fixes:
  create mode 100644 sound/soc/codecs/tas2559.h
 
 diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 01794bd..b282cca 100644
+index 0d7a9b9..9f9c77c 100644
 --- a/sound/soc/codecs/Kconfig
 +++ b/sound/soc/codecs/Kconfig
-@@ -350,6 +350,7 @@ config SND_SOC_ALL_CODECS
+@@ -351,6 +351,7 @@ config SND_SOC_ALL_CODECS
  	imply SND_SOC_WSA883X
  	imply SND_SOC_WSA884X
  	imply SND_SOC_ZL38060
@@ -62,7 +62,7 @@ index 01794bd..b282cca 100644
  	help
  	  Normally ASoC codec drivers are only built if a machine driver which
  	  uses them is also built since they are only usable with a machine
-@@ -2592,6 +2593,9 @@ config SND_SOC_LPASS_VA_MACRO
+@@ -2597,6 +2598,9 @@ config SND_SOC_LPASS_VA_MACRO
  	select REGMAP_MMIO
  	select SND_SOC_LPASS_MACRO_COMMON
  	tristate "Qualcomm VA Macro in LPASS(Low Power Audio SubSystem)"
@@ -73,10 +73,10 @@ index 01794bd..b282cca 100644
  config SND_SOC_LPASS_RX_MACRO
  	depends on COMMON_CLK
 diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index 0c76709..deb1eb2 100644
+index 6199f93..a954ffa 100644
 --- a/sound/soc/codecs/Makefile
 +++ b/sound/soc/codecs/Makefile
-@@ -409,6 +409,10 @@ snd-soc-tas2780-y := tas2780.o
+@@ -410,6 +410,10 @@ snd-soc-tas2780-y := tas2780.o
  # Mux
  snd-soc-simple-mux-y := simple-mux.o
  
@@ -89,7 +89,7 @@ index 0c76709..deb1eb2 100644
  obj-$(CONFIG_SND_SOC_AC97_CODEC)	+= snd-soc-ac97.o
 diff --git a/sound/soc/codecs/tas2559.c b/sound/soc/codecs/tas2559.c
 new file mode 100644
-index 0000000..8a5994e
+index 00000000..8a5994e
 --- /dev/null
 +++ b/sound/soc/codecs/tas2559.c
 @@ -0,0 +1,2289 @@
@@ -2384,7 +2384,7 @@ index 0000000..8a5994e
 +MODULE_LICENSE("GPL v2");
 diff --git a/sound/soc/codecs/tas2559.h b/sound/soc/codecs/tas2559.h
 new file mode 100644
-index 0000000..bdd5f4e
+index 00000000..bdd5f4e
 --- /dev/null
 +++ b/sound/soc/codecs/tas2559.h
 @@ -0,0 +1,525 @@
