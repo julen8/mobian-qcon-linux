@@ -7,7 +7,7 @@ Subject: Assign i2c3 and pins 12,62,63 to NFC
  1 file changed, 31 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index 5f4d18a..332b003 100644
+index 3ea25a8..cc5f975 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 @@ -418,6 +418,25 @@ zap-shader {
@@ -48,7 +48,7 @@ index 5f4d18a..332b003 100644
  &qup_i2c10_default {
  	drive-strength = <2>;
  	bias-disable;
-@@ -935,6 +959,13 @@ speaker_default: speaker-default-state {
+@@ -934,6 +958,13 @@ speaker_default: speaker-default-state {
  		bias-pull-up;
  		output-high;
  	};
