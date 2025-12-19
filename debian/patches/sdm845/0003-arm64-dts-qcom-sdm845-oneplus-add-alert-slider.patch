@@ -13,11 +13,11 @@ Signed-off-by: Caleb Connolly <caleb@connolly.tech>
 Signed-off-by: Gergo Koteles <soyer@irl.hu>
 Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- .../arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 40 ++++++++++++++++++++--
- 1 file changed, 38 insertions(+), 2 deletions(-)
+ .../arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 35 ++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index 46e25c5..9665796 100644
+index d0cbf91..7eedd64 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 @@ -21,6 +21,41 @@
@@ -62,15 +62,3 @@ index 46e25c5..9665796 100644
  	aliases {
  		serial0 = &uart9;
  		serial1 = &uart6;
-@@ -803,8 +838,9 @@ hall_sensor_default: hall-sensor-default-state {
- 		bias-disable;
- 	};
- 
--	tri_state_key_default: tri-state-key-default-state {
--		pins = "gpio40", "gpio42", "gpio26";
-+
-+	alert_slider_default: alert-slider-default-state {
-+		pins = "gpio126", "gpio52", "gpio24";
- 		function = "gpio";
- 		drive-strength = <2>;
- 		bias-disable;

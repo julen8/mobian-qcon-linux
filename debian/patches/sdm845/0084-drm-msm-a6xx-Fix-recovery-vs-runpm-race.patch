@@ -21,10 +21,10 @@ Link: https://lore.kernel.org/r/20231218155927.368881-1-robdclark@gmail.com
  1 file changed, 2 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 29d39b2..3073a30 100644
+index 24071405..a4b0400 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1284,12 +1284,7 @@ static void a6xx_recover(struct msm_gpu *gpu)
+@@ -1290,12 +1290,7 @@ static void a6xx_recover(struct msm_gpu *gpu)
  	dev_pm_genpd_add_notifier(gmu->cxpd, &gmu->pd_nb);
  	dev_pm_genpd_synced_poweroff(gmu->cxpd);
  
@@ -38,7 +38,7 @@ index 29d39b2..3073a30 100644
  
  	if (!wait_for_completion_timeout(&gmu->pd_gate, msecs_to_jiffies(1000)))
  		DRM_DEV_ERROR(&gpu->pdev->dev, "cx gdsc didn't collapse\n");
-@@ -1298,10 +1293,7 @@ static void a6xx_recover(struct msm_gpu *gpu)
+@@ -1304,10 +1299,7 @@ static void a6xx_recover(struct msm_gpu *gpu)
  
  	pm_runtime_use_autosuspend(&gpu->pdev->dev);
  
