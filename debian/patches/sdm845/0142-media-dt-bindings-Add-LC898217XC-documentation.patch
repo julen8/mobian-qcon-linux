@@ -13,7 +13,7 @@ Signed-off-by: Vasiliy Doylov <nekocwd@mainlining.org>
 
 diff --git a/Documentation/devicetree/bindings/media/i2c/onnn,lc898217xc.yaml b/Documentation/devicetree/bindings/media/i2c/onnn,lc898217xc.yaml
 new file mode 100644
-index 0000000..848e83c
+index 00000000..848e83c
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/media/i2c/onnn,lc898217xc.yaml
 @@ -0,0 +1,54 @@

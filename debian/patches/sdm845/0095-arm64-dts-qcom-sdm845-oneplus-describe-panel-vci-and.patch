@@ -15,7 +15,7 @@ Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
  1 file changed, 27 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index 811146e..5f4d18a 100644
+index f9122b37..3ea25a8 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 @@ -194,6 +194,30 @@ ts_1p8_supply: ts-1p8-regulator {
@@ -58,7 +58,7 @@ index 811146e..5f4d18a 100644
  
  		reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
  
-@@ -882,7 +908,7 @@ ts_default_pins: ts-int-state {
+@@ -881,7 +907,7 @@ ts_default_pins: ts-int-state {
  	};
  
  	panel_reset_pins: panel-reset-state {
