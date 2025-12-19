@@ -1,3 +1,9 @@
+linux-6.12-sdm845 (6.12.63-1) trixie; urgency=medium
+
+  * Rebase on 6.12.63
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Fri, 19 Dec 2025 09:51:30 +0100
+
 linux-6.12-sdm845 (6.12.62-1) trixie; urgency=medium
 
   * Rebase on 6.12.62
