@@ -8,7 +8,7 @@ Signed-off-by: David Heidelberg <david@ixit.cz>
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index d4cd590..edffc3f 100644
+index 954ac47..d90b9b8 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 @@ -552,7 +552,7 @@ rear_cam: camera@1a {
