@@ -11,10 +11,10 @@ Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/cpufreq/cpufreq-dt-platdev.c b/drivers/cpufreq/cpufreq-dt-platdev.c
-index cd1816a..c2027a1 100644
+index dc11b62..bd7b952 100644
 --- a/drivers/cpufreq/cpufreq-dt-platdev.c
 +++ b/drivers/cpufreq/cpufreq-dt-platdev.c
-@@ -170,6 +170,7 @@ static const struct of_device_id blocklist[] __initconst = {
+@@ -171,6 +171,7 @@ static const struct of_device_id blocklist[] __initconst = {
  	{ .compatible = "qcom,sm6115", },
  	{ .compatible = "qcom,sm6350", },
  	{ .compatible = "qcom,sm6375", },
