@@ -14,7 +14,7 @@ Signed-off-by: Jens Reidel <adrian@travitia.xyz>
 
 diff --git a/arch/arm64/configs/efi.config b/arch/arm64/configs/efi.config
 new file mode 100644
-index 0000000..ba9452d
+index 0000000..ba9452d9
 --- /dev/null
 +++ b/arch/arm64/configs/efi.config
 @@ -0,0 +1,5 @@
