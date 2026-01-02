@@ -5931,7 +5931,7 @@ index 0000000..5ad97f8
 +#endif
 diff --git a/drivers/input/touchscreen/fts521/fts_lib/ftsHardware.h b/drivers/input/touchscreen/fts521/fts_lib/ftsHardware.h
 new file mode 100644
-index 0000000..3d9e709
+index 0000000..3d9e7092
 --- /dev/null
 +++ b/drivers/input/touchscreen/fts521/fts_lib/ftsHardware.h
 @@ -0,0 +1,371 @@
