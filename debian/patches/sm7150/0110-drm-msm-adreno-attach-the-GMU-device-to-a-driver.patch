@@ -470,10 +470,10 @@ index 21a3f9b..9c57ebe 100644
 +	platform_driver_unregister(&a6xx_gmu_drv);
 +}
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 6f7ed07..18e8478 100644
+index d1eaa84..a9763e8 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -2358,8 +2358,6 @@ static void a6xx_destroy(struct msm_gpu *gpu)
+@@ -2360,8 +2360,6 @@ static void a6xx_destroy(struct msm_gpu *gpu)
  
  	a6xx_llc_slices_destroy(a6xx_gpu);
  
@@ -482,7 +482,7 @@ index 6f7ed07..18e8478 100644
  	adreno_gpu_cleanup(adreno_gpu);
  
  	kfree(a6xx_gpu);
-@@ -2695,10 +2693,6 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+@@ -2697,10 +2695,6 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
  	if (adreno_is_a618(adreno_gpu) || adreno_is_7c3(adreno_gpu))
  		priv->gpu_clamp_to_idle = true;
  
