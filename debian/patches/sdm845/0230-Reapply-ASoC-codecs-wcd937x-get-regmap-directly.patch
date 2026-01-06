@@ -1,0 +1,22 @@
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Mon, 5 Jan 2026 17:21:40 -0600
+Subject: Reapply "ASoC: codecs: wcd937x: get regmap directly"
+
+This reverts commit 5e4d1892881c2865a45201b8298db024db3cbd86.
+---
+ sound/soc/codecs/wcd937x.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/soc/codecs/wcd937x.c b/sound/soc/codecs/wcd937x.c
+index a6320ad..ed0ff45 100644
+--- a/sound/soc/codecs/wcd937x.c
++++ b/sound/soc/codecs/wcd937x.c
+@@ -2796,7 +2796,7 @@ static int wcd937x_bind(struct device *dev)
+ 		goto err_remove_link2;
+ 	}
+ 
+-	wcd937x->regmap = dev_get_regmap(&wcd937x->tx_sdw_dev->dev, NULL);
++	wcd937x->regmap = wcd937x->sdw_priv[AIF1_CAP]->regmap;
+ 	if (!wcd937x->regmap) {
+ 		dev_err(dev, "could not get TX device regmap\n");
+ 		ret = -EINVAL;

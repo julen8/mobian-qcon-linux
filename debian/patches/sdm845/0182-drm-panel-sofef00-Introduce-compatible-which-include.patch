@@ -1,0 +1,51 @@
+From: David Heidelberg <david@ixit.cz>
+Date: Wed, 19 Nov 2025 15:21:34 +0100
+Subject: drm/panel: sofef00: Introduce compatible which includes the panel
+ name
+
+Compatible should correspond to the panel used and the driver currently
+supports only AMS628NW01 panel. Adapt the internal driver structures to
+reflect the name.
+Original, not very descriptive, compatible is kept to ensure compatibility
+with older device-trees.
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+Link: https://patch.msgid.link/20251119-sofef00-rebuild-v3-9-6cd55471e84e@ixit.cz
+---
+ drivers/gpu/drm/panel/panel-samsung-sofef00.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/panel/panel-samsung-sofef00.c b/drivers/gpu/drm/panel/panel-samsung-sofef00.c
+index d1e5340..c2cb859 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-sofef00.c
++++ b/drivers/gpu/drm/panel/panel-samsung-sofef00.c
+@@ -141,7 +141,7 @@ static int sofef00_panel_unprepare(struct drm_panel *panel)
+ 	return 0;
+ }
+ 
+-static const struct drm_display_mode enchilada_panel_mode = {
++static const struct drm_display_mode ams628nw01_panel_mode = {
+ 	.clock = (1080 + 112 + 16 + 36) * (2280 + 36 + 8 + 12) * 60 / 1000,
+ 	.hdisplay = 1080,
+ 	.hsync_start = 1080 + 112,
+@@ -159,7 +159,7 @@ static int sofef00_panel_get_modes(struct drm_panel *panel, struct drm_connector
+ {
+ 	struct drm_display_mode *mode;
+ 
+-	mode = drm_mode_duplicate(connector->dev, &enchilada_panel_mode);
++	mode = drm_mode_duplicate(connector->dev, &ams628nw01_panel_mode);
+ 	if (!mode)
+ 		return -ENOMEM;
+ 
+@@ -274,7 +274,8 @@ static void sofef00_panel_remove(struct mipi_dsi_device *dsi)
+ }
+ 
+ static const struct of_device_id sofef00_panel_of_match[] = {
+-	{ .compatible = "samsung,sofef00" },
++	{ .compatible = "samsung,sofef00" }, /* legacy */
++	{ .compatible = "samsung,sofef00-ams628nw01" },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, sofef00_panel_of_match);
