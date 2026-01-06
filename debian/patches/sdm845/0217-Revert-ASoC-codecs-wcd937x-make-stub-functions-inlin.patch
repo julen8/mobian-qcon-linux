@@ -1,0 +1,38 @@
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Mon, 29 Dec 2025 02:04:33 -0600
+Subject: Revert "ASoC: codecs: wcd937x: make stub functions inline"
+
+This reverts commit c4bb62eb594418a6bd05ff03bb9072ee1fef29c2.
+---
+ sound/soc/codecs/wcd937x.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/sound/soc/codecs/wcd937x.h b/sound/soc/codecs/wcd937x.h
+index d20886a..3ab21bb 100644
+--- a/sound/soc/codecs/wcd937x.h
++++ b/sound/soc/codecs/wcd937x.h
+@@ -552,21 +552,21 @@ int wcd937x_sdw_hw_params(struct wcd937x_sdw_priv *wcd,
+ struct device *wcd937x_sdw_device_get(struct device_node *np);
+ 
+ #else
+-static inline int wcd937x_sdw_free(struct wcd937x_sdw_priv *wcd,
++int wcd937x_sdw_free(struct wcd937x_sdw_priv *wcd,
+ 		     struct snd_pcm_substream *substream,
+ 		     struct snd_soc_dai *dai)
+ {
+ 	return -EOPNOTSUPP;
+ }
+ 
+-static inline int wcd937x_sdw_set_sdw_stream(struct wcd937x_sdw_priv *wcd,
++int wcd937x_sdw_set_sdw_stream(struct wcd937x_sdw_priv *wcd,
+ 			       struct snd_soc_dai *dai,
+ 			       void *stream, int direction)
+ {
+ 	return -EOPNOTSUPP;
+ }
+ 
+-static inline int wcd937x_sdw_hw_params(struct wcd937x_sdw_priv *wcd,
++int wcd937x_sdw_hw_params(struct wcd937x_sdw_priv *wcd,
+ 			  struct snd_pcm_substream *substream,
+ 			  struct snd_pcm_hw_params *params,
+ 			  struct snd_soc_dai *dai)

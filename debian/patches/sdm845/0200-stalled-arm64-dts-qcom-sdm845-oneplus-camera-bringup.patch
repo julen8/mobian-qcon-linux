@@ -1,0 +1,379 @@
+From: Robert Oscilowski <drgitx@gmail.com>
+Date: Tue, 4 Feb 2025 18:16:10 -0500
+Subject: stalled! arm64: dts: qcom: sdm845-oneplus: camera bringup
+
+[David]
+ - use sdm845.dtsi mclk pinctrl
+[NekoCWD]
+ - move main_cam_vaf from fajita to common
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 182 +++++++++++----------
+ .../boot/dts/qcom/sdm845-oneplus-enchilada.dts     |   2 +-
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts |  16 +-
+ 3 files changed, 100 insertions(+), 100 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+index 6067e5a..30a9ba3 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+@@ -243,6 +243,20 @@ panel_vddi_poc_1p8: panel-vddi-poc-regulator {
+ 		regulator-boot-on;
+ 	};
+ 
++	main_cam_vaf: main-cam-vaf-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "main_cam_vaf";
++
++		regulator-min-microvolt = <2800000>;
++		regulator-max-microvolt = <2800000>;
++		regulator-enable-ramp-delay = <100>;
++
++		gpio = <&tlmm 31 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++
++		vin-supply = <&vreg_bob>;
++	};
++
+ 	main_cam_vdig: main-cam-vdig-regulator {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "main_cam_vdig";
+@@ -313,28 +327,28 @@ sub_cam_vana: sub-cam-vana-regulator {
+ 		vbias-supply = <&vreg_bob>;
+ 	};
+ 
+-	sub_cam_vdig: sub-cam-vdig-regulator {
++	sub_cam_vaf: sub-cam-vaf-supply {
+ 		compatible = "regulator-fixed";
+-		regulator-name = "sub_cam_vdig";
++		regulator-name = "sub_cam_vaf";
+ 
+ 		regulator-min-microvolt = <2800000>;
+ 		regulator-max-microvolt = <2800000>;
++		regulator-enable-ramp-delay = <100>;
+ 
+-		gpio = <&tlmm 78 GPIO_ACTIVE_HIGH>;
++		gpio = <&tlmm 77 GPIO_ACTIVE_HIGH>;
+ 		enable-active-high;
+ 
+ 		vin-supply = <&vreg_bob>;
+ 	};
+ 
+-	sub_cam_vaf: sub-cam-vaf-supply {
++	sub_cam_vdig: sub-cam-vdig-regulator {
+ 		compatible = "regulator-fixed";
+-		regulator-name = "sub_cam_vaf";
++		regulator-name = "sub_cam_vdig";
+ 
+ 		regulator-min-microvolt = <2800000>;
+ 		regulator-max-microvolt = <2800000>;
+-		regulator-enable-ramp-delay = <100>;
+ 
+-		gpio = <&tlmm 77 GPIO_ACTIVE_HIGH>;
++		gpio = <&tlmm 78 GPIO_ACTIVE_HIGH>;
+ 		enable-active-high;
+ 
+ 		vin-supply = <&vreg_bob>;
+@@ -462,7 +476,7 @@ vreg_l22a_3p3: ldo22 {
+ 			regulator-min-microvolt = <2864000>;
+ 			regulator-max-microvolt = <3312000>;
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-		};		
++		};
+ 
+ 		vreg_l23a_3p3: ldo23 {
+ 			regulator-min-microvolt = <3300000>;
+@@ -535,6 +549,48 @@ vreg_s3c_0p6: smps3 {
+ 	};
+ };
+ 
++&camss {
++	vdda-phy-supply = <&vreg_l1a_0p875>;
++	vdda-pll-supply = <&vreg_l26a_1p2>;
++
++	vdda-csi0-supply = <&vdda_mipi_csi0_0p9>;
++	vdda-csi1-supply = <&vdda_mipi_csi1_0p9>;
++	vdda-csi2-supply = <&vdda_mipi_csi2_0p9>;
++
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++		port@0 {
++			reg = <0>;
++			csiphy0_ep: endpoint {
++				bus-type = <MEDIA_BUS_TYPE_CSI2_CPHY>;
++				data-lanes = <0 1 2>;
++				remote-endpoint = <&imx519_ep>;
++			};
++		};
++
++		port@1 {
++			reg = <1>;
++			csiphy1_ep: endpoint {
++				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
++				data-lanes = <0 1 2 3>;
++				remote-endpoint = <&imx376k_ep>;
++			};
++		};
++
++		port@2 {
++			reg = <2>;
++			csiphy2_ep: endpoint {
++				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
++				data-lanes = <0 1 2 3>;
++				remote-endpoint = <&imx371_ep>;
++			};
++		};
++	};
++};
++
+ &cci {
+ 	status = "okay";
+ };
+@@ -582,70 +638,70 @@ csiphy2_ep: endpoint {
+ };
+ 
+ &cci_i2c0 {
+-	rear_cam: camera@1a {
+-		compatible = "sony,imx519";
+-		reg = <0x1a>;
++	front_cam: camera@10 {
++		compatible = "sony,imx371";
++		reg = <0x10>;
+ 
+-		reset-gpios = <&tlmm 28 GPIO_ACTIVE_HIGH>;
++		reset-gpios = <&tlmm 9 GPIO_ACTIVE_LOW>;
+ 		pinctrl-names = "default", "sleep";
+-		pinctrl-0 = <&main_cam_default>;
+-		pinctrl-1 = <&main_cam_sleep>;
++		pinctrl-0 = <&front_cam_default &cam_mclk1_default>;
++		pinctrl-1 = <&front_cam_sleep &cam_mclk1_sleep>;
+ 
+-		clocks = <&clock_camcc CAM_CC_MCLK0_CLK>;
++		clocks = <&clock_camcc CAM_CC_MCLK1_CLK>;
+ 		clock-names = "xclk";
+ 		clock-frequency = <24000000>;
+-		assigned-clocks = <&clock_camcc CAM_CC_MCLK0_CLK>;
+-		assigned-clock-rates = <24000000>;
+ 
+ 		power-domains = <&clock_camcc TITAN_TOP_GDSC>;
+ 
+-		vana-supply = <&main_cam_vana>;
+-		vcore-supply = <&main_cam_vdig>;
++		vana-supply = <&front_cam_vana>;
++		vcore-supply = <&front_cam_vdig>;
+ 		vio-supply = <&cam_vio_1p8>;
+ 
+-		orientation = <1>; /* Rear camera */
++		orientation = <0>; /* Front camera */
+ 		rotation = <90>;
+ 
+ 		status = "okay";
+ 
+ 		port {
+-			imx519_ep: endpoint {
+-				remote-endpoint = <&csiphy0_ep>;
+-				data-lanes = <1 2 3>;
+-				link-frequencies = /bits/ 64 <500399375>;
++			imx371_ep: endpoint {
++				remote-endpoint = <&csiphy2_ep>;
++				data-lanes = <1 2 3 4>;
++				link-frequencies = /bits/ 64 <654000000>;
+ 			};
+ 		};
+ 	};
+ 
+-	front_cam: camera@10 {
+-		compatible = "sony,imx371";
+-		reg = <0x10>;
++	rear_cam: camera@1a {
++		compatible = "sony,imx519";
++		reg = <0x1a>;
+ 
+-		reset-gpios = <&tlmm 9 GPIO_ACTIVE_HIGH>;
++		reset-gpios = <&tlmm 28 GPIO_ACTIVE_LOW>;
+ 		pinctrl-names = "default", "sleep";
+-		pinctrl-0 = <&front_cam_default>;
+-		pinctrl-1 = <&front_cam_sleep>;
++		pinctrl-0 = <&main_cam_default &cam_mclk0_default>;
++		pinctrl-1 = <&main_cam_sleep &cam_mclk0_sleep>;
+ 
+-		clocks = <&clock_camcc CAM_CC_MCLK1_CLK>;
++		clocks = <&clock_camcc CAM_CC_MCLK0_CLK>;
+ 		clock-names = "xclk";
+ 		clock-frequency = <24000000>;
++		assigned-clocks = <&clock_camcc CAM_CC_MCLK0_CLK>;
++		assigned-clock-rates = <24000000>;
+ 
+ 		power-domains = <&clock_camcc TITAN_TOP_GDSC>;
+ 
+-		vana-supply = <&front_cam_vana>;
+-		vcore-supply = <&front_cam_vdig>;
++		vana-supply = <&main_cam_vana>;
++		vcore-supply = <&main_cam_vdig>;
+ 		vio-supply = <&cam_vio_1p8>;
+ 
+-		orientation = <0>; /* Front camera */
+-		rotation = <90>;
++		orientation = <1>; /* Rear camera */
++		rotation = <270>;
+ 
+ 		status = "okay";
+ 
+ 		port {
+-			imx371_ep: endpoint {
+-				remote-endpoint = <&csiphy2_ep>;
+-				data-lanes = <1 2 3 4>;
+-				link-frequencies = /bits/ 64 <654000000>;
++			imx519_ep: endpoint {
++				remote-endpoint = <&csiphy0_ep>;
++				data-lanes = <1 2 3>;
++				link-frequencies = /bits/ 64 <500399375>;
+ 			};
+ 		};
+ 	};
+@@ -662,10 +718,10 @@ sub_cam: camera@10 {
+ 		compatible = "sony,imx376k";
+ 		reg = <0x10>;
+ 
+-		reset-gpios = <&tlmm 23 GPIO_ACTIVE_HIGH>;
++		reset-gpios = <&tlmm 23 GPIO_ACTIVE_LOW>;
+ 		pinctrl-names = "default", "sleep";
+-		pinctrl-0 = <&sub_cam_default>;
+-		pinctrl-1 = <&sub_cam_sleep>;
++		pinctrl-0 = <&sub_cam_default &cam_mclk2_default>;
++		pinctrl-1 = <&sub_cam_sleep &cam_mclk2_sleep>;
+ 
+ 		clocks = <&clock_camcc CAM_CC_MCLK2_CLK>;
+ 		clock-names = "xclk";
+@@ -1214,13 +1270,6 @@ &tlmm {
+ 	gpio-reserved-ranges = <0 4>, <81 4>;
+ 
+ 	main_cam_default: main-cam-default-state {
+-		mclk0 {
+-			pins = "gpio13";
+-			function = "cam_mclk";
+-			bias-disable;
+-			drive-strength = <2>;
+-		};
+-
+ 		rst {
+ 			pins = "gpio28";
+ 			function = "gpio";
+@@ -1251,13 +1300,6 @@ dig {
+ 	};
+ 
+ 	main_cam_sleep: main-cam-sleep-state {
+-		mclk0 {
+-			pins = "gpio13";
+-			function = "cam_mclk";
+-			bias-pull-down;
+-			drive-strength = <2>;
+-		};
+-
+ 		rst {
+ 			pins = "gpio28";
+ 			function = "gpio";
+@@ -1288,13 +1330,6 @@ dig {
+ 	};
+ 
+ 	sub_cam_default: sub-cam-default-state {
+-		mclk1 {
+-			pins = "gpio15";
+-			function = "cam_mclk";
+-			bias-disable;
+-			drive-strength = <2>;
+-		};
+-
+ 		rst {
+ 			pins = "gpio23";
+ 			function = "gpio";
+@@ -1325,13 +1360,6 @@ dig {
+ 	};
+ 
+ 	sub_cam_sleep: sub-cam-sleep-state {
+-		mclk1 {
+-			pins = "gpio15";
+-			function = "cam_mclk";
+-			bias-pull-down;
+-			drive-strength = <2>;
+-		};
+-
+ 		rst {
+ 			pins = "gpio23";
+ 			function = "gpio";
+@@ -1362,13 +1390,6 @@ dig {
+ 	};
+ 
+ 	front_cam_default: front-cam-default-state {
+-		mclk2 {
+-			pins = "gpio14";
+-			function = "cam_mclk";
+-			bias-disable;
+-			drive-strength = <2>;
+-		};
+-
+ 		rst {
+ 			pins = "gpio9";
+ 			function = "gpio";
+@@ -1392,13 +1413,6 @@ dig {
+ 	};
+ 
+ 	front_cam_sleep: front-cam-sleep-state {
+-		mclk2 {
+-			pins = "gpio14";
+-			function = "cam_mclk";
+-			bias-pull-down;
+-			drive-strength = <2>;
+-		};
+-
+ 		rst {
+ 			pins = "gpio9";
+ 			function = "gpio";
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+index d03cd90..6da267e 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+@@ -38,7 +38,7 @@ main_cam_ois: main-cam-ois-regulator {
+ 		regulator-max-microvolt = <2864000>;
+ 		regulator-enable-ramp-delay = <100>;
+ 
+-		gpio = <&tlmm 40 GPIO_ACTIVE_HIGH>; 
++		gpio = <&tlmm 40 GPIO_ACTIVE_HIGH>;
+ 		enable-active-high;
+ 
+ 		vin-supply = <&vreg_l22a_3p3>;
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
+index bd9089d..24833ad 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
+@@ -36,25 +36,11 @@ main_cam_ois: main-cam-ois-regulator {
+ 		regulator-max-microvolt = <2850000>;
+ 		regulator-enable-ramp-delay = <100>;
+ 
+-		gpio = <&tlmm 40 GPIO_ACTIVE_HIGH>; 
++		gpio = <&tlmm 40 GPIO_ACTIVE_HIGH>;
+ 		enable-active-high;
+ 
+ 		vin-supply = <&vreg_l21a_2p95>;
+ 	};
+-
+-	main_cam_vaf: main-cam-vaf-regulator {
+-		compatible = "regulator-fixed";
+-		regulator-name = "main_cam_vaf";
+-
+-		regulator-min-microvolt = <2800000>;
+-		regulator-max-microvolt = <2800000>;
+-		regulator-enable-ramp-delay = <100>;
+-
+-		gpio = <&tlmm 31 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-
+-		vin-supply = <&vreg_bob>;
+-	};
+ };
+ 
+ &display_panel {

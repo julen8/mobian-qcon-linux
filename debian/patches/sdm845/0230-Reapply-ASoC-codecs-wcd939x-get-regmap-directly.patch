@@ -1,0 +1,73 @@
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Mon, 5 Jan 2026 17:21:40 -0600
+Subject: Reapply "ASoC: codecs: wcd939x: get regmap directly"
+
+This reverts commit 5f3b90077cc96799af5bc6d126f6dae8c6567617.
+---
+ sound/soc/codecs/wcd939x-sdw.c | 9 ---------
+ sound/soc/codecs/wcd939x.c     | 6 +++---
+ sound/soc/codecs/wcd939x.h     | 6 ------
+ 3 files changed, 3 insertions(+), 18 deletions(-)
+
+diff --git a/sound/soc/codecs/wcd939x-sdw.c b/sound/soc/codecs/wcd939x-sdw.c
+index 324f77c..debc188 100644
+--- a/sound/soc/codecs/wcd939x-sdw.c
++++ b/sound/soc/codecs/wcd939x-sdw.c
+@@ -187,15 +187,6 @@ int wcd939x_sdw_set_sdw_stream(struct wcd939x_sdw_priv *wcd,
+ }
+ EXPORT_SYMBOL_GPL(wcd939x_sdw_set_sdw_stream);
+ 
+-struct regmap *wcd939x_swr_get_regmap(struct wcd939x_sdw_priv *wcd)
+-{
+-	if (wcd->regmap)
+-		return wcd->regmap;
+-
+-	return ERR_PTR(-EINVAL);
+-}
+-EXPORT_SYMBOL_GPL(wcd939x_swr_get_regmap);
+-
+ static int wcd9390_update_status(struct sdw_slave *slave,
+ 				 enum sdw_slave_status status)
+ {
+diff --git a/sound/soc/codecs/wcd939x.c b/sound/soc/codecs/wcd939x.c
+index a414cd9..e74e6f01 100644
+--- a/sound/soc/codecs/wcd939x.c
++++ b/sound/soc/codecs/wcd939x.c
+@@ -3374,10 +3374,10 @@ static int wcd939x_bind(struct device *dev)
+ 	}
+ 
+ 	/* Get regmap from TX SoundWire device */
+-	wcd939x->regmap = wcd939x_swr_get_regmap(wcd939x->sdw_priv[AIF1_CAP]);
+-	if (IS_ERR(wcd939x->regmap)) {
++	wcd939x->regmap = wcd939x->sdw_priv[AIF1_CAP]->regmap;
++	if (!wcd939x->regmap) {
+ 		dev_err(dev, "could not get TX device regmap\n");
+-		ret = PTR_ERR(wcd939x->regmap);
++		ret = -ENODEV;
+ 		goto err_remove_rx_link;
+ 	}
+ 
+diff --git a/sound/soc/codecs/wcd939x.h b/sound/soc/codecs/wcd939x.h
+index ca635322..6bd2366 100644
+--- a/sound/soc/codecs/wcd939x.h
++++ b/sound/soc/codecs/wcd939x.h
+@@ -918,8 +918,6 @@ int wcd939x_sdw_hw_params(struct wcd939x_sdw_priv *wcd,
+ 			  struct snd_pcm_substream *substream,
+ 			  struct snd_pcm_hw_params *params,
+ 			  struct snd_soc_dai *dai);
+-
+-struct regmap *wcd939x_swr_get_regmap(struct wcd939x_sdw_priv *wcd);
+ #else
+ 
+ static inline int wcd939x_sdw_free(struct wcd939x_sdw_priv *wcd,
+@@ -944,10 +942,6 @@ static inline int wcd939x_sdw_hw_params(struct wcd939x_sdw_priv *wcd,
+ 	return -EOPNOTSUPP;
+ }
+ 
+-struct regmap *wcd939x_swr_get_regmap(struct wcd939x_sdw_priv *wcd)
+-{
+-	return PTR_ERR(-EINVAL);
+-}
+ #endif /* CONFIG_SND_SOC_WCD939X_SDW */
+ 
+ #endif /* __WCD939X_H__ */

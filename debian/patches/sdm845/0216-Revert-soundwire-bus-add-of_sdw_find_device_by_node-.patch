@@ -1,0 +1,59 @@
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Mon, 29 Dec 2025 02:04:19 -0600
+Subject: Revert "soundwire: bus: add of_sdw_find_device_by_node helper"
+
+This reverts commit 76cffc3eb1bdee0a7e8cca090adfd46a740f1cb0.
+---
+ drivers/soundwire/slave.c     | 6 ------
+ include/linux/soundwire/sdw.h | 9 ---------
+ 2 files changed, 15 deletions(-)
+
+diff --git a/drivers/soundwire/slave.c b/drivers/soundwire/slave.c
+index 3d4d001..d2d9955 100644
+--- a/drivers/soundwire/slave.c
++++ b/drivers/soundwire/slave.c
+@@ -273,10 +273,4 @@ int sdw_of_find_slaves(struct sdw_bus *bus)
+ 	return 0;
+ }
+ 
+-struct device *of_sdw_find_device_by_node(struct device_node *np)
+-{
+-	return bus_find_device_by_of_node(&sdw_bus_type, np);
+-}
+-EXPORT_SYMBOL_GPL(of_sdw_find_device_by_node);
+-
+ MODULE_IMPORT_NS("SND_SOC_SDCA");
+diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
+index 0962139..0832776 100644
+--- a/include/linux/soundwire/sdw.h
++++ b/include/linux/soundwire/sdw.h
+@@ -19,7 +19,6 @@
+ 
+ struct dentry;
+ struct fwnode_handle;
+-struct device_node;
+ 
+ struct sdw_bus;
+ struct sdw_slave;
+@@ -1087,8 +1086,6 @@ int sdw_stream_add_slave(struct sdw_slave *slave,
+ int sdw_stream_remove_slave(struct sdw_slave *slave,
+ 			    struct sdw_stream_runtime *stream);
+ 
+-struct device *of_sdw_find_device_by_node(struct device_node *np);
+-
+ int sdw_slave_get_scale_index(struct sdw_slave *slave, u8 *base);
+ 
+ /* messaging and data APIs */
+@@ -1122,12 +1119,6 @@ static inline int sdw_stream_remove_slave(struct sdw_slave *slave,
+ 	return -EINVAL;
+ }
+ 
+-static inline struct device *of_sdw_find_device_by_node(struct device_node *np)
+-{
+-	WARN_ONCE(1, "SoundWire API is disabled");
+-	return NULL;
+-}
+-
+ /* messaging and data APIs */
+ static inline int sdw_read(struct sdw_slave *slave, u32 addr)
+ {

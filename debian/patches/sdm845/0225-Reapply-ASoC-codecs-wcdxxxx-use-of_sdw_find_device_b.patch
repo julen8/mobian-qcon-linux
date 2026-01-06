@@ -1,0 +1,197 @@
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Mon, 5 Jan 2026 17:21:39 -0600
+Subject: Reapply "ASoC: codecs: wcdxxxx: use of_sdw_find_device_by_node
+ helper"
+
+This reverts commit c8638dbdf4f7b7027af6cd135c6e479c4fa7a611.
+---
+ sound/soc/codecs/wcd937x-sdw.c | 6 ------
+ sound/soc/codecs/wcd937x.c     | 4 ++--
+ sound/soc/codecs/wcd937x.h     | 2 --
+ sound/soc/codecs/wcd938x-sdw.c | 7 -------
+ sound/soc/codecs/wcd938x.c     | 4 ++--
+ sound/soc/codecs/wcd938x.h     | 6 ------
+ sound/soc/codecs/wcd939x-sdw.c | 6 ------
+ sound/soc/codecs/wcd939x.c     | 4 ++--
+ sound/soc/codecs/wcd939x.h     | 6 ------
+ 9 files changed, 6 insertions(+), 39 deletions(-)
+
+diff --git a/sound/soc/codecs/wcd937x-sdw.c b/sound/soc/codecs/wcd937x-sdw.c
+index 1bfe738..e7cc699 100644
+--- a/sound/soc/codecs/wcd937x-sdw.c
++++ b/sound/soc/codecs/wcd937x-sdw.c
+@@ -78,12 +78,6 @@ static struct sdw_dpn_prop wcd937x_dpn_prop[WCD937X_MAX_SWR_PORTS] = {
+ 	}
+ };
+ 
+-struct device *wcd937x_sdw_device_get(struct device_node *np)
+-{
+-	return bus_find_device_by_of_node(&sdw_bus_type, np);
+-}
+-EXPORT_SYMBOL_GPL(wcd937x_sdw_device_get);
+-
+ int wcd937x_sdw_hw_params(struct wcd937x_sdw_priv *wcd,
+ 			  struct snd_pcm_substream *substream,
+ 			  struct snd_pcm_hw_params *params,
+diff --git a/sound/soc/codecs/wcd937x.c b/sound/soc/codecs/wcd937x.c
+index d41b306..b0f0b1f 100644
+--- a/sound/soc/codecs/wcd937x.c
++++ b/sound/soc/codecs/wcd937x.c
+@@ -2788,7 +2788,7 @@ static int wcd937x_bind(struct device *dev)
+ 		return ret;
+ 	}
+ 
+-	wcd937x->rxdev = wcd937x_sdw_device_get(wcd937x->rxnode);
++	wcd937x->rxdev = of_sdw_find_device_by_node(wcd937x->rxnode);
+ 	if (!wcd937x->rxdev) {
+ 		dev_err(dev, "could not find slave with matching of node\n");
+ 		ret = -EINVAL;
+@@ -2798,7 +2798,7 @@ static int wcd937x_bind(struct device *dev)
+ 	wcd937x->sdw_priv[AIF1_PB] = dev_get_drvdata(wcd937x->rxdev);
+ 	wcd937x->sdw_priv[AIF1_PB]->wcd937x = wcd937x;
+ 
+-	wcd937x->txdev = wcd937x_sdw_device_get(wcd937x->txnode);
++	wcd937x->txdev = of_sdw_find_device_by_node(wcd937x->txnode);
+ 	if (!wcd937x->txdev) {
+ 		dev_err(dev, "could not find txslave with matching of node\n");
+ 		ret = -EINVAL;
+diff --git a/sound/soc/codecs/wcd937x.h b/sound/soc/codecs/wcd937x.h
+index d20886a..0f96b71 100644
+--- a/sound/soc/codecs/wcd937x.h
++++ b/sound/soc/codecs/wcd937x.h
+@@ -549,8 +549,6 @@ int wcd937x_sdw_hw_params(struct wcd937x_sdw_priv *wcd,
+ 			  struct snd_pcm_hw_params *params,
+ 			  struct snd_soc_dai *dai);
+ 
+-struct device *wcd937x_sdw_device_get(struct device_node *np);
+-
+ #else
+ static inline int wcd937x_sdw_free(struct wcd937x_sdw_priv *wcd,
+ 		     struct snd_pcm_substream *substream,
+diff --git a/sound/soc/codecs/wcd938x-sdw.c b/sound/soc/codecs/wcd938x-sdw.c
+index e57dd7b..2cbf918 100644
+--- a/sound/soc/codecs/wcd938x-sdw.c
++++ b/sound/soc/codecs/wcd938x-sdw.c
+@@ -82,13 +82,6 @@ static struct sdw_dpn_prop wcd938x_dpn_prop[WCD938X_MAX_SWR_PORTS] = {
+ 	}
+ };
+ 
+-struct device *wcd938x_sdw_device_get(struct device_node *np)
+-{
+-	return bus_find_device_by_of_node(&sdw_bus_type, np);
+-
+-}
+-EXPORT_SYMBOL_GPL(wcd938x_sdw_device_get);
+-
+ int wcd938x_swr_get_current_bank(struct sdw_slave *sdev)
+ {
+ 	int bank;
+diff --git a/sound/soc/codecs/wcd938x.c b/sound/soc/codecs/wcd938x.c
+index 711f373..e2cb075 100644
+--- a/sound/soc/codecs/wcd938x.c
++++ b/sound/soc/codecs/wcd938x.c
+@@ -3400,7 +3400,7 @@ static int wcd938x_bind(struct device *dev)
+ 		return ret;
+ 	}
+ 
+-	wcd938x->rxdev = wcd938x_sdw_device_get(wcd938x->rxnode);
++	wcd938x->rxdev = of_sdw_find_device_by_node(wcd938x->rxnode);
+ 	if (!wcd938x->rxdev) {
+ 		dev_err(dev, "could not find slave with matching of node\n");
+ 		ret = -EINVAL;
+@@ -3409,7 +3409,7 @@ static int wcd938x_bind(struct device *dev)
+ 	wcd938x->sdw_priv[AIF1_PB] = dev_get_drvdata(wcd938x->rxdev);
+ 	wcd938x->sdw_priv[AIF1_PB]->wcd938x = wcd938x;
+ 
+-	wcd938x->txdev = wcd938x_sdw_device_get(wcd938x->txnode);
++	wcd938x->txdev = of_sdw_find_device_by_node(wcd938x->txnode);
+ 	if (!wcd938x->txdev) {
+ 		dev_err(dev, "could not find txslave with matching of node\n");
+ 		ret = -EINVAL;
+diff --git a/sound/soc/codecs/wcd938x.h b/sound/soc/codecs/wcd938x.h
+index fb6a0e4..dbafcae 100644
+--- a/sound/soc/codecs/wcd938x.h
++++ b/sound/soc/codecs/wcd938x.h
+@@ -670,7 +670,6 @@ int wcd938x_sdw_hw_params(struct wcd938x_sdw_priv *wcd,
+ 			  struct snd_pcm_hw_params *params,
+ 			  struct snd_soc_dai *dai);
+ 
+-struct device *wcd938x_sdw_device_get(struct device_node *np);
+ int wcd938x_swr_get_current_bank(struct sdw_slave *sdev);
+ 
+ #else
+@@ -697,11 +696,6 @@ static inline int wcd938x_sdw_hw_params(struct wcd938x_sdw_priv *wcd,
+ 	return -EOPNOTSUPP;
+ }
+ 
+-static inline struct device *wcd938x_sdw_device_get(struct device_node *np)
+-{
+-	return NULL;
+-}
+-
+ static inline int wcd938x_swr_get_current_bank(struct sdw_slave *sdev)
+ {
+ 	return 0;
+diff --git a/sound/soc/codecs/wcd939x-sdw.c b/sound/soc/codecs/wcd939x-sdw.c
+index 6b40c08..95d63d2 100644
+--- a/sound/soc/codecs/wcd939x-sdw.c
++++ b/sound/soc/codecs/wcd939x-sdw.c
+@@ -128,12 +128,6 @@ static struct sdw_dpn_prop wcd939x_tx_dpn_prop[WCD939X_MAX_TX_SWR_PORTS] = {
+ 	}
+ };
+ 
+-struct device *wcd939x_sdw_device_get(struct device_node *np)
+-{
+-	return bus_find_device_by_of_node(&sdw_bus_type, np);
+-}
+-EXPORT_SYMBOL_GPL(wcd939x_sdw_device_get);
+-
+ unsigned int wcd939x_swr_get_current_bank(struct sdw_slave *sdev)
+ {
+ 	return FIELD_GET(SDW_SCP_STAT_CURR_BANK,
+diff --git a/sound/soc/codecs/wcd939x.c b/sound/soc/codecs/wcd939x.c
+index 64f082e..5a56c79 100644
+--- a/sound/soc/codecs/wcd939x.c
++++ b/sound/soc/codecs/wcd939x.c
+@@ -3383,7 +3383,7 @@ static int wcd939x_bind(struct device *dev)
+ 		goto err_put_typec_switch;
+ 	}
+ 
+-	wcd939x->rxdev = wcd939x_sdw_device_get(wcd939x->rxnode);
++	wcd939x->rxdev = of_sdw_find_device_by_node(wcd939x->rxnode);
+ 	if (!wcd939x->rxdev) {
+ 		dev_err(dev, "could not find slave with matching of node\n");
+ 		ret = -EINVAL;
+@@ -3392,7 +3392,7 @@ static int wcd939x_bind(struct device *dev)
+ 	wcd939x->sdw_priv[AIF1_PB] = dev_get_drvdata(wcd939x->rxdev);
+ 	wcd939x->sdw_priv[AIF1_PB]->wcd939x = wcd939x;
+ 
+-	wcd939x->txdev = wcd939x_sdw_device_get(wcd939x->txnode);
++	wcd939x->txdev = of_sdw_find_device_by_node(wcd939x->txnode);
+ 	if (!wcd939x->txdev) {
+ 		dev_err(dev, "could not find txslave with matching of node\n");
+ 		ret = -EINVAL;
+diff --git a/sound/soc/codecs/wcd939x.h b/sound/soc/codecs/wcd939x.h
+index 3204fb1..3f189e5 100644
+--- a/sound/soc/codecs/wcd939x.h
++++ b/sound/soc/codecs/wcd939x.h
+@@ -930,7 +930,6 @@ int wcd939x_sdw_hw_params(struct wcd939x_sdw_priv *wcd,
+ 			  struct snd_pcm_hw_params *params,
+ 			  struct snd_soc_dai *dai);
+ 
+-struct device *wcd939x_sdw_device_get(struct device_node *np);
+ unsigned int wcd939x_swr_get_current_bank(struct sdw_slave *sdev);
+ 
+ struct regmap *wcd939x_swr_get_regmap(struct wcd939x_sdw_priv *wcd);
+@@ -958,11 +957,6 @@ static inline int wcd939x_sdw_hw_params(struct wcd939x_sdw_priv *wcd,
+ 	return -EOPNOTSUPP;
+ }
+ 
+-static inline struct device *wcd939x_sdw_device_get(struct device_node *np)
+-{
+-	return NULL;
+-}
+-
+ static inline unsigned int wcd939x_swr_get_current_bank(struct sdw_slave *sdev)
+ {
+ 	return 0;

@@ -1,0 +1,22 @@
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Sat, 21 Jun 2025 01:55:48 -0500
+Subject: Revert "arch: arm64: dts: qcom: sdm845-oneplus: specify cvd v2.3"
+
+This reverts commit 18e5c8c482768bba1b4bc741288e18e47ae8ea5f.
+---
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+index 4dbc9ed..fdfac1a 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+@@ -945,8 +945,6 @@ dai@5 {
+ };
+ 
+ &q6voicedai {
+-	qcom,cvd-v2.3;
+-
+ 	dai@1 {
+ 		reg = <VOICEMMODE1>;
+ 	};

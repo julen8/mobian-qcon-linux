@@ -1,0 +1,284 @@
+From: Vasiliy Doylov <nekocwd@mainlining.org>
+Date: Tue, 4 Mar 2025 22:32:20 +0300
+Subject: media: i2c: Add driver for LC898217XC VCM
+
+LC898217XC is a 11 bit DAC, designed for linear control
+of voice coil motor. This driver creates a V4L2 subdevice
+and provides control to set the desired focus.
+
+Tested on Oneplus 6 (oneplus-enchilada)
+
+Signed-off-by: Vasiliy Doylov <nekocwd@mainlining.org>
+---
+ drivers/media/i2c/Kconfig      |   5 +-
+ drivers/media/i2c/lc898217xc.c | 121 +++++++++++++++++++++++++++++------------
+ 2 files changed, 86 insertions(+), 40 deletions(-)
+
+diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+index ee7001c..20973fa 100644
+--- a/drivers/media/i2c/Kconfig
++++ b/drivers/media/i2c/Kconfig
+@@ -913,10 +913,7 @@ config VIDEO_DW9807_VCM
+ 
+ config VIDEO_LC898217XC
+ 	tristate "LC898217XC lens voice coil support"
+-	depends on I2C && VIDEO_DEV
+-	select MEDIA_CONTROLLER
+-	select VIDEO_V4L2_SUBDEV_API
+-	select V4L2_ASYNC
++	select V4L2_CCI_I2C
+ 	help
+ 	  This is a driver for the LC898217XC camera lens voice coil.
+ 	  LC898217XC is a 11 bit DAC with 110mA output current sink
+diff --git a/drivers/media/i2c/lc898217xc.c b/drivers/media/i2c/lc898217xc.c
+index 86afbf8..89bb5c1 100644
+--- a/drivers/media/i2c/lc898217xc.c
++++ b/drivers/media/i2c/lc898217xc.c
+@@ -5,8 +5,10 @@
+ #include <linux/i2c.h>
+ #include <linux/module.h>
+ #include <linux/pm_runtime.h>
++#include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
+ #include <media/v4l2-async.h>
++#include <media/v4l2-cci.h>
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-device.h>
+ #include <media/v4l2-fwnode.h>
+@@ -18,18 +20,18 @@
+ #define LC898217XC_MAX_FOCUS_POS (2048 - 1)
+ #define LC898217XC_MIN_FOCUS_POS 0
+ #define LC898217XC_FOCUS_STEPS 1
+-
+-#define LC898217XC_MSB_ADDR 132
++#define LC898217XC_DAC_ADDR CCI_REG16(0x84)
+ 
+ static const char *const lc898217xc_supply_names[] = {
+-	"vcc",
++	"vdd",
++	"vana",
+ };
+ 
+ struct lc898217xc {
+ 	struct regulator_bulk_data supplies[ARRAY_SIZE(lc898217xc_supply_names)];
+ 	struct v4l2_ctrl_handler ctrls;
+-	struct v4l2_ctrl *focus;
+ 	struct v4l2_subdev sd;
++	struct regmap *regmap;
+ };
+ 
+ static inline struct lc898217xc *sd_to_lc898217xc(struct v4l2_subdev *subdev)
+@@ -40,8 +42,30 @@ static inline struct lc898217xc *sd_to_lc898217xc(struct v4l2_subdev *subdev)
+ static int lc898217xc_set_dac(struct lc898217xc *lc898217xc, u16 val)
+ {
+ 	struct i2c_client *client = v4l2_get_subdevdata(&lc898217xc->sd);
++	int ret;
++
++	ret = cci_write(lc898217xc->regmap, LC898217XC_DAC_ADDR, val, NULL);
++	if (ret)
++		dev_err(&client->dev, "failed to set DAC: %d\n", ret);
+ 
+-	return i2c_smbus_write_word_swapped(client, LC898217XC_MSB_ADDR, val);
++	return ret;
++}
++
++static int lc898217xc_power_on(struct lc898217xc *lc898217xc) {
++	int ret;
++	ret = regulator_bulk_enable(ARRAY_SIZE(lc898217xc_supply_names),
++				    lc898217xc->supplies);
++	if(ret < 0)
++		return ret;
++
++	usleep_range(8000, 10000);
++	return 0;
++}
++
++static int lc898217xc_power_off(struct lc898217xc *lc898217xc) {
++	regulator_bulk_disable(ARRAY_SIZE(lc898217xc_supply_names),
++				    lc898217xc->supplies);
++	return 0;
+ }
+ 
+ static int __maybe_unused lc898217xc_runtime_suspend(struct device *dev)
+@@ -49,9 +73,7 @@ static int __maybe_unused lc898217xc_runtime_suspend(struct device *dev)
+ 	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+ 	struct lc898217xc *lc898217xc = sd_to_lc898217xc(sd);
+ 
+-	regulator_bulk_disable(ARRAY_SIZE(lc898217xc_supply_names),
+-			       lc898217xc->supplies);
+-
++	lc898217xc_power_off(lc898217xc);
+ 	return 0;
+ }
+ 
+@@ -61,23 +83,21 @@ static int __maybe_unused lc898217xc_runtime_resume(struct device *dev)
+ 	struct lc898217xc *lc898217xc = sd_to_lc898217xc(sd);
+ 	int ret;
+ 
+-	ret = regulator_bulk_enable(ARRAY_SIZE(lc898217xc_supply_names),
+-				    lc898217xc->supplies);
+-
++	ret = lc898217xc_power_on(lc898217xc);
+ 	if (ret < 0) {
+ 		dev_err(dev, "failed to enable regulators\n");
+ 		return ret;
+ 	}
+ 
+-	usleep_range(8000, 10000);
++	__v4l2_ctrl_handler_setup(&lc898217xc->ctrls);
+ 
+ 	return ret;
+ }
+ 
+ static int lc898217xc_set_ctrl(struct v4l2_ctrl *ctrl)
+ {
+-	struct lc898217xc *lc898217xc =
+-		container_of(ctrl->handler, struct lc898217xc, ctrls);
++	struct lc898217xc *lc898217xc = container_of(ctrl->handler,
++						     struct lc898217xc, ctrls);
+ 
+ 	if (ctrl->id == V4L2_CID_FOCUS_ABSOLUTE)
+ 		return lc898217xc_set_dac(lc898217xc, ctrl->val);
+@@ -96,7 +116,6 @@ static int lc898217xc_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
+ 
+ static int lc898217xc_close(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
+ {
+-	pm_runtime_mark_last_busy(sd->dev);
+ 	pm_runtime_put_autosuspend(sd->dev);
+ 
+ 	return 0;
+@@ -109,8 +128,6 @@ static const struct v4l2_subdev_internal_ops lc898217xc_int_ops = {
+ 
+ static const struct v4l2_subdev_core_ops lc898217xc_core_ops = {
+ 	.log_status = v4l2_ctrl_subdev_log_status,
+-	.subscribe_event = v4l2_ctrl_subdev_subscribe_event,
+-	.unsubscribe_event = v4l2_event_subdev_unsubscribe,
+ };
+ 
+ static const struct v4l2_subdev_ops lc898217xc_ops = {
+@@ -124,10 +141,10 @@ static int lc898217xc_init_controls(struct lc898217xc *lc898217xc)
+ 
+ 	v4l2_ctrl_handler_init(hdl, 1);
+ 
+-	lc898217xc->focus = v4l2_ctrl_new_std(hdl, ops, V4L2_CID_FOCUS_ABSOLUTE,
+-					      LC898217XC_MIN_FOCUS_POS,
+-					      LC898217XC_MAX_FOCUS_POS,
+-					      LC898217XC_FOCUS_STEPS, 0);
++	v4l2_ctrl_new_std(hdl, ops, V4L2_CID_FOCUS_ABSOLUTE,
++		          LC898217XC_MIN_FOCUS_POS,
++			  LC898217XC_MAX_FOCUS_POS,
++			  LC898217XC_FOCUS_STEPS, 0);
+ 
+ 	if (hdl->error)
+ 		return hdl->error;
+@@ -148,6 +165,11 @@ static int lc898217xc_probe(struct i2c_client *client)
+ 	if (!lc898217xc)
+ 		return -ENOMEM;
+ 
++	lc898217xc->regmap = devm_cci_regmap_init_i2c(client, 8);
++	if (IS_ERR(lc898217xc->regmap))
++		return dev_err_probe(dev, PTR_ERR(lc898217xc->regmap),
++				     "failed to initialize CCI\n");
++
+ 	/* Initialize subdev */
+ 	v4l2_i2c_subdev_init(&lc898217xc->sd, client, &lc898217xc_ops);
+ 
+@@ -156,48 +178,67 @@ static int lc898217xc_probe(struct i2c_client *client)
+ 
+ 	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(lc898217xc_supply_names),
+ 				      lc898217xc->supplies);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to get regulators\n");
+ 
+-	if (ret) {
+-		dev_err(dev, "failed to get regulators\n");
+-		return ret;
+-	}
++	ret = lc898217xc_power_on(lc898217xc);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to enable regulators\n");
+ 
+ 	/* Initialize controls */
+ 	ret = lc898217xc_init_controls(lc898217xc);
+-	if (ret)
+-		goto err_free_handler;
++	if (ret) {
++		dev_err_probe(dev, ret, "failed to init v4l2 controls\n");
++		goto err_power_off;
++	}
+ 
+ 	/* Initialize subdev */
+-	lc898217xc->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE |
+-				V4L2_SUBDEV_FL_HAS_EVENTS;
++	lc898217xc->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
+ 	lc898217xc->sd.internal_ops = &lc898217xc_int_ops;
+ 
++	/* Initialize media entity pads */
+ 	ret = media_entity_pads_init(&lc898217xc->sd.entity, 0, NULL);
+-	if (ret < 0)
++	if (ret < 0) {
++		dev_err_probe(dev, ret, "failed to init media entity pads");
+ 		goto err_free_handler;
++	}
+ 
+ 	lc898217xc->sd.entity.function = MEDIA_ENT_F_LENS;
+ 
++	/*
++	 * Enable runtime PM. As the device has been powered manually, mark it
++	 * as active, and increase the usage count without resuming the device.
++	 */
++	pm_runtime_set_active(dev);
++	pm_runtime_get_noresume(dev);
+ 	pm_runtime_enable(dev);
+-	ret = v4l2_async_register_subdev(&lc898217xc->sd);
+ 
++	ret = v4l2_async_register_subdev(&lc898217xc->sd);
+ 	if (ret < 0) {
+-		dev_err(dev, "failed to register V4L2 subdev: %d", ret);
+-		goto err_power_off;
++		dev_err_probe(dev, ret, "failed to register V4L2 subdev\n");
++		goto err_pm;
+ 	}
+ 
++
++	/*
++	 * Finally, enable autosuspend and decrease the usage count. The device
++	 * will get suspended after the autosuspend delay, turning the power
++	 * off.
++	 */
+ 	pm_runtime_set_autosuspend_delay(dev, 1000);
+ 	pm_runtime_use_autosuspend(dev);
+-	pm_runtime_idle(dev);
++	pm_runtime_put_autosuspend(dev);
+ 
+ 	return 0;
+ 
+-err_power_off:
++err_pm:
+ 	pm_runtime_disable(dev);
++	pm_runtime_put_noidle(dev);
+ 	media_entity_cleanup(&lc898217xc->sd.entity);
+ err_free_handler:
+ 	v4l2_ctrl_handler_free(&lc898217xc->ctrls);
+-
++err_power_off:
++	lc898217xc_power_off(lc898217xc);
+ 	return ret;
+ }
+ 
+@@ -210,7 +251,15 @@ static void lc898217xc_remove(struct i2c_client *client)
+ 	v4l2_async_unregister_subdev(&lc898217xc->sd);
+ 	v4l2_ctrl_handler_free(&lc898217xc->ctrls);
+ 	media_entity_cleanup(&lc898217xc->sd.entity);
++
++	/*
++	 * Disable runtime PM. In case runtime PM is disabled in the kernel,
++	 * make sure to turn power off manually.
++	 */
+ 	pm_runtime_disable(dev);
++	if (!pm_runtime_status_suspended(dev))
++		lc898217xc_power_off(lc898217xc);
++	pm_runtime_set_suspended(dev);
+ }
+ 
+ static const struct of_device_id lc898217xc_of_table[] = {

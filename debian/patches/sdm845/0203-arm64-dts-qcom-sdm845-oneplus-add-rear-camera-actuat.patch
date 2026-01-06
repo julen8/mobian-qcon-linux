@@ -1,0 +1,80 @@
+From: Vasiliy Doylov <nekocwd@mainlining.org>
+Date: Mon, 10 Nov 2025 11:43:45 +0300
+Subject: arm64: dts: qcom: sdm845-oneplus: add rear camera actuators
+
+This commit enables sub and main rear camera actuators
+
+Signed-off-by: Vasiliy Doylov <nekocwd@mainlining.org>
+---
+ .../arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 51 ++++++++++++++++++++++
+ 1 file changed, 51 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+index 30a9ba3..f09879e 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+@@ -705,6 +705,50 @@ imx519_ep: endpoint {
+ 			};
+ 		};
+ 	};
++
++	rear_cam: camera@1a {
++		compatible = "sony,imx519";
++		reg = <0x1a>;
++
++		reset-gpios = <&tlmm 28 GPIO_ACTIVE_LOW>;
++		pinctrl-names = "default", "sleep";
++		pinctrl-0 = <&main_cam_default &cam_mclk0_default>;
++		pinctrl-1 = <&main_cam_sleep &cam_mclk0_sleep>;
++
++		clocks = <&clock_camcc CAM_CC_MCLK0_CLK>;
++		clock-names = "xclk";
++		clock-frequency = <24000000>;
++		assigned-clocks = <&clock_camcc CAM_CC_MCLK0_CLK>;
++		assigned-clock-rates = <24000000>;
++
++		power-domains = <&clock_camcc TITAN_TOP_GDSC>;
++
++		vana-supply = <&main_cam_vana>;
++		vcore-supply = <&main_cam_vdig>;
++		vio-supply = <&cam_vio_1p8>;
++
++		orientation = <1>; /* Rear camera */
++		rotation = <270>;
++
++		lens-focus = <&rear_cam_actuator>;
++
++		status = "okay";
++
++		port {
++			imx519_ep: endpoint {
++				remote-endpoint = <&csiphy0_ep>;
++				data-lanes = <1 2 3>;
++				link-frequencies = /bits/ 64 <500399375>;
++			};
++		};
++	};
++
++	rear_cam_actuator: actuator@72 {
++		compatible = "onnn,lc898217xc";
++		reg = <0x72>;
++		vana-supply = <&main_cam_vaf>;
++		vdd-supply = <&cam_vio_1p8>;
++	};
+ };
+ 
+ &cci_i2c1 {
+@@ -748,6 +792,13 @@ imx376k_ep: endpoint {
+ 			};
+ 		};
+ 	};
++
++	sub_cam_actuator: actuator@74 {
++		compatible = "onnn,lc898217xc";
++		reg = <0x74>;
++		vana-supply = <&sub_cam_vaf>;
++		vdd-supply = <&cam_vio_1p8>;
++ 	};
+ };
+ 
+ &cdsp_pas {

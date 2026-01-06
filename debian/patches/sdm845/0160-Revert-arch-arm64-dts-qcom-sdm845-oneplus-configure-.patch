@@ -1,0 +1,25 @@
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Sat, 21 Jun 2025 01:56:05 -0500
+Subject: Revert "arch: arm64: dts: qcom: sdm845-oneplus: configure the acdb
+ path"
+
+This reverts commit fe42ce943b53b5a546dc28f3c99601cba1cf33b9.
+---
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+index fdfac1a..6067e5a 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+@@ -950,10 +950,6 @@ dai@1 {
+ 	};
+ };
+ 
+-&q6core {
+-	qcom,acdb-name = "qcom/sdm845/oneplus6/acdb/MTP/MTP_Global_cal.acdb";
+-};
+-
+ &qupv3_id_1 {
+ 	status = "okay";
+ };
