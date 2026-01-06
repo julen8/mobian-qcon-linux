@@ -1,0 +1,22 @@
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Mon, 29 Dec 2025 01:46:37 -0600
+Subject: sdm845.config: make gpi dma built in
+
+As i2c-qcom-geni which uses it is builtin too. likely help with some i2c timeouts in op6 camera sensor. not confirmed. anyways it makes sense.
+---
+ arch/arm64/configs/sdm845.config | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/configs/sdm845.config b/arch/arm64/configs/sdm845.config
+index 2eb1525..9b779ac 100644
+--- a/arch/arm64/configs/sdm845.config
++++ b/arch/arm64/configs/sdm845.config
+@@ -25,7 +25,7 @@ CONFIG_SND_SOC_TFA98XX=m
+ CONFIG_DRM_PANEL_NOVATEK_NT36672A=y
+ CONFIG_DRM_PANEL_EBBG_FT8719=y
+ CONFIG_TOUCHSCREEN_NOVATEK_NVT_TS=m
+-CONFIG_QCOM_GPI_DMA=m
++CONFIG_QCOM_GPI_DMA=y
+ CONFIG_SND_SOC_TAS2559=m
+ CONFIG_VIDEO_IMX363=m
+ CONFIG_VIDEO_BU64748=m

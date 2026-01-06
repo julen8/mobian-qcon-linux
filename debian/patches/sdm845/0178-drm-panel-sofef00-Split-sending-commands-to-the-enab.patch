@@ -1,0 +1,66 @@
+From: David Heidelberg <david@ixit.cz>
+Date: Wed, 19 Nov 2025 15:21:30 +0100
+Subject: drm/panel: sofef00: Split sending commands to the enable/disable
+ functions
+
+It's not possible to send DSI panel commands in the .unprepare. Move it
+to .disable and do similar for prepare, where we move the display on to
+the .enable.
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+Link: https://patch.msgid.link/20251119-sofef00-rebuild-v3-5-6cd55471e84e@ixit.cz
+---
+ drivers/gpu/drm/panel/panel-samsung-sofef00.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/panel/panel-samsung-sofef00.c b/drivers/gpu/drm/panel/panel-samsung-sofef00.c
+index 3097040..a3651f0 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-sofef00.c
++++ b/drivers/gpu/drm/panel/panel-samsung-sofef00.c
+@@ -68,6 +68,14 @@ static int sofef00_panel_on(struct sofef00_panel *ctx)
+ 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x20);
+ 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_POWER_SAVE, 0x00);
+ 
++	return dsi_ctx.accum_err;
++}
++
++static int sofef00_enable(struct drm_panel *panel)
++{
++	struct sofef00_panel *ctx = to_sofef00_panel(panel);
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++
+ 	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+ 
+ 	return dsi_ctx.accum_err;
+@@ -110,11 +118,19 @@ static int sofef00_panel_prepare(struct drm_panel *panel)
+ 	return 0;
+ }
+ 
+-static int sofef00_panel_unprepare(struct drm_panel *panel)
++static int sofef00_disable(struct drm_panel *panel)
+ {
+ 	struct sofef00_panel *ctx = to_sofef00_panel(panel);
+ 
+ 	sofef00_panel_off(ctx);
++
++	return 0;
++}
++
++static int sofef00_panel_unprepare(struct drm_panel *panel)
++{
++	struct sofef00_panel *ctx = to_sofef00_panel(panel);
++
+ 	regulator_bulk_disable(ARRAY_SIZE(sofef00_supplies), ctx->supplies);
+ 
+ 	return 0;
+@@ -154,6 +170,8 @@ static int sofef00_panel_get_modes(struct drm_panel *panel, struct drm_connector
+ 
+ static const struct drm_panel_funcs sofef00_panel_panel_funcs = {
+ 	.prepare = sofef00_panel_prepare,
++	.enable = sofef00_enable,
++	.disable = sofef00_disable,
+ 	.unprepare = sofef00_panel_unprepare,
+ 	.get_modes = sofef00_panel_get_modes,
+ };

@@ -1,0 +1,26 @@
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Mon, 29 Dec 2025 02:04:43 -0600
+Subject: Revert "ASoC: codecs: wcd937x: set the comp soundwire port
+ correctly"
+
+This reverts commit 66a940b1bf48a7095162688332d725ba160154eb.
+---
+ sound/soc/codecs/wcd937x.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/codecs/wcd937x.c b/sound/soc/codecs/wcd937x.c
+index d41b306..c07f253 100644
+--- a/sound/soc/codecs/wcd937x.c
++++ b/sound/soc/codecs/wcd937x.c
+@@ -2046,9 +2046,9 @@ static const struct snd_kcontrol_new wcd937x_snd_controls[] = {
+ 	SOC_ENUM_EXT("RX HPH Mode", rx_hph_mode_mux_enum,
+ 		     wcd937x_rx_hph_mode_get, wcd937x_rx_hph_mode_put),
+ 
+-	SOC_SINGLE_EXT("HPHL_COMP Switch", WCD937X_COMP_L, 0, 1, 0,
++	SOC_SINGLE_EXT("HPHL_COMP Switch", SND_SOC_NOPM, 0, 1, 0,
+ 		       wcd937x_get_compander, wcd937x_set_compander),
+-	SOC_SINGLE_EXT("HPHR_COMP Switch", WCD937X_COMP_R, 1, 1, 0,
++	SOC_SINGLE_EXT("HPHR_COMP Switch", SND_SOC_NOPM, 1, 1, 0,
+ 		       wcd937x_get_compander, wcd937x_set_compander),
+ 
+ 	SOC_SINGLE_TLV("HPHL Volume", WCD937X_HPH_L_EN, 0, 20, 1, line_gain),

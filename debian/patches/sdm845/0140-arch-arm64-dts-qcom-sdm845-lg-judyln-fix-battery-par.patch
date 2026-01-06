@@ -1,0 +1,26 @@
+From: Chris Brown <crispybrown@gmail.com>
+Date: Mon, 24 Mar 2025 22:46:12 -0400
+Subject: arch: arm64: dts: qcom: sdm845-lg-judyln: fix battery parameters
+
+Based on lineageos kernel.
+
+Signed-off-by: Christopher Brown <crispybrown@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts b/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
+index 6db84d6..284f798 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
+@@ -70,8 +70,8 @@ battery: battery {
+ 		status = "okay";
+ 		compatible = "simple-battery";
+ 
+-		charge-full-design-microamp-hours = <3300000>;
+-		voltage-min-design-microvolt = <3400000>;
++		charge-full-design-microamp-hours = <3000000>;
++		voltage-min-design-microvolt = <3200000>;
+ 		voltage-max-design-microvolt = <4400000>;
+ 	};
+ };

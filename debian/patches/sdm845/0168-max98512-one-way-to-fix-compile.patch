@@ -1,0 +1,173 @@
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Thu, 2 Oct 2025 21:25:08 -0500
+Subject: max98512: one way to fix compile.
+
+---
+ sound/soc/codecs/Makefile                             |  6 ++----
+ sound/soc/codecs/max98512-downstream/max98512.c       | 19 ++++++++++++++++++-
+ sound/soc/codecs/max98512-downstream/maxim_dsm_cal.c  | 15 ++++++++++-----
+ sound/soc/codecs/max98512-downstream/maxim_dsm_cal.h  |  2 ++
+ .../soc/codecs/max98512-downstream/maxim_dsm_power.c  |  6 ++----
+ .../soc/codecs/max98512-downstream/maxim_dsm_power.h  |  3 +++
+ 6 files changed, 37 insertions(+), 14 deletions(-)
+
+diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+index d5a2dbb..f1b50d7 100644
+--- a/sound/soc/codecs/Makefile
++++ b/sound/soc/codecs/Makefile
+@@ -421,9 +421,7 @@ snd-soc-zl38060-y := zl38060.o
+ # Amp
+ snd-soc-max9877-y := max9877.o
+ snd-soc-max98504-y := max98504.o
+-snd-soc-max98512-objs := max98512-downstream/max98512.o
+-snd-soc-maxim-dsm-objs := max98512-downstream/maxim_dsm.o
+-snd-soc-maxim-dsm-cal-objs := max98512-downstream/maxim_dsm_cal.o max98512-downstream/maxim_dsm_power.o
++snd-soc-max98512-objs := max98512-downstream/max98512.o max98512-downstream/maxim_dsm.o max98512-downstream/maxim_dsm_cal.o max98512-downstream/maxim_dsm_power.o
+ snd-soc-simple-amplifier-y := simple-amplifier.o
+ snd-soc-tpa6130a2-y := tpa6130a2.o
+ snd-soc-tas2552-y := tas2552.o
+@@ -617,7 +615,7 @@ obj-$(CONFIG_SND_SOC_MAX98373_SDW)   += snd-soc-max98373-sdw.o
+ obj-$(CONFIG_SND_SOC_MAX98388)	+= snd-soc-max98388.o
+ obj-$(CONFIG_SND_SOC_MAX98390)	+= snd-soc-max98390.o
+ obj-$(CONFIG_SND_SOC_MAX98396)	+= snd-soc-max98396.o
+-obj-$(CONFIG_SND_SOC_MAX98512)	+= snd-soc-max98512.o snd-soc-maxim-dsm.o snd-soc-maxim-dsm-cal.o
++obj-$(CONFIG_SND_SOC_MAX98512) += snd-soc-max98512.o
+ obj-$(CONFIG_SND_SOC_MAX9850)	+= snd-soc-max9850.o
+ obj-$(CONFIG_SND_SOC_MAX9860)	+= snd-soc-max9860.o
+ obj-$(CONFIG_SND_SOC_MC13783)	+= snd-soc-mc13783.o
+diff --git a/sound/soc/codecs/max98512-downstream/max98512.c b/sound/soc/codecs/max98512-downstream/max98512.c
+index 5bc24a3..1a09072 100644
+--- a/sound/soc/codecs/max98512-downstream/max98512.c
++++ b/sound/soc/codecs/max98512-downstream/max98512.c
+@@ -24,6 +24,7 @@
+ #include <sound/tlv.h>
+ #include "max98512.h"
+ #include "maxim_dsm.h"
++#include "maxim_dsm_cal.h"
+ #ifdef CONFIG_SND_SOC_MAXIM_DSM
+ #include "maxim_dsm_cal.h"
+ #endif /* CONFIG_SND_SOC_MAXIM_DSM_CAL */
+@@ -2566,7 +2567,23 @@ static struct i2c_driver max98512_i2c_driver = {
+ 	.remove = max98512_i2c_remove,
+ 	.id_table = max98512_i2c_id,
+ };
+-module_i2c_driver(max98512_i2c_driver)
++
++static int __init max98512_init(void)
++{
++    int ret = maxdsm_cal_init();
++    if (ret)
++        return ret;
++    return i2c_add_driver(&max98512_i2c_driver);
++}
++
++static void __exit max98512_exit(void)
++{
++    i2c_del_driver(&max98512_i2c_driver);
++    maxdsm_cal_exit();
++}
++
++module_init(max98512_init);
++module_exit(max98512_exit);
+ 
+ MODULE_DESCRIPTION("ALSA SoC MAX98512 driver");
+ MODULE_AUTHOR("Ryan Lee <ryans.lee@maximintegrated.com>");
+diff --git a/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.c b/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.c
+index af9e0a1..327509e 100644
+--- a/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.c
++++ b/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.c
+@@ -23,6 +23,7 @@
+ #include <linux/power_supply.h>
+ #include "maxim_dsm.h"
+ #include "maxim_dsm_cal.h"
++#include "maxim_dsm_power.h"
+ 
+ #define DEBUG_MAXIM_DSM_CAL
+ #ifdef DEBUG_MAXIM_DSM_CAL
+@@ -1030,7 +1031,7 @@ static struct attribute_group maxdsm_cal_attr_grp = {
+ 	.attrs = maxdsm_cal_attr,
+ };
+ 
+-static int __init maxdsm_cal_init(void)
++int maxdsm_cal_init(void)
+ {
+ 	struct maxim_dsm_cal *mdc;
+ 	int ret = 0;
+@@ -1080,17 +1081,21 @@ static int __init maxdsm_cal_init(void)
+ 
+ 	dbg_maxdsm("Completed initialization");
+ 
++	ret = maxdsm_power_init();
++	if (ret) {
++		pr_err("Failed to initialize maxdsm_power\n");
++		// Optionally handle error, e.g., goto error;
++	}
++
+ 	return ret;
+ }
+-module_init(maxdsm_cal_init);
+ 
+-static void __exit maxdsm_cal_exit(void)
++void maxdsm_cal_exit(void)
+ {
++	maxdsm_power_exit();
+ 	kfree(g_mdc);
+ }
+-module_exit(maxdsm_cal_exit);
+ 
+ MODULE_DESCRIPTION(DRIVER_DESC);
+ MODULE_AUTHOR(DRIVER_AUTHOR);
+-//MODULE_SUPPORTED_DEVICE(DRIVER_SUPPORTED);
+ MODULE_LICENSE("GPL");
+diff --git a/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.h b/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.h
+index c421058..e1824f4 100644
+--- a/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.h
++++ b/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.h
+@@ -93,5 +93,7 @@ extern int maxdsm_cal_get_safe_mode(void);
+ extern uint32_t maxdsm_cal_get_thermal_min_gain(void);
+ extern void maxdsm_cal_set_thermal_min_gain(uint32_t thermal_min_gain);
+ extern int maxdsm_cal_get_temp_from_power_supply(void);
++extern int maxdsm_cal_init(void);
++extern void maxdsm_cal_exit(void);
+ 
+ #endif /* __SOUND_MAXIM_DSM_CAL_H__ */
+diff --git a/sound/soc/codecs/max98512-downstream/maxim_dsm_power.c b/sound/soc/codecs/max98512-downstream/maxim_dsm_power.c
+index 2f2dbb1..95afd81 100644
+--- a/sound/soc/codecs/max98512-downstream/maxim_dsm_power.c
++++ b/sound/soc/codecs/max98512-downstream/maxim_dsm_power.c
+@@ -627,7 +627,7 @@ static struct attribute_group maxdsm_power_attr_grp = {
+ 	.attrs = maxdsm_power_attr,
+ };
+ 
+-static int __init maxdsm_power_init(void)
++int maxdsm_power_init(void)
+ {
+ 	struct class *class = NULL;
+ 	struct maxim_dsm_power *mdp;
+@@ -689,13 +689,11 @@ static int __init maxdsm_power_init(void)
+ 
+ 	return ret;
+ }
+-module_init(maxdsm_power_init);
+ 
+-static void __exit maxdsm_power_exit(void)
++void maxdsm_power_exit(void)
+ {
+ 	kfree(g_mdp);
+ };
+-module_exit(maxdsm_power_exit);
+ 
+ MODULE_DESCRIPTION("For power measurement of DSM");
+ MODULE_AUTHOR("Kyounghun Jeon<hun.jeon@maximintegrated.com");
+diff --git a/sound/soc/codecs/max98512-downstream/maxim_dsm_power.h b/sound/soc/codecs/max98512-downstream/maxim_dsm_power.h
+index 7942d00..6927931 100644
+--- a/sound/soc/codecs/max98512-downstream/maxim_dsm_power.h
++++ b/sound/soc/codecs/max98512-downstream/maxim_dsm_power.h
+@@ -81,4 +81,7 @@ struct maxim_dsm_power {
+ void maxdsm_power_ppr_control(int state);
+ void maxdsm_power_control(int state);
+ 
++int maxdsm_power_init(void);
++void maxdsm_power_exit(void);
++
+ #endif /* __SOUND_MAXIM_DSM_POWER_H__ */

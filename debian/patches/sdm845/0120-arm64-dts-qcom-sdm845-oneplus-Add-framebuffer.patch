@@ -1,0 +1,73 @@
+From: Sam Day <me@samcday.com>
+Date: Tue, 21 Jan 2025 08:37:27 +0100
+Subject: arm64: dts: qcom: sdm845-oneplus: Add framebuffer
+
+enchilada and fajita have almost exactly the same config, with the
+exception that fajita has a slightly larger vertical screen resolution.
+
+Additionally, add the hack from https://github.com/sdm660-mainline/linux/blob/f5282d6069a4acb8e80d752095dd4aab2536bd0f/arch/arm64/boot/dts/qcom/sdm660-xiaomi-lavender-common.dtsi#L42C4-L57C6
+
+Signed-off-by: Sam Day <me@samcday.com>
+---
+ .../arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 31 ++++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts |  4 +++
+ 2 files changed, 35 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+index e9d89df..9cb30fd 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+@@ -69,7 +69,38 @@ aliases {
+ 	};
+ 
+ 	chosen {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
+ 		stdout-path = "serial0:115200n8";
++
++		framebuffer: framebuffer@9d400000 {
++			compatible = "simple-framebuffer";
++			reg = <0 0x9d400000 0 0x2400000>;
++			width = <1080>;
++			height = <2280>;
++			stride = <(1080 * 4)>;
++			format = "a8r8g8b8";
++
++			/**
++			 * HACK:
++			 * Fake panel node for simple-framebuffer to calculate DPI from. Only
++			 * needs width & height specified. This allows us to break device link
++			 * from simplefb to mdss (implicitly via panel->mdp->mdss) to fix drm
++			 * device probe ordering. Without this, simpledrm would probe second
++			 * after msm-drm, and confuse userspace with 2 GPUs in /dev/dri.
++			 * Alternative workaround is to boot with kernel parameter
++			 * `fw_devlink=permissive`, which is worse, because it can hide other
++			 * issues with device dependencies.
++			 */
++			panel = <&fb_panel>;
++
++			fb_panel: fb-panel {
++				width-mm = <68>;
++				height-mm = <145>;
++			};
++		};
+ 	};
+ 
+ 	gpio-hall-sensor {
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
+index 49adc20..bd9089d 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
+@@ -63,6 +63,10 @@ &display_panel {
+ 	compatible = "samsung,s6e3fc2x01";
+ };
+ 
++&framebuffer {
++	height = <2340>;
++};
++
+ &i2c4 {
+ 	status = "okay";
+ 	clock-frequency = <400000>;
