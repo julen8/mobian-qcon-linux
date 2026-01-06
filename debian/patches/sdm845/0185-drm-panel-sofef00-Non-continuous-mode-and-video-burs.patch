@@ -1,0 +1,29 @@
+From: David Heidelberg <david@ixit.cz>
+Date: Wed, 19 Nov 2025 15:21:37 +0100
+Subject: drm/panel: sofef00: Non-continuous mode and video burst are
+ supported
+
+The panel supports both modes.
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+Link: https://patch.msgid.link/20251119-sofef00-rebuild-v3-12-6cd55471e84e@ixit.cz
+---
+ drivers/gpu/drm/panel/panel-samsung-sofef00.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/panel/panel-samsung-sofef00.c b/drivers/gpu/drm/panel/panel-samsung-sofef00.c
+index db9c181..e00a497 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-sofef00.c
++++ b/drivers/gpu/drm/panel/panel-samsung-sofef00.c
+@@ -236,7 +236,8 @@ static int sofef00_panel_probe(struct mipi_dsi_device *dsi)
+ 
+ 	dsi->lanes = 4;
+ 	dsi->format = MIPI_DSI_FMT_RGB888;
+-	dsi->mode_flags = MIPI_DSI_MODE_LPM;
++	dsi->mode_flags = MIPI_DSI_MODE_VIDEO_BURST |
++			  MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM;
+ 
+ 	ctx->panel.prepare_prev_first = true;
+ 

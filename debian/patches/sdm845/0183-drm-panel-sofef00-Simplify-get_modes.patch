@@ -1,0 +1,67 @@
+From: David Heidelberg <david@ixit.cz>
+Date: Wed, 19 Nov 2025 15:21:35 +0100
+Subject: drm/panel: sofef00: Simplify get_modes
+
+Levearage drm_connector_helper_get_modes_fixed helper function.
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+Link: https://patch.msgid.link/20251119-sofef00-rebuild-v3-10-6cd55471e84e@ixit.cz
+---
+ drivers/gpu/drm/panel/panel-samsung-sofef00.c | 21 +++++++--------------
+ 1 file changed, 7 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/gpu/drm/panel/panel-samsung-sofef00.c b/drivers/gpu/drm/panel/panel-samsung-sofef00.c
+index c2cb859..0e857ab 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-sofef00.c
++++ b/drivers/gpu/drm/panel/panel-samsung-sofef00.c
+@@ -16,6 +16,7 @@
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_modes.h>
+ #include <drm/drm_panel.h>
++#include <drm/drm_probe_helper.h>
+ 
+ struct sofef00_panel {
+ 	struct drm_panel panel;
+@@ -143,34 +144,26 @@ static int sofef00_panel_unprepare(struct drm_panel *panel)
+ 
+ static const struct drm_display_mode ams628nw01_panel_mode = {
+ 	.clock = (1080 + 112 + 16 + 36) * (2280 + 36 + 8 + 12) * 60 / 1000,
++
+ 	.hdisplay = 1080,
+ 	.hsync_start = 1080 + 112,
+ 	.hsync_end = 1080 + 112 + 16,
+ 	.htotal = 1080 + 112 + 16 + 36,
++
+ 	.vdisplay = 2280,
+ 	.vsync_start = 2280 + 36,
+ 	.vsync_end = 2280 + 36 + 8,
+ 	.vtotal = 2280 + 36 + 8 + 12,
++
+ 	.width_mm = 68,
+ 	.height_mm = 145,
++
++	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
+ };
+ 
+ static int sofef00_panel_get_modes(struct drm_panel *panel, struct drm_connector *connector)
+ {
+-	struct drm_display_mode *mode;
+-
+-	mode = drm_mode_duplicate(connector->dev, &ams628nw01_panel_mode);
+-	if (!mode)
+-		return -ENOMEM;
+-
+-	drm_mode_set_name(mode);
+-
+-	mode->type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
+-	connector->display_info.width_mm = mode->width_mm;
+-	connector->display_info.height_mm = mode->height_mm;
+-	drm_mode_probed_add(connector, mode);
+-
+-	return 1;
++	return drm_connector_helper_get_modes_fixed(connector, &ams628nw01_panel_mode);
+ }
+ 
+ static const struct drm_panel_funcs sofef00_panel_panel_funcs = {
