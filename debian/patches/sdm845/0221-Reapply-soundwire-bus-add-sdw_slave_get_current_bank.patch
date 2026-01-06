@@ -1,0 +1,59 @@
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Mon, 5 Jan 2026 17:21:39 -0600
+Subject: Reapply "soundwire: bus: add sdw_slave_get_current_bank helper"
+
+This reverts commit 7d38c049c8db23cbbd2288c5c52d45c3f335a086.
+---
+ drivers/soundwire/bus.c       | 12 ++++++++++++
+ include/linux/soundwire/sdw.h |  8 ++++++++
+ 2 files changed, 20 insertions(+)
+
+diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+index 4fd5cac..55c1db8 100644
+--- a/drivers/soundwire/bus.c
++++ b/drivers/soundwire/bus.c
+@@ -1360,6 +1360,18 @@ int sdw_slave_get_scale_index(struct sdw_slave *slave, u8 *base)
+ }
+ EXPORT_SYMBOL(sdw_slave_get_scale_index);
+ 
++int sdw_slave_get_current_bank(struct sdw_slave *slave)
++{
++	int tmp;
++
++	tmp = sdw_read(slave, SDW_SCP_CTRL);
++	if (tmp < 0)
++		return tmp;
++
++	return FIELD_GET(SDW_SCP_STAT_CURR_BANK, tmp);
++}
++EXPORT_SYMBOL_GPL(sdw_slave_get_current_bank);
++
+ static int sdw_slave_set_frequency(struct sdw_slave *slave)
+ {
+ 	int scale_index;
+diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
+index 0962139..e6a3476b 100644
+--- a/include/linux/soundwire/sdw.h
++++ b/include/linux/soundwire/sdw.h
+@@ -1089,6 +1089,8 @@ int sdw_stream_remove_slave(struct sdw_slave *slave,
+ 
+ struct device *of_sdw_find_device_by_node(struct device_node *np);
+ 
++int sdw_slave_get_current_bank(struct sdw_slave *sdev);
++
+ int sdw_slave_get_scale_index(struct sdw_slave *slave, u8 *base);
+ 
+ /* messaging and data APIs */
+@@ -1128,6 +1130,12 @@ static inline struct device *of_sdw_find_device_by_node(struct device_node *np)
+ 	return NULL;
+ }
+ 
++static inline int sdw_slave_get_current_bank(struct sdw_slave *sdev)
++{
++	WARN_ONCE(1, "SoundWire API is disabled");
++	return -EINVAL;
++}
++
+ /* messaging and data APIs */
+ static inline int sdw_read(struct sdw_slave *slave, u32 addr)
+ {

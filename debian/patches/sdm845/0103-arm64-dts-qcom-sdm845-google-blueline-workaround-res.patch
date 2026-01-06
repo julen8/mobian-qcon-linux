@@ -1,0 +1,37 @@
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Tue, 4 Mar 2025 21:34:52 -0600
+Subject: arm64: dts: qcom: sdm845-google-blueline: workaround reset bug in
+ lg-sw43408
+
+---
+ arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
+index f1e1f0a..809e1d3 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
+@@ -226,6 +226,11 @@ vreg_l14a_1p88: ldo14 {
+ 			regulator-max-microvolt = <1800000>;
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+ 			regulator-boot-on;
++			/*
++			 * We can't properly bring the panel back if it gets turned off
++			 * so keep it's regulators always on for now.
++			 */
++			regulator-always-on;
+ 		};
+ 
+ 		vreg_l17a_1p3: ldo17 {
+@@ -284,6 +289,11 @@ vreg_l28a_3p0: ldo28 {
+ 			regulator-max-microvolt = <3008000>;
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+ 			regulator-boot-on;
++			/*
++			 * We can't properly bring the panel back if it gets turned off
++			 * so keep it's regulators always on for now.
++			 */
++			regulator-always-on;
+ 		};
+ 	};
+ 

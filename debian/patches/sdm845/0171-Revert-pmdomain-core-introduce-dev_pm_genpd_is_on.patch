@@ -1,0 +1,78 @@
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Thu, 2 Oct 2025 22:38:00 -0500
+Subject: Revert "pmdomain: core: introduce dev_pm_genpd_is_on()"
+
+This reverts commit 09813cde376d9d8f30eaf761534532101a0a7755.
+---
+ drivers/pmdomain/core.c   | 33 ---------------------------------
+ include/linux/pm_domain.h |  6 ------
+ 2 files changed, 39 deletions(-)
+
+diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
+index 0006ab3..a86aeda 100644
+--- a/drivers/pmdomain/core.c
++++ b/drivers/pmdomain/core.c
+@@ -769,39 +769,6 @@ int dev_pm_genpd_rpm_always_on(struct device *dev, bool on)
+ }
+ EXPORT_SYMBOL_GPL(dev_pm_genpd_rpm_always_on);
+ 
+-/**
+- * dev_pm_genpd_is_on() - Get device's current power domain status
+- *
+- * @dev: Device to get the current power status
+- *
+- * This function checks whether the generic power domain associated with the
+- * given device is on or not by verifying if genpd_status_on equals
+- * GENPD_STATE_ON.
+- *
+- * Note: this function returns the power status of the genpd at the time of the
+- * call. The power status may change after due to activity from other devices
+- * sharing the same genpd. Therefore, this information should not be relied for
+- * long-term decisions about the device power state.
+- *
+- * Return: 'true' if the device's power domain is on, 'false' otherwise.
+- */
+-bool dev_pm_genpd_is_on(struct device *dev)
+-{
+-	struct generic_pm_domain *genpd;
+-	bool is_on;
+-
+-	genpd = dev_to_genpd_safe(dev);
+-	if (!genpd)
+-		return false;
+-
+-	genpd_lock(genpd);
+-	is_on = genpd_status_on(genpd);
+-	genpd_unlock(genpd);
+-
+-	return is_on;
+-}
+-EXPORT_SYMBOL_GPL(dev_pm_genpd_is_on);
+-
+ /**
+  * pm_genpd_inc_rejected() - Adjust the rejected/usage counts for an idle-state.
+  *
+diff --git a/include/linux/pm_domain.h b/include/linux/pm_domain.h
+index c84edf2..78ebca5 100644
+--- a/include/linux/pm_domain.h
++++ b/include/linux/pm_domain.h
+@@ -321,7 +321,6 @@ void dev_pm_genpd_synced_poweroff(struct device *dev);
+ int dev_pm_genpd_set_hwmode(struct device *dev, bool enable);
+ bool dev_pm_genpd_get_hwmode(struct device *dev);
+ int dev_pm_genpd_rpm_always_on(struct device *dev, bool on);
+-bool dev_pm_genpd_is_on(struct device *dev);
+ 
+ extern struct dev_power_governor simple_qos_governor;
+ extern struct dev_power_governor pm_domain_always_on_gov;
+@@ -414,11 +413,6 @@ static inline int dev_pm_genpd_rpm_always_on(struct device *dev, bool on)
+ 	return -EOPNOTSUPP;
+ }
+ 
+-static inline bool dev_pm_genpd_is_on(struct device *dev)
+-{
+-	return false;
+-}
+-
+ #define simple_qos_governor		(*(struct dev_power_governor *)(NULL))
+ #define pm_domain_always_on_gov		(*(struct dev_power_governor *)(NULL))
+ #endif

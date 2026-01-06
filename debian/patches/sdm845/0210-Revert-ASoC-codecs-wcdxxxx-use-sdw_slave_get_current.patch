@@ -1,0 +1,130 @@
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Mon, 29 Dec 2025 02:03:34 -0600
+Subject: Revert "ASoC: codecs: wcdxxxx: use sdw_slave_get_current_bank
+ helper"
+
+This reverts commit 45a3295a3005f7782054a153312ba81d28eb7664.
+---
+ sound/soc/codecs/wcd938x-sdw.c | 10 ++++++++++
+ sound/soc/codecs/wcd938x.c     |  3 ++-
+ sound/soc/codecs/wcd938x.h     |  7 +++++++
+ sound/soc/codecs/wcd939x-sdw.c |  7 +++++++
+ sound/soc/codecs/wcd939x.c     |  2 +-
+ sound/soc/codecs/wcd939x.h     |  7 +++++++
+ 6 files changed, 34 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/codecs/wcd938x-sdw.c b/sound/soc/codecs/wcd938x-sdw.c
+index 8c0666a..2cbf918 100644
+--- a/sound/soc/codecs/wcd938x-sdw.c
++++ b/sound/soc/codecs/wcd938x-sdw.c
+@@ -82,6 +82,16 @@ static struct sdw_dpn_prop wcd938x_dpn_prop[WCD938X_MAX_SWR_PORTS] = {
+ 	}
+ };
+ 
++int wcd938x_swr_get_current_bank(struct sdw_slave *sdev)
++{
++	int bank;
++
++	bank  = sdw_read(sdev, SDW_SCP_CTRL);
++
++	return ((bank & 0x40) ? 1 : 0);
++}
++EXPORT_SYMBOL_GPL(wcd938x_swr_get_current_bank);
++
+ int wcd938x_sdw_hw_params(struct wcd938x_sdw_priv *wcd,
+ 			  struct snd_pcm_substream *substream,
+ 			  struct snd_pcm_hw_params *params,
+diff --git a/sound/soc/codecs/wcd938x.c b/sound/soc/codecs/wcd938x.c
+index f8d7bf2..e2cb075 100644
+--- a/sound/soc/codecs/wcd938x.c
++++ b/sound/soc/codecs/wcd938x.c
+@@ -1094,7 +1094,8 @@ static int wcd938x_tx_swr_ctrl(struct snd_soc_dapm_widget *w,
+ 	int bank;
+ 	int rate;
+ 
+-	bank = sdw_slave_get_current_bank(wcd938x->sdw_priv[AIF1_CAP]->sdev);
++	bank = (wcd938x_swr_get_current_bank(wcd938x->sdw_priv[AIF1_CAP]->sdev)) ? 0 : 1;
++	bank = bank ? 0 : 1;
+ 
+ 	switch (event) {
+ 	case SND_SOC_DAPM_PRE_PMU:
+diff --git a/sound/soc/codecs/wcd938x.h b/sound/soc/codecs/wcd938x.h
+index 54ee56b..dbafcae 100644
+--- a/sound/soc/codecs/wcd938x.h
++++ b/sound/soc/codecs/wcd938x.h
+@@ -669,6 +669,9 @@ int wcd938x_sdw_hw_params(struct wcd938x_sdw_priv *wcd,
+ 			  struct snd_pcm_substream *substream,
+ 			  struct snd_pcm_hw_params *params,
+ 			  struct snd_soc_dai *dai);
++
++int wcd938x_swr_get_current_bank(struct sdw_slave *sdev);
++
+ #else
+ 
+ static inline int wcd938x_sdw_free(struct wcd938x_sdw_priv *wcd,
+@@ -693,5 +696,9 @@ static inline int wcd938x_sdw_hw_params(struct wcd938x_sdw_priv *wcd,
+ 	return -EOPNOTSUPP;
+ }
+ 
++static inline int wcd938x_swr_get_current_bank(struct sdw_slave *sdev)
++{
++	return 0;
++}
+ #endif /* CONFIG_SND_SOC_WCD938X_SDW */
+ #endif /* __WCD938X_H__ */
+diff --git a/sound/soc/codecs/wcd939x-sdw.c b/sound/soc/codecs/wcd939x-sdw.c
+index ac328bf..95d63d2 100644
+--- a/sound/soc/codecs/wcd939x-sdw.c
++++ b/sound/soc/codecs/wcd939x-sdw.c
+@@ -128,6 +128,13 @@ static struct sdw_dpn_prop wcd939x_tx_dpn_prop[WCD939X_MAX_TX_SWR_PORTS] = {
+ 	}
+ };
+ 
++unsigned int wcd939x_swr_get_current_bank(struct sdw_slave *sdev)
++{
++	return FIELD_GET(SDW_SCP_STAT_CURR_BANK,
++			 sdw_read(sdev, SDW_SCP_CTRL));
++}
++EXPORT_SYMBOL_GPL(wcd939x_swr_get_current_bank);
++
+ int wcd939x_sdw_hw_params(struct wcd939x_sdw_priv *wcd,
+ 			  struct snd_pcm_substream *substream,
+ 			  struct snd_pcm_hw_params *params,
+diff --git a/sound/soc/codecs/wcd939x.c b/sound/soc/codecs/wcd939x.c
+index 85730ae4..5a56c79 100644
+--- a/sound/soc/codecs/wcd939x.c
++++ b/sound/soc/codecs/wcd939x.c
+@@ -1017,7 +1017,7 @@ static int wcd939x_tx_swr_ctrl(struct snd_soc_dapm_widget *w,
+ 	int bank;
+ 	int rate;
+ 
+-	bank = sdw_slave_get_current_bank(wcd939x->sdw_priv[AIF1_CAP]->sdev);
++	bank = wcd939x_swr_get_current_bank(wcd939x->sdw_priv[AIF1_CAP]->sdev);
+ 
+ 	switch (event) {
+ 	case SND_SOC_DAPM_PRE_PMU:
+diff --git a/sound/soc/codecs/wcd939x.h b/sound/soc/codecs/wcd939x.h
+index e70445b..3f189e5 100644
+--- a/sound/soc/codecs/wcd939x.h
++++ b/sound/soc/codecs/wcd939x.h
+@@ -930,6 +930,8 @@ int wcd939x_sdw_hw_params(struct wcd939x_sdw_priv *wcd,
+ 			  struct snd_pcm_hw_params *params,
+ 			  struct snd_soc_dai *dai);
+ 
++unsigned int wcd939x_swr_get_current_bank(struct sdw_slave *sdev);
++
+ struct regmap *wcd939x_swr_get_regmap(struct wcd939x_sdw_priv *wcd);
+ #else
+ 
+@@ -955,6 +957,11 @@ static inline int wcd939x_sdw_hw_params(struct wcd939x_sdw_priv *wcd,
+ 	return -EOPNOTSUPP;
+ }
+ 
++static inline unsigned int wcd939x_swr_get_current_bank(struct sdw_slave *sdev)
++{
++	return 0;
++}
++
+ struct regmap *wcd939x_swr_get_regmap(struct wcd939x_sdw_priv *wcd)
+ {
+ 	return PTR_ERR(-EINVAL);
