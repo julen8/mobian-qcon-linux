@@ -1,0 +1,38 @@
+From: David Heidelberg <david@ixit.cz>
+Date: Thu, 4 Dec 2025 11:41:24 +0100
+Subject: arm64: dts qcom: sdm845-oneplus-enchilada: Specify panel name within
+ the compatible
+
+sofef00 is name of the DDIC, it doesn't contain name of the panel used.
+The DDIC is also paired with other panels, so make clear which panel is
+used.
+
+New device-tree will work with old driver as expected, due to secondary
+compatible.
+
+Cosmetic: sort the properties in the node.
+
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+Link: https://lore.kernel.org/r/20251204-sofef00-rebuild-v4-1-7f6e030ae5b7@ixit.cz
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+index 8821b67..d03cd90 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+@@ -46,9 +46,9 @@ main_cam_ois: main-cam-ois-regulator {
+ };
+ 
+ &display_panel {
+-	status = "okay";
++	compatible = "samsung,sofef00-ams628nw01", "samsung,sofef00";
+ 
+-	compatible = "samsung,sofef00";
++	status = "okay";
+ };
+ 
+ &bq27441_fg {

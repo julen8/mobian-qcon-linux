@@ -1,0 +1,16 @@
+Patches origin
+--------------
+
+For out-of-tree device support, patches were imported from the following
+community-maintained kernel forks:
+  * sdm845: https://gitlab.com/sdm845-mainline/linux
+
+Those patchsets were last synced on the following dates:
+  * sdm845: 2026-01-06
+
+Patch debian/patches/sdm845/0235-HACK-drm-panel-s6e3fc2x01-skip-reset-and-keep-always.patch
+was imported from branch sdm845/6.16-dev of sdm845-mainline repository.
+Maintainer of sdm845-mainline was informed about this patch being required, otherwise fajita's
+panel cannot be powered up after been reset, e.g. pressing repeatedly the power button.
+As soon as the patch is included in the 6.18 branch of sdm845-mainline, these last lines
+can be dropped.

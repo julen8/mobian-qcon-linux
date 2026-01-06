@@ -1,0 +1,29 @@
+From: Casey Connolly <casey.connolly@linaro.org>
+Date: Wed, 19 Nov 2025 15:21:32 +0100
+Subject: drm/panel: sofef00: Add prepare_prev_first flag to drm_panel
+
+This corrects the host initialisation sequence so that we can send
+DSI/DCS commands in prepare().
+
+Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+Link: https://patch.msgid.link/20251119-sofef00-rebuild-v3-7-6cd55471e84e@ixit.cz
+---
+ drivers/gpu/drm/panel/panel-samsung-sofef00.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/panel/panel-samsung-sofef00.c b/drivers/gpu/drm/panel/panel-samsung-sofef00.c
+index 97122ec..0d3ae06 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-sofef00.c
++++ b/drivers/gpu/drm/panel/panel-samsung-sofef00.c
+@@ -242,6 +242,8 @@ static int sofef00_panel_probe(struct mipi_dsi_device *dsi)
+ 	dsi->lanes = 4;
+ 	dsi->format = MIPI_DSI_FMT_RGB888;
+ 
++	ctx->panel.prepare_prev_first = true;
++
+ 	ctx->panel.backlight = sofef00_create_backlight(dsi);
+ 	if (IS_ERR(ctx->panel.backlight))
+ 		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),

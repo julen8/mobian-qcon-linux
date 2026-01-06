@@ -1,0 +1,56 @@
+From: David Heidelberg <david@ixit.cz>
+Date: Sun, 8 Dec 2024 00:39:45 -0500
+Subject: media: qcom: camss: Prepare CSID for C-PHY support
+
+Inherit C-PHY information from CSIPHY, so we can configure CSID
+properly.
+
+CSI2_RX_CFG0_PHY_TYPE_SEL must be set to 1, when C-PHY mode is used.
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ drivers/media/platform/qcom/camss/camss-csid-gen2.c | 5 +++++
+ drivers/media/platform/qcom/camss/camss-csid.c      | 1 +
+ drivers/media/platform/qcom/camss/camss-csid.h      | 1 +
+ 3 files changed, 7 insertions(+)
+
+diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen2.c b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
+index 2a1746dc..3d30b4c 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid-gen2.c
++++ b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
+@@ -183,6 +183,11 @@ static void __csid_configure_rx(struct csid_device *csid,
+ 	val = (lane_cnt - 1) << CSI2_RX_CFG0_NUM_ACTIVE_LANES;
+ 	val |= phy->lane_assign << CSI2_RX_CFG0_DL0_INPUT_SEL;
+ 	val |= phy->csiphy_id << CSI2_RX_CFG0_PHY_NUM_SEL;
++
++	/* Set the PHY_TYPE_SEL bit to enable C-PHY mode */
++	if (csid->phy.cphy)
++		val |= BIT(CSI2_RX_CFG0_PHY_TYPE_SEL);
++
+ 	writel_relaxed(val, csid->base + CSID_CSI2_RX_CFG0);
+ 
+ 	val = 1 << CSI2_RX_CFG1_PACKET_ECC_CORRECTION_EN;
+diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
+index 5284b58..d9026fd 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid.c
++++ b/drivers/media/platform/qcom/camss/camss-csid.c
+@@ -1287,6 +1287,7 @@ static int csid_link_setup(struct media_entity *entity,
+ 		csid->phy.csiphy_id = csiphy->id;
+ 
+ 		lane_cfg = &csiphy->cfg.csi2->lane_cfg;
++		csid->phy.cphy = (lane_cfg->phy_cfg == V4L2_MBUS_CSI2_CPHY);
+ 		csid->phy.lane_cnt = lane_cfg->num_data;
+ 		csid->phy.lane_assign = csid_get_lane_assign(lane_cfg);
+ 	}
+diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
+index aedc96e..a82db31 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid.h
++++ b/drivers/media/platform/qcom/camss/camss-csid.h
+@@ -70,6 +70,7 @@ struct csid_phy_config {
+ 	u32 lane_assign;
+ 	u32 en_vc;
+ 	u8 need_vc_update;
++	bool cphy;
+ };
+ 
+ struct csid_device;
