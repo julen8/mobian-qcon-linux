@@ -1,0 +1,31 @@
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Thu, 2 Oct 2025 23:02:11 -0500
+Subject: sdm845.config: temporarily disable max98512 downstream codec as it
+ doesnt compile
+
+Its not obvious for me how to fix this correctly. Even if I did, I dont have a Samsung S9
+to test if it works. Temporarily disable the module until someone finds a fix to get
+compiled and ensure that it works.
+
+Signed-off-by: foss@joelselvaraj.com
+---
+ arch/arm64/configs/sdm845.config | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/arch/arm64/configs/sdm845.config b/arch/arm64/configs/sdm845.config
+index a2e59d6..2eb1525 100644
+--- a/arch/arm64/configs/sdm845.config
++++ b/arch/arm64/configs/sdm845.config
+@@ -31,9 +31,9 @@ CONFIG_VIDEO_IMX363=m
+ CONFIG_VIDEO_BU64748=m
+ 
+ # Samsung S9 SM-G9600(starqltechn)
+-CONFIG_SND_SOC_MAX98512=y
+-CONFIG_SND_SOC_MAXIM_DSM=y
+-CONFIG_SND_SOC_MAXIM_DSM_CAL=y
++CONFIG_SND_SOC_MAX98512=n
++CONFIG_SND_SOC_MAXIM_DSM=n
++CONFIG_SND_SOC_MAXIM_DSM_CAL=n
+ CONFIG_DRM_PANEL_SAMSUNG_S6E3HA8=y
+ CONFIG_TOUCHSCREEN_S6SY761=m
+ CONFIG_MFD_SEC_CORE=m

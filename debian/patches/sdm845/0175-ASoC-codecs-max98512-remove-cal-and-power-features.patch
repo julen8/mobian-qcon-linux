@@ -1,0 +1,2194 @@
+From: Dzmitry Sankouski <dsankouski@gmail.com>
+Date: Wed, 8 Oct 2025 20:42:53 +0300
+Subject: ASoC: codecs: max98512: remove *cal and *power features
+
+Remove calibration and power management features because unused on
+mainline. This also fixes 6.17 compile errors.
+Tested on starqltechn.
+
+Signed-off-by: Dzmitry Sankouski <dsankouski@gmail.com>
+---
+ sound/soc/codecs/Makefile                          |    3 +-
+ sound/soc/codecs/max98512-downstream/max98512.c    |   61 --
+ sound/soc/codecs/max98512-downstream/maxim_dsm.c   |   22 +-
+ .../soc/codecs/max98512-downstream/maxim_dsm_cal.c | 1096 --------------------
+ .../soc/codecs/max98512-downstream/maxim_dsm_cal.h |   97 --
+ .../codecs/max98512-downstream/maxim_dsm_power.c   |  702 -------------
+ .../codecs/max98512-downstream/maxim_dsm_power.h   |   84 --
+ 7 files changed, 5 insertions(+), 2060 deletions(-)
+ delete mode 100644 sound/soc/codecs/max98512-downstream/maxim_dsm_cal.c
+ delete mode 100644 sound/soc/codecs/max98512-downstream/maxim_dsm_cal.h
+ delete mode 100644 sound/soc/codecs/max98512-downstream/maxim_dsm_power.c
+ delete mode 100644 sound/soc/codecs/max98512-downstream/maxim_dsm_power.h
+
+diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+index d5a2dbb..e4d8b25 100644
+--- a/sound/soc/codecs/Makefile
++++ b/sound/soc/codecs/Makefile
+@@ -423,7 +423,6 @@ snd-soc-max9877-y := max9877.o
+ snd-soc-max98504-y := max98504.o
+ snd-soc-max98512-objs := max98512-downstream/max98512.o
+ snd-soc-maxim-dsm-objs := max98512-downstream/maxim_dsm.o
+-snd-soc-maxim-dsm-cal-objs := max98512-downstream/maxim_dsm_cal.o max98512-downstream/maxim_dsm_power.o
+ snd-soc-simple-amplifier-y := simple-amplifier.o
+ snd-soc-tpa6130a2-y := tpa6130a2.o
+ snd-soc-tas2552-y := tas2552.o
+@@ -617,7 +616,7 @@ obj-$(CONFIG_SND_SOC_MAX98373_SDW)   += snd-soc-max98373-sdw.o
+ obj-$(CONFIG_SND_SOC_MAX98388)	+= snd-soc-max98388.o
+ obj-$(CONFIG_SND_SOC_MAX98390)	+= snd-soc-max98390.o
+ obj-$(CONFIG_SND_SOC_MAX98396)	+= snd-soc-max98396.o
+-obj-$(CONFIG_SND_SOC_MAX98512)	+= snd-soc-max98512.o snd-soc-maxim-dsm.o snd-soc-maxim-dsm-cal.o
++obj-$(CONFIG_SND_SOC_MAX98512)	+= snd-soc-max98512.o snd-soc-maxim-dsm.o
+ obj-$(CONFIG_SND_SOC_MAX9850)	+= snd-soc-max9850.o
+ obj-$(CONFIG_SND_SOC_MAX9860)	+= snd-soc-max9860.o
+ obj-$(CONFIG_SND_SOC_MC13783)	+= snd-soc-mc13783.o
+diff --git a/sound/soc/codecs/max98512-downstream/max98512.c b/sound/soc/codecs/max98512-downstream/max98512.c
+index 5bc24a3..ae71a02 100644
+--- a/sound/soc/codecs/max98512-downstream/max98512.c
++++ b/sound/soc/codecs/max98512-downstream/max98512.c
+@@ -24,9 +24,6 @@
+ #include <sound/tlv.h>
+ #include "max98512.h"
+ #include "maxim_dsm.h"
+-#ifdef CONFIG_SND_SOC_MAXIM_DSM
+-#include "maxim_dsm_cal.h"
+-#endif /* CONFIG_SND_SOC_MAXIM_DSM_CAL */
+ 
+ #define DEBUG_MAX98512
+ #ifdef DEBUG_MAX98512
+@@ -1095,31 +1092,6 @@ static int __max98512_spk_enable(struct max98512_priv *max98512)
+ 				MAX98512_MEAS_VI_EN,
+ 				vimon);
+ 
+-	battery_temp = maxdsm_cal_get_temp_from_power_supply();
+-
+-	if (battery_temp > 50) {
+-		msg_maxim("battery_temp[%d] over 50", battery_temp);
+-		max98512_wrapper_write(max98512, MAX98512B,
+-			 MAX98512_R0059_BROWNOUT_LVL2_THRESH,
+-			 0x30);
+-		max98512_wrapper_write(max98512, MAX98512B,
+-			 MAX98512_R005A_BROWNOUT_LVL3_THRESH,
+-			 0x10);
+-		max98512_wrapper_write(max98512, MAX98512B,
+-			 MAX98512_R0087_BOOST_BYPASS_2,
+-			 0x3);
+-	} else {
+-		msg_maxim("battery_temp[%d] under 50", battery_temp);
+-		max98512_wrapper_write(max98512, MAX98512B,
+-			 MAX98512_R0059_BROWNOUT_LVL2_THRESH,
+-			 0x40);
+-		max98512_wrapper_write(max98512, MAX98512B,
+-			 MAX98512_R005A_BROWNOUT_LVL3_THRESH,
+-			 0x20);
+-		max98512_wrapper_write(max98512, MAX98512B,
+-			 MAX98512_R0087_BOOST_BYPASS_2,
+-			 0x2);
+-	}
+ 	if (pdata->boost_mode != 0) {
+ 		max98512_wrapper_write(max98512, MAX98512B,
+ 				 MAX98512_R0087_BOOST_BYPASS_2,
+@@ -1245,39 +1217,6 @@ static int max98512_dai_mute_stream(struct snd_soc_dai *dai,
+ 		max98512_spk_enable(max98512, mute != 0 ? 0 : 1);
+ 	}
+ 
+-#ifdef CONFIG_SND_SOC_MAXIM_DSM
+-	if ((!pdata->nodsm) && (stream == SNDRV_PCM_STREAM_CAPTURE)
+-		&& (mute == 0)) {
+-
+-		msg_maxim("set maxdsm calibration");
+-
+-		ret = maxdsm_cal_get_rdc(&rdc);
+-		if (ret || rdc <= 0) {
+-			pr_info("%s: rdc(0x%08x)\n", __func__, rdc);
+-			goto exit;
+-		}
+-
+-		ret = maxdsm_cal_get_temp(&temp);
+-		if (ret || temp <= 0) {
+-			pr_info("%s: temp(%d)\n", __func__, temp);
+-			goto exit;
+-		}
+-
+-		/* left channel */
+-		ret = maxdsm_set_rdc_temp_ch(rdc, (int)(temp / 10), 0);
+-
+-		if (max98512->mono_stereo) {
+-			ret = maxdsm_cal_get_rdc_r(&rdc_r);
+-			if (ret < 0 || rdc_r <= 0) {
+-				pr_err("%s: Failed to set calibration ret = (%d) rdc_r(0x%08x)\n",
+-					__func__, ret, rdc_r);
+-				goto exit;
+-			}
+-			maxdsm_set_rdc_temp_ch(rdc_r, (int)(temp / 10), 1);
+-		}
+-	}
+-exit:
+-#endif
+ 	return 0;
+ }
+ 
+diff --git a/sound/soc/codecs/max98512-downstream/maxim_dsm.c b/sound/soc/codecs/max98512-downstream/maxim_dsm.c
+index 40b7141..0fa2f09d 100644
+--- a/sound/soc/codecs/max98512-downstream/maxim_dsm.c
++++ b/sound/soc/codecs/max98512-downstream/maxim_dsm.c
+@@ -9,8 +9,7 @@
+ #include <sound/soc.h>
+ #include <sound/tlv.h>
+ #include "maxim_dsm.h"
+-#include "maxim_dsm_power.h"
+-#include "maxim_dsm_cal.h"
++// #include "maxim_dsm_cal.h"
+ #ifdef CONFIG_COMPAT
+ #include <linux/compat.h>
+ #endif /* CONFIG_COMPAT */
+@@ -28,6 +27,7 @@ pr_info("[MAXIM_DSM] %s: " format "\n", __func__, ## args)
+ #define V40_SIZE	((PARAM_DSM_4_0_MAX - PARAM_DSM_3_5_MAX) >> 1)
+ #define A_V35_SIZE	(PARAM_A_DSM_3_5_MAX >> 1)
+ #define A_V40_SIZE	((PARAM_A_DSM_4_0_MAX - PARAM_A_DSM_3_5_MAX) >> 1)
++#define SAFE_MODE_THERMAL_MIN_GAIN (0x26666666)
+ 
+ /* MAX98512 one stop mode */
+ enum one_stop_mode {
+@@ -2241,7 +2241,7 @@ int maxdsm_set_thermal_min_gain(int enable)
+ 		if (enable == 0)
+ 			value = enable;
+ 		else
+-			value = maxdsm_cal_get_thermal_min_gain();
++			value = SAFE_MODE_THERMAL_MIN_GAIN;
+ 		maxdsm.param[PARAM_THERMAL_MIN_GAIN] = value;
+ 		maxdsm.param[PARAM_WRITE_FLAG] = PARAM_WRITE_SET_THERM_MIN_GAIN;
+ 		maxdsm.filter_set = DSM_ID_FILTER_SET_AFE_CNTRLS;
+@@ -2257,7 +2257,7 @@ int maxdsm_set_thermal_min_gain(int enable)
+ 		if (enable == 0)
+ 			value = enable;
+ 		else
+-			value = maxdsm_cal_get_thermal_min_gain();
++			value = SAFE_MODE_THERMAL_MIN_GAIN;
+ 
+ 		maxdsm.param[DSM_API_SETGET_THERMAL_MIN_GAIN] = value;
+ 		maxdsm.param[DSM_API_SETGET_WRITE_FLAG] = PARAM_WRITE_SET_THERM_MIN_GAIN;
+@@ -2716,20 +2716,6 @@ EXPORT_SYMBOL_GPL(maxdsm_get_spk_state);
+ 
+ void maxdsm_set_spk_state(int state, int osm_mode)
+ {
+-	maxdsm.spk_state = state;
+-	if (state == 0) {
+-		maxdsm_power_ppr_control(0);
+-		maxdsm_power_control(0);
+-	}
+-	else {
+-		switch (osm_mode) {
+-		case MAX98512_OSM_STEREO:
+-		case MAX98512_OSM_MONO_R:
+-			maxdsm_power_ppr_control(1);
+-			break;
+-		}
+-
+-	}
+ }
+ EXPORT_SYMBOL_GPL(maxdsm_set_spk_state);
+ 
+diff --git a/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.c b/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.c
+deleted file mode 100644
+index af9e0a1..00000000
+--- a/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.c
++++ /dev/null
+@@ -1,1096 +0,0 @@
+-/*
+- * maxim_dsm_cal.c -- Module for Rdc calibration
+- *
+- * Copyright 2014 Maxim Integrated Products
+- *
+- * This program is free software; you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License version 2 as
+- * published by the Free Software Foundation.
+- */
+-
+-#include <linux/init.h>
+-#include <linux/module.h>
+-#include <linux/device.h>
+-#include <linux/workqueue.h>
+-#include <linux/moduleparam.h>
+-#include <linux/slab.h>
+-#include <linux/regmap.h>
+-#include <linux/delay.h>
+-#include <linux/uaccess.h>
+-#include <linux/syscalls.h>
+-#include <linux/file.h>
+-#include <linux/fcntl.h>
+-#include <linux/power_supply.h>
+-#include "maxim_dsm.h"
+-#include "maxim_dsm_cal.h"
+-
+-#define DEBUG_MAXIM_DSM_CAL
+-#ifdef DEBUG_MAXIM_DSM_CAL
+-#define dbg_maxdsm(format, args...)	\
+-pr_info("[MAXIM_DSM_CAL] %s: " format "\n", __func__, ## args)
+-#else
+-#define dbg_maxdsm(format, args...)
+-#endif /* DEBUG_MAXIM_DSM_CAL */
+-
+-struct class *g_class;
+-
+-struct maxim_dsm_cal *g_mdc;
+-static int maxdsm_cal_read_file(char *filename, char *data, size_t size)
+-{
+-	return -EEXIST;
+-}
+-
+-static int maxdsm_cal_write_file(char *filename, char *data, size_t size)
+-{
+-	return -EEXIST;
+-}
+-
+-struct class *maxdsm_cal_get_class(void)
+-{
+-	return g_mdc->class;
+-}
+-EXPORT_SYMBOL_GPL(maxdsm_cal_get_class);
+-
+-struct regmap *maxdsm_cal_set_regmap(
+-		struct regmap *regmap)
+-{
+-	g_mdc->regmap = regmap;
+-#if defined(CONFIG_SND_SOC_MAXIM_DSM) && defined(USE_DSM_LOG)
+-	maxdsm_set_regmap(g_mdc->regmap);
+-#endif /* CONFIG_SND_SOC_MAXIM_DSM && USE_DSM_LOG */
+-	return g_mdc->regmap;
+-}
+-EXPORT_SYMBOL_GPL(maxdsm_cal_set_regmap);
+-
+-int maxdsm_cal_set_temp(int value)
+-{
+-	char data[12];
+-	int ret;
+-
+-	memset(data, 0x00, sizeof(data));
+-	sprintf(data, "%x", value);
+-	ret = maxdsm_cal_write_file(FILEPATH_TEMP_CAL,
+-			data, sizeof(data));
+-	g_mdc->values.temp = ret < 0 ? ret : value;
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(maxdsm_cal_set_temp);
+-
+-int maxdsm_cal_get_temp(int *value)
+-{
+-	char data[12];
+-	int ret;
+-
+-	memset(data, 0x00, sizeof(data));
+-	ret = maxdsm_cal_read_file(FILEPATH_TEMP_CAL,
+-			data, sizeof(data));
+-	if (ret < 0)
+-		g_mdc->values.temp = ret;
+-	else
+-		ret = kstrtos32(data, 16, value);
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(maxdsm_cal_get_temp);
+-
+-int maxdsm_cal_get_safe_mode(void)
+-{
+-	return g_mdc->values_thermal_safe_mode.enable;
+-}
+-EXPORT_SYMBOL_GPL(maxdsm_cal_get_safe_mode);
+-
+-uint32_t maxdsm_cal_get_thermal_min_gain(void)
+-{
+-	return g_mdc->values_thermal_safe_mode.thermal_min_gain;
+-}
+-EXPORT_SYMBOL_GPL(maxdsm_cal_get_thermal_min_gain);
+-
+-void maxdsm_cal_set_thermal_min_gain(uint32_t thermal_min_gain)
+-{
+-	g_mdc->values_thermal_safe_mode.thermal_min_gain = thermal_min_gain;
+-}
+-EXPORT_SYMBOL_GPL(maxdsm_cal_set_thermal_min_gain);
+-
+-
+-int maxdsm_cal_set_rdc(int value)
+-{
+-	char data[12];
+-	int ret;
+-
+-	memset(data, 0x00, sizeof(data));
+-	sprintf(data, "%x", value);
+-	ret = maxdsm_cal_write_file(FILEPATH_RDC_CAL,
+-			data, sizeof(data));
+-	g_mdc->values.rdc = ret < 0 ? ret : value;
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(maxdsm_cal_set_rdc);
+-
+-int maxdsm_cal_set_rdc_r(int value)
+-{
+-	char data[12];
+-	int ret;
+-
+-	memset(data, 0x00, sizeof(data));
+-	sprintf(data, "%x", value);
+-	ret = maxdsm_cal_write_file(FILEPATH_RDC_CAL_R,
+-			data, sizeof(data));
+-	g_mdc->values.rdc_r = ret < 0 ? ret : value;
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(maxdsm_cal_set_rdc_r);
+-
+-int maxdsm_cal_get_rdc(int *value)
+-{
+-	char data[12];
+-	int ret;
+-
+-	memset(data, 0x00, sizeof(data));
+-	ret = maxdsm_cal_read_file(FILEPATH_RDC_CAL,
+-			data, sizeof(data));
+-	if (ret < 0)
+-		g_mdc->values.rdc = ret;
+-	else
+-		ret = kstrtos32(data, 16, value);
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(maxdsm_cal_get_rdc);
+-
+-int maxdsm_cal_get_rdc_r(int *value)
+-{
+-	char data[12];
+-	int ret;
+-
+-	memset(data, 0x00, sizeof(data));
+-	ret = maxdsm_cal_read_file(FILEPATH_RDC_CAL_R,
+-			data, sizeof(data));
+-	if (ret < 0)
+-		g_mdc->values.rdc_r = ret;
+-	else
+-		ret = kstrtos32(data, 16, value);
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(maxdsm_cal_get_rdc_r);
+-
+-static int maxdsm_cal_regmap_write(struct regmap *regmap,
+-		unsigned int reg,
+-		unsigned int val)
+-{
+-	return regmap ?
+-		regmap_write(regmap, reg, val) : -ENXIO;
+-}
+-
+-static int maxdsm_cal_regmap_read(struct regmap *regmap,
+-		unsigned int reg,
+-		unsigned int *val)
+-{
+-	int ret;
+-
+-	*val = 0;
+-	ret = regmap ?
+-		regmap_read(regmap, reg, val) : -ENXIO;
+-	if (ret < 0)
+-		*val = 0;
+-
+-	return ret;
+-}
+-
+-static int maxdsm_cal_start_calibration(
+-		struct maxim_dsm_cal *mdc)
+-{
+-	int ret = 0;
+-	uint32_t feature_en;
+-	uint32_t version = 0;
+-
+-#ifdef CONFIG_SND_SOC_MAXIM_DSM
+-	mdc->platform_type = maxdsm_get_platform_type();
+-	version = maxdsm_get_version();
+-#else
+-	mdc->platform_type = 0;
+-	version = 0;
+-#endif /* CONFIG_SND_SOC_MAXIM_DSM */
+-	dbg_maxdsm("platform_type=%d, version=%d", mdc->platform_type, version);
+-
+-	switch (mdc->platform_type) {
+-	case PLATFORM_TYPE_A:
+-		maxdsm_cal_regmap_read(mdc->regmap,
+-				ADDR_FEATURE_ENABLE,
+-				&feature_en);
+-
+-		mdc->info.feature_en = feature_en;
+-
+-		/* remove SPT bit */
+-		feature_en &= ~0x80;
+-
+-		/* enable Rdc caliration bit */
+-		feature_en |= 0x20;
+-
+-		maxdsm_cal_regmap_write(mdc->regmap,
+-				ADDR_FEATURE_ENABLE,
+-				feature_en);
+-
+-		if (version == VERSION_4_0_A_S) {
+-			maxdsm_cal_regmap_write(mdc->regmap,
+-					ADDR_FEATURE_ENABLE+DSM_4_0_LSI_STEREO_OFFSET,
+-					feature_en);
+-		}
+-		break;
+-	case PLATFORM_TYPE_B:
+-#ifdef CONFIG_SND_SOC_MAXIM_DSM
+-		if (maxdsm_set_feature_en(1, FLAG_WRITE_FEATURE_ONLY))
+-			ret = -EAGAIN;
+-#endif /* CONFIG_SND_SOC_MAXIM_DSM */
+-		break;
+-	case PLATFORM_TYPE_C:
+-		if (maxdsm_set_cal_mode(1))
+-			ret = -EAGAIN;
+-		break;
+-	default:
+-		break;
+-	}
+-
+-	mdc->info.previous_jiffies = jiffies;
+-
+-	return ret;
+-}
+-
+-static int maxdsm_start_v_validation(
+-		struct maxim_dsm_cal *mdc)
+-{
+-	int ret = 0;
+-	uint32_t version = 0;
+-
+-#ifdef CONFIG_SND_SOC_MAXIM_DSM
+-	mdc->platform_type = maxdsm_get_platform_type();
+-	version = maxdsm_get_version();
+-#else
+-	mdc->platform_type = 0;
+-	version = 0;
+-#endif /* CONFIG_SND_SOC_MAXIM_DSM */
+-	dbg_maxdsm("platform_type=%d, version=%d", mdc->platform_type, version);
+-
+-	switch (mdc->platform_type) {
+-	case PLATFORM_TYPE_A:
+-
+-		break;
+-	case PLATFORM_TYPE_B:
+-#ifdef CONFIG_SND_SOC_MAXIM_DSM
+-		if (maxdsm_set_feature_en(1, PARAM_WRITE_V_VALIDATION))
+-			ret = -EAGAIN;
+-#endif /* CONFIG_SND_SOC_MAXIM_DSM */
+-		break;
+-	case PLATFORM_TYPE_C:
+-		if (maxdsm_set_v_validation_mode(1))
+-			ret = -EAGAIN;
+-		break;
+-	default:
+-		break;
+-	}
+-
+-	return ret;
+-}
+-
+-static uint32_t maxdsm_cal_read_dcresistance(
+-		struct maxim_dsm_cal *mdc)
+-{
+-	uint32_t dcresistance = 0;
+-
+-	switch (mdc->platform_type) {
+-	case PLATFORM_TYPE_A:
+-		maxdsm_cal_regmap_read(mdc->regmap,
+-				ADDR_RDC,
+-				&dcresistance);
+-		break;
+-	case PLATFORM_TYPE_B:
+-#ifdef CONFIG_SND_SOC_MAXIM_DSM
+-		dcresistance = maxdsm_get_dcresistance();
+-#endif /* CONFIG_SND_SOC_MAXIM_DSM */
+-		break;
+-	case PLATFORM_TYPE_C:
+-		dcresistance = maxdsm_get_dcresistance();
+-		break;
+-	default:
+-		break;
+-	}
+-
+-	return dcresistance;
+-}
+-
+-static uint32_t maxdsm_cal_read_dcresistance_r(
+-		struct maxim_dsm_cal *mdc)
+-{
+-	uint32_t dcresistance = 0;
+-
+-	switch (mdc->platform_type) {
+-	case PLATFORM_TYPE_A:
+-		maxdsm_cal_regmap_read(mdc->regmap,
+-			ADDR_RDC+DSM_4_0_LSI_STEREO_OFFSET,
+-			&dcresistance);
+-		break;
+-	case PLATFORM_TYPE_B:
+-		dcresistance = maxdsm_get_dcresistance_r();
+-		break;
+-	case PLATFORM_TYPE_C:
+-		dcresistance = maxdsm_get_dcresistance_r();
+-		break;
+-	default:
+-		break;
+-	}
+-
+-	return dcresistance;
+-}
+-
+-static int maxdsm_cal_end_calibration(
+-		struct maxim_dsm_cal *mdc)
+-{
+-	int version, ret = 0;
+-
+-#ifdef CONFIG_SND_SOC_MAXIM_DSM
+-	version = maxdsm_get_version();
+-#else
+-	version = 0;
+-#endif /* CONFIG_SND_SOC_MAXIM_DSM */
+-
+-	switch (mdc->platform_type) {
+-	case PLATFORM_TYPE_A:
+-		maxdsm_cal_regmap_write(mdc->regmap,
+-				ADDR_FEATURE_ENABLE,
+-				mdc->info.feature_en);
+-		if (version == VERSION_4_0_A_S) {
+-			maxdsm_cal_regmap_write(mdc->regmap,
+-				ADDR_FEATURE_ENABLE+DSM_4_0_LSI_STEREO_OFFSET,
+-				mdc->info.feature_en);
+-		}
+-		break;
+-	case PLATFORM_TYPE_B:
+-#ifdef CONFIG_SND_SOC_MAXIM_DSM
+-		if (maxdsm_set_feature_en(0, FLAG_WRITE_FEATURE_ONLY))
+-			ret = -EAGAIN;
+-#endif /* CONFIG_SND_SOC_MAXIM_DSM */
+-		break;
+-	case PLATFORM_TYPE_C:
+-		if (maxdsm_set_cal_mode(0))
+-			ret = -EAGAIN;
+-		break;
+-	default:
+-		break;
+-	}
+-
+-	return ret;
+-}
+-
+-static int maxdsm_v_validation_end(
+-		struct maxim_dsm_cal *mdc)
+-{
+-	int version, ret = 0;
+-
+-#ifdef CONFIG_SND_SOC_MAXIM_DSM
+-	version = maxdsm_get_version();
+-#else
+-	version = 0;
+-#endif /* CONFIG_SND_SOC_MAXIM_DSM */
+-
+-	switch (mdc->platform_type) {
+-	case PLATFORM_TYPE_A:
+-		break;
+-	case PLATFORM_TYPE_B:
+-#ifdef CONFIG_SND_SOC_MAXIM_DSM
+-		if (maxdsm_set_feature_en(0, PARAM_WRITE_V_VALIDATION))
+-			ret = -EAGAIN;
+-#endif /* CONFIG_SND_SOC_MAXIM_DSM */
+-		break;
+-	case PLATFORM_TYPE_C:
+-		if (maxdsm_set_v_validation_mode(0))
+-			ret = -EAGAIN;
+-		break;
+-	default:
+-		break;
+-	}
+-
+-	return ret;
+-}
+-
+-int maxdsm_cal_get_temp_from_power_supply(void)
+-{
+-	union power_supply_propval value = {0,};
+-	struct power_supply *psy;
+-	int temperature = 0;
+-
+-	psy = power_supply_get_by_name("battery");
+-	if (!psy) {
+-		pr_err("%s: Failed to get psy\n", __func__);
+-		temperature = 23 * 10;
+-	} else {
+-		if (psy->desc) {
+-			psy->desc->get_property(psy,
+-						POWER_SUPPLY_PROP_TEMP,
+-						&value);
+-			temperature = value.intval;
+-		} else {
+-			dbg_maxdsm("The description of power_supply is NULL");
+-		}
+-	}
+-	dbg_maxdsm("temperature=%d", temperature);
+-
+-	return temperature;
+-}
+-EXPORT_SYMBOL_GPL(maxdsm_cal_get_temp_from_power_supply);
+-
+-static void maxdsm_cal_completed(struct maxim_dsm_cal *mdc)
+-{
+-#ifdef WRITE_SPEAKER_CAL_VALUE_AT_KERNEL
+-	char rdc[12] = {0,};
+-	char rdc_r[12] = {0,};
+-	char temp[12] = {0,};
+-#endif
+-	int ret, stereo = 0;
+-
+-#ifdef CONFIG_SND_SOC_MAXIM_DSM
+-	stereo = maxdsm_is_stereo();
+-#else
+-	stereo = 0;
+-#endif
+-
+-	ret = maxdsm_cal_end_calibration(mdc);
+-	if (ret) {
+-		pr_err("%s: A error occurred in finishing calibration\n",
+-		       __func__);
+-		return;
+-	}
+-
+-	/* We try to get ambient temp by using power supply core */
+-	mdc->values.temp = maxdsm_cal_get_temp_from_power_supply();
+-
+-	if (stereo)
+-		dbg_maxdsm("temp=%d rdc=0x%08x, rdc_r=0x%08x",
+-			mdc->values.temp, mdc->values.rdc, mdc->values.rdc_r);
+-	else
+-		dbg_maxdsm("temp=%d rdc=0x%08x",
+-			mdc->values.temp, mdc->values.rdc);
+-
+-	if (mdc->platform_type == PLATFORM_TYPE_C) {
+-		mdc->values.rdc = (mdc->values.rdc >> 8);
+-		mdc->values.rdc_r = (mdc->values.rdc_r >> 8);
+-	}
+-
+-#ifdef WRITE_SPEAKER_CAL_VALUE_AT_KERNEL
+-	sprintf(rdc, "%x", mdc->values.rdc);
+-	sprintf(rdc_r, "%x", mdc->values.rdc_r);
+-	sprintf(temp, "%x",
+-			mdc->values.temp < 0 ? 23 * 10 : mdc->values.temp);
+-
+-	ret = maxdsm_cal_write_file(
+-			FILEPATH_TEMP_CAL, temp, sizeof(temp));
+-	if (ret < 0)
+-		mdc->values.temp = ret;
+-
+-	ret = maxdsm_cal_write_file(
+-			FILEPATH_RDC_CAL, rdc, sizeof(rdc));
+-	if (ret < 0)
+-		mdc->values.rdc = ret;
+-
+-	if (stereo) {
+-		ret = maxdsm_cal_write_file(
+-				FILEPATH_RDC_CAL_R, rdc_r, sizeof(rdc_r));
+-		if (ret < 0)
+-			mdc->values.rdc_r = ret;
+-	}
+-#endif
+-
+-	mdc->values.status = 0;
+-
+-	if (stereo)
+-		dbg_maxdsm("temp=%d rdc=0x%08x, rdc_r=0x%08x",
+-			mdc->values.temp, mdc->values.rdc, mdc->values.rdc_r);
+-	else
+-		dbg_maxdsm("temp=%d rdc=0x%08x",
+-			mdc->values.temp, mdc->values.rdc);
+-}
+-
+-static void maxdsm_cal_work(struct work_struct *work)
+-{
+-	struct maxim_dsm_cal *mdc;
+-	unsigned int dcresistance, dcresistance_r, stereo = 0;
+-	unsigned long diff;
+-
+-	mdc = container_of(work, struct maxim_dsm_cal, work.work);
+-
+-	mutex_lock(&mdc->mutex);
+-
+-#ifdef CONFIG_SND_SOC_MAXIM_DSM
+-	stereo = maxdsm_is_stereo();
+-#else
+-	stereo = 0;
+-#endif
+-
+-	dcresistance = maxdsm_cal_read_dcresistance(mdc);
+-	if (stereo) {
+-		dcresistance_r = maxdsm_cal_read_dcresistance_r(mdc);
+-		if (dcresistance
+-			&& !(mdc->info.min > dcresistance || mdc->info.max < dcresistance)
+-			&& ((mdc->info.duration - mdc->info.remaining) > mdc->info.ignored_t)) {
+-			mdc->values.avg += dcresistance;
+-			if (dcresistance_r)
+-				mdc->values.avg_r += dcresistance_r;
+-			mdc->values.count++;
+-		}
+-	} else {
+-		if (dcresistance
+-			&& !(mdc->info.min > dcresistance || mdc->info.max < dcresistance)
+-			&& ((mdc->info.duration - mdc->info.remaining) > mdc->info.ignored_t)) {
+-			mdc->values.avg += dcresistance;
+-			mdc->values.count++;
+-		}
+-	}
+-
+-	diff = jiffies - mdc->info.previous_jiffies;
+-	mdc->info.remaining -= jiffies_to_msecs(diff);
+-
+-	if (stereo)
+-		dbg_maxdsm("dcresistance=0x%08x dcresistance_r=0x%08x remaining=%d duration=%d",
+-			dcresistance, dcresistance_r,
+-			mdc->info.remaining,
+-			mdc->info.duration);
+-	else
+-		dbg_maxdsm("dcresistance=0x%08x remaining=%d duration=%d",
+-			dcresistance,
+-			mdc->info.remaining,
+-			mdc->info.duration);
+-
+-	if (mdc->info.remaining > 0
+-			&& mdc->values.status) {
+-		mdc->info.previous_jiffies = jiffies;
+-		queue_delayed_work(mdc->wq,
+-				&mdc->work,
+-				msecs_to_jiffies(mdc->info.interval));
+-	} else {
+-		mdc->values.count > 0 ?
+-			do_div(mdc->values.avg, mdc->values.count) : 0;
+-		if (stereo) {
+-			mdc->values.count > 0 ?
+-				do_div(mdc->values.avg_r, mdc->values.count) : 0;
+-		}
+-		mdc->values.rdc = mdc->values.avg;
+-		mdc->values.rdc_r = mdc->values.avg_r;
+-		maxdsm_cal_completed(mdc);
+-	}
+-
+-	mutex_unlock(&mdc->mutex);
+-}
+-
+-static void maxdsm_v_validation_work(struct work_struct *work)
+-{
+-	struct maxim_dsm_cal *mdc;
+-	uint32_t v_validation = 0, v_validation_r;
+-	int ret = 0;
+-
+-	mdc = container_of(work, struct maxim_dsm_cal, work_v_validation.work);
+-
+-	mutex_lock(&mdc->mutex);
+-
+-	ret = maxdsm_v_validation_end(mdc);
+-	if (ret) {
+-		pr_err("%s: A error occurred in finishing v validation\n",
+-				__func__);
+-		mutex_unlock(&mdc->mutex);
+-		return;
+-	}
+-	v_validation = maxdsm_get_v_validation();
+-	dbg_maxdsm("v_validation=%d ", v_validation);
+-	mdc->values_v_validation.v_validation = v_validation;
+-	if (maxdsm_is_stereo()) {
+-		v_validation_r = maxdsm_get_v_validation_r();
+-		dbg_maxdsm("v_validation_r=%d ", v_validation_r);
+-		mdc->values_v_validation.v_validation_r = v_validation_r;
+-	}
+-
+-	mdc->values_v_validation.status = 0;
+-	mutex_unlock(&mdc->mutex);
+-}
+-
+-static int maxdsm_cal_check(struct maxim_dsm_cal *mdc, int action)
+-{
+-	int ret = 0;
+-
+-	if (delayed_work_pending(&mdc->work))
+-		cancel_delayed_work(&mdc->work);
+-
+-	if (action) {
+-		mdc->info.remaining = mdc->info.duration;
+-		mdc->values.count = mdc->values.avg = 0;
+-		mdc->values.avg_r = 0;
+-		ret = maxdsm_cal_start_calibration(mdc);
+-		if (ret)
+-			return ret;
+-		queue_delayed_work(mdc->wq, &mdc->work, 1);
+-	}
+-
+-	return ret;
+-}
+-
+-static int maxdsm_v_validation_check(
+-		struct maxim_dsm_cal *mdc, int action)
+-{
+-	int ret = 0;
+-
+-	if (delayed_work_pending(&mdc->work_v_validation))
+-		cancel_delayed_work(&mdc->work_v_validation);
+-
+-	if (action) {
+-		ret = maxdsm_start_v_validation(mdc);
+-		if (ret)
+-			return ret;
+-		queue_delayed_work(mdc->wq,
+-				&mdc->work_v_validation,
+-				msecs_to_jiffies(mdc->info_v_validation.duration));
+-	}
+-
+-	return ret;
+-}
+-
+-static ssize_t maxdsm_cal_min_show(struct device *dev,
+-				   struct device_attribute *attr,
+-				   char *buf)
+-{
+-	return sprintf(buf, "%d", g_mdc->info.min);
+-}
+-
+-static ssize_t maxdsm_cal_min_store(struct device *dev,
+-				    struct device_attribute *attr,
+-				    const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdc->info.min))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	return size;
+-}
+-static DEVICE_ATTR(min, 0664,
+-		   maxdsm_cal_min_show, maxdsm_cal_min_store);
+-
+-static ssize_t maxdsm_cal_max_show(struct device *dev,
+-				   struct device_attribute *attr,
+-				   char *buf)
+-{
+-	return sprintf(buf, "%d", g_mdc->info.max);
+-}
+-
+-static ssize_t maxdsm_cal_max_store(struct device *dev,
+-				    struct device_attribute *attr,
+-				    const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdc->info.max))
+-		dev_err(dev,
+-			"%s: Failed converting from str to u32.\n", __func__);
+-	return size;
+-}
+-static DEVICE_ATTR(max, 0664,
+-		   maxdsm_cal_max_show, maxdsm_cal_max_store);
+-
+-static ssize_t maxdsm_cal_duration_show(struct device *dev,
+-					struct device_attribute *attr,
+-					char *buf)
+-{
+-	return sprintf(buf, "%d", g_mdc->info.duration);
+-}
+-
+-static ssize_t maxdsm_cal_duration_store(struct device *dev,
+-					 struct device_attribute *attr,
+-					 const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdc->info.duration))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	return size;
+-}
+-static DEVICE_ATTR(duration, 0664,
+-		   maxdsm_cal_duration_show, maxdsm_cal_duration_store);
+-
+-static ssize_t maxdsm_cal_v_duration_show(struct device *dev,
+-	struct device_attribute *attr, char *buf)
+-{
+-	return snprintf(buf, PAGE_SIZE, "%d", g_mdc->info_v_validation.duration);
+-}
+-
+-static ssize_t maxdsm_cal_v_duration_store(struct device *dev,
+-	struct device_attribute *attr, const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdc->info_v_validation.duration))
+-		dev_err(dev,
+-			"%s: Failed converting from str to u32.\n", __func__);
+-	return size;
+-}
+-static DEVICE_ATTR(v_duration, 0664,
+-		   maxdsm_cal_v_duration_show, maxdsm_cal_v_duration_store);
+-
+-static ssize_t maxdsm_cal_rdc_show(struct device *dev,
+-	struct device_attribute *attr, char *buf)
+-{
+-	char rdc[12] = {0,};
+-	int ret;
+-
+-	dbg_maxdsm("temp = %d, rdc=0x%08x",
+-		g_mdc->values.temp, g_mdc->values.rdc);
+-
+-	if (g_mdc->values.rdc == 0xFFFFFFFF) {
+-		ret = maxdsm_cal_read_file(FILEPATH_RDC_CAL,
+-					   rdc, sizeof(rdc));
+-		if (ret < 0)
+-			g_mdc->values.rdc = ret;
+-		else
+-			ret = kstrtos32(rdc, 16, &g_mdc->values.rdc);
+-	}
+-
+-	return sprintf(buf, "%x", g_mdc->values.rdc);
+-}
+-
+-static ssize_t maxdsm_cal_rdc_store(struct device *dev,
+-				    struct device_attribute *attr,
+-				    const char *buf, size_t size)
+-{
+-	char rdc[12] = {0,};
+-	int ret;
+-
+-	if (kstrtos32(buf, 0, &g_mdc->values.rdc))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	else {
+-		sprintf(rdc, "%x", g_mdc->values.rdc);
+-		ret = maxdsm_cal_write_file(FILEPATH_RDC_CAL,
+-					    rdc, sizeof(rdc));
+-		if (ret < 0)
+-			g_mdc->values.rdc = ret;
+-	}
+-
+-	return size;
+-}
+-static DEVICE_ATTR(rdc, 0664,
+-		   maxdsm_cal_rdc_show, maxdsm_cal_rdc_store);
+-
+-static ssize_t maxdsm_cal_rdc_r_show(struct device *dev,
+-				     struct device_attribute *attr,
+-				     char *buf)
+-{
+-	char rdc_r[12] = {0,};
+-	int ret;
+-
+-	dbg_maxdsm("temp = %d, rdc_r = 0x%08x",
+-		g_mdc->values.temp, g_mdc->values.rdc_r);
+-
+-	if (g_mdc->values.rdc_r == 0xFFFFFFFF) {
+-		ret = maxdsm_cal_read_file(FILEPATH_RDC_CAL_R,
+-					   rdc_r, sizeof(rdc_r));
+-		if (ret < 0)
+-			g_mdc->values.rdc_r = ret;
+-		else
+-			ret = kstrtos32(rdc_r, 16, &g_mdc->values.rdc_r);
+-	}
+-
+-	return sprintf(buf, "%x", g_mdc->values.rdc_r);
+-}
+-
+-static ssize_t maxdsm_cal_rdc_r_store(struct device *dev,
+-				      struct device_attribute *attr,
+-				      const char *buf, size_t size)
+-{
+-	char rdc_r[12] = {0,};
+-	int ret;
+-
+-	if (kstrtos32(buf, 0, &g_mdc->values.rdc_r))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	else {
+-		sprintf(rdc_r, "%x", g_mdc->values.rdc_r);
+-		ret = maxdsm_cal_write_file(FILEPATH_RDC_CAL_R,
+-					    rdc_r, sizeof(rdc_r));
+-		if (ret < 0)
+-			g_mdc->values.rdc_r = ret;
+-	}
+-
+-	return size;
+-}
+-static DEVICE_ATTR(rdc_r, 0664,
+-		   maxdsm_cal_rdc_r_show, maxdsm_cal_rdc_r_store);
+-
+-static ssize_t maxdsm_cal_temp_show(struct device *dev,
+-				    struct device_attribute *attr,
+-				    char *buf)
+-{
+-	char temp[12] = {0,};
+-	int ret;
+-
+-	if (g_mdc->values.temp == 0xFFFFFFFF) {
+-		ret = maxdsm_cal_read_file(FILEPATH_TEMP_CAL,
+-					   temp, sizeof(temp));
+-		if (ret < 0)
+-			g_mdc->values.temp = ret;
+-		else
+-			ret = kstrtos32(temp, 16, &g_mdc->values.temp);
+-	}
+-
+-	return sprintf(buf, "%x", g_mdc->values.temp);
+-}
+-
+-static ssize_t maxdsm_cal_temp_store(struct device *dev,
+-				     struct device_attribute *attr,
+-				     const char *buf, size_t size)
+-{
+-	char temp[12] = {0,};
+-	int ret;
+-
+-	if (kstrtos32(buf, 0, &g_mdc->values.temp))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	else {
+-		sprintf(temp, "%x", g_mdc->values.temp);
+-		ret = maxdsm_cal_write_file(FILEPATH_TEMP_CAL,
+-					    temp, sizeof(temp));
+-		if (ret < 0)
+-			g_mdc->values.temp = ret;
+-	}
+-
+-	return size;
+-}
+-static DEVICE_ATTR(temp, 0664,
+-		   maxdsm_cal_temp_show, maxdsm_cal_temp_store);
+-
+-static ssize_t maxdsm_cal_interval_show(struct device *dev,
+-					struct device_attribute *attr,
+-					char *buf)
+-{
+-	return sprintf(buf, "%d", g_mdc->info.interval);
+-}
+-
+-static ssize_t maxdsm_cal_interval_store(struct device *dev,
+-					 struct device_attribute *attr,
+-					 const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdc->info.interval))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	return size;
+-}
+-static DEVICE_ATTR(interval, 0664,
+-		   maxdsm_cal_interval_show, maxdsm_cal_interval_store);
+-
+-static ssize_t maxdsm_cal_ignored_t_show(struct device *dev,
+-					 struct device_attribute *attr,
+-					 char *buf)
+-{
+-	return sprintf(buf, "%d", g_mdc->info.ignored_t);
+-}
+-
+-static ssize_t maxdsm_cal_ignored_t_store(struct device *dev,
+-					  struct device_attribute *attr,
+-					  const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdc->info.ignored_t))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	return size;
+-}
+-static DEVICE_ATTR(ignored_t, 0664,
+-		   maxdsm_cal_ignored_t_show, maxdsm_cal_ignored_t_store);
+-
+-static ssize_t maxdsm_cal_status_show(struct device *dev,
+-				      struct device_attribute *attr,
+-				      char *buf)
+-{
+-	return sprintf(buf, "%s\n",
+-		       g_mdc->values.status ? "Enabled" : "Disabled");
+-}
+-
+-static ssize_t maxdsm_cal_status_store(struct device *dev,
+-				       struct device_attribute *attr,
+-				       const char *buf, size_t size)
+-{
+-	int status = 0;
+-
+-	if (!kstrtou32(buf, 0, &status)) {
+-		status = status > 0 ? 1 : 0;
+-		if (status == g_mdc->values.status) {
+-			dbg_maxdsm("Already run. It will be ignored.");
+-		} else {
+-			mutex_lock(&g_mdc->mutex);
+-			g_mdc->values.status = status;
+-			mutex_unlock(&g_mdc->mutex);
+-			if (maxdsm_cal_check(g_mdc, status)) {
+-				pr_err("%s: The codec was connected?\n",
+-				       __func__);
+-				mutex_lock(&g_mdc->mutex);
+-				g_mdc->values.status = 0;
+-				mutex_unlock(&g_mdc->mutex);
+-			}
+-		}
+-	}
+-
+-	return size;
+-}
+-static DEVICE_ATTR(status, 0664,
+-		   maxdsm_cal_status_show, maxdsm_cal_status_store);
+-
+-static ssize_t maxdsm_cal_v_validation_show(struct device *dev,
+-	struct device_attribute *attr, char *buf)
+-{
+-	/* 0 : no-implementation 1 : success 0xCC(204) : fail */
+-	return snprintf(buf, PAGE_SIZE, "%d",
+-			g_mdc->values_v_validation.v_validation);
+-}
+-static DEVICE_ATTR(v_validation, 0444, maxdsm_cal_v_validation_show, NULL);
+-
+-static ssize_t maxdsm_cal_v_validation_r_show(struct device *dev,
+-	struct device_attribute *attr, char *buf)
+-{
+-	/* 0 : no-implementation 1 : success 0xCC(204) : fail */
+-	return snprintf(buf, PAGE_SIZE, "%d",
+-			g_mdc->values_v_validation.v_validation_r);
+-}
+-static DEVICE_ATTR(v_validation_r, 0444, maxdsm_cal_v_validation_r_show, NULL);
+-
+-static ssize_t maxdsm_cal_v_status_show(struct device *dev,
+-	struct device_attribute *attr, char *buf)
+-{
+-	return snprintf(buf, PAGE_SIZE, "%s\n",
+-			g_mdc->values_v_validation.status ?
+-			"Enabled" : "Disabled");
+-}
+-
+-static ssize_t maxdsm_cal_v_status_store(struct device *dev,
+-	struct device_attribute *attr, const char *buf, size_t size)
+-{
+-	int status = 0;
+-
+-	if (!kstrtou32(buf, 0, &status)) {
+-		status = status > 0 ? 1 : 0;
+-		if (status == g_mdc->values_v_validation.status) {
+-			dbg_maxdsm("Already run. It will be ignored.");
+-		} else {
+-			mutex_lock(&g_mdc->mutex);
+-			g_mdc->values_v_validation.status = status;
+-			mutex_unlock(&g_mdc->mutex);
+-			if (maxdsm_v_validation_check(g_mdc, status)) {
+-				pr_err("%s: The codec was connected?\n",
+-						__func__);
+-				mutex_lock(&g_mdc->mutex);
+-				g_mdc->values_v_validation.status = 0;
+-				mutex_unlock(&g_mdc->mutex);
+-			}
+-		}
+-	}
+-
+-	return size;
+-}
+-
+-static ssize_t maxdsm_cal_thermal_enable_show(struct device *dev,
+-					  struct device_attribute *attr,
+-					  char *buf)
+-{
+-	return sprintf(buf, "%d", g_mdc->values_thermal_safe_mode.enable);
+-}
+-
+-static ssize_t maxdsm_cal_thermal_enable_store(struct device *dev,
+-					   struct device_attribute *attr,
+-					   const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdc->values_thermal_safe_mode.enable))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	return size;
+-}
+-static DEVICE_ATTR(maxim_dsm_thermal_enable, 0664,
+-		maxdsm_cal_thermal_enable_show, maxdsm_cal_thermal_enable_store);
+-
+-
+-static DEVICE_ATTR(v_status, 0644,
+-	maxdsm_cal_v_status_show, maxdsm_cal_v_status_store);
+-
+-static struct attribute *maxdsm_cal_attr[] = {
+-	&dev_attr_min.attr,
+-	&dev_attr_max.attr,
+-	&dev_attr_duration.attr,
+-	&dev_attr_rdc.attr,
+-	&dev_attr_rdc_r.attr,
+-	&dev_attr_temp.attr,
+-	&dev_attr_interval.attr,
+-	&dev_attr_ignored_t.attr,
+-	&dev_attr_status.attr,
+-	&dev_attr_v_status.attr,
+-	&dev_attr_v_validation.attr,
+-	&dev_attr_v_validation_r.attr,
+-	&dev_attr_v_duration.attr,
+-	&dev_attr_maxim_dsm_thermal_enable.attr,
+-	NULL,
+-};
+-
+-static struct attribute_group maxdsm_cal_attr_grp = {
+-	.attrs = maxdsm_cal_attr,
+-};
+-
+-static int __init maxdsm_cal_init(void)
+-{
+-	struct maxim_dsm_cal *mdc;
+-	int ret = 0;
+-
+-	g_mdc = kzalloc(sizeof(struct maxim_dsm_cal), GFP_KERNEL);
+-	if (g_mdc == NULL)
+-		return -ENOMEM;
+-	mdc = g_mdc;
+-
+-	mdc->wq = create_singlethread_workqueue(WQ_NAME);
+-	if (mdc->wq == NULL) {
+-		kfree(g_mdc);
+-		return -ENOMEM;
+-	}
+-
+-	INIT_DELAYED_WORK(&g_mdc->work, maxdsm_cal_work);
+-	INIT_DELAYED_WORK(&g_mdc->work_v_validation, maxdsm_v_validation_work);
+-	mutex_init(&g_mdc->mutex);
+-
+-	mdc->info.min = 0;
+-	mdc->info.max = 0xFFFFFFFF;
+-	mdc->info.duration = 1500; /* 1.5 secs */
+-	mdc->info.remaining = mdc->info.duration;
+-	mdc->info.interval = 100;
+-	mdc->info.ignored_t = 1000;
+-	mdc->values.rdc = 0xFFFFFFFF;
+-	mdc->values.rdc_r = 0xFFFFFFFF;
+-	mdc->values.temp = 0xFFFFFFFF;
+-	mdc->info_v_validation.duration = 1000; /* 0.5 secs */
+-	mdc->platform_type = 0xFFFFFFFF;
+-	mdc->values_thermal_safe_mode.thermal_min_gain = 0x26666666;
+-	mdc->values_thermal_safe_mode.enable = 1;
+-
+-	if (!g_class)
+-		g_class = class_create(DSM_NAME);
+-	mdc->class = g_class;
+-	if (mdc->class) {
+-		mdc->dev = device_create(mdc->class, NULL, 1, NULL, CLASS_NAME);
+-		if (!IS_ERR(mdc->dev)) {
+-			if (sysfs_create_group(&mdc->dev->kobj,
+-						&maxdsm_cal_attr_grp))
+-				dbg_maxdsm(
+-						"Failed to create sysfs group. ret=%d",
+-						ret);
+-		}
+-	}
+-
+-	dbg_maxdsm("Completed initialization");
+-
+-	return ret;
+-}
+-module_init(maxdsm_cal_init);
+-
+-static void __exit maxdsm_cal_exit(void)
+-{
+-	kfree(g_mdc);
+-}
+-module_exit(maxdsm_cal_exit);
+-
+-MODULE_DESCRIPTION(DRIVER_DESC);
+-MODULE_AUTHOR(DRIVER_AUTHOR);
+-//MODULE_SUPPORTED_DEVICE(DRIVER_SUPPORTED);
+-MODULE_LICENSE("GPL");
+diff --git a/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.h b/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.h
+deleted file mode 100644
+index c421058..00000000
+--- a/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.h
++++ /dev/null
+@@ -1,97 +0,0 @@
+-/*
+- * maxim_dsm_cal.c -- Module for Rdc calibration
+- *
+- * Copyright 2014 Maxim Integrated Products
+- *
+- * This program is free software; you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License version 2 as
+- * published by the Free Software Foundation.
+- */
+-
+-#ifndef __SOUND_MAXIM_DSM_CAL_H__
+-#define __SOUND_MAXIM_DSM_CAL_H__
+-
+-#define DRIVER_AUTHOR		"Kyounghun Jeon<hun.jeon@maximintegrated.com>"
+-#define DRIVER_DESC			"For Rdc calibration of MAX98xxx"
+-#define DRIVER_SUPPORTED	"MAX98xxx"
+-
+-#define WQ_NAME				"maxdsm_wq"
+-
+-#define FILEPATH_TEMP_CAL	"/efs/maxim/temp_cal"
+-#define FILEPATH_RDC_CAL	"/efs/maxim/rdc_cal"
+-#define FILEPATH_RDC_CAL_R	"/efs/maxim/rdc_cal_r"
+-
+-#define CLASS_NAME			"maxdsm_cal"
+-#define DSM_NAME			"dsm"
+-
+-#define ADDR_RDC			0x2A0050
+-#define ADDR_FEATURE_ENABLE 0x2A006A
+-
+-struct maxim_dsm_cal_info {
+-	uint32_t min;
+-	uint32_t max;
+-	uint32_t feature_en;
+-	int interval;
+-	int duration;
+-	int remaining;
+-	int ignored_t;
+-	unsigned long previous_jiffies;
+-};
+-
+-struct maxim_dsm_cal_values {
+-	uint32_t status;
+-	int rdc;
+-	int rdc_r;
+-	int temp;
+-	uint64_t avg;
+-	uint64_t avg_r;
+-	int count;
+-};
+-
+-struct maxim_dsm_info_v_validation {
+-	int duration;
+-};
+-
+-struct maxim_dsm_values_v_validation {
+-	uint32_t status;
+-	int v_validation;
+-	int v_validation_r;
+-};
+-
+-struct maxim_dsm_values_thermal_safe {
+-	int enable;
+-	uint32_t thermal_min_gain;
+-};
+-
+-
+-struct maxim_dsm_cal {
+-	struct device *dev;
+-	struct class *class;
+-	struct mutex mutex;
+-	struct workqueue_struct *wq;
+-	struct delayed_work work;
+-	struct delayed_work work_v_validation;
+-	struct maxim_dsm_cal_values values;
+-	struct maxim_dsm_cal_info info;
+-	struct maxim_dsm_info_v_validation info_v_validation;
+-	struct maxim_dsm_values_v_validation values_v_validation;
+-	struct maxim_dsm_values_thermal_safe values_thermal_safe_mode;
+-	struct regmap *regmap;
+-	uint32_t platform_type;
+-};
+-
+-extern struct class *maxdsm_cal_get_class(void);
+-extern struct regmap *maxdsm_cal_set_regmap(
+-		struct regmap *regmap);
+-extern int maxdsm_cal_get_temp(int *temp);
+-extern int maxdsm_cal_set_temp(int temp);
+-extern int maxdsm_cal_get_rdc(int *rdc);
+-extern int maxdsm_cal_get_rdc_r(int *rdc);
+-extern int maxdsm_cal_set_rdc(int rdc);
+-extern int maxdsm_cal_set_rdc_r(int rdc);
+-extern int maxdsm_cal_get_safe_mode(void);
+-extern uint32_t maxdsm_cal_get_thermal_min_gain(void);
+-extern void maxdsm_cal_set_thermal_min_gain(uint32_t thermal_min_gain);
+-extern int maxdsm_cal_get_temp_from_power_supply(void);
+-
+-#endif /* __SOUND_MAXIM_DSM_CAL_H__ */
+diff --git a/sound/soc/codecs/max98512-downstream/maxim_dsm_power.c b/sound/soc/codecs/max98512-downstream/maxim_dsm_power.c
+deleted file mode 100644
+index 2f2dbb1..00000000
+--- a/sound/soc/codecs/max98512-downstream/maxim_dsm_power.c
++++ /dev/null
+@@ -1,702 +0,0 @@
+-/*
+- * maxim_dsm_power.c -- Module for Rdc calibration
+- *
+- * Copyright 2015 Maxim Integrated Products
+- *
+- * This program is free software; you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License version 2 as
+- * published by the Free Software Foundation.
+- */
+-
+-#include <linux/init.h>
+-#include <linux/module.h>
+-#include <linux/device.h>
+-#include <linux/workqueue.h>
+-#include <linux/moduleparam.h>
+-#include <linux/slab.h>
+-#include <linux/kernel.h>
+-#include <linux/err.h>
+-#include "maxim_dsm.h"
+-#include "maxim_dsm_cal.h"
+-#include "maxim_dsm_power.h"
+-
+-#define DEBUG_MAXIM_DSM_POWER
+-#ifdef DEBUG_MAXIM_DSM_POWER
+-#define dbg_maxdsm(format, args...)	\
+-pr_info("[MAXIM_DSM_POWER] %s: " format "\n", __func__, ## args)
+-#else
+-#define dbg_maxdsm(format, args...)
+-#endif /* DEBUG_MAXIM_DSM_POWER */
+-
+-#define MAXIM_DSM_POWER_MEASUREMENT
+-
+-struct maxim_dsm_power *g_mdp;
+-
+-static int maxdsm_power_check(
+-		struct maxim_dsm_power *mdp, int action, int delay)
+-{
+-	int ret = 0;
+-
+-	if (delayed_work_pending(&mdp->work))
+-		cancel_delayed_work(&mdp->work);
+-
+-	if (action) {
+-		mdp->info.remaining = mdp->info.duration;
+-		mdp->values.count = mdp->values.avg = mdp->values.avg_r = 0;
+-		mdp->info.previous_jiffies = jiffies;
+-		queue_delayed_work(mdp->wq,
+-				&mdp->work,
+-				msecs_to_jiffies(delay));
+-	}
+-
+-	return ret;
+-}
+-
+-void maxdsm_power_control(int state) {
+-	maxdsm_power_check(g_mdp, state, 0);
+-}
+-EXPORT_SYMBOL_GPL(maxdsm_power_control);
+-
+-
+-static void maxdsm_power_work(struct work_struct *work)
+-{
+-	struct maxim_dsm_power *mdp;
+-	unsigned int power = 0, power_r = 0, stereo = 0;
+-	unsigned long diff;
+-
+-	mdp = container_of(work, struct maxim_dsm_power, work.work);
+-
+-	mutex_lock(&mdp->mutex);
+-
+-#ifdef CONFIG_SND_SOC_MAXIM_DSM
+-	stereo = maxdsm_is_stereo();
+-#else
+-	stereo = 0;
+-#endif
+-
+-#ifdef CONFIG_SND_SOC_MAXIM_DSM
+-	power = maxdsm_get_power_measurement();
+-	if (stereo)
+-		power_r = maxdsm_get_power_measurement_r();
+-#endif /* CONFIG_SND_SOC_MAXIM_DSM */
+-
+-	if (power) {
+-		mdp->values.avg += power;
+-		if (power_r)
+-			mdp->values.avg_r += power_r;
+-		mdp->values.count++;
+-	}
+-
+-	diff = jiffies - mdp->info.previous_jiffies;
+-	mdp->info.remaining -= jiffies_to_msecs(diff);
+-
+-	dbg_maxdsm("power=0x%08x remaining=%d duration=%d",
+-			power,
+-			mdp->info.remaining,
+-			mdp->info.duration);
+-
+-	if (mdp->info.remaining > 0
+-			&& mdp->values.status) {
+-		mdp->info.previous_jiffies = jiffies;
+-		queue_delayed_work(mdp->wq,
+-				&mdp->work,
+-				msecs_to_jiffies(mdp->info.interval));
+-	} else {
+-		mdp->values.count > 0 ?
+-			do_div(mdp->values.avg, mdp->values.count) : 0;
+-		if (stereo)
+-			mdp->values.count > 0 ?
+-				do_div(mdp->values.avg_r, mdp->values.count) : 0;
+-		mdp->values.power = mdp->values.avg;
+-		mdp->values.power_r = mdp->values.avg_r;
+-		if (stereo)
+-			dbg_maxdsm("power=0x%08x power_r=0x%08x", mdp->values.power, mdp->values.power_r);
+-		else
+-			dbg_maxdsm("power=0x%08x", mdp->values.power);
+-#ifdef MAXIM_DSM_POWER_MEASUREMENT
+-		if (g_mdp->values.status) {
+-			if (maxdsm_power_check(g_mdp, g_mdp->values.status,
+-					MAXDSM_POWER_START_DELAY * 10)) {
+-				pr_err("%s: The codec was connected?\n",
+-						__func__);
+-				mutex_lock(&g_mdp->mutex);
+-				g_mdp->values.status = 0;
+-				mutex_unlock(&g_mdp->mutex);
+-			}
+-		}
+-#else
+-		g_mdp->values.status = 0;
+-#endif
+-	}
+-
+-	mutex_unlock(&mdp->mutex);
+-}
+-
+-static int maxdsm_power_ppr_state(struct maxim_dsm_power *mdp, int ch)
+-{
+-	unsigned long diff;
+-	int state = g_mdp->values_ppr[ch].status;
+-
+-	dbg_maxdsm("set state %d channel %d", state, ch);
+-
+-	diff = jiffies - mdp->info_ppr.amp_uptime_jiffies;
+-
+-	switch (g_mdp->values_ppr[ch].status) {
+-	case PPR_ON:
+-	case PPR_OFF:
+-	case PPR_NORMAL:
+-	case PPR_RUN:
+-		if (jiffies_to_msecs(diff) > mdp->info_ppr.target_min_time_ms) {
+-			if ((mdp->values_ppr[ch].env_temp + 500) < mdp->values_ppr[ch].spk_t &&
+-				mdp->values_ppr[ch].spk_t > mdp->values_ppr[ch].target_temp &&
+-				mdp->values_ppr[ch].spk_t > mdp->values_ppr[ch].exit_temp) {
+-					state = PPR_RUN;
+-					maxdsm_set_ppr_enable(1, mdp->values_ppr[ch].cutoff_frequency, mdp->values_ppr[ch].threshold_level, ch);
+-			} else if (mdp->values_ppr[ch].spk_t < mdp->values_ppr[ch].exit_temp) {
+-				maxdsm_set_ppr_enable(0, 0x1401, mdp->values_ppr[ch].threshold_level, ch);
+-				state = PPR_NORMAL;
+-			}
+-		}
+-	}
+-	return state;
+-}
+-
+-static int maxdsm_power_ppr_check(struct maxim_dsm_power *mdp, int state, int deley)
+-{
+-
+-	if (delayed_work_pending(&mdp->work_ppr))
+-		cancel_delayed_work(&mdp->work_ppr);
+-
+-	dbg_maxdsm("set state %d", state);
+-	if (state) {
+-		mdp->info_ppr.previous_jiffies = jiffies;
+-		queue_delayed_work(mdp->wq,
+-				&mdp->work_ppr,
+-				deley);
+-	}
+-
+-	return 0;
+-}
+-
+-void maxdsm_power_ppr_control(int state)
+-{
+-	if (state == g_mdp->values_ppr[MAXDSM_LEFT].status && state == g_mdp->values_ppr[MAXDSM_RIGHT].status) {
+-		dbg_maxdsm("ppr ignored. state %d Left state %d Right state %d", state, g_mdp->values_ppr[MAXDSM_LEFT].status,
+-				g_mdp->values_ppr[MAXDSM_RIGHT].status);
+-	} else if (g_mdp->info_ppr.global_enable != 0) {
+-		mutex_lock(&g_mdp->mutex);
+-		g_mdp->values_ppr[MAXDSM_LEFT].status = state;
+-		g_mdp->values_ppr[MAXDSM_RIGHT].status = state;
+-		g_mdp->info_ppr.amp_uptime_jiffies = jiffies;
+-		mutex_unlock(&g_mdp->mutex);
+-		if (maxdsm_power_ppr_check(g_mdp, state, 0)) {
+-			pr_err("%s: The codec was connected?\n",
+-			       __func__);
+-			mutex_lock(&g_mdp->mutex);
+-			g_mdp->values_ppr[MAXDSM_LEFT].status = PPR_OFF;
+-			g_mdp->values_ppr[MAXDSM_RIGHT].status = PPR_OFF;
+-			mutex_unlock(&g_mdp->mutex);
+-		}
+-	}
+-}
+-EXPORT_SYMBOL_GPL(maxdsm_power_ppr_control);
+-
+-static void maxdsm_power_work_ppr(struct work_struct *work)
+-{
+-	struct maxim_dsm_power *mdp;
+-	int state, i;
+-
+-	mdp = container_of(work, struct maxim_dsm_power, work_ppr.work);
+-
+-	mutex_lock(&mdp->mutex);
+-
+-	for (i = 0 ; i < MAXDSM_CHANNEL ; i++) {
+-		state = maxdsm_power_ppr_state(mdp, i);
+-
+-		if (state != g_mdp->values_ppr[i].status)
+-			g_mdp->values_ppr[i].status = state;
+-		dbg_maxdsm("g_mdp->values_ppr[i].status %d", g_mdp->values_ppr[i].status);
+-	}
+-	if (g_mdp->values_ppr[MAXDSM_LEFT].status || g_mdp->values_ppr[MAXDSM_RIGHT].status) {
+-		if (maxdsm_power_ppr_check(g_mdp, 1, MAXDSM_POWER_START_DELAY * 10)) {
+-			pr_err("%s: The codec was connected?\n",
+-					__func__);
+-			g_mdp->values_ppr[MAXDSM_LEFT].status = 0;
+-			g_mdp->values_ppr[MAXDSM_RIGHT].status = 0;
+-		}
+-	}
+-	mutex_unlock(&mdp->mutex);
+-}
+-
+-static ssize_t maxdsm_power_duration_show(struct device *dev,
+-					  struct device_attribute *attr,
+-					  char *buf)
+-{
+-	return sprintf(buf, "%d", g_mdp->info.duration);
+-}
+-
+-static ssize_t maxdsm_power_duration_store(struct device *dev,
+-					   struct device_attribute *attr,
+-					   const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdp->info.duration))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-
+-	if (g_mdp->info.duration < 10000)
+-		g_mdp->info.duration = 10000;
+-
+-	return size;
+-}
+-static DEVICE_ATTR(duration, 0664,
+-		   maxdsm_power_duration_show, maxdsm_power_duration_store);
+-
+-static ssize_t maxdsm_power_value_show(struct device *dev,
+-				       struct device_attribute *attr,
+-				       char *buf)
+-{
+-	return sprintf(buf, "%x", g_mdp->values.power);
+-}
+-static DEVICE_ATTR(value, 0664, maxdsm_power_value_show, NULL);
+-
+-static ssize_t maxdsm_power_r_value_show(struct device *dev,
+-				       struct device_attribute *attr,
+-				       char *buf)
+-{
+-	return sprintf(buf, "%x", g_mdp->values.power_r);
+-}
+-static DEVICE_ATTR(value_r, 0664, maxdsm_power_r_value_show, NULL);
+-
+-
+-static ssize_t maxdsm_power_interval_show(struct device *dev,
+-					  struct device_attribute *attr,
+-					  char *buf)
+-{
+-	return sprintf(buf, "%d", g_mdp->info.interval);
+-}
+-
+-static ssize_t maxdsm_power_interval_store(struct device *dev,
+-					   struct device_attribute *attr,
+-					   const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdp->info.interval))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	return size;
+-}
+-static DEVICE_ATTR(interval, 0664,
+-		   maxdsm_power_interval_show, maxdsm_power_interval_store);
+-
+-static ssize_t maxdsm_power_ppr_target_min_time_ms_show(struct device *dev,
+-					  struct device_attribute *attr,
+-					  char *buf)
+-{
+-	return sprintf(buf, "%d", g_mdp->info_ppr.target_min_time_ms);
+-}
+-
+-static ssize_t maxdsm_power_ppr_target_min_time_ms_store(struct device *dev,
+-					   struct device_attribute *attr,
+-					   const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdp->info_ppr.target_min_time_ms))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	return size;
+-}
+-static DEVICE_ATTR(target_min_time_ms, 0664,
+-		   maxdsm_power_ppr_target_min_time_ms_show, maxdsm_power_ppr_target_min_time_ms_store);
+-
+-static ssize_t maxdsm_power_ppr_target_temp_show(struct device *dev,
+-					  struct device_attribute *attr,
+-					  char *buf)
+-{
+-	return sprintf(buf, "%d", g_mdp->values_ppr[MAXDSM_LEFT].target_temp);
+-}
+-
+-static ssize_t maxdsm_power_ppr_target_temp_store(struct device *dev,
+-					   struct device_attribute *attr,
+-					   const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdp->values_ppr[MAXDSM_LEFT].target_temp))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	return size;
+-}
+-static DEVICE_ATTR(target_temp, 0664,
+-		   maxdsm_power_ppr_target_temp_show, maxdsm_power_ppr_target_temp_store);
+-
+-static ssize_t maxdsm_power_ppr_target_temp_r_show(struct device *dev,
+-					  struct device_attribute *attr,
+-					  char *buf)
+-{
+-	return sprintf(buf, "%d", g_mdp->values_ppr[MAXDSM_RIGHT].target_temp);
+-}
+-
+-static ssize_t maxdsm_power_ppr_target_temp_r_store(struct device *dev,
+-					   struct device_attribute *attr,
+-					   const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdp->values_ppr[MAXDSM_RIGHT].target_temp))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	return size;
+-}
+-static DEVICE_ATTR(target_temp_r, 0664,
+-		   maxdsm_power_ppr_target_temp_r_show, maxdsm_power_ppr_target_temp_r_store);
+-
+-
+-static ssize_t maxdsm_power_ppr_cut_off_freq_show(struct device *dev,
+-					  struct device_attribute *attr,
+-					  char *buf)
+-{
+-	return sprintf(buf, "%d", g_mdp->values_ppr[MAXDSM_LEFT].cutoff_frequency);
+-}
+-
+-static ssize_t maxdsm_power_ppr_cut_off_freq_store(struct device *dev,
+-					   struct device_attribute *attr,
+-					   const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdp->values_ppr[MAXDSM_LEFT].cutoff_frequency))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	maxdsm_set_ppr_xover_freq(g_mdp->values_ppr[MAXDSM_LEFT].cutoff_frequency, MAXDSM_LEFT);
+-	return size;
+-}
+-static DEVICE_ATTR(cutoff_frequency, 0664,
+-		   maxdsm_power_ppr_cut_off_freq_show, maxdsm_power_ppr_cut_off_freq_store);
+-
+-static ssize_t maxdsm_power_ppr_cut_off_freq_r_show(struct device *dev,
+-					  struct device_attribute *attr,
+-					  char *buf)
+-{
+-	return sprintf(buf, "%d", g_mdp->values_ppr[MAXDSM_RIGHT].cutoff_frequency);
+-}
+-
+-static ssize_t maxdsm_power_ppr_cut_off_freq_r_store(struct device *dev,
+-					   struct device_attribute *attr,
+-					   const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdp->values_ppr[MAXDSM_RIGHT].cutoff_frequency))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	maxdsm_set_ppr_xover_freq(g_mdp->values_ppr[MAXDSM_RIGHT].cutoff_frequency, MAXDSM_RIGHT);
+-	return size;
+-}
+-static DEVICE_ATTR(cutoff_frequency_r, 0664,
+-		   maxdsm_power_ppr_cut_off_freq_r_show, maxdsm_power_ppr_cut_off_freq_r_store);
+-
+-
+-static ssize_t maxdsm_power_ppr_threshold_level_show(struct device *dev,
+-					  struct device_attribute *attr,
+-					  char *buf)
+-{
+-	return sprintf(buf, "%d", g_mdp->values_ppr[MAXDSM_LEFT].threshold_level);
+-}
+-
+-static ssize_t maxdsm_power_ppr_threshold_level_store(struct device *dev,
+-					   struct device_attribute *attr,
+-					   const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdp->values_ppr[MAXDSM_LEFT].threshold_level))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	maxdsm_set_ppr_threshold_db(g_mdp->values_ppr[MAXDSM_LEFT].threshold_level, MAXDSM_LEFT);
+-	return size;
+-}
+-static DEVICE_ATTR(threshold_level, 0664,
+-		   maxdsm_power_ppr_threshold_level_show, maxdsm_power_ppr_threshold_level_store);
+-
+-static ssize_t maxdsm_power_ppr_threshold_level_r_show(struct device *dev,
+-					  struct device_attribute *attr,
+-					  char *buf)
+-{
+-	return sprintf(buf, "%d", g_mdp->values_ppr[MAXDSM_RIGHT].threshold_level);
+-}
+-
+-static ssize_t maxdsm_power_ppr_threshold_level_r_store(struct device *dev,
+-					   struct device_attribute *attr,
+-					   const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdp->values_ppr[MAXDSM_RIGHT].threshold_level))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	maxdsm_set_ppr_threshold_db(g_mdp->values_ppr[MAXDSM_RIGHT].threshold_level, MAXDSM_RIGHT);
+-	return size;
+-}
+-static DEVICE_ATTR(threshold_level_r, 0664,
+-		   maxdsm_power_ppr_threshold_level_r_show, maxdsm_power_ppr_threshold_level_r_store);
+-
+-
+-static ssize_t maxdsm_power_ppr_env_temp_show(struct device *dev,
+-					  struct device_attribute *attr,
+-					  char *buf)
+-{
+-	return sprintf(buf, "%d", g_mdp->values_ppr[MAXDSM_LEFT].env_temp);
+-}
+-
+-static ssize_t maxdsm_power_ppr_env_temp_store(struct device *dev,
+-					   struct device_attribute *attr,
+-					   const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdp->values_ppr[MAXDSM_LEFT].env_temp))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	return size;
+-}
+-static DEVICE_ATTR(env_temp, 0664,
+-		   maxdsm_power_ppr_env_temp_show, maxdsm_power_ppr_env_temp_store);
+-
+-static ssize_t maxdsm_power_ppr_env_temp_r_show(struct device *dev,
+-					  struct device_attribute *attr,
+-					  char *buf)
+-{
+-	return sprintf(buf, "%d", g_mdp->values_ppr[MAXDSM_RIGHT].env_temp);
+-}
+-
+-static ssize_t maxdsm_power_ppr_env_temp_r_store(struct device *dev,
+-					   struct device_attribute *attr,
+-					   const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdp->values_ppr[MAXDSM_RIGHT].env_temp))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	return size;
+-}
+-static DEVICE_ATTR(env_temp_r, 0664,
+-		   maxdsm_power_ppr_env_temp_r_show, maxdsm_power_ppr_env_temp_r_store);
+-
+-static ssize_t maxdsm_power_ppr_spk_t_show(struct device *dev,
+-					  struct device_attribute *attr,
+-					  char *buf)
+-{
+-	return sprintf(buf, "%d", g_mdp->values_ppr[MAXDSM_LEFT].spk_t);
+-}
+-
+-static ssize_t maxdsm_power_ppr_spk_t_store(struct device *dev,
+-					   struct device_attribute *attr,
+-					   const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdp->values_ppr[MAXDSM_LEFT].spk_t))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	return size;
+-}
+-static DEVICE_ATTR(spk_t, 0664,
+-		   maxdsm_power_ppr_spk_t_show, maxdsm_power_ppr_spk_t_store);
+-
+-static ssize_t maxdsm_power_ppr_spk_t_r_show(struct device *dev,
+-					  struct device_attribute *attr,
+-					  char *buf)
+-{
+-	return sprintf(buf, "%d", g_mdp->values_ppr[MAXDSM_RIGHT].spk_t);
+-}
+-
+-static ssize_t maxdsm_power_ppr_spk_t_r_store(struct device *dev,
+-					   struct device_attribute *attr,
+-					   const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdp->values_ppr[MAXDSM_RIGHT].spk_t))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	return size;
+-}
+-static DEVICE_ATTR(spk_t_r, 0664,
+-		   maxdsm_power_ppr_spk_t_r_show, maxdsm_power_ppr_spk_t_r_store);
+-
+-
+-static ssize_t maxdsm_power_ppr_exit_temp_show(struct device *dev,
+-					  struct device_attribute *attr,
+-					  char *buf)
+-{
+-	return sprintf(buf, "%d", g_mdp->values_ppr[MAXDSM_LEFT].exit_temp);
+-}
+-
+-static ssize_t maxdsm_power_ppr_exit_temp_store(struct device *dev,
+-					   struct device_attribute *attr,
+-					   const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdp->values_ppr[MAXDSM_LEFT].exit_temp))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	return size;
+-}
+-static DEVICE_ATTR(exit_temp, 0664,
+-		   maxdsm_power_ppr_exit_temp_show, maxdsm_power_ppr_exit_temp_store);
+-
+-static ssize_t maxdsm_power_ppr_exit_temp_r_show(struct device *dev,
+-					  struct device_attribute *attr,
+-					  char *buf)
+-{
+-	return sprintf(buf, "%d", g_mdp->values_ppr[MAXDSM_RIGHT].exit_temp);
+-}
+-
+-static ssize_t maxdsm_power_ppr_exit_temp_r_store(struct device *dev,
+-					   struct device_attribute *attr,
+-					   const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdp->values_ppr[MAXDSM_RIGHT].exit_temp))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	return size;
+-}
+-static DEVICE_ATTR(exit_temp_r, 0664,
+-		   maxdsm_power_ppr_exit_temp_r_show, maxdsm_power_ppr_exit_temp_r_store);
+-
+-static ssize_t maxdsm_power_ppr_global_enable_show(struct device *dev,
+-					  struct device_attribute *attr,
+-					  char *buf)
+-{
+-	return sprintf(buf, "%d", g_mdp->info_ppr.global_enable);
+-}
+-
+-static ssize_t maxdsm_power_ppr_global_enable_store(struct device *dev,
+-					   struct device_attribute *attr,
+-					   const char *buf, size_t size)
+-{
+-	if (kstrtou32(buf, 0, &g_mdp->info_ppr.global_enable))
+-		dev_err(dev, "%s: Failed converting from str to u32.\n",
+-			__func__);
+-	return size;
+-}
+-static DEVICE_ATTR(global_enable, 0664,
+-		   maxdsm_power_ppr_global_enable_show, maxdsm_power_ppr_global_enable_store);
+-
+-
+-static ssize_t maxdsm_power_status_show(struct device *dev,
+-					struct device_attribute *attr,
+-					char *buf)
+-{
+-	return sprintf(buf, "%s\n",
+-		       g_mdp->values.status ? "Enabled" : "Disabled");
+-}
+-
+-static ssize_t maxdsm_power_status_store(struct device *dev,
+-					 struct device_attribute *attr,
+-					 const char *buf, size_t size)
+-{
+-	int status = 0;
+-
+-	if (!kstrtou32(buf, 0, &status)) {
+-		status = status > 0 ? 1 : 0;
+-		if (status == g_mdp->values.status) {
+-			dbg_maxdsm("Already run. It will be ignored.");
+-		} else {
+-			mutex_lock(&g_mdp->mutex);
+-			g_mdp->values.status = status;
+-			mutex_unlock(&g_mdp->mutex);
+-			if (maxdsm_power_check(g_mdp, status,
+-						MAXDSM_POWER_START_DELAY)) {
+-				pr_err("%s: The codec was connected?\n",
+-				       __func__);
+-				mutex_lock(&g_mdp->mutex);
+-				g_mdp->values.status = 0;
+-				mutex_unlock(&g_mdp->mutex);
+-			}
+-		}
+-	}
+-
+-	return size;
+-}
+-static DEVICE_ATTR(status, 0664,
+-	maxdsm_power_status_show, maxdsm_power_status_store);
+-
+-static struct attribute *maxdsm_power_attr[] = {
+-	&dev_attr_duration.attr,
+-	&dev_attr_value.attr,
+-	&dev_attr_value_r.attr,
+-	&dev_attr_interval.attr,
+-	&dev_attr_status.attr,
+-	&dev_attr_target_min_time_ms.attr,
+-	&dev_attr_target_temp.attr,
+-	&dev_attr_target_temp_r.attr,
+-	&dev_attr_exit_temp.attr,
+-	&dev_attr_exit_temp_r.attr,
+-	&dev_attr_cutoff_frequency.attr,
+-	&dev_attr_cutoff_frequency_r.attr,
+-	&dev_attr_threshold_level.attr,
+-	&dev_attr_threshold_level_r.attr,
+-	&dev_attr_env_temp.attr,
+-	&dev_attr_env_temp_r.attr,
+-	&dev_attr_spk_t.attr,
+-	&dev_attr_spk_t_r.attr,
+-	&dev_attr_global_enable.attr,
+-	NULL,
+-};
+-
+-static struct attribute_group maxdsm_power_attr_grp = {
+-	.attrs = maxdsm_power_attr,
+-};
+-
+-static int __init maxdsm_power_init(void)
+-{
+-	struct class *class = NULL;
+-	struct maxim_dsm_power *mdp;
+-	int i, ret = 0;
+-
+-	g_mdp = kzalloc(sizeof(struct maxim_dsm_power), GFP_KERNEL);
+-	if (g_mdp == NULL)
+-		return -ENOMEM;
+-	mdp = g_mdp;
+-
+-	mdp->wq = create_singlethread_workqueue(MAXDSM_POWER_WQ_NAME);
+-	if (mdp->wq == NULL) {
+-		kfree(g_mdp);
+-		return -ENOMEM;
+-	}
+-
+-	INIT_DELAYED_WORK(&g_mdp->work, maxdsm_power_work);
+-	INIT_DELAYED_WORK(&g_mdp->work_ppr, maxdsm_power_work_ppr);
+-	mutex_init(&g_mdp->mutex);
+-
+-	mdp->info.duration = 10000; /* 10 secs */
+-	mdp->info.remaining = mdp->info.duration;
+-	mdp->info.interval = 10000;  /* 10 secs */
+-	mdp->values.power = 0xFFFFFFFF;
+-	mdp->values.power_r = 0xFFFFFFFF;
+-	mdp->platform_type = 0xFFFFFFFF;
+-
+-	mdp->info_ppr.target_min_time_ms = 300000;
+-	mdp->info_ppr.global_enable = 1;
+-	for (i = 0 ; i < MAXDSM_CHANNEL ; i++) {
+-		mdp->values_ppr[i].cutoff_frequency = 0x3E801;
+-		mdp->values_ppr[i].env_temp = 2500;
+-		mdp->values_ppr[i].target_temp = 3400;
+-		mdp->values_ppr[i].spk_t = 2500;
+-		mdp->values_ppr[i].threshold_level = 0xE20189;
+-		mdp->values_ppr[i].exit_temp = 3250;
+-	}
+-
+-#ifdef CONFIG_SND_SOC_MAXIM_DSM_CAL
+-	class = maxdsm_cal_get_class();
+-#else
+-	if (!class)
+-		class = class_create(MAXDSM_POWER_DSM_NAME);
+-#endif /* CONFIG_SND_SOC_MAXIM_DSM_CAL */
+-	mdp->class = class;
+-	if (mdp->class) {
+-		mdp->dev = device_create(mdp->class, NULL, 1, NULL,
+-				MAXDSM_POWER_CLASS_NAME);
+-		if (!IS_ERR(mdp->dev)) {
+-			if (sysfs_create_group(&mdp->dev->kobj,
+-						&maxdsm_power_attr_grp))
+-				dbg_maxdsm(
+-						"Failed to create sysfs group. ret=%d",
+-						ret);
+-		}
+-	}
+-
+-	dbg_maxdsm("Completed initialization");
+-
+-	return ret;
+-}
+-module_init(maxdsm_power_init);
+-
+-static void __exit maxdsm_power_exit(void)
+-{
+-	kfree(g_mdp);
+-};
+-module_exit(maxdsm_power_exit);
+-
+-MODULE_DESCRIPTION("For power measurement of DSM");
+-MODULE_AUTHOR("Kyounghun Jeon<hun.jeon@maximintegrated.com");
+-MODULE_LICENSE("GPL");
+diff --git a/sound/soc/codecs/max98512-downstream/maxim_dsm_power.h b/sound/soc/codecs/max98512-downstream/maxim_dsm_power.h
+deleted file mode 100644
+index 7942d00..00000000
+--- a/sound/soc/codecs/max98512-downstream/maxim_dsm_power.h
++++ /dev/null
+@@ -1,84 +0,0 @@
+-/*
+- * maxim_dsm_power.c -- Module for Power Measurement
+- *
+- * Copyright 2015 Maxim Integrated Products
+- *
+- * This program is free software; you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License version 2 as
+- * published by the Free Software Foundation.
+- */
+-
+-#ifndef __SOUND_MAXIM_DSM_POWER_H__
+-
+-#define MAXDSM_POWER_WQ_NAME	"maxdsm_power_wq"
+-#define MAXDSM_POWER_CLASS_NAME "maxdsm_power"
+-#define MAXDSM_POWER_DSM_NAME	"dsm"
+-
+-#define MAXDSM_POWER_START_DELAY 1000
+-
+-enum maxdsm_ppr_channel {
+-	MAXDSM_LEFT = 0,
+-	MAXDSM_RIGHT = 1,
+-	MAXDSM_CHANNEL = 2,
+-};
+-
+-enum maxdsm_ppr_state {
+-	PPR_OFF = 0,
+-	PPR_ON,
+-	PPR_NORMAL,
+-	PPR_RUN,
+-};
+-
+-struct maxim_dsm_power_info {
+-	int interval;
+-	int duration;
+-	int remaining;
+-	unsigned long previous_jiffies;
+-};
+-
+-struct maxim_dsm_power_values {
+-	uint32_t status;
+-	int power;
+-	int power_r;
+-	uint64_t avg;
+-	uint64_t avg_r;
+-	int count;
+-};
+-
+-struct maxim_dsm_power_ppr_info {
+-	int interval;
+-	int duration;
+-	int target_min_time_ms;
+-	int global_enable;
+-	unsigned long previous_jiffies;
+-	unsigned long amp_uptime_jiffies;
+-};
+-
+-struct maxim_dsm_ppr_values {
+-	int status;
+-	int target_temp;
+-	int exit_temp;
+-	int cutoff_frequency;
+-	int threshold_level;
+-	int env_temp;
+-	int spk_t;
+-};
+-
+-struct maxim_dsm_power {
+-	struct device *dev;
+-	struct class *class;
+-	struct mutex mutex;
+-	struct workqueue_struct *wq;
+-	struct delayed_work work;
+-	struct delayed_work work_ppr;
+-	struct maxim_dsm_power_values values;
+-	struct maxim_dsm_power_info info;
+-	struct maxim_dsm_ppr_values values_ppr[MAXDSM_CHANNEL];
+-	struct maxim_dsm_power_ppr_info info_ppr;
+-	uint32_t platform_type;
+-};
+-
+-void maxdsm_power_ppr_control(int state);
+-void maxdsm_power_control(int state);
+-
+-#endif /* __SOUND_MAXIM_DSM_POWER_H__ */

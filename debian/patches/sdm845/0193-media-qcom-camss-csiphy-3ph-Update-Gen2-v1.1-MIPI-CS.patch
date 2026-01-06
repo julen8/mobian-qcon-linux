@@ -1,0 +1,56 @@
+From: David Heidelberg <david@ixit.cz>
+Date: Fri, 5 Dec 2025 13:27:38 +0100
+Subject: media: qcom: camss: csiphy-3ph: Update Gen2 v1.1 MIPI CSI-2 C-PHY
+ init
+
+Should improve robustness and provide better electrical tuning.
+
+Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../media/platform/qcom/camss/camss-csiphy-3ph-1-0.c   | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+index c3ba0a2..8b28c5e 100644
+--- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
++++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+@@ -224,9 +224,9 @@ csiphy_lane_regs lane_regs_sdm845[] = {
+ /* 3 entries: 3 lanes (C-PHY) */
+ static const struct
+ csiphy_lane_regs lane_regs_sdm845_3ph[] = {
+-	{0x015c, 0x43, 0x00, CSIPHY_DEFAULT_PARAMS},
+-	{0x0168, 0xa0, 0x00, CSIPHY_DEFAULT_PARAMS},
+-	{0x016c, 0x25, 0x00, CSIPHY_DEFAULT_PARAMS},
++	{0x015c, 0x63, 0x00, CSIPHY_DEFAULT_PARAMS},
++	{0x0168, 0xac, 0x00, CSIPHY_DEFAULT_PARAMS},
++	{0x016c, 0xa5, 0x00, CSIPHY_DEFAULT_PARAMS},
+ 	{0x0104, 0x06, 0x00, CSIPHY_DEFAULT_PARAMS},
+ 	{0x010c, 0x12, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
+ 	{0x0108, 0x00, 0x00, CSIPHY_SETTLE_CNT_HIGHER_BYTE},
+@@ -244,9 +244,9 @@ csiphy_lane_regs lane_regs_sdm845_3ph[] = {
+ 	{0x0164, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
+ 	{0x01dc, 0x51, 0x00, CSIPHY_DEFAULT_PARAMS},
+ 
+-	{0x035c, 0x43, 0x00, CSIPHY_DEFAULT_PARAMS},
+-	{0x0368, 0xa0, 0x00, CSIPHY_DEFAULT_PARAMS},
+-	{0x036c, 0x25, 0x00, CSIPHY_DEFAULT_PARAMS},
++	{0x035c, 0x63, 0x00, CSIPHY_DEFAULT_PARAMS},
++	{0x0368, 0xac, 0x00, CSIPHY_DEFAULT_PARAMS},
++	{0x036c, 0xa5, 0x00, CSIPHY_DEFAULT_PARAMS},
+ 	{0x0304, 0x06, 0x00, CSIPHY_DEFAULT_PARAMS},
+ 	{0x030c, 0x12, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
+ 	{0x0308, 0x00, 0x00, CSIPHY_SETTLE_CNT_HIGHER_BYTE},
+@@ -264,9 +264,9 @@ csiphy_lane_regs lane_regs_sdm845_3ph[] = {
+ 	{0x0364, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
+ 	{0x03dc, 0x51, 0x00, CSIPHY_DEFAULT_PARAMS},
+ 
+-	{0x055c, 0x43, 0x00, CSIPHY_DEFAULT_PARAMS},
+-	{0x0568, 0xa0, 0x00, CSIPHY_DEFAULT_PARAMS},
+-	{0x056c, 0x25, 0x00, CSIPHY_DEFAULT_PARAMS},
++	{0x055c, 0x63, 0x00, CSIPHY_DEFAULT_PARAMS},
++	{0x0568, 0xac, 0x00, CSIPHY_DEFAULT_PARAMS},
++	{0x056c, 0xa5, 0x00, CSIPHY_DEFAULT_PARAMS},
+ 	{0x0504, 0x06, 0x00, CSIPHY_DEFAULT_PARAMS},
+ 	{0x050c, 0x12, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
+ 	{0x0508, 0x00, 0x00, CSIPHY_SETTLE_CNT_HIGHER_BYTE},

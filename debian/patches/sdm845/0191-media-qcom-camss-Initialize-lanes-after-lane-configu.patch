@@ -1,0 +1,107 @@
+From: Petr Hodina <phodina@protonmail.com>
+Date: Fri, 7 Nov 2025 10:37:17 +0100
+Subject: media: qcom: camss: Initialize lanes after lane configuration is
+ available
+
+The lanes must not be initialized before the driver has access to
+the lane configuration, as it depends on whether D-PHY or C-PHY mode
+is in use. Move the lane initialization to a later stage where the
+configuration structures are available.
+
+Signed-off-by: Petr Hodina <phodina@protonmail.com>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../platform/qcom/camss/camss-csiphy-3ph-1-0.c     | 65 ++++++++++++----------
+ 1 file changed, 36 insertions(+), 29 deletions(-)
+
+diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+index bd31051..2aa7286 100644
+--- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
++++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+@@ -944,6 +944,41 @@ static void csiphy_lanes_enable(struct csiphy_device *csiphy,
+ 	u8 val;
+ 	int i;
+ 
++	switch (csiphy->camss->res->version) {
++	case CAMSS_845:
++		regs->lane_regs = &lane_regs_sdm845[0];
++		regs->lane_array_size = ARRAY_SIZE(lane_regs_sdm845);
++		break;
++	case CAMSS_2290:
++		regs->lane_regs = &lane_regs_qcm2290[0];
++		regs->lane_array_size = ARRAY_SIZE(lane_regs_qcm2290);
++		break;
++	case CAMSS_7280:
++	case CAMSS_8250:
++		regs->lane_regs = &lane_regs_sm8250[0];
++		regs->lane_array_size = ARRAY_SIZE(lane_regs_sm8250);
++		break;
++	case CAMSS_8280XP:
++		regs->lane_regs = &lane_regs_sc8280xp[0];
++		regs->lane_array_size = ARRAY_SIZE(lane_regs_sc8280xp);
++		break;
++	case CAMSS_X1E80100:
++		regs->lane_regs = &lane_regs_x1e80100[0];
++		regs->lane_array_size = ARRAY_SIZE(lane_regs_x1e80100);
++		break;
++	case CAMSS_8550:
++		regs->lane_regs = &lane_regs_sm8550[0];
++		regs->lane_array_size = ARRAY_SIZE(lane_regs_sm8550);
++		break;
++	case CAMSS_8300:
++	case CAMSS_8775P:
++		regs->lane_regs = &lane_regs_sa8775p[0];
++		regs->lane_array_size = ARRAY_SIZE(lane_regs_sa8775p);
++		break;
++	default:
++		break;
++	}
++
+ 	settle_cnt = csiphy_settle_cnt_calc(link_freq, csiphy->timer_clk_rate);
+ 
+ 	val = 0;
+@@ -1013,42 +1048,14 @@ static int csiphy_init(struct csiphy_device *csiphy)
+ 		return -ENOMEM;
+ 
+ 	csiphy->regs = regs;
+-	regs->offset = 0x800;
+ 
+ 	switch (csiphy->camss->res->version) {
+-	case CAMSS_845:
+-		regs->lane_regs = &lane_regs_sdm845[0];
+-		regs->lane_array_size = ARRAY_SIZE(lane_regs_sdm845);
+-		break;
+-	case CAMSS_2290:
+-		regs->lane_regs = &lane_regs_qcm2290[0];
+-		regs->lane_array_size = ARRAY_SIZE(lane_regs_qcm2290);
+-		break;
+-	case CAMSS_7280:
+-	case CAMSS_8250:
+-		regs->lane_regs = &lane_regs_sm8250[0];
+-		regs->lane_array_size = ARRAY_SIZE(lane_regs_sm8250);
+-		break;
+-	case CAMSS_8280XP:
+-		regs->lane_regs = &lane_regs_sc8280xp[0];
+-		regs->lane_array_size = ARRAY_SIZE(lane_regs_sc8280xp);
+-		break;
+ 	case CAMSS_X1E80100:
+-		regs->lane_regs = &lane_regs_x1e80100[0];
+-		regs->lane_array_size = ARRAY_SIZE(lane_regs_x1e80100);
+-		regs->offset = 0x1000;
+-		break;
+ 	case CAMSS_8550:
+-		regs->lane_regs = &lane_regs_sm8550[0];
+-		regs->lane_array_size = ARRAY_SIZE(lane_regs_sm8550);
+ 		regs->offset = 0x1000;
+ 		break;
+-	case CAMSS_8300:
+-	case CAMSS_8775P:
+-		regs->lane_regs = &lane_regs_sa8775p[0];
+-		regs->lane_array_size = ARRAY_SIZE(lane_regs_sa8775p);
+-		break;
+ 	default:
++		regs->offset = 0x800;
+ 		break;
+ 	}
+ 

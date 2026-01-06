@@ -1,0 +1,23 @@
+From: Antonio Rische <nt8r@protonmail.com>
+Date: Fri, 1 Jul 2022 17:39:36 +0000
+Subject: arch: arm64: qcom: sdm845-enchilada: add notification LED
+
+The R/G/B LEDs are managed by the pmi8998 LPG.
+
+Signed-off-by: Antonio Rische <nt8r@protonmail.com>
+---
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+index b636752..3439b6f 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+@@ -7,6 +7,7 @@
+ 
+ #include <dt-bindings/leds/common.h>
+ #include "sdm845-oneplus-common.dtsi"
++#include <dt-bindings/leds/common.h>
+ 
+ / {
+ 	model = "OnePlus 6";

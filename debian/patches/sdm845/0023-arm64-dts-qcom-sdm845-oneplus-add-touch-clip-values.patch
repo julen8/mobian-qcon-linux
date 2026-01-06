@@ -1,0 +1,54 @@
+From: methanal <baclofen@tuta.io>
+Date: Wed, 14 Jun 2023 03:15:28 +0900
+Subject: arm64: dts: qcom: sdm845-oneplus: add touch clip values
+
+Add x and y clip values for OnePlus 6/6T touchscreens.
+
+Signed-off-by: methanal <baclofen@tuta.io>
+---
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi   | 2 +-
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts | 5 +++++
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts    | 1 +
+ 3 files changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+index e24bdb1..8b29486 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+@@ -431,7 +431,7 @@ rmi4-f01@1 {
+ 		rmi4_f12: rmi4-f12@12 {
+ 			reg = <0x12>;
+ 			touchscreen-x-mm = <68>;
+-			touchscreen-y-mm = <144>;
++			syna,clip-x-high = <1079>;
+ 			syna,sensor-type = <1>;
+ 			syna,rezero-wait-ms = <200>;
+ 		};
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+index a259eb9..b636752 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+@@ -104,6 +104,11 @@ codec {
+ 	};
+ };
+ 
++&rmi4_f12 {
++	touchscreen-y-mm = <144>;
++	syna,clip-y-high = <2279>;
++};
++
+ &wcd9340 {
+ 	qcom,micbias1-microvolt = <1800000>;
+ 	qcom,micbias2-microvolt = <2700000>;
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
+index 7e75decf..13bb335 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
+@@ -66,6 +66,7 @@ &pmi8998_charger {
+ 
+ &rmi4_f12 {
+ 	touchscreen-y-mm = <148>;
++	syna,clip-y-high = <2339>;
+ };
+ 
+ &wcd9340 {
