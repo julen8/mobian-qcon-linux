@@ -1,0 +1,41 @@
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Sun, 21 Sep 2025 10:09:25 +0300
+Subject: FROMGIT arm64: dts: qcom: sm6350: add refgen regulator and use it
+ for DSI
+
+Add the refgen regulator block and use it for the DSI controller.
+
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Luca Weiss <luca.weiss@fairphone.com>
+Link: https://lore.kernel.org/r/20250921-refgen-v1-9-9d93e64133ea@oss.qualcomm.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/sm6350.dtsi | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+index 6a805ea..f34dc6e 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+@@ -1797,6 +1797,12 @@ usb_1_hsphy: phy@88e3000 {
+ 			resets = <&gcc GCC_QUSB2PHY_PRIM_BCR>;
+ 		};
+ 
++		refgen: regulator@88e7000 {
++			compatible = "qcom,sm6350-refgen-regulator",
++				     "qcom,sm8250-refgen-regulator";
++			reg = <0x0 0x088e7000 0x0 0x84>;
++		};
++
+ 		usb_1_qmpphy: phy@88e8000 {
+ 			compatible = "qcom,sm6350-qmp-usb3-dp-phy";
+ 			reg = <0x0 0x088e8000 0x0 0x3000>;
+@@ -2391,6 +2397,8 @@ mdss_dsi0: dsi@ae94000 {
+ 				phys = <&mdss_dsi0_phy>;
+ 				phy-names = "dsi";
+ 
++				refgen-supply = <&refgen>;
++
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 

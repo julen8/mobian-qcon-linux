@@ -1,0 +1,31 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 19 Sep 2025 11:57:25 +0200
+Subject: FROMGIT arm64: dts: qcom: sm6350: Add MDSS_CORE reset to mdss
+
+Like on other platforms, if the OS does not support recovering the state
+left by the bootloader it needs access to MDSS_CORE, so that it can
+clear the MDSS configuration. Add a reference to the relevant reset.
+
+This also fixes display init on Linux v6.17.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20250919-sm6350-mdss-reset-v1-3-48dcac917c73@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/sm6350.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+index 01977d6..6a805ea 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+@@ -2187,6 +2187,8 @@ &clk_virt SLAVE_EBI_CH0 QCOM_ICC_TAG_ALWAYS>,
+ 			power-domains = <&dispcc MDSS_GDSC>;
+ 			iommus = <&apps_smmu 0x800 0x2>;
+ 
++			resets = <&dispcc DISP_CC_MDSS_CORE_BCR>;
++
+ 			#address-cells = <2>;
+ 			#size-cells = <2>;
+ 			ranges;
