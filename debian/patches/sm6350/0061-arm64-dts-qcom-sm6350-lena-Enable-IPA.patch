@@ -1,0 +1,30 @@
+From: erebion <erebion@erebion.eu>
+Date: Sat, 1 Nov 2025 18:20:03 +0100
+Subject: arm64: dts: qcom: sm6350-lena: Enable IPA
+
+Enable the IPA node for the Xperia 10 III which makes mobile data work.
+
+Signed-off-by: erebion <erebion@erebion.eu>
+---
+ arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+index a1a62a3..97bfad8 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
++++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+@@ -332,6 +332,14 @@ touchscreen@48 {
+ 	};
+ };
+ 
++&ipa {
++	memory-region = <&pil_ipa_fw_mem>;
++	firmware-name = "qcom/sm6350/sony/pdx213/ipa_fws.mbn";
++	qcom,gsi-loader = "self";
++
++	status = "okay";
++};
++
+ &mdss {
+ 	status = "okay";
+ };
