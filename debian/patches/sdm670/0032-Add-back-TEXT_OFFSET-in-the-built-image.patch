@@ -36,7 +36,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  2 files changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
-index cb68adc..67bd895 100644
+index 25c08a0..10eca95 100644
 --- a/arch/arm64/kernel/head.S
 +++ b/arch/arm64/kernel/head.S
 @@ -59,7 +59,7 @@
