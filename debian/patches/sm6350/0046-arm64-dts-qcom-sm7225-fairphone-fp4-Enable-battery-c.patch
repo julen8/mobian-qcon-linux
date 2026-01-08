@@ -1,0 +1,54 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 20 Jun 2025 10:46:38 +0200
+Subject: arm64: dts: qcom: sm7225-fairphone-fp4: Enable battery charger
+
+Add a simple description of the battery, and enable the battery charger.
+
+As per the comment in the file, we keep the charging current relatively
+low for now, but that should be plenty fast.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+index 1898e95..baad82a 100644
+--- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
++++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+@@ -42,6 +42,22 @@ aliases {
+ 		serial1 = &uart1;
+ 	};
+ 
++	battery: battery {
++		compatible = "simple-battery";
++
++		device-chemistry = "lithium-ion-polymer";
++
++		charge-full-design-microamp-hours = <3905000>;
++		/*
++		 * Keep the maximum charging current conservative for now,
++		 * until we have thermal handling in the charging driver.
++		 * Downstream seems to have a upper limit of 3A.
++		 */
++		constant-charge-current-max-microamp = <1500000>;
++		voltage-max-design-microvolt = <4400000>;
++		voltage-min-design-microvolt = <3400000>;
++	};
++
+ 	chosen {
+ 		#address-cells = <2>;
+ 		#size-cells = <2>;
+@@ -1113,6 +1129,12 @@ conn-therm@1 {
+ 	};
+ };
+ 
++&pm7250b_charger {
++	monitored-battery = <&battery>;
++
++	status = "okay";
++};
++
+ &pm7250b_typec {
+ 	vdd-pdphy-supply = <&vreg_l3a>;
+ 
