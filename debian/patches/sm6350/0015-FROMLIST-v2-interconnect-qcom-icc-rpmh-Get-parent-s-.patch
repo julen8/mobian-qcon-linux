@@ -1,0 +1,49 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 7 Nov 2025 11:54:56 +0100
+Subject: FROMLIST v2 interconnect: qcom: icc-rpmh: Get parent's regmap for
+ nested NoCs
+
+Since commit 57eb14779dfd ("interconnect: qcom: icc-rpmh: Support child
+NoC device probe") the icc-rpmh driver supports initializing child NoCs,
+but those child NoCs also need to be able to get the parent's regmap in
+order to enable QoS.
+
+Change the driver to support that and support programming QoS register.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ drivers/interconnect/qcom/icc-rpmh.c | 21 +++++++++++++--------
+ 1 file changed, 13 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/interconnect/qcom/icc-rpmh.c b/drivers/interconnect/qcom/icc-rpmh.c
+index f90c291..3b445ac 100644
+--- a/drivers/interconnect/qcom/icc-rpmh.c
++++ b/drivers/interconnect/qcom/icc-rpmh.c
+@@ -308,14 +308,19 @@ int qcom_icc_rpmh_probe(struct platform_device *pdev)
+ 		struct resource *res;
+ 		void __iomem *base;
+ 
+-		base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+-		if (IS_ERR(base))
+-			goto skip_qos_config;
+-
+-		qp->regmap = devm_regmap_init_mmio(dev, base, desc->config);
+-		if (IS_ERR(qp->regmap)) {
+-			dev_info(dev, "Skipping QoS, regmap failed; %ld\n", PTR_ERR(qp->regmap));
+-			goto skip_qos_config;
++		/* Try parent's regmap first */
++		qp->regmap = dev_get_regmap(dev->parent, NULL);
++		if (!qp->regmap) {
++			base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
++			if (IS_ERR(base))
++				goto skip_qos_config;
++
++			qp->regmap = devm_regmap_init_mmio(dev, base, desc->config);
++			if (IS_ERR(qp->regmap)) {
++				dev_info(dev, "Skipping QoS, regmap failed; %ld\n",
++					 PTR_ERR(qp->regmap));
++				goto skip_qos_config;
++			}
+ 		}
+ 
+ 		qp->num_clks = devm_clk_bulk_get_all(qp->dev, &qp->clks);

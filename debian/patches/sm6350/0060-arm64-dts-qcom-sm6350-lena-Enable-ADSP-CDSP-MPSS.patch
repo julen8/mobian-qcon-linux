@@ -1,0 +1,54 @@
+From: erebion <erebion@erebion.eu>
+Date: Sat, 1 Nov 2025 18:19:40 +0100
+Subject: arm64: dts: qcom: sm6350-lena: Enable ADSP, CDSP & MPSS
+
+Enable the ADSP, CDSP and MPSS (Modem) nodes for  for the Xperia 10 III.
+
+Signed-off-by: erebion <erebion@erebion.eu>
+---
+ .../boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts   | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+index 2ce6b81..a1a62a3 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
++++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+@@ -64,6 +64,12 @@ touch_en_vreg: touch-en-regulator {
+ 	};
+ };
+ 
++&adsp {
++	firmware-name = "qcom/sm6350/sony/pdx213/adsp.mbn";
++
++	status = "okay";
++};
++
+ &apps_rsc {
+ 	regulators-0 {
+ 		compatible = "qcom,pm6350-rpmh-regulators";
+@@ -287,6 +293,12 @@ pm6150l_bob: bob {
+ 	};
+ };
+ 
++&cdsp {
++	firmware-name = "qcom/sm6350/sony/pdx213/cdsp.mbn";
++
++	status = "okay";
++};
++
+ &gpi_dma0 {
+ 	status = "okay";
+ };
+@@ -362,6 +374,12 @@ &mdss_dsi0_phy {
+ 	status = "okay";
+ };
+ 
++&mpss {
++	firmware-name = "qcom/sm6350/sony/pdx213/modem.mbn";
++
++	status = "okay";
++};
++
+ &pm6150l_flash {
+ 	status = "okay";
+ 
