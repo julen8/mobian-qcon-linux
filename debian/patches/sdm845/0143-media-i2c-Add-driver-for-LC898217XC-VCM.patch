@@ -52,7 +52,7 @@ index c79ee32..3325c7f 100644
  obj-$(CONFIG_VIDEO_M52790) += m52790.o
 diff --git a/drivers/media/i2c/lc898217xc.c b/drivers/media/i2c/lc898217xc.c
 new file mode 100644
-index 00000000..86afbf8
+index 0000000..86afbf8
 --- /dev/null
 +++ b/drivers/media/i2c/lc898217xc.c
 @@ -0,0 +1,240 @@
