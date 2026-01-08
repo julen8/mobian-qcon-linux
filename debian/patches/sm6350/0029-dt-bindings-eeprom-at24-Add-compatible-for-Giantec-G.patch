@@ -1,0 +1,23 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Sat, 30 Aug 2025 17:45:42 +0200
+Subject: dt-bindings: eeprom: at24: Add compatible for Giantec GT24P64A
+
+Add the compatible for another 64Kb EEPROM from Giantec.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ Documentation/devicetree/bindings/eeprom/at24.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/eeprom/at24.yaml b/Documentation/devicetree/bindings/eeprom/at24.yaml
+index 50af7cc..55d3428 100644
+--- a/Documentation/devicetree/bindings/eeprom/at24.yaml
++++ b/Documentation/devicetree/bindings/eeprom/at24.yaml
+@@ -131,6 +131,7 @@ properties:
+           - const: atmel,24c32
+       - items:
+           - enum:
++              - giantec,gt24p64a
+               - onnn,n24s64b
+               - puya,p24c64f
+           - const: atmel,24c64
