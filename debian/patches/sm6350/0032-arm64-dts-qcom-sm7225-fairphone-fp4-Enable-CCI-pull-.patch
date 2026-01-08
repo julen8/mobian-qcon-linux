@@ -1,0 +1,27 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 24 Oct 2025 09:47:29 +0200
+Subject: arm64: dts: qcom: sm7225-fairphone-fp4: Enable CCI pull-up
+
+Enable vreg_l6p, which is the voltage source for the pull-up resistor of
+the CCI busses.
+
+This ensures that I2C communication works as expected.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+index 57b7558..2bad343 100644
+--- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
++++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+@@ -710,6 +710,8 @@ vreg_l6p: ldo6 {
+ 				regulator-name = "vreg_l6p";
+ 				regulator-min-microvolt = <1500000>;
+ 				regulator-max-microvolt = <1800000>;
++				/* Pull-up for CCI I2C busses */
++				regulator-always-on;
+ 			};
+ 
+ 			vreg_l7p: ldo7 {

@@ -1,0 +1,32 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Thu, 26 Sep 2024 08:43:54 +0200
+Subject: arm64: dts: qcom: sm7225-fairphone-fp4: Enable fuel gauge
+
+Enable the fuel gauge on the PM7250B PMIC which provides battery
+percentage.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+index 780c93db..d334a2a 100644
+--- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
++++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+@@ -1218,6 +1218,15 @@ &pm7250b_charger {
+ 	status = "okay";
+ };
+ 
++&pm7250b_qgauge {
++	monitored-battery = <&battery>;
++
++	io-channels = <&bat_therm_sensor>,
++		      <&pm7250b_adc ADC5_BAT_ID_100K_PU>;
++
++	status = "okay";
++};
++
+ &pm7250b_typec {
+ 	vdd-pdphy-supply = <&vreg_l3a>;
+ 
