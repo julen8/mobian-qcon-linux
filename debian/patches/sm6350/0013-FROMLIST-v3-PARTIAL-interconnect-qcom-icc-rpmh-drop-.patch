@@ -1,0 +1,157 @@
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Fri, 31 Oct 2025 16:45:41 +0200
+Subject: FROMLIST v3 (PARTIAL) interconnect: qcom: icc-rpmh: drop support for
+ non-dynamic IDS
+
+Now as all RPMh interconnect drivers were converted to using the dynamic
+IDs, drop support for non-dynamic ID allocation.
+
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+ drivers/interconnect/qcom/icc-rpmh.c | 18 +++++-------------
+ drivers/interconnect/qcom/icc-rpmh.h |  3 ---
+ drivers/interconnect/qcom/sm6350.c   | 10 ----------
+ 3 files changed, 5 insertions(+), 26 deletions(-)
+
+diff --git a/drivers/interconnect/qcom/icc-rpmh.c b/drivers/interconnect/qcom/icc-rpmh.c
+index 001404e..f90c291 100644
+--- a/drivers/interconnect/qcom/icc-rpmh.c
++++ b/drivers/interconnect/qcom/icc-rpmh.c
+@@ -280,14 +280,10 @@ int qcom_icc_rpmh_probe(struct platform_device *pdev)
+ 		if (!qn)
+ 			continue;
+ 
+-		if (desc->alloc_dyn_id) {
+-			if (!qn->node)
+-				qn->node = icc_node_create_dyn();
+-			node = qn->node;
+-		} else {
+-			node = icc_node_create(qn->id);
+-		}
++		if (!qn->node)
++			qn->node = icc_node_create_dyn();
+ 
++		node = qn->node;
+ 		if (IS_ERR(node)) {
+ 			ret = PTR_ERR(node);
+ 			goto err_remove_nodes;
+@@ -302,12 +298,8 @@ int qcom_icc_rpmh_probe(struct platform_device *pdev)
+ 		node->data = qn;
+ 		icc_node_add(node, provider);
+ 
+-		for (j = 0; j < qn->num_links; j++) {
+-			if (desc->alloc_dyn_id)
+-				icc_link_nodes(node, &qn->link_nodes[j]->node);
+-			else
+-				icc_link_create(node, qn->links[j]);
+-		}
++		for (j = 0; j < qn->num_links; j++)
++			icc_link_nodes(node, &qn->link_nodes[j]->node);
+ 
+ 		data->nodes[i] = node;
+ 	}
+diff --git a/drivers/interconnect/qcom/icc-rpmh.h b/drivers/interconnect/qcom/icc-rpmh.h
+index b72939c..9d7226a 100644
+--- a/drivers/interconnect/qcom/icc-rpmh.h
++++ b/drivers/interconnect/qcom/icc-rpmh.h
+@@ -81,8 +81,6 @@ struct qcom_icc_qosbox {
+ /**
+  * struct qcom_icc_node - Qualcomm specific interconnect nodes
+  * @name: the node name used in debugfs
+- * @links: an array of nodes where we can go next while traversing
+- * @id: a unique node identifier
+  * @link_nodes: links associated with this node
+  * @node: icc_node associated with this node
+  * @num_links: the total number of @links
+@@ -158,7 +156,6 @@ struct qcom_icc_desc {
+ 	struct qcom_icc_bcm * const *bcms;
+ 	size_t num_bcms;
+ 	bool qos_requires_clocks;
+-	bool alloc_dyn_id;
+ };
+ 
+ int qcom_icc_aggregate(struct icc_node *node, u32 tag, u32 avg_bw,
+diff --git a/drivers/interconnect/qcom/sm6350.c b/drivers/interconnect/qcom/sm6350.c
+index df2511d..99c435a 100644
+--- a/drivers/interconnect/qcom/sm6350.c
++++ b/drivers/interconnect/qcom/sm6350.c
+@@ -1389,7 +1389,6 @@ static struct qcom_icc_node * const aggre1_noc_nodes[] = {
+ };
+ 
+ static const struct qcom_icc_desc sm6350_aggre1_noc = {
+-	.alloc_dyn_id = true,
+ 	.nodes = aggre1_noc_nodes,
+ 	.num_nodes = ARRAY_SIZE(aggre1_noc_nodes),
+ 	.bcms = aggre1_noc_bcms,
+@@ -1415,7 +1414,6 @@ static struct qcom_icc_node * const aggre2_noc_nodes[] = {
+ };
+ 
+ static const struct qcom_icc_desc sm6350_aggre2_noc = {
+-	.alloc_dyn_id = true,
+ 	.nodes = aggre2_noc_nodes,
+ 	.num_nodes = ARRAY_SIZE(aggre2_noc_nodes),
+ 	.bcms = aggre2_noc_bcms,
+@@ -1443,7 +1441,6 @@ static struct qcom_icc_node * const clk_virt_nodes[] = {
+ };
+ 
+ static const struct qcom_icc_desc sm6350_clk_virt = {
+-	.alloc_dyn_id = true,
+ 	.nodes = clk_virt_nodes,
+ 	.num_nodes = ARRAY_SIZE(clk_virt_nodes),
+ 	.bcms = clk_virt_bcms,
+@@ -1463,7 +1460,6 @@ static struct qcom_icc_node * const compute_noc_nodes[] = {
+ };
+ 
+ static const struct qcom_icc_desc sm6350_compute_noc = {
+-	.alloc_dyn_id = true,
+ 	.nodes = compute_noc_nodes,
+ 	.num_nodes = ARRAY_SIZE(compute_noc_nodes),
+ 	.bcms = compute_noc_bcms,
+@@ -1524,7 +1520,6 @@ static struct qcom_icc_node * const config_noc_nodes[] = {
+ };
+ 
+ static const struct qcom_icc_desc sm6350_config_noc = {
+-	.alloc_dyn_id = true,
+ 	.nodes = config_noc_nodes,
+ 	.num_nodes = ARRAY_SIZE(config_noc_nodes),
+ 	.bcms = config_noc_bcms,
+@@ -1541,7 +1536,6 @@ static struct qcom_icc_node * const dc_noc_nodes[] = {
+ };
+ 
+ static const struct qcom_icc_desc sm6350_dc_noc = {
+-	.alloc_dyn_id = true,
+ 	.nodes = dc_noc_nodes,
+ 	.num_nodes = ARRAY_SIZE(dc_noc_nodes),
+ 	.bcms = dc_noc_bcms,
+@@ -1573,7 +1567,6 @@ static struct qcom_icc_node * const gem_noc_nodes[] = {
+ };
+ 
+ static const struct qcom_icc_desc sm6350_gem_noc = {
+-	.alloc_dyn_id = true,
+ 	.nodes = gem_noc_nodes,
+ 	.num_nodes = ARRAY_SIZE(gem_noc_nodes),
+ 	.bcms = gem_noc_bcms,
+@@ -1601,7 +1594,6 @@ static struct qcom_icc_node * const mmss_noc_nodes[] = {
+ };
+ 
+ static const struct qcom_icc_desc sm6350_mmss_noc = {
+-	.alloc_dyn_id = true,
+ 	.nodes = mmss_noc_nodes,
+ 	.num_nodes = ARRAY_SIZE(mmss_noc_nodes),
+ 	.bcms = mmss_noc_bcms,
+@@ -1626,7 +1618,6 @@ static struct qcom_icc_node * const npu_noc_nodes[] = {
+ };
+ 
+ static const struct qcom_icc_desc sm6350_npu_noc = {
+-	.alloc_dyn_id = true,
+ 	.nodes = npu_noc_nodes,
+ 	.num_nodes = ARRAY_SIZE(npu_noc_nodes),
+ 	.bcms = npu_noc_bcms,
+@@ -1663,7 +1654,6 @@ static struct qcom_icc_node * const system_noc_nodes[] = {
+ };
+ 
+ static const struct qcom_icc_desc sm6350_system_noc = {
+-	.alloc_dyn_id = true,
+ 	.nodes = system_noc_nodes,
+ 	.num_nodes = ARRAY_SIZE(system_noc_nodes),
+ 	.bcms = system_noc_bcms,

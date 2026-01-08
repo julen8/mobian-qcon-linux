@@ -1,0 +1,36 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Mon, 3 Nov 2025 10:50:24 +0100
+Subject: FROMLIST v2 arm64: dts: qcom: sm6350: Add clocks for aggre1 & aggre2
+ NoC
+
+As per updated bindings, add the clocks for those two interconnects,
+which are required to set up QoS correctly.
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/sm6350.dtsi | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+index 03de744..17973fe 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+@@ -1117,6 +1117,7 @@ aggre1_noc: interconnect@16e0000 {
+ 			reg = <0x0 0x016e0000 0x0 0x15080>;
+ 			#interconnect-cells = <2>;
+ 			qcom,bcm-voters = <&apps_bcm_voter>;
++			clocks = <&gcc GCC_AGGRE_UFS_PHY_AXI_CLK>;
+ 		};
+ 
+ 		aggre2_noc: interconnect@1700000 {
+@@ -1124,6 +1125,8 @@ aggre2_noc: interconnect@1700000 {
+ 			reg = <0x0 0x01700000 0x0 0x1f880>;
+ 			#interconnect-cells = <2>;
+ 			qcom,bcm-voters = <&apps_bcm_voter>;
++			clocks = <&gcc GCC_AGGRE_USB3_PRIM_AXI_CLK>,
++				 <&rpmhcc RPMH_IPA_CLK>;
+ 
+ 			compute_noc: interconnect-compute-noc {
+ 				compatible = "qcom,sm6350-compute-noc";
