@@ -1,0 +1,42 @@
+From: Val Packett <val@packett.cool>
+Date: Sat, 20 Sep 2025 14:03:44 +0200
+Subject: FROMGIT media: i2c: dw9719: Add driver_data matching
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+In preparation for adding models with different register sets, start
+assigning the model based on the i2c match data.
+
+Signed-off-by: Val Packett <val@packett.cool>
+Signed-off-by: André Apitzsch <git@apitzsch.eu>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+---
+ drivers/media/i2c/dw9719.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/i2c/dw9719.c b/drivers/media/i2c/dw9719.c
+index d2af2c6..5dc4126 100644
+--- a/drivers/media/i2c/dw9719.c
++++ b/drivers/media/i2c/dw9719.c
+@@ -282,6 +282,8 @@ static int dw9719_probe(struct i2c_client *client)
+ 	if (!dw9719)
+ 		return -ENOMEM;
+ 
++	dw9719->model = (enum dw9719_model)(uintptr_t)i2c_get_match_data(client);
++
+ 	dw9719->regmap = devm_cci_regmap_init_i2c(client, 8);
+ 	if (IS_ERR(dw9719->regmap))
+ 		return PTR_ERR(dw9719->regmap);
+@@ -361,8 +363,8 @@ static void dw9719_remove(struct i2c_client *client)
+ }
+ 
+ static const struct of_device_id dw9719_of_table[] = {
+-	{ .compatible = "dongwoon,dw9719" },
+-	{ .compatible = "dongwoon,dw9761" },
++	{ .compatible = "dongwoon,dw9719", .data = (const void *)DW9719 },
++	{ .compatible = "dongwoon,dw9761", .data = (const void *)DW9761 },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, dw9719_of_table);

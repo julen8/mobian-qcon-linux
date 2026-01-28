@@ -1,0 +1,49 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 9 Jan 2026 16:02:05 +0100
+Subject: FROMGIT ASoC: codecs: aw88261: Remove AW88261_I2C_NAME macro
+
+Replace the macro by its simple string value, to make the code less
+unnecessarily complicated.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Link: https://patch.msgid.link/20260109-aw88261-dt-v1-1-45840c7632a3@fairphone.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/codecs/aw88261.c | 4 ++--
+ sound/soc/codecs/aw88261.h | 2 --
+ 2 files changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/sound/soc/codecs/aw88261.c b/sound/soc/codecs/aw88261.c
+index 124c0a5..476d487 100644
+--- a/sound/soc/codecs/aw88261.c
++++ b/sound/soc/codecs/aw88261.c
+@@ -1265,14 +1265,14 @@ static int aw88261_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id aw88261_i2c_id[] = {
+-	{ AW88261_I2C_NAME },
++	{ "aw88261" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, aw88261_i2c_id);
+ 
+ static struct i2c_driver aw88261_i2c_driver = {
+ 	.driver = {
+-		.name = AW88261_I2C_NAME,
++		.name = "aw88261",
+ 	},
+ 	.probe = aw88261_i2c_probe,
+ 	.id_table = aw88261_i2c_id,
+diff --git a/sound/soc/codecs/aw88261.h b/sound/soc/codecs/aw88261.h
+index 734d0f9..1fee589 100644
+--- a/sound/soc/codecs/aw88261.h
++++ b/sound/soc/codecs/aw88261.h
+@@ -370,8 +370,6 @@
+ #define AW88261_START_RETRIES		(5)
+ #define AW88261_START_WORK_DELAY_MS	(0)
+ 
+-#define AW88261_I2C_NAME		"aw88261"
+-
+ #define AW88261_RATES (SNDRV_PCM_RATE_8000_48000 | \
+ 			SNDRV_PCM_RATE_96000)
+ #define AW88261_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | \

@@ -1,0 +1,24 @@
+From: Stanislav Zaikin <zstaseg@gmail.com>
+Date: Fri, 29 Aug 2025 09:27:12 +0200
+Subject: dt-bindings: arm: qcom: Add SM7325 Xiaomi 12 Lite 5G (taoyao)
+
+Xiaomi 12 Lite 5G (xiaomi,taoyao) is a smartphone based on the SM7325
+SoC.
+
+Signed-off-by: Stanislav Zaikin <zstaseg@gmail.com>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 18b5ed0..8fdcc61 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -974,6 +974,7 @@ properties:
+       - items:
+           - enum:
+               - nothing,spacewar
++              - xiaomi,taoyao
+           - const: qcom,sm7325
+ 
+       - items:
