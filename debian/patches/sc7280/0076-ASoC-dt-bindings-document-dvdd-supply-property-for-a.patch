@@ -1,0 +1,44 @@
+From: Bharadwaj Raju <bharadwaj.raju@machinesoul.in>
+Date: Sat, 10 Jan 2026 18:15:20 +0530
+Subject: ASoC: dt-bindings: document dvdd-supply property for awinic,aw88261
+
+Add (and require) the dvdd-supply property for awinic,aw88261 in
+the awinic,aw88395.yaml binding.
+
+Signed-off-by: Bharadwaj Raju <bharadwaj.raju@machinesoul.in>
+---
+ .../devicetree/bindings/sound/awinic,aw88395.yaml          | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/sound/awinic,aw88395.yaml b/Documentation/devicetree/bindings/sound/awinic,aw88395.yaml
+index bb92d6c..c0afbc1 100644
+--- a/Documentation/devicetree/bindings/sound/awinic,aw88395.yaml
++++ b/Documentation/devicetree/bindings/sound/awinic,aw88395.yaml
+@@ -33,6 +33,8 @@ properties:
+   reset-gpios:
+     maxItems: 1
+ 
++  dvdd-supply: true
++
+   awinic,audio-channel:
+     description:
+       It is used to distinguish multiple PA devices, so that different
+@@ -66,6 +68,18 @@ allOf:
+       properties:
+         reset-gpios: false
+ 
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: awinic,aw88261
++    then:
++      required:
++        - dvdd-supply
++    else:
++      properties:
++        dvdd-supply: false
++
+ unevaluatedProperties: false
+ 
+ examples:

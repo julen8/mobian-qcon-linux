@@ -1,0 +1,38 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 23 Jan 2026 14:01:10 +0100
+Subject: Revert "arm64: dts: qcom: qcm6490-fairphone-fp5: Add AW88261
+ amplifiers"
+
+This reverts commit a0ea6eebd8d505404cb61ec314e56e39cb4ca899.
+---
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 17 ++---------------
+ 1 file changed, 2 insertions(+), 15 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+index 22d52fc..390815b 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+@@ -907,21 +907,8 @@ vibrator@5a {
+ &i2c2 {
+ 	status = "okay";
+ 
+-	aw88261_l: audio-codec@34 {
+-		compatible = "awinic,aw88261";
+-		reg = <0x34>;
+-		awinic,audio-channel = <0>;
+-		awinic,sync-flag;
+-		#sound-dai-cells = <0>;
+-	};
+-
+-	aw88261_r: audio-codec@35 {
+-		compatible = "awinic,aw88261";
+-		reg = <0x35>;
+-		awinic,audio-channel = <1>;
+-		awinic,sync-flag;
+-		#sound-dai-cells = <0>;
+-	};
++	/* AW88261FCR amplifier @ 34 */
++	/* AW88261FCR amplifier @ 35 */
+ };
+ 
+ &i2c4 {

@@ -1,0 +1,36 @@
+From: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Date: Thu, 16 Oct 2025 13:35:25 +0200
+Subject: FROMGIT arm64: dts: qcom: qcm6490-fairphone-fp5: Add UW cam actuator
+
+Add a node for the Dongwoon DW9800K actuator, used for focus of the
+ultra-wide camera sensor.
+
+Tested-by: Luca Weiss <luca.weiss@fairphone.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Link: https://lore.kernel.org/r/20251016-dw9800-driver-v3-4-d7058f72ead4@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+index d363459..36fa3fc 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+@@ -642,6 +642,15 @@ eeprom@50 {
+ };
+ 
+ &cci0_i2c1 {
++	camera_imx858_dw9800k: actuator@e {
++		compatible = "dongwoon,dw9800k";
++		reg = <0x0e>;
++		vdd-supply = <&vreg_afvdd_2p8>;
++
++		dongwoon,sac-mode = <1>;
++		dongwoon,vcm-prescale = <16>;
++	};
++
+ 	/* IMX858 @ 29 */
+ 
+ 	eeprom@54 {
