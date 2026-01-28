@@ -1,0 +1,55 @@
+From: Luca Weiss <luca@lucaweiss.eu>
+Date: Thu, 9 Oct 2025 11:06:35 +0200
+Subject: FROMGIT arm64: dts: qcom: qcm6490-shift-otter: Enable RGB LED
+
+Enable the RGB LED connected to the PM7350C (PM8350C).
+
+Signed-off-by: Luca Weiss <luca@lucaweiss.eu>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Reviewed-by: Pavel Machek <pavel@ucw.cz>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20251009-otter-further-bringup-v2-5-5bb2f4a02cea@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts | 27 ++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts b/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts
+index c23dc16..9fcc96f 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts
+@@ -623,6 +623,33 @@ led-0 {
+ 	};
+ };
+ 
++&pm8350c_pwm {
++	status = "okay";
++
++	multi-led {
++		color = <LED_COLOR_ID_RGB>;
++		function = LED_FUNCTION_STATUS;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		led@1 {
++			reg = <1>;
++			color = <LED_COLOR_ID_RED>;
++		};
++
++		led@2 {
++			reg = <2>;
++			color = <LED_COLOR_ID_GREEN>;
++		};
++
++		led@3 {
++			reg = <3>;
++			color = <LED_COLOR_ID_BLUE>;
++		};
++	};
++};
++
+ &pmk8350_adc_tm {
+ 	status = "okay";
+ 
