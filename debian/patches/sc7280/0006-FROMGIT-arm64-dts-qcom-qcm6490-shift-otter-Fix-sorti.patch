@@ -1,0 +1,53 @@
+From: Alexander Martinz <amartinz@shiftphones.com>
+Date: Thu, 9 Oct 2025 11:06:31 +0200
+Subject: FROMGIT arm64: dts: qcom: qcm6490-shift-otter: Fix sorting and
+ indentation
+
+Make sure the nodes are sorted correctly, and the indentation is
+correct.
+
+Signed-off-by: Alexander Martinz <amartinz@shiftphones.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20251009-otter-further-bringup-v2-1-5bb2f4a02cea@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts b/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts
+index 9f42778..4c9e9bc 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts
+@@ -867,7 +867,7 @@ &uart5 {
+ &uart7 {
+ 	/delete-property/interrupts;
+ 	interrupts-extended = <&intc GIC_SPI 608 IRQ_TYPE_LEVEL_HIGH>,
+-			<&tlmm 31 IRQ_TYPE_EDGE_FALLING>;
++			      <&tlmm 31 IRQ_TYPE_EDGE_FALLING>;
+ 
+ 	pinctrl-1 = <&qup_uart7_sleep_cts>, <&qup_uart7_sleep_rts>, <&qup_uart7_sleep_tx>, <&qup_uart7_sleep_rx>;
+ 	pinctrl-names = "default", "sleep";
+@@ -930,10 +930,6 @@ &usb_1_dwc3_hs {
+ 	remote-endpoint = <&pmic_glink_hs_in>;
+ };
+ 
+-&usb_dp_qmpphy_out {
+-	remote-endpoint = <&pmic_glink_ss_in>;
+-};
+-
+ &usb_1_hsphy {
+ 	vdda-pll-supply = <&vreg_l10c>;
+ 	vdda18-supply = <&vreg_l1c>;
+@@ -960,6 +956,10 @@ &usb_1_qmpphy {
+ 	status = "okay";
+ };
+ 
++&usb_dp_qmpphy_out {
++	remote-endpoint = <&pmic_glink_ss_in>;
++};
++
+ &wifi {
+ 	qcom,calibration-variant = "SHIFTphone_8";
+ 
