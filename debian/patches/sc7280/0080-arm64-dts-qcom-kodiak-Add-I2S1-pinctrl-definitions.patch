@@ -1,0 +1,77 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 8 Mar 2024 11:22:53 +0100
+Subject: arm64: dts: qcom: kodiak: Add I2S1 pinctrl definitions
+
+Add the pinctrl definitions to turn gpio6-gpio9 of the lpass_tlmm to
+configure them for I2S output.
+
+Co-developed-by: Bharadwaj Raju <bharadwaj.raju@machinesoul.in>
+Signed-off-by: Bharadwaj Raju <bharadwaj.raju@machinesoul.in>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/sc7280.dtsi | 52 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 52 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+index 51878c7..9ef8e80 100644
+--- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+@@ -3031,6 +3031,58 @@ lpass_dmic23_data: dmic23-data-state {
+ 				bias-pull-down;
+ 			};
+ 
++			i2s1_active: i2s1-active-state {
++				clk {
++					pins = "gpio6";
++					function = "i2s1_clk";
++					drive-strength = <8>;
++					bias-disable;
++					output-high;
++				};
++
++				ws {
++					pins = "gpio7";
++					function = "i2s1_ws";
++					drive-strength = <8>;
++					bias-disable;
++					output-high;
++				};
++
++				data {
++					pins = "gpio8", "gpio9";
++					function = "i2s1_data";
++					drive-strength = <8>;
++					bias-disable;
++					output-high;
++				};
++			};
++
++			i2s1_sleep: i2s1-sleep-state {
++				clk {
++					pins = "gpio6";
++					function = "i2s1_clk";
++					drive-strength = <2>;
++					bias-pull-down;
++					input-enable;
++				};
++
++				ws {
++					pins = "gpio7";
++					function = "i2s1_ws";
++					drive-strength = <2>;
++					bias-pull-down;
++					input-enable;
++				};
++
++				data {
++					pins = "gpio8", "gpio9";
++					function = "i2s1_data";
++					drive-strength = <2>;
++					bias-pull-down;
++					input-enable;
++				};
++			};
++
+ 			lpass_rx_swr_clk: rx-swr-clk-state {
+ 				pins = "gpio3";
+ 				function = "swr_rx_clk";
