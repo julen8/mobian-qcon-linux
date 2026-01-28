@@ -1,0 +1,29 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 16 Jan 2026 16:48:54 +0100
+Subject: ASoC: dt-bindings: awinic,aw88395: Document firmware-name property
+
+Since the aw88261_acf.bin file appears to be device-specific, add a
+firmware-name property so that devicetree users can point to a
+device-specific path to not conflict with other devices that might also
+ship a aw88261_acf.bin.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ Documentation/devicetree/bindings/sound/awinic,aw88395.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/sound/awinic,aw88395.yaml b/Documentation/devicetree/bindings/sound/awinic,aw88395.yaml
+index c0afbc1..dbb9338 100644
+--- a/Documentation/devicetree/bindings/sound/awinic,aw88395.yaml
++++ b/Documentation/devicetree/bindings/sound/awinic,aw88395.yaml
+@@ -35,6 +35,10 @@ properties:
+ 
+   dvdd-supply: true
+ 
++  firmware-name:
++    maxItems: 1
++    description: Name of the *_acf.bin file used for amplifier initialization
++
+   awinic,audio-channel:
+     description:
+       It is used to distinguish multiple PA devices, so that different
