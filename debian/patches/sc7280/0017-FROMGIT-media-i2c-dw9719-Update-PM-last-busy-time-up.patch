@@ -1,0 +1,30 @@
+From: Val Packett <val@packett.cool>
+Date: Sat, 20 Sep 2025 14:03:46 +0200
+Subject: FROMGIT media: i2c: dw9719: Update PM last busy time upon close
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Update the close callback to match other similar drivers like dw9768.
+
+Signed-off-by: Val Packett <val@packett.cool>
+Signed-off-by: André Apitzsch <git@apitzsch.eu>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+---
+ drivers/media/i2c/dw9719.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/media/i2c/dw9719.c b/drivers/media/i2c/dw9719.c
+index 5e3a200..a245945 100644
+--- a/drivers/media/i2c/dw9719.c
++++ b/drivers/media/i2c/dw9719.c
+@@ -284,7 +284,7 @@ static int dw9719_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
+ 
+ static int dw9719_close(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
+ {
+-	pm_runtime_put(sd->dev);
++	pm_runtime_put_autosuspend(sd->dev);
+ 
+ 	return 0;
+ }
