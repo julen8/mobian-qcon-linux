@@ -1,0 +1,82 @@
+From: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Date: Thu, 16 Oct 2025 13:35:23 +0200
+Subject: FROMGIT media: i2c: dw9719: Add DW9800K support
+
+The DW9800K is a similar part to the DW9719. The method for operation is
+the same as the DW9719, but the register set is different. Add support
+for this part to the existing dw9719 driver.
+
+Tested on the Fairphone 5 smartphone.
+
+Tested-by: Luca Weiss <luca.weiss@fairphone.com>
+Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+---
+ drivers/media/i2c/dw9719.c | 22 ++++++++++++++++++++--
+ 1 file changed, 20 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/i2c/dw9719.c b/drivers/media/i2c/dw9719.c
+index 3627e78..59558335 100644
+--- a/drivers/media/i2c/dw9719.c
++++ b/drivers/media/i2c/dw9719.c
+@@ -68,6 +68,9 @@
+ #define DW9761_VCM_PRELOAD		CCI_REG8(8)
+ #define DW9761_DEFAULT_VCM_PRELOAD	0x73
+ 
++#define DW9800K_DEFAULT_SAC		1
++#define DW9800K_MODE_SAC_SHIFT		6
++#define DW9800K_DEFAULT_VCM_FREQ		0x10
+ 
+ #define to_dw9719_device(x) container_of(x, struct dw9719_device, sd)
+ 
+@@ -75,6 +78,7 @@ enum dw9719_model {
+ 	DW9718S,
+ 	DW9719,
+ 	DW9761,
++	DW9800K,
+ };
+ 
+ struct dw9719_device {
+@@ -130,11 +134,18 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
+ 	cci_write(dw9719->regmap, reg_pwr, DW9719_STANDBY, &ret);
+ 
+ 	if (detect) {
+-		/* This model does not have an INFO register */
+-		if (dw9719->model == DW9718S) {
++		/* These models do not have an INFO register */
++		switch (dw9719->model) {
++		case DW9718S:
+ 			dw9719->sac_mode = DW9718S_DEFAULT_SAC;
+ 			dw9719->vcm_freq = DW9718S_DEFAULT_VCM_FREQ;
+ 			goto props;
++		case DW9800K:
++			dw9719->sac_mode = DW9800K_DEFAULT_SAC;
++			dw9719->vcm_freq = DW9800K_DEFAULT_VCM_FREQ;
++			goto props;
++		default:
++			break;
+ 		}
+ 
+ 		ret = cci_read(dw9719->regmap, DW9719_INFO, &val, NULL);
+@@ -177,6 +188,12 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
+ 	}
+ 
+ 	switch (dw9719->model) {
++	case DW9800K:
++		cci_write(dw9719->regmap, DW9719_CONTROL, DW9719_ENABLE_RINGING, &ret);
++		cci_write(dw9719->regmap, DW9719_MODE,
++			  dw9719->sac_mode << DW9800K_MODE_SAC_SHIFT, &ret);
++		cci_write(dw9719->regmap, DW9719_VCM_FREQ, dw9719->vcm_freq, &ret);
++		break;
+ 	case DW9718S:
+ 		/* Datasheet says [OCP/UVLO] should be disabled below 2.5V */
+ 		dw9719->sac_mode &= DW9718S_CONTROL_SAC_MASK;
+@@ -426,6 +443,7 @@ static const struct of_device_id dw9719_of_table[] = {
+ 	{ .compatible = "dongwoon,dw9718s", .data = (const void *)DW9718S },
+ 	{ .compatible = "dongwoon,dw9719", .data = (const void *)DW9719 },
+ 	{ .compatible = "dongwoon,dw9761", .data = (const void *)DW9761 },
++	{ .compatible = "dongwoon,dw9800k", .data = (const void *)DW9800K },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, dw9719_of_table);
