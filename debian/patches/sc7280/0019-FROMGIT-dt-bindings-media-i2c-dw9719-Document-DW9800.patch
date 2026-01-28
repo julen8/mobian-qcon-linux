@@ -1,0 +1,26 @@
+From: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Date: Thu, 16 Oct 2025 13:35:22 +0200
+Subject: FROMGIT dt-bindings: media: i2c: dw9719: Document DW9800K
+
+Document the Dongwoon Anatech DW9800K.
+
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+---
+ Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
+index 38db076..8e8d624 100644
+--- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
+@@ -21,6 +21,7 @@ properties:
+       - dongwoon,dw9718s
+       - dongwoon,dw9719
+       - dongwoon,dw9761
++      - dongwoon,dw9800k
+ 
+   reg:
+     maxItems: 1

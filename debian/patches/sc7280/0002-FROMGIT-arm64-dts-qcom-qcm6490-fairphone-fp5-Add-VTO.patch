@@ -1,0 +1,39 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Tue, 30 Sep 2025 15:57:02 +0200
+Subject: FROMGIT arm64: dts: qcom: qcm6490-fairphone-fp5: Add VTOF_LDO_2P8
+ regulator
+
+Describe yet another regulator-fixed on this board, powering the ToF
+sensor.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Link: https://lore.kernel.org/r/20250930-sc7280-dts-misc-v1-2-5a45923ef705@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+index a831465..2813251 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+@@ -195,6 +195,19 @@ vreg_usb_redrive_1v8: regulator-usb-redrive-1v8 {
+ 		pinctrl-names = "default";
+ 	};
+ 
++	vreg_vtof_ldo_2p8: regulator-vtof-ldo-2p8 {
++		compatible = "regulator-fixed";
++		regulator-name = "VTOF_LDO_2P8";
++		regulator-min-microvolt = <2800000>;
++		regulator-max-microvolt = <2800000>;
++		regulator-enable-ramp-delay = <233>;
++
++		gpio = <&tlmm 141 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++
++		vin-supply = <&vreg_bob>;
++	};
++
+ 	reserved-memory {
+ 		cont_splash_mem: cont-splash@e1000000 {
+ 			reg = <0x0 0xe1000000 0x0 0x2300000>;
