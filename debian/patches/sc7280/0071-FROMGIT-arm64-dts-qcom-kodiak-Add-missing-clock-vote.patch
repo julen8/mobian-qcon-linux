@@ -1,0 +1,66 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 9 Jan 2026 16:14:34 +0100
+Subject: FROMGIT arm64: dts: qcom: kodiak: Add missing clock votes for
+ lpass_tlmm
+
+Without the correct clock votes set, we may be hitting a synchronous
+external abort error when touching the lpi registers.
+
+  Internal error: synchronous external abort: 0000000096000010 [#1]  SMP
+  <...>
+  Call trace:
+   lpi_gpio_read.isra.0+0x2c/0x58 (P)
+   pinmux_enable_setting+0x218/0x300
+   pinctrl_commit_state+0xb0/0x280
+   pinctrl_select_state+0x28/0x48
+   pinctrl_bind_pins+0x1f4/0x2a0
+   really_probe+0x64/0x3a8
+
+Add the clocks to fix that.
+
+Platforms with this SoC using AudioReach won't be impacted due to
+qcs6490-audioreach.dtsi already setting clocks & clock-names for
+q6prmcc. The sc7280-chrome-common.dtsi has also been adjusted to keep
+the behavior the same as they also do not use Elite with q6afecc.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Tested-by: Bhushan Shah <bhushan.shah@machinesoul.in> # On fairphone-fp5
+Link: https://lore.kernel.org/r/20260109-kodiak-lpass-tlmm-clocks-v1-1-746112687772@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi | 5 +++++
+ arch/arm64/boot/dts/qcom/sc7280.dtsi               | 5 +++++
+ 2 files changed, 10 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi b/arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi
+index 84c6d66..617a39d 100644
+--- a/arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi
+@@ -67,6 +67,11 @@ &lpass_hm {
+ 	status = "okay";
+ };
+ 
++&lpass_tlmm {
++	/delete-property/ clocks;
++	/delete-property/ clock-names;
++};
++
+ &lpasscc {
+ 	status = "okay";
+ };
+diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+index 4b04dea..51878c7 100644
+--- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+@@ -2994,6 +2994,11 @@ lpass_tlmm: pinctrl@33c0000 {
+ 			compatible = "qcom,sc7280-lpass-lpi-pinctrl";
+ 			reg = <0 0x033c0000 0x0 0x20000>,
+ 				<0 0x03550000 0x0 0x10000>;
++
++			clocks = <&q6afecc LPASS_HW_MACRO_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
++				 <&q6afecc LPASS_HW_DCODEC_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
++			clock-names = "core", "audio";
++
+ 			gpio-controller;
+ 			#gpio-cells = <2>;
+ 			gpio-ranges = <&lpass_tlmm 0 0 15>;

@@ -1,0 +1,1278 @@
+From: Stanislav Zaikin <zstaseg@gmail.com>
+Date: Thu, 12 Jun 2025 15:44:24 +0200
+Subject: arm64: dts: qcom: Add Xiaomi 12 Lite 5G (taoyao) DTS
+
+Xiaomi 12 Lite 5G is a handset released in 2022
+
+This commit has the following features working:
+- Display (with panel driver)
+- Touchscreen
+- UFS
+- Power and volume buttons
+- Pinctrl
+- RPM Regulators
+- Remoteprocs - wifi, bluetooth
+- USB (Device Mode)
+
+Signed-off-by: Stanislav Zaikin <zstaseg@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/Makefile                  |   1 +
+ ...thing-spacewar.dts => sm7325-xiaomi-taoyao.dts} | 959 ++++-----------------
+ 2 files changed, 156 insertions(+), 804 deletions(-)
+ copy arch/arm64/boot/dts/qcom/{sm7325-nothing-spacewar.dts => sm7325-xiaomi-taoyao.dts} (52%)
+
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 296688f..1a75113 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -274,6 +274,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm7125-xiaomi-curtana.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm7125-xiaomi-joyeuse.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm7225-fairphone-fp4.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm7325-nothing-spacewar.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sm7325-xiaomi-taoyao.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8150-hdk.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8150-microsoft-surface-duo.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8150-mtp.dtb
+diff --git a/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts b/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
+similarity index 52%
+copy from arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts
+copy to arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
+index 7a242f79..f92a2be 100644
+--- a/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts
++++ b/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
+@@ -1,16 +1,19 @@
+-// SPDX-License-Identifier: BSD-3-Clause
++// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+ /*
+- * Copyright (c) 2024, Eugene Lepshy <fekz115@gmail.com>
+- * Copyright (c) 2024, Danila Tikhonov <danila@jiaxyga.com>
++ * Copyright (c) 2025, Stanislav Zaikin <zstaseg@gmail.com>
+  */
+ 
+ /dts-v1/;
+ 
++/* PM7250B is configured to use SID8/9 */
++#define PM7250B_SID 8
++#define PM7250B_SID1 9
++
++#include <dt-bindings/arm/qcom,ids.h>
++#include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/iio/qcom,spmi-adc7-pm7325.h>
+-#include <dt-bindings/iio/qcom,spmi-adc7-pm8350b.h>
+ #include <dt-bindings/iio/qcom,spmi-adc7-pmk8350.h>
+ #include <dt-bindings/leds/common.h>
+-#include <dt-bindings/media/video-interfaces.h>
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ #include <dt-bindings/sound/qcom,q6afe.h>
+@@ -18,22 +21,23 @@
+ 
+ #include "sm7325.dtsi"
+ #include "pm7325.dtsi"
+-#include "pm8350b.dtsi" /* PM7325B */
++#include "pm7250b.dtsi" /* PM7250B */
+ #include "pm8350c.dtsi" /* PM7350C */
+ #include "pmk8350.dtsi" /* PMK7325 */
+ 
++/* The following reserved memory regions have different addresses or sizes */
++/delete-node/ &adsp_mem;
++/delete-node/ &cdsp_mem;
+ /delete-node/ &rmtfs_mem;
+ 
+ / {
+-	model = "Nothing Phone (1)";
+-	compatible = "nothing,spacewar", "qcom,sm7325";
++	model = "Xiaomi 12 Lite 5G";
++	compatible = "xiaomi,taoyao", "qcom,sm7325";
+ 	chassis-type = "handset";
+ 
+ 	aliases {
+-		bluetooth0 = &bluetooth;
+ 		serial0 = &uart5;
+ 		serial1 = &uart7;
+-		wifi0 = &wifi;
+ 	};
+ 
+ 	chosen {
+@@ -41,8 +45,6 @@ chosen {
+ 		#size-cells = <2>;
+ 		ranges;
+ 
+-		stdout-path = "serial0:115200n8";
+-
+ 		framebuffer0: framebuffer@e1000000 {
+ 			compatible = "simple-framebuffer";
+ 			reg = <0x0 0xe1000000 0x0 (1080 * 2400 * 4)>;
+@@ -51,24 +53,18 @@ framebuffer0: framebuffer@e1000000 {
+ 			stride = <(1080 * 4)>;
+ 			format = "a8r8g8b8";
+ 
+-			clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
+-				 <&dispcc DISP_CC_MDSS_MDP_CLK>,
+-				 <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
+-				 <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
+-				 <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
+-				 <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
+-			power-domains = <&dispcc DISP_CC_MDSS_CORE_GDSC>;
++			clocks = <&gcc GCC_DISP_HF_AXI_CLK>;
+ 		};
+ 	};
+ 
+ 	gpio-keys {
+ 		compatible = "gpio-keys";
+ 
+-		pinctrl-0 = <&kypd_volp_n>;
++		pinctrl-0 = <&key_vol_up>;
+ 		pinctrl-names = "default";
+ 
+ 		key-volume-up {
+-			label = "Volume up";
++			label = "Volume Up";
+ 			gpios = <&pm7325_gpios 6 GPIO_ACTIVE_LOW>;
+ 			linux,code = <KEY_VOLUMEUP>;
+ 		};
+@@ -113,272 +109,113 @@ pmic_glink_sbu: endpoint {
+ 		};
+ 	};
+ 
+-	reserved-memory {
+-		#address-cells = <2>;
+-		#size-cells = <2>;
+-		ranges;
++	vreg_oled_dvdd: regulator-oled-dvdd {
++		compatible = "regulator-fixed";
++		regulator-name = "oled_dvdd";
++		regulator-min-microvolt = <1200000>;
++		regulator-max-microvolt = <1200000>;
++		gpio = <&tlmm 46 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		vin-supply = <&vreg_s1b_1p856>;
++		regulator-boot-on;
++	};
+ 
+-		ramoops_mem: ramoops@83a00000 {
+-			compatible = "ramoops";
+-			reg = <0x0 0x83a00000 0x0 0x400000>;
+-			pmsg-size = <0x200000>;
+-			mem-type = <2>;
+-			console-size = <0x200000>;
+-		};
++	// S2B is really ebi.lvl but it's there for supply map completeness sake.
++	vreg_s2b_0p7: regulator-smpa3 {
++		compatible = "regulator-fixed";
++		regulator-name = "vreg_s2b_0p7";
++
++		regulator-min-microvolt = <700000>;
++		regulator-max-microvolt = <700000>;
++		regulator-always-on;
++		vin-supply = <&vph_pwr>;
++	};
+ 
+-		cdsp_mem: cdsp@88f00000 {
+-			reg = <0x0 0x88f00000 0x0 0x1e00000>;
++	vph_pwr: regulator-vph-pwr {
++		compatible = "regulator-fixed";
++		regulator-name = "vph_pwr";
++		regulator-min-microvolt = <3700000>;
++		regulator-max-microvolt = <3700000>;
++	};
++
++	reserved-memory {
++		cdsp_secure_heap_mem: cdsp-secure-heap@81800000 {
++			reg = <0x0 0x81800000 0x0 0x1e00000>;
+ 			no-map;
+ 		};
+ 
+-		removed_mem: removed@c0000000 {
+-			reg = <0x0 0xc0000000 0x0 0x5100000>;
++		camera_mem: camera@86200000 {
++			reg = <0x0 0x86200000 0x0 0x500000>;
+ 			no-map;
+ 		};
+ 
+-		cont_splash_mem: cont-splash@e1000000 {
+-			reg = <0x0 0xe1000000 0x0 (1080 * 2400 * 4)>;
++		adsp_mem: adsp@86700000 {
++			reg = <0x0 0x86700000 0x0 0x4000000>;
+ 			no-map;
+ 		};
+ 
+-		rmtfs_mem: rmtfs@f8500000 {
+-			compatible = "qcom,rmtfs-mem";
+-			reg = <0x0 0xf8500000 0x0 0x600000>;
++		/* Mainline video_mem is downstream cvp_mem */
++		real_video_mem: video@8ad00000 {
++			reg = <0x0 0x8ad00000 0x0 0x500000>;
+ 			no-map;
+-
+-			qcom,client-id = <1>;
+-			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>,
+-				    <QCOM_SCM_VMID_NAV>;
+ 		};
+-	};
+-
+-	thermal-zones {
+-		camera-thermal {
+-			polling-delay-passive = <0>;
+-			thermal-sensors = <&pmk8350_adc_tm 2>;
+ 
+-			trips {
+-				active-config0 {
+-					temperature = <125000>;
+-					hysteresis = <1000>;
+-					type = "passive";
+-				};
+-			};
++		ipa_gsi_mem: ipa-gsi@8b710000 {
++			reg = <0x0 0x8b710000 0x0 0xa000>;
++			no-map;
+ 		};
+ 
+-		chg-skin-thermal {
+-			polling-delay-passive = <0>;
+-			thermal-sensors = <&pmk8350_adc_tm 6>;
+-
+-			trips {
+-				active-config0 {
+-					temperature = <125000>;
+-					hysteresis = <1000>;
+-					type = "passive";
+-				};
+-			};
++		cdsp_mem: cdsp@9c700000 {
++			reg = <0x0 0x9c700000 0x0 0x1e00000>;
++			no-map;
+ 		};
+ 
+-		conn-thermal {
+-			polling-delay-passive = <0>;
+-			thermal-sensors = <&pmk8350_adc_tm 5>;
+-
+-			trips {
+-				active-config0 {
+-					temperature = <125000>;
+-					hysteresis = <1000>;
+-					type = "passive";
+-				};
+-			};
++		ramoops@a9000000 {
++			compatible = "ramoops";
++			reg = <0x0 0xa9000000 0x0 0x200000>;
++			pmsg-size = <0x200000>;
++			mem-type = <0x02>;
+ 		};
+ 
+-		quiet-thermal {
+-			polling-delay-passive = <0>;
+-			thermal-sensors = <&pmk8350_adc_tm 1>;
+-
+-			trips {
+-				active-config0 {
+-					temperature = <125000>;
+-					hysteresis = <1000>;
+-					type = "passive";
+-				};
+-			};
++		removed_mem: removed@c0000000 {
++			reg = <0x0 0xc0000000 0x0 0x6800000>;
++			no-map;
+ 		};
+ 
+-		rear-cam-thermal {
+-			polling-delay-passive = <0>;
+-			thermal-sensors = <&pmk8350_adc_tm 4>;
+-
+-			trips {
+-				active-config0 {
+-					temperature = <125000>;
+-					hysteresis = <1000>;
+-					type = "passive";
+-				};
+-			};
++		pil_trustedvm_mem: pil-trustedvm-region@d0800000 {
++			reg = <0x0 0xd0800000 0x0 0x76f7000>;
++			no-map;
+ 		};
+ 
+-		sdm-skin-thermal {
+-			polling-delay-passive = <0>;
+-			thermal-sensors = <&pmk8350_adc_tm 3>;
+-
+-			trips {
+-				active-config0 {
+-					temperature = <125000>;
+-					hysteresis = <1000>;
+-					type = "passive";
+-				};
+-			};
++		qrtr_shmem: qrtr-shmem@d7ef7000 {
++			reg = <0x0 0xd7ef7000 0x0 0x9000>;
++			no-map;
+ 		};
+ 
+-		xo-thermal {
+-			polling-delay-passive = <0>;
+-			thermal-sensors = <&pmk8350_adc_tm 0>;
+-
+-			trips {
+-				active-config0 {
+-					temperature = <125000>;
+-					hysteresis = <1000>;
+-					type = "passive";
+-				};
+-			};
++		neuron_block_0_mem: neuron-block@d7f00000 {
++			reg = <0x0 0xd7f00000 0x0 0x80000>;
++			no-map;
+ 		};
+-	};
+-
+-	vph_pwr: vph-pwr-regulator {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vph_pwr";
+-		regulator-min-microvolt = <3700000>;
+-		regulator-max-microvolt = <3700000>;
+-	};
+ 
+-	vreg_cam_vio_1p8: regulator-cam-vio {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vreg_cam_vio_1p8";
+-
+-		regulator-min-microvolt = <1800000>;
+-		regulator-max-microvolt = <1800000>;
+-
+-		gpio = <&tlmm 49 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-		/* Always-on prevents CCI bus timeouts */
+-		regulator-always-on;
+-
+-		vin-supply = <&vreg_bob>;
+-	};
+-
+-	vreg_camf_vana_2p8: regulator-camf-vana {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vreg_camf_vana_2p8";
+-
+-		regulator-min-microvolt = <2800000>;
+-		regulator-max-microvolt = <2800000>;
+-
+-		gpio = <&tlmm 43 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-
+-		vin-supply = <&vreg_bob>;
+-	};
+-
+-	vreg_camf_vdig_1p1: regulator-camf-vdig {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vreg_camf_vdig_1p1";
+-
+-		regulator-min-microvolt = <1100000>;
+-		regulator-max-microvolt = <1100000>;
+-
+-		gpio = <&tlmm 35 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-
+-		vin-supply = <&vreg_s8b_1p256>;
+-	};
+-
+-	vreg_camu_vaf_1p8: regulator-camu-vaf {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vreg_camu_vaf_1p8";
+-
+-		regulator-min-microvolt = <1800000>;
+-		regulator-max-microvolt = <1800000>;
+-
+-		gpio = <&tlmm 71 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-
+-		vin-supply = <&vreg_bob>;
+-	};
+-
+-	vreg_camu_vana_2p8: regulator-camu-vana {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vreg_camu_vana_2p8";
+-
+-		regulator-min-microvolt = <2800000>;
+-		regulator-max-microvolt = <2800000>;
+-		gpio = <&tlmm 68 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-
+-		vin-supply = <&vreg_bob>;
+-	};
+-
+-	vreg_camu_vdig_1p1: regulator-camu-vdig {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vreg_camu_vdig_1p1";
+-
+-		regulator-min-microvolt = <1100000>;
+-		regulator-max-microvolt = <1100000>;
+-
+-		gpio = <&tlmm 50 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-
+-		vin-supply = <&vreg_s8b_1p256>;
+-	};
+-
+-	vreg_camw_vaf_1p8: regulator-camw-vaf {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vreg_camw_vaf_1p8";
+-
+-		regulator-min-microvolt = <1800000>;
+-		regulator-max-microvolt = <1800000>;
+-
+-		gpio = <&tlmm 96 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-
+-		vin-supply = <&vreg_bob>;
+-	};
+-
+-	vreg_camw_vana_2p8: regulator-camw-vana {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vreg_camw_vana_2p8";
+-
+-		regulator-min-microvolt = <2800000>;
+-		regulator-max-microvolt = <2800000>;
+-
+-		gpio = <&tlmm 79 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-
+-		vin-supply = <&vreg_bob>;
+-	};
+-
+-	vreg_camw_vdig_1p1: regulator-camw-vdig {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vreg_camw_vdig_1p1";
+-
+-		regulator-min-microvolt = <1100000>;
+-		regulator-max-microvolt = <1100000>;
+-
+-		gpio = <&tlmm 108 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
++		neuron_block_1_mem: neuron-block@d7f80000 {
++			reg = <0x0 0xd7f80000 0x0 0x80000>;
++			no-map;
++		};
+ 
+-		vin-supply = <&vreg_s8b_1p256>;
+-	};
++		framebuffer@e1000000 {
++			reg = <0x0 0xe1000000 0x0 (1080 * 2400 * 4)>;
++			no-map;
++		};
+ 
+-	// S2B is really ebi.lvl but it's there for supply map completeness sake.
+-	vreg_s2b_0p7: smpa3-regulator {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vreg_s2b_0p7";
++		rmtfs_mem: rmtfs@ef500000 {
++			compatible = "qcom,rmtfs-mem";
++			reg = <0x0 0xe7d00000 0x0 0x280000>;
++			no-map;
+ 
+-		regulator-min-microvolt = <65535>;
+-		regulator-max-microvolt = <65535>;
+-		regulator-always-on;
+-		vin-supply = <&vph_pwr>;
++			qcom,client-id = <1>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>,
++				    <QCOM_SCM_VMID_NAV>;
++		};
+ 	};
+ };
+ 
+@@ -406,7 +243,7 @@ regulators-0 {
+ 		 * S2, L4-L5 are ARCs:
+ 		 * S2 - ebi.lvl,
+ 		 * L4 - lmx.lvl,
+-		 * l5 - lcx.lvl.
++		 * L5 - lcx.lvl.
+ 		 *
+ 		 * L10 are unused.
+ 		 */
+@@ -481,19 +318,16 @@ vreg_l6b_1p2: ldo6 {
+ 			regulator-min-microvolt = <1140000>;
+ 			regulator-max-microvolt = <1260000>;
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-			regulator-allow-set-load;
+ 			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+ 						   RPMH_REGULATOR_MODE_HPM>;
+ 		};
+ 
+ 		vreg_l7b_2p96: ldo7 {
+ 			regulator-name = "vreg_l7b_2p96";
+-			regulator-min-microvolt = <2400000>;
+-			regulator-max-microvolt = <3544000>;
++			/* Constrained for UFS VCC, at least until UFS driver scales voltage */
++			regulator-min-microvolt = <2952000>;
++			regulator-max-microvolt = <2952000>;
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-			regulator-allow-set-load;
+-			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+-						   RPMH_REGULATOR_MODE_HPM>;
+ 		};
+ 
+ 		vreg_l8b_0p904: ldo8 {
+@@ -830,138 +664,6 @@ vreg_bob: bob {
+ 	};
+ };
+ 
+-&camss {
+-	vdda-phy-supply = <&vreg_l10c_0p88>;
+-	vdda-pll-supply = <&vreg_l6b_1p2>;
+-
+-	status = "okay";
+-
+-	ports {
+-		port@0 {
+-			csiphy0_ep: endpoint {
+-				clock-lanes = <7>;
+-				data-lanes = <0 1 2 3>;
+-				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
+-				remote-endpoint = <&camera_imx471_ep>;
+-			};
+-		};
+-
+-		port@2 {
+-			csiphy2_ep: endpoint {
+-				clock-lanes = <7>;
+-				data-lanes = <0 1 2 3>;
+-				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
+-				remote-endpoint = <&camera_s5kjn1_ep>;
+-			};
+-		};
+-	};
+-};
+-
+-&cci0 {
+-	/*
+-	 * cci0_i2c1 bus is unused and GPIO 71&72 are repurposed.
+-	 * So set only cci0_i2c0 pinctrl here.
+-	 */
+-	pinctrl-0 = <&cci0_default>;
+-	pinctrl-1 = <&cci0_sleep>;
+-
+-	status = "okay";
+-};
+-
+-&cci0_i2c0 {
+-	camera@1a {
+-		compatible = "sony,imx471";
+-		reg = <0x1a>;
+-
+-		vddio-supply = <&vreg_cam_vio_1p8>;
+-		vddd-supply = <&vreg_camf_vdig_1p1>;
+-		vdda-supply = <&vreg_camf_vana_2p8>;
+-
+-		clocks = <&camcc CAM_CC_MCLK0_CLK>;
+-		clock-frequency = <19200000>;
+-
+-		reset-gpios = <&tlmm 20 GPIO_ACTIVE_LOW>;
+-		pinctrl-0 = <&mclk0_active>;
+-		pinctrl-names = "default";
+-
+-		orientation = <0>; /* Front facing */
+-		rotation = <270>;
+-
+-		port {
+-			camera_imx471_ep: endpoint {
+-				data-lanes = <1 2 3 4>;
+-				link-frequencies = /bits/ 64 <600000000>;
+-				remote-endpoint = <&csiphy0_ep>;
+-			};
+-		};
+-	};
+-
+-	camf_p24c64f: eeprom@52 {
+-		compatible = "puya,p24c64f",
+-			     "atmel,24c64";
+-		reg = <0x52>;
+-		vcc-supply = <&vreg_cam_vio_1p8>;
+-		read-only;
+-	};
+-};
+-
+-&cci1 {
+-	status = "okay";
+-};
+-
+-&cci1_i2c0 {
+-	/* actuator (For Ultra Wide sensor) @ 0xc */
+-
+-	camera@2d {
+-		compatible = "samsung,s5kjn1";
+-		reg = <0x2d>;
+-
+-		vddio-supply = <&vreg_cam_vio_1p8>;
+-		vddd-supply = <&vreg_camu_vdig_1p1>;
+-		vdda-supply = <&vreg_camu_vana_2p8>;
+-
+-		clocks = <&camcc CAM_CC_MCLK2_CLK>;
+-		clock-frequency = <19200000>;
+-
+-		reset-gpios = <&tlmm 77 GPIO_ACTIVE_LOW>;
+-		pinctrl-0 = <&mclk2_active>;
+-		pinctrl-names = "default";
+-
+-		orientation = <1>; /* Rear facing */
+-		rotation = <90>;
+-
+-		port {
+-			camera_s5kjn1_ep: endpoint {
+-				data-lanes = <1 2 3 4>;
+-				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
+-				link-frequencies = /bits/ 64 <600000000>;
+-				remote-endpoint = <&csiphy2_ep>;
+-			};
+-		};
+-	};
+-
+-	camu_gt24p128e: eeprom@51 {
+-		compatible = "giantec,gt24p128e",
+-			     "atmel,24c128";
+-		reg = <0x51>;
+-		vcc-supply = <&vreg_cam_vio_1p8>;
+-		read-only;
+-	};
+-};
+-
+-&cci1_i2c1 {
+-	/* actuator (For Wide sensor) @ 0xc */
+-	/* C-PHY sony,imx766 (Wide) @ 0x10 */
+-
+-	camw_gt24p128e: eeprom@50 {
+-		compatible = "giantec,gt24p128e",
+-			     "atmel,24c128";
+-		reg = <0x50>;
+-		vcc-supply = <&vreg_cam_vio_1p8>;
+-		read-only;
+-	};
+-};
+-
+ &gcc {
+ 	protected-clocks = <GCC_CFG_NOC_LPASS_CLK>,
+ 			   <GCC_MSS_CFG_AHB_CLK>,
+@@ -991,14 +693,13 @@ &gpu {
+ };
+ 
+ &gpu_zap_shader {
+-	firmware-name = "qcom/sm7325/nothing/spacewar/a660_zap.mbn";
++	firmware-name = "qcom/sm7325/xiaomi/taoyao/a660_zap.mbn";
+ };
+ 
+ &i2c1 {
+ 	clock-frequency = <100000>;
+-	status = "okay";
+ 
+-	/* awinic,aw21018 (Glyph LED) @ 20 */
++	status = "okay";
+ 
+ 	typec-mux@42 {
+ 		compatible = "fcs,fsa4480";
+@@ -1017,56 +718,10 @@ fsa4480_sbu_mux: endpoint {
+ 	};
+ };
+ 
+-&i2c2 {
+-	clock-frequency = <100000>;
+-	status = "okay";
+-
+-	tfa9873_l: codec@34 { /* EAR */
+-		compatible = "nxp,tfa9873",
+-			     "nxp,tfa9872";
+-		reg = <0x34>;
+-		reset-gpio = <&tlmm 101 GPIO_ACTIVE_HIGH>;
+-
+-		#sound-dai-cells = <1>;
+-	};
+-
+-	tfa9873_r: codec@35 { /* SPK */
+-		compatible = "nxp,tfa9873",
+-			     "nxp,tfa9872";
+-		reg = <0x35>;
+-		reset-gpio = <&tlmm 101 GPIO_ACTIVE_HIGH>;
+-
+-		#sound-dai-cells = <1>;
+-	};
+-};
+-
+-&i2c9 {
+-	clock-frequency = <1000000>;
+-	status = "okay";
+-
+-	nfc@28 {
+-		compatible = "nxp,pn553",
+-			     "nxp,nxp-nci-i2c";
+-		reg = <0x28>;
+-
+-		interrupt-parent = <&tlmm>;
+-		interrupts = <41 IRQ_TYPE_EDGE_RISING>;
+-
+-		enable-gpios = <&tlmm 38 GPIO_ACTIVE_HIGH>;
+-		firmware-gpios = <&tlmm 40 GPIO_ACTIVE_HIGH>;
+-
+-		pinctrl-0 = <&nfc_en>,
+-			    <&nfc_clk_req>,
+-			    <&nfc_dwl_req>,
+-			    <&nfc_int_req>;
+-		pinctrl-names = "default";
+-	};
+-};
+-
+ &ipa {
+ 	qcom,gsi-loader = "self";
+ 	memory-region = <&ipa_fw_mem>;
+-	firmware-name = "qcom/sm7325/nothing/spacewar/ipa_fws.mbn";
++	firmware-name = "qcom/sm7325/xiaomi/taoyao/ipa_fws.mbn";
+ 
+ 	status = "okay";
+ };
+@@ -1082,21 +737,22 @@ &mdss {
+ 
+ &mdss_dsi {
+ 	vdda-supply = <&vdd_a_dsi_0_1p2>;
++
+ 	status = "okay";
+ 
+-	panel: panel@0 {
+-		compatible = "nothing,rm692e5-spacewar",
+-			     "visionox,rm692e5";
++	panel@0 {
++		compatible = "xiaomi,taoyao-panel";
+ 		reg = <0>;
+ 
+ 		reset-gpios = <&tlmm 44 GPIO_ACTIVE_LOW>;
+ 
+ 		vdd-supply = <&vdd_oled>;
+ 		vddio-supply = <&vdd_io_oled>;
++		dvdd-supply = <&vreg_oled_dvdd>;
+ 
+-		pinctrl-0 = <&lcd_reset_n>,
+-			    <&mdp_vsync_p>;
+-		pinctrl-names = "default";
++		pinctrl-0 = <&sde_dsi_active>, <&sde_te_active_sleep>;
++		pinctrl-1 = <&sde_dsi_sleep>, <&sde_te_active_sleep>;
++		pinctrl-names = "default", "sleep";
+ 
+ 		port {
+ 			panel_in: endpoint {
+@@ -1113,96 +769,17 @@ &mdss_dsi0_out {
+ 
+ &mdss_dsi_phy {
+ 	vdds-supply = <&vdd_a_dsi_0_0p9>;
++
+ 	status = "okay";
+ };
+ 
+ &pm7325_gpios {
+-	gpio-line-names = "NC", /* GPIO_1 */
+-			  "PA_THERM3",
+-			  "PA_THERM4",
+-			  "NC",
+-			  "NC",
+-			  "KYPD_VOLP_N",
+-			  "NC",
+-			  "NC",
+-			  "NC",
+-			  "NC"; /* GPIO_10 */
+-
+-	kypd_volp_n: kypd-volp-n-state {
++	key_vol_up: key-vol-up-n-state {
+ 		pins = "gpio6";
+ 		function = PMIC_GPIO_FUNC_NORMAL;
++		power-source = <1>;
+ 		bias-pull-up;
+ 		input-enable;
+-		power-source = <1>;
+-	};
+-};
+-
+-&pm8350c_flash {
+-	status = "okay";
+-
+-	led-0 {
+-		function = LED_FUNCTION_FLASH;
+-		color = <LED_COLOR_ID_WHITE>;
+-		led-sources = <1>, <4>;
+-		led-max-microamp = <500000>;
+-		flash-max-microamp = <1500000>;
+-		flash-max-timeout-us = <1280000>;
+-	};
+-};
+-
+-&pmk8350_adc_tm {
+-	status = "okay";
+-
+-	/* PMK8350 */
+-	xo-therm@0 {
+-		reg = <0>;
+-		io-channels = <&pmk8350_vadc PMK8350_ADC7_AMUX_THM1_100K_PU>;
+-		qcom,ratiometric;
+-		qcom,hw-settle-time-us = <200>;
+-	};
+-
+-	/* PM7325 */
+-	quiet-therm@1 {
+-		reg = <1>;
+-		io-channels = <&pmk8350_vadc PM7325_ADC7_AMUX_THM1_100K_PU>;
+-		qcom,ratiometric;
+-		qcom,hw-settle-time-us = <200>;
+-	};
+-
+-	cam-flash-therm@2 {
+-		reg = <2>;
+-		io-channels = <&pmk8350_vadc PM7325_ADC7_AMUX_THM2_100K_PU>;
+-		qcom,ratiometric;
+-		qcom,hw-settle-time-us = <200>;
+-	};
+-
+-	sdm-skin-therm@3 {
+-		reg = <3>;
+-		io-channels = <&pmk8350_vadc PM7325_ADC7_AMUX_THM3_100K_PU>;
+-		qcom,ratiometric;
+-		qcom,hw-settle-time-us = <200>;
+-	};
+-
+-	wide-rfc-therm@4 {
+-		reg = <4>;
+-		io-channels = <&pmk8350_vadc PM7325_ADC7_AMUX_THM4_100K_PU>;
+-		qcom,ratiometric;
+-		qcom,hw-settle-time-us = <200>;
+-	};
+-
+-	/* PM8350B */
+-	usb-conn-therm@5 {
+-		reg = <5>;
+-		io-channels = <&pmk8350_vadc PM8350B_ADC7_AMUX_THM4_100K_PU>;
+-		qcom,ratiometric;
+-		qcom,hw-settle-time-us = <200>;
+-	};
+-
+-	chg-skin-therm@6 {
+-		reg = <6>;
+-		io-channels = <&pmk8350_vadc PM8350B_ADC7_GPIO2_100K_PU>;
+-		qcom,ratiometric;
+-		qcom,hw-settle-time-us = <200>;
+ 	};
+ };
+ 
+@@ -1210,132 +787,23 @@ &pmk8350_rtc {
+ 	status = "okay";
+ };
+ 
+-&pmk8350_vadc {
+-	/* PMK8350 */
+-	channel@44 {
+-		reg = <PMK8350_ADC7_AMUX_THM1_100K_PU>;
+-		qcom,ratiometric;
+-		qcom,hw-settle-time = <200>;
+-		qcom,pre-scaling = <1 1>;
+-		label = "pmk8350_xo_therm";
+-	};
+-
+-	/* PM7325 */
+-	channel@144 {
+-		reg = <PM7325_ADC7_AMUX_THM1_100K_PU>;
+-		qcom,ratiometric;
+-		qcom,hw-settle-time = <200>;
+-		qcom,pre-scaling = <1 1>;
+-		label = "pm7325_quiet_therm";
+-	};
+-
+-	channel@145 {
+-		reg = <PM7325_ADC7_AMUX_THM2_100K_PU>;
+-		qcom,ratiometric;
+-		qcom,hw-settle-time = <200>;
+-		qcom,pre-scaling = <1 1>;
+-		label = "pm7325_cam_flash_therm";
+-	};
+-
+-	channel@146 {
+-		reg = <PM7325_ADC7_AMUX_THM3_100K_PU>;
+-		qcom,ratiometric;
+-		qcom,hw-settle-time = <200>;
+-		qcom,pre-scaling = <1 1>;
+-		label = "pm7325_sdm_skin_therm";
+-	};
+-
+-	channel@147 {
+-		reg = <PM7325_ADC7_AMUX_THM4_100K_PU>;
+-		qcom,ratiometric;
+-		qcom,hw-settle-time = <200>;
+-		qcom,pre-scaling = <1 1>;
+-		label = "pm7325_wide_rfc_therm";
+-	};
+-
+-	channel@14a {
+-		reg = <PM7325_ADC7_GPIO1_100K_PU>;
+-		qcom,ratiometric;
+-		qcom,hw-settle-time = <200>;
+-		qcom,pre-scaling = <1 1>;
+-		label = "pm7325_pa3_therm";
+-	};
+-
+-	channel@14b {
+-		reg = <PM7325_ADC7_GPIO2_100K_PU>;
+-		qcom,ratiometric;
+-		qcom,hw-settle-time = <200>;
+-		qcom,pre-scaling = <1 1>;
+-		label = "pm7325_pa4_therm";
+-	};
+-
+-	/* PM8350B */
+-	channel@344 {
+-		reg = <PM8350B_ADC7_AMUX_THM1_100K_PU>;
+-		qcom,ratiometric;
+-		qcom,hw-settle-time = <200>;
+-		qcom,pre-scaling = <1 1>;
+-		label = "pm8350b_batt_therm";
+-	};
+-
+-	channel@347 {
+-		reg = <PM8350B_ADC7_AMUX_THM4_100K_PU>;
+-		qcom,ratiometric;
+-		qcom,hw-settle-time = <200>;
+-		qcom,pre-scaling = <1 1>;
+-		label = "pm8350b_usb_conn_therm";
+-	};
+-
+-	channel@34b {
+-		reg = <PM8350B_ADC7_GPIO2_100K_PU>;
+-		qcom,ratiometric;
+-		qcom,hw-settle-time = <200>;
+-		qcom,pre-scaling = <1 1>;
+-		label = "pm8350b_chg_skin_therm";
+-	};
+-
+-	channel@34c {
+-		reg = <PM8350B_ADC7_GPIO3_100K_PU>;
+-		qcom,ratiometric;
+-		qcom,hw-settle-time = <200>;
+-		qcom,pre-scaling = <1 1>;
+-		label = "pm8350b_usb_therm2";
+-	};
+-};
+-
+ &pon_pwrkey {
+ 	status = "okay";
+ };
+ 
+ &pon_resin {
+ 	linux,code = <KEY_VOLUMEDOWN>;
+-	status = "okay";
+-};
+ 
+-&q6afedai {
+-	dai@16 {
+-		reg = <PRIMARY_MI2S_RX>;
+-		qcom,sd-lines = <1>;
+-	};
+-};
+-
+-&q6asmdai {
+-	dai@0 {
+-		reg = <MSM_FRONTEND_DAI_MULTIMEDIA1>;
+-	};
+-};
+-
+-&qfprom {
+-	vcc-supply = <&vdd_qfprom>;
++	status = "okay";
+ };
+ 
+-&qup_uart5_rx {
+-	drive-strength = <2>;
++&qup_spi13_cs {
++	drive-strength = <6>;
+ 	bias-disable;
+ };
+ 
+-&qup_uart5_tx {
+-	drive-strength = <2>;
++&qup_spi13_data_clk {
++	drive-strength = <6>;
+ 	bias-disable;
+ };
+ 
+@@ -1348,101 +816,55 @@ &qupv3_id_1 {
+ };
+ 
+ &remoteproc_adsp {
+-	firmware-name = "qcom/sm7325/nothing/spacewar/adsp.mbn";
++	firmware-name = "qcom/sm7325/xiaomi/taoyao/adsp.mbn";
++
+ 	status = "okay";
+ };
+ 
+ &remoteproc_cdsp {
+-	firmware-name = "qcom/sm7325/nothing/spacewar/cdsp.mbn";
++	firmware-name = "qcom/sm7325/xiaomi/taoyao/cdsp.mbn";
++
+ 	status = "okay";
+ };
+ 
+ &remoteproc_mpss {
+-	firmware-name = "qcom/sm7325/nothing/spacewar/modem.mbn";
+-	status = "okay";
+-};
++	firmware-name = "qcom/sm7325/xiaomi/taoyao/modem.mbn";
+ 
+-&remoteproc_wpss {
+-	firmware-name = "qcom/sm7325/nothing/spacewar/wpss.mbn";
+ 	status = "okay";
+ };
+ 
+-&sound {
+-	compatible = "qcom,sm7325-sndcard",
+-		     "qcom,sm8250-sndcard";
+-
+-	model = "NP1";
+-
+-	pinctrl-0 = <&pri_mi2s_bck_active &pri_mi2s_din_active
+-		     &pri_mi2s_dout_active &pri_mi2s_ws_active>;
+-	pinctrl-1 = <&pri_mi2s_sleep>;
+-	pinctrl-names = "default",
+-			"sleep";
+-
+-	mm1-dai-link {
+-		link-name = "MultiMedia1";
+-
+-		cpu {
+-			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA1>;
+-		};
+-	};
+-
+-	i2s-dai-link {
+-		link-name = "I2S Playback";
+-
+-		cpu {
+-			sound-dai = <&q6afedai PRIMARY_MI2S_RX>;
+-		};
+-
+-		platform {
+-			sound-dai = <&q6routing>;
+-		};
++&remoteproc_wpss {
++	firmware-name = "qcom/sm7325/xiaomi/taoyao/wpss.mbn";
+ 
+-		codec {
+-			sound-dai = <&tfa9873_l 0>, <&tfa9873_r 0>;
+-		};
+-	};
++	status = "okay";
+ };
+ 
+ &spi13 {
+ 	status = "okay";
+ 
+-	focaltech@0 {
+-		compatible = "focaltech,fts_ts";
+-		reg = <0x0>;
++	touchscreen@0 {
++		compatible = "goodix,gt9916";
++		reg = <0>;
++
++		interrupts-extended = <&tlmm 81 IRQ_TYPE_LEVEL_LOW>;
++
++		reset-gpios = <&tlmm 105 GPIO_ACTIVE_LOW>;
+ 
+-		spi-max-frequency = <6000000>;
++		avdd-supply = <&vreg_l7c_3p0>;
++		vddio-supply = <&vreg_l2c_1p8>;
+ 
+-		interrupt-parent = <&tlmm>;
+-		interrupts = <81 0x2008>;
+-		reset-gpios = <&tlmm 105 GPIO_ACTIVE_HIGH>;
+-		focaltech,irq-gpio = <&tlmm 81 0x2008>;
+-		focaltech,display-coords = <0 0 1080 2400>;
+-		focaltech,max-touch-number = <10>;
+-		focaltech,ic-type = <0x3658d488>;
++		spi-max-frequency = <5000000>;
+ 
+-		vdd-supply = <&vdd_ts>;
+-		iovdd-supply = <&vreg_l8c_1p8>;
++		touchscreen-size-x = <10800>;
++		touchscreen-size-y = <24000>;
+ 
++		pinctrl-0 = <&ts_irq>, <&ts_reset>;
+ 		pinctrl-names = "default";
+-		pinctrl-0 = <&ts_int_n>,
+-			    <&ts_reset_n>;
+-
+-		focaltech,trusted-touch-mode = "vm_mode";
+-		focaltech,touch-environment = "pvm";
+-		focaltech,trusted-touch-spi-irq = <601>;
+-		focaltech,trusted-touch-io-bases = <0xf134000 0xf135000
+-						    0xf136000 0xf137000
+-						    0xf169000 0xf151000
+-						    0xa94000 0x00a10000>;
+-		focaltech,trusted-touch-io-sizes = <0x1000 0x1000 0x1000 0x1000
+-						    0x1000 0x1000 0x1000 0x4000>;
+ 	};
+ };
+ 
+ &tlmm {
+-	/* 56-59: Fingerprint reader (SPI) */
+-	gpio-reserved-ranges = <56 4>;
++	gpio-reserved-ranges = <32 2>, <48 4>, <56 4>;
+ 
+ 	bt_uart_sleep_cts: bt-uart-sleep-cts-state {
+ 		pins = "gpio28";
+@@ -1468,60 +890,32 @@ bt_uart_sleep_rxd: bt-uart-sleep-rxd-state {
+ 		bias-pull-up;
+ 	};
+ 
+-	nfc_en: nfc-en-state {
+-		pins = "gpio38";
+-		function = "gpio";
+-		drive-strength = <2>;
+-		bias-disable;
+-	};
+-
+-	nfc_clk_req: nfc-clk-req-state {
+-		pins = "gpio39";
++	sde_dsi_active: sde-dsi-active-state {
++		pins = "gpio44";
+ 		function = "gpio";
+-		drive-strength = <2>;
++		drive-strength = <8>;
+ 		bias-disable;
+ 	};
+ 
+-	nfc_dwl_req: nfc-dwl-req-state {
+-		pins = "gpio40";
++	sde_dsi_sleep: sde-dsi-sleep-state {
++		pins = "gpio44";
+ 		function = "gpio";
+ 		drive-strength = <2>;
+-		bias-disable;
++		bias-pull-down;
+ 	};
+ 
+-	nfc_int_req: nfc-int-req-state {
+-		pins = "gpio41";
+-		function = "gpio";
++	sde_te_active_sleep: sde-te-active-state {
++		pins = "gpio80";
++		function = "mdp_vsync";
+ 		drive-strength = <2>;
+ 		bias-pull-down;
+ 	};
+ 
+-	lcd_reset_n: lcd-reset-n-state {
+-		pins = "gpio44";
++	ts_irq: ts-irq-state {
++		pins = "gpio81";
+ 		function = "gpio";
+ 		drive-strength = <8>;
+-		bias-disable;
+-	};
+-
+-	mclk0_active: mclk0-active-state {
+-		pins = "gpio64";
+-		function = "cam_mclk";
+-		bias-disable;
+-		drive-strength = <2>;
+-	};
+-
+-	mclk2_active: mclk2-active-state {
+-		pins = "gpio66";
+-		function = "cam_mclk";
+-		bias-disable;
+-		drive-strength = <2>;
+-	};
+-
+-	mdp_vsync_p: mdp-vsync-p-state {
+-		pins = "gpio80";
+-		function = "mdp_vsync";
+-		drive-strength = <2>;
+-		bias-pull-down;
++		bias-pull-up;
+ 	};
+ 
+ 	hst_bt_en: hst-bt-en-state {
+@@ -1537,54 +931,7 @@ hst_sw_ctrl: hst-sw-ctrl-state {
+ 		bias-pull-down;
+ 	};
+ 
+-	pri_mi2s_bck_active: pri-mi2s-bck-active-state {
+-		pins = "gpio97";
+-		function = "mi2s0_sck";
+-		drive-strength = <8>;
+-		bias-disable;
+-		output-high;
+-	};
+-
+-	pri_mi2s_din_active: pri-mi2s-din-active-state {
+-		pins = "gpio98";
+-		function = "mi2s0_data0";
+-		drive-strength = <8>;
+-		bias-disable;
+-		output-high;
+-	};
+-
+-	pri_mi2s_dout_active: pri-mi2s-dout-active-state {
+-		pins = "gpio99";
+-		function = "mi2s0_data1";
+-		drive-strength = <8>;
+-		bias-disable;
+-		output-high;
+-	};
+-
+-	pri_mi2s_ws_active: pri-mi2s-ws-active-state {
+-		pins = "gpio100";
+-		function = "mi2s0_ws";
+-		drive-strength = <8>;
+-		bias-disable;
+-		output-high;
+-	};
+-
+-	pri_mi2s_sleep: pri-mi2s-sleep-state {
+-		pins = "gpio97", "gpio98", "gpio99", "gpio100";
+-		function = "gpio";
+-		drive-strength = <2>;
+-		bias-pull-down;
+-		input-enable;
+-	};
+-
+-	ts_int_n: ts-int-n-state {
+-		pins = "gpio81";
+-		function = "gpio";
+-		drive-strength = <8>;
+-		bias-pull-up;
+-	};
+-
+-	ts_reset_n: ts-reset-n-state {
++	ts_reset: ts-reset-state {
+ 		pins = "gpio105";
+ 		function = "gpio";
+ 		drive-strength = <8>;
+@@ -1652,12 +999,14 @@ &ufs_mem_hc {
+ &ufs_mem_phy {
+ 	vdda-phy-supply = <&vdd_a_ufs_0_core>;
+ 	vdda-pll-supply = <&vdd_a_ufs_0_1p2>;
++
+ 	status = "okay";
+ };
+ 
+ &usb_1 {
+ 	/* USB 2.0 only */
+ 	qcom,select-utmi-as-pipe-clk;
++
+ 	dr_mode = "otg";
+ 	usb-role-switch;
+ 	maximum-speed = "high-speed";
+@@ -1676,11 +1025,13 @@ &usb_1_hsphy {
+ 	vdda-pll-supply = <&vdd_a_usbhs_core>;
+ 	vdda18-supply = <&vdd_a_usbhs_1p8>;
+ 	vdda33-supply = <&vdd_a_usbhs_3p1>;
++
+ 	status = "okay";
+ };
+ 
+ &venus {
+-	firmware-name = "qcom/sm7325/nothing/spacewar/vpu20_1v.mbn";
++	firmware-name = "qcom/sm7325/xiaomi/taoyao/vpu20_1v.mbn";
++
+ 	status = "okay";
+ };
+ 
