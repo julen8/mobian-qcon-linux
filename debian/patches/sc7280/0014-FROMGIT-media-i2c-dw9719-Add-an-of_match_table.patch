@@ -1,0 +1,43 @@
+From: Val Packett <val@packett.cool>
+Date: Sat, 20 Sep 2025 14:03:43 +0200
+Subject: FROMGIT media: i2c: dw9719: Add an of_match_table
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Allow the dw9719 driver to be attached via FDT.
+
+Signed-off-by: Val Packett <val@packett.cool>
+Signed-off-by: André Apitzsch <git@apitzsch.eu>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+---
+ drivers/media/i2c/dw9719.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/media/i2c/dw9719.c b/drivers/media/i2c/dw9719.c
+index 8d83e6f..d2af2c6 100644
+--- a/drivers/media/i2c/dw9719.c
++++ b/drivers/media/i2c/dw9719.c
+@@ -360,6 +360,13 @@ static void dw9719_remove(struct i2c_client *client)
+ 	pm_runtime_set_suspended(&client->dev);
+ }
+ 
++static const struct of_device_id dw9719_of_table[] = {
++	{ .compatible = "dongwoon,dw9719" },
++	{ .compatible = "dongwoon,dw9761" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, dw9719_of_table);
++
+ static DEFINE_RUNTIME_DEV_PM_OPS(dw9719_pm_ops, dw9719_suspend, dw9719_resume,
+ 				 NULL);
+ 
+@@ -367,6 +374,7 @@ static struct i2c_driver dw9719_i2c_driver = {
+ 	.driver = {
+ 		.name = "dw9719",
+ 		.pm = pm_sleep_ptr(&dw9719_pm_ops),
++		.of_match_table = dw9719_of_table,
+ 	},
+ 	.probe = dw9719_probe,
+ 	.remove = dw9719_remove,

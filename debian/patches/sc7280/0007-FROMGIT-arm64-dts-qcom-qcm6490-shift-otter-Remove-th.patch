@@ -1,0 +1,85 @@
+From: Alexander Martinz <amartinz@shiftphones.com>
+Date: Thu, 9 Oct 2025 11:06:32 +0200
+Subject: FROMGIT arm64: dts: qcom: qcm6490-shift-otter: Remove thermal zone
+ polling delays
+
+As with all other devices in commit 7747a49db7e5 ("arm64: dts: qcom:
+sc7280-*: Remove thermal zone polling delays"), apply the same change to
+this device as the delays are assumed to be equal to "0" if not set.
+
+Signed-off-by: Alexander Martinz <amartinz@shiftphones.com>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20251009-otter-further-bringup-v2-2-5bb2f4a02cea@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts | 14 --------------
+ 1 file changed, 14 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts b/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts
+index 4c9e9bc..0ae6acb 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts
+@@ -135,8 +135,6 @@ rmtfs_mem: rmtfs@f8500000 {
+ 
+ 	thermal-zones {
+ 		camera-thermal {
+-			polling-delay-passive = <0>;
+-			polling-delay = <0>;
+ 			thermal-sensors = <&pmk8350_adc_tm 2>;
+ 
+ 			trips {
+@@ -149,8 +147,6 @@ active-config0 {
+ 		};
+ 
+ 		chg-skin-thermal {
+-			polling-delay-passive = <0>;
+-			polling-delay = <0>;
+ 			thermal-sensors = <&pm7250b_adc_tm 0>;
+ 
+ 			trips {
+@@ -163,8 +159,6 @@ active-config0 {
+ 		};
+ 
+ 		conn-thermal {
+-			polling-delay-passive = <0>;
+-			polling-delay = <0>;
+ 			thermal-sensors = <&pm7250b_adc_tm 1>;
+ 
+ 			trips {
+@@ -177,8 +171,6 @@ active-config0 {
+ 		};
+ 
+ 		quiet-thermal {
+-			polling-delay-passive = <0>;
+-			polling-delay = <0>;
+ 			thermal-sensors = <&pmk8350_adc_tm 1>;
+ 
+ 			trips {
+@@ -191,8 +183,6 @@ active-config0 {
+ 		};
+ 
+ 		rear-cam-thermal {
+-			polling-delay-passive = <0>;
+-			polling-delay = <0>;
+ 			thermal-sensors = <&pmk8350_adc_tm 4>;
+ 
+ 			trips {
+@@ -205,8 +195,6 @@ active-config0 {
+ 		};
+ 
+ 		sdm-skin-thermal {
+-			polling-delay-passive = <0>;
+-			polling-delay = <0>;
+ 			thermal-sensors = <&pmk8350_adc_tm 3>;
+ 
+ 			trips {
+@@ -219,8 +207,6 @@ active-config0 {
+ 		};
+ 
+ 		xo-thermal {
+-			polling-delay-passive = <0>;
+-			polling-delay = <0>;
+ 			thermal-sensors = <&pmk8350_adc_tm 0>;
+ 
+ 			trips {

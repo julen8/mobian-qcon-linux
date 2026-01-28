@@ -1,0 +1,51 @@
+From: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Date: Thu, 25 Sep 2025 12:07:30 +0200
+Subject: FROMGIT arm64: dts: qcom: qcm6490-fairphone-fp5: Add vibrator
+ support
+
+Add the required node for haptic playback (Awinic AW86927).
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Link: https://lore.kernel.org/r/20250925-aw86927-v3-3-1fc6265b42de@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+index 36d5750..a831465 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+@@ -782,7 +782,16 @@ ocp96011_sbu_mux: endpoint {
+ 		};
+ 	};
+ 
+-	/* AW86927FCR haptics @ 5a */
++	vibrator@5a {
++		compatible = "awinic,aw86927";
++		reg = <0x5a>;
++
++		interrupts-extended = <&tlmm 101 IRQ_TYPE_EDGE_FALLING>;
++		reset-gpios = <&tlmm 100 GPIO_ACTIVE_LOW>;
++
++		pinctrl-0 = <&aw86927_int_default>;
++		pinctrl-names = "default";
++	};
+ };
+ 
+ &i2c2 {
+@@ -1320,6 +1329,13 @@ usb_redrive_1v8_en_default: usb-redrive-1v8-en-default-state {
+ 		bias-disable;
+ 		output-high;
+ 	};
++
++	aw86927_int_default: aw86927-int-default-state {
++		pins = "gpio101";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-up;
++	};
+ };
+ 
+ &uart5 {
