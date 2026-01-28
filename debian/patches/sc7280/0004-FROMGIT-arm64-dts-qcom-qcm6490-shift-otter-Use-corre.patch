@@ -1,0 +1,32 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Tue, 30 Sep 2025 15:57:04 +0200
+Subject: FROMGIT arm64: dts: qcom: qcm6490-shift-otter: Use correct
+ compatible for audiocc
+
+Use the correct compatible for this phone with standard Qualcomm
+firmware and remove references to power-domains from a 'reserved' node.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20250930-sc7280-dts-misc-v1-4-5a45923ef705@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts b/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts
+index cc99925..9f42778 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts
+@@ -573,6 +573,11 @@ &ipa {
+ 	status = "okay";
+ };
+ 
++&lpass_audiocc {
++	compatible = "qcom,qcm6490-lpassaudiocc";
++	/delete-property/ power-domains;
++};
++
+ &pm7250b_adc {
+ 	channel@4d {
+ 		reg = <ADC5_AMUX_THM1_100K_PU>;
