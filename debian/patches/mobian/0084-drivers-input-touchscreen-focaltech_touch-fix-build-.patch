@@ -1,0 +1,31 @@
+From: Arnaud Ferraris <aferraris@debian.org>
+Date: Tue, 21 Jan 2025 19:26:34 +0100
+Subject: drivers: input: touchscreen: focaltech_touch: fix build on mainline
+
+---
+ drivers/input/touchscreen/focaltech_touch/focaltech_flash.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/input/touchscreen/focaltech_touch/focaltech_flash.c b/drivers/input/touchscreen/focaltech_touch/focaltech_flash.c
+index 643b8e2..d795a8b 100644
+--- a/drivers/input/touchscreen/focaltech_touch/focaltech_flash.c
++++ b/drivers/input/touchscreen/focaltech_touch/focaltech_flash.c
+@@ -33,15 +33,15 @@
+ * Global variable or extern global variabls/functions
+ *****************************************************************************/
+ u8 fw_file[] = {
+-#include FTS_UPGRADE_FW_FILE
++// #include FTS_UPGRADE_FW_FILE
+ };
+ 
+ u8 fw_file2[] = {
+-#include FTS_UPGRADE_FW2_FILE
++// #include FTS_UPGRADE_FW2_FILE
+ };
+ 
+ u8 fw_file3[] = {
+-#include FTS_UPGRADE_FW3_FILE
++// #include FTS_UPGRADE_FW3_FILE
+ };
+ 
+ struct upgrade_module module_list[] = {
