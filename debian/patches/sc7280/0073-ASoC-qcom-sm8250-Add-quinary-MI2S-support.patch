@@ -1,0 +1,31 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 24 Nov 2023 17:31:43 +0100
+Subject: ASoC: qcom: sm8250: Add quinary MI2S support
+
+Add support for the QUINARY_MI2S_RX which is used on some devices to
+send audio data to speaker amplifiers.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ sound/soc/qcom/sm8250.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/sound/soc/qcom/sm8250.c b/sound/soc/qcom/sm8250.c
+index 20e6f93..cb184ef 100644
+--- a/sound/soc/qcom/sm8250.c
++++ b/sound/soc/qcom/sm8250.c
+@@ -101,6 +101,14 @@ static int sm8250_snd_startup(struct snd_pcm_substream *substream)
+ 		snd_soc_dai_set_fmt(cpu_dai, fmt);
+ 		snd_soc_dai_set_fmt(codec_dai, codec_dai_fmt);
+ 		break;
++	case QUINARY_MI2S_RX:
++		codec_dai_fmt |= SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_I2S;
++		snd_soc_dai_set_sysclk(cpu_dai,
++			Q6AFE_LPASS_CLK_ID_QUI_MI2S_IBIT,
++			MI2S_BCLK_RATE, SNDRV_PCM_STREAM_PLAYBACK);
++		snd_soc_dai_set_fmt(cpu_dai, fmt);
++		snd_soc_dai_set_fmt(codec_dai, codec_dai_fmt);
++		break;
+ 	default:
+ 		break;
+ 	}

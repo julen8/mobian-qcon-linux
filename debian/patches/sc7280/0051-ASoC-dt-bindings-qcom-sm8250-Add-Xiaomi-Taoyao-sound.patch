@@ -1,0 +1,24 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Tue, 9 Dec 2025 14:25:58 +0900
+Subject: ASoC: dt-bindings: qcom,sm8250: Add Xiaomi Taoyao sound card
+
+Document the bindings for the sound card on Xiaomi 12 Lite 5G which uses
+the older non-audioreach audio architecture.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+index b49a920..843d4d5 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+@@ -46,6 +46,7 @@ properties:
+           - qcom,sm8250-sndcard
+           - qcom,sm8450-sndcard
+           - qcom,x1e80100-sndcard
++          - xiaomi,taoyao-sndcard
+ 
+   audio-routing:
+     $ref: /schemas/types.yaml#/definitions/non-unique-string-array

@@ -1,0 +1,32 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Tue, 30 Sep 2025 15:57:05 +0200
+Subject: FROMGIT arm64: dts: qcom: sm7325-nothing-spacewar: Use correct
+ compatible for audiocc
+
+Use the correct compatible for this phone with standard Qualcomm
+firmware and remove references to power-domains from a 'reserved' node.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20250930-sc7280-dts-misc-v1-5-5a45923ef705@fairphone.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+---
+ arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts b/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts
+index f16b47b..cb59c12 100644
+--- a/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts
++++ b/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts
+@@ -978,6 +978,11 @@ &ipa {
+ 	status = "okay";
+ };
+ 
++&lpass_audiocc {
++	compatible = "qcom,qcm6490-lpassaudiocc";
++	/delete-property/ power-domains;
++};
++
+ &mdss {
+ 	status = "okay";
+ };
