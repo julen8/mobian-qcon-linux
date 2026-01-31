@@ -125,3 +125,4 @@ sdm670/0124-power-supply-qcom_fg-use-DT-ACPI-common-terminology.patch
 sdm670/0125-Revert-pmdomain-core-Leave-powered-on-genpds-on-until-sync_state.patch
 sdm670/0126-Revert-pmdomain-core-Leave-powered-on-genpds-on-until-late_initcall_sync.patch
 sdm670/0127-drm-msm-dpu-Add-DSPP-GC-driver-to-provide-GAMMA_LUT-DRM-property.patch
+debian/0128-wireless-Add-Debian-wireless-regdb-certificates.patch
