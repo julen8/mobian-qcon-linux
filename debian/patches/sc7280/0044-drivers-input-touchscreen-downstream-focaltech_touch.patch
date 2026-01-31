@@ -72,7 +72,7 @@ index f2acb33..96dde28 100644
 +obj-$(CONFIG_TOUCHSCREEN_FOCALTECH_FT3658U)	+= focaltech_touch_ft3658u/
 diff --git a/drivers/input/touchscreen/focaltech_touch_ft3658u/Kconfig b/drivers/input/touchscreen/focaltech_touch_ft3658u/Kconfig
 new file mode 100644
-index 00000000..02b4fd5
+index 0000000..02b4fd5
 --- /dev/null
 +++ b/drivers/input/touchscreen/focaltech_touch_ft3658u/Kconfig
 @@ -0,0 +1,11 @@
@@ -89,7 +89,7 @@ index 00000000..02b4fd5
 +	  If unsure, say N.
 diff --git a/drivers/input/touchscreen/focaltech_touch_ft3658u/Makefile b/drivers/input/touchscreen/focaltech_touch_ft3658u/Makefile
 new file mode 100644
-index 00000000..f0ce4bf
+index 0000000..f0ce4bf
 --- /dev/null
 +++ b/drivers/input/touchscreen/focaltech_touch_ft3658u/Makefile
 @@ -0,0 +1,13 @@
@@ -108,7 +108,7 @@ index 00000000..f0ce4bf
 +focaltech_ts-y += focaltech_i2c.o
 diff --git a/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_common.h b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_common.h
 new file mode 100644
-index 00000000..784115d
+index 0000000..784115d
 --- /dev/null
 +++ b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_common.h
 @@ -0,0 +1,167 @@
@@ -281,7 +281,7 @@ index 00000000..784115d
 +#endif /* __LINUX_FOCALTECH_COMMON_H__ */
 diff --git a/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_config.h b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_config.h
 new file mode 100644
-index 00000000..656bb83
+index 0000000..656bb83
 --- /dev/null
 +++ b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_config.h
 @@ -0,0 +1,277 @@
@@ -564,7 +564,7 @@ index 00000000..656bb83
 +#endif /* _LINUX_FOCLATECH_CONFIG_H_ */
 diff --git a/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_core.c b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_core.c
 new file mode 100644
-index 00000000..7a09b15
+index 0000000..7a09b15
 --- /dev/null
 +++ b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_core.c
 @@ -0,0 +1,1702 @@
@@ -2272,7 +2272,7 @@ index 00000000..7a09b15
 +MODULE_LICENSE("GPL v2");
 diff --git a/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_core.h b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_core.h
 new file mode 100644
-index 00000000..f38c9c6
+index 0000000..f38c9c6
 --- /dev/null
 +++ b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_core.h
 @@ -0,0 +1,281 @@
@@ -2559,7 +2559,7 @@ index 00000000..f38c9c6
 +#endif /* __LINUX_FOCALTECH_CORE_H__ */
 diff --git a/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_esdcheck.c b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_esdcheck.c
 new file mode 100644
-index 00000000..295f91d
+index 0000000..295f91d
 --- /dev/null
 +++ b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_esdcheck.c
 @@ -0,0 +1,465 @@
@@ -3030,7 +3030,7 @@ index 00000000..295f91d
 +
 diff --git a/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_ex_fun.c b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_ex_fun.c
 new file mode 100644
-index 00000000..47de630
+index 0000000..47de630
 --- /dev/null
 +++ b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_ex_fun.c
 @@ -0,0 +1,894 @@
@@ -3930,7 +3930,7 @@ index 00000000..47de630
 +}
 diff --git a/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_ex_mode.c b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_ex_mode.c
 new file mode 100644
-index 00000000..03cec68
+index 0000000..03cec68
 --- /dev/null
 +++ b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_ex_mode.c
 @@ -0,0 +1,359 @@
@@ -4295,7 +4295,7 @@ index 00000000..03cec68
 +}
 diff --git a/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_flash.c b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_flash.c
 new file mode 100644
-index 00000000..c1e54b1
+index 0000000..c1e54b1
 --- /dev/null
 +++ b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_flash.c
 @@ -0,0 +1,2079 @@
@@ -6380,7 +6380,7 @@ index 00000000..c1e54b1
 +}
 diff --git a/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_flash.h b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_flash.h
 new file mode 100644
-index 00000000..0d29bc4
+index 0000000..0d29bc4
 --- /dev/null
 +++ b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_flash.h
 @@ -0,0 +1,217 @@
@@ -6603,14 +6603,14 @@ index 00000000..0d29bc4
 +#endif
 diff --git a/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_flash/Makefile b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_flash/Makefile
 new file mode 100644
-index 00000000..919f7bd
+index 0000000..919f7bd
 --- /dev/null
 +++ b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_flash/Makefile
 @@ -0,0 +1 @@
 +obj-y += focaltech_upgrade_ft3518.o
 diff --git a/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_flash/focaltech_upgrade_ft3518.c b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_flash/focaltech_upgrade_ft3518.c
 new file mode 100644
-index 00000000..c42e7b5
+index 0000000..c42e7b5
 --- /dev/null
 +++ b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_flash/focaltech_upgrade_ft3518.c
 @@ -0,0 +1,292 @@
@@ -6908,7 +6908,7 @@ index 00000000..c42e7b5
 +};
 diff --git a/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_gesture.c b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_gesture.c
 new file mode 100644
-index 00000000..594cfe8
+index 0000000..594cfe8
 --- /dev/null
 +++ b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_gesture.c
 @@ -0,0 +1,484 @@
@@ -7398,7 +7398,7 @@ index 00000000..594cfe8
 +}
 diff --git a/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_i2c.c b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_i2c.c
 new file mode 100644
-index 00000000..5a405ae
+index 0000000..5a405ae
 --- /dev/null
 +++ b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_i2c.c
 @@ -0,0 +1,507 @@
@@ -7911,7 +7911,7 @@ index 00000000..5a405ae
 +}
 diff --git a/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_point_report_check.c b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_point_report_check.c
 new file mode 100644
-index 00000000..0f62640
+index 0000000..0f62640
 --- /dev/null
 +++ b/drivers/input/touchscreen/focaltech_touch_ft3658u/focaltech_point_report_check.c
 @@ -0,0 +1,135 @@
