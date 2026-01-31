@@ -76,7 +76,7 @@ index b7f1d2a5..d7e0f53e 100644
  obj-$(CONFIG_QCOM_UBWC_CONFIG) += ubwc_config.o
 diff --git a/drivers/soc/qcom/modemsmem.c b/drivers/soc/qcom/modemsmem.c
 new file mode 100644
-index 00000000..892ab56
+index 0000000..892ab56
 --- /dev/null
 +++ b/drivers/soc/qcom/modemsmem.c
 @@ -0,0 +1,107 @@
