@@ -17,7 +17,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
 
 diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml
 new file mode 100644
-index 00000000..6050d7e
+index 0000000..6050d7e
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml
 @@ -0,0 +1,111 @@

@@ -13,7 +13,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
 
 diff --git a/arch/arm64/configs/sdm670.config b/arch/arm64/configs/sdm670.config
 new file mode 100644
-index 00000000..3417193
+index 0000000..3417193
 --- /dev/null
 +++ b/arch/arm64/configs/sdm670.config
 @@ -0,0 +1,382 @@
