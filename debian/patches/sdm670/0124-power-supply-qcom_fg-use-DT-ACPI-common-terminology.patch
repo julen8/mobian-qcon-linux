@@ -1,0 +1,35 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Thu, 16 Oct 2025 21:44:29 -0400
+Subject: [PATCH] power: supply: qcom_fg: use DT/ACPI common terminology
+
+The power supply subsystem has changed in the latest kernel version to
+use "fwnode" and "reference" instead of "of_node" and "phandle". Use
+this new terminology, as the old terms are not supported.
+
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ drivers/power/supply/qcom_fg.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/power/supply/qcom_fg.c b/drivers/power/supply/qcom_fg.c
+index 5e88770..77872bf0 100644
+--- a/drivers/power/supply/qcom_fg.c
++++ b/drivers/power/supply/qcom_fg.c
+@@ -1162,7 +1162,7 @@ static int qcom_fg_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	supply_config.drv_data = chip;
+-	supply_config.of_node = pdev->dev.of_node;
++	supply_config.fwnode = pdev->dev.fwnode;
+ 
+ 	chip->batt_psy = devm_power_supply_register(chip->dev,
+ 			&batt_psy_desc, &supply_config);
+@@ -1265,7 +1265,7 @@ static int qcom_fg_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	/* Optional: Get charger power supply for status checking */
+-	chip->chg_psy = power_supply_get_by_phandle(chip->dev->of_node,
++	chip->chg_psy = power_supply_get_by_reference(chip->dev->fwnode,
+ 							"power-supplies");
+ 	if (IS_ERR(chip->chg_psy)) {
+ 		ret = PTR_ERR(chip->chg_psy);
