@@ -1,0 +1,26 @@
+From: Paul Sajna <hello@paulsajna.com>
+Date: Fri, 21 Mar 2025 21:11:38 -0700
+Subject: [PATCH] arch: arm64: configs: sdm845: enable LG SW49410 panel driver
+
+Signed-off-by: Paul Sajna <hello@paulsajna.com>
+(cherry picked from commit fa44080c96f04e0f61b3445905724e64f7d33d17)
+Link: https://gitlab.com/sdm845-mainline/linux
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ arch/arm64/configs/sdm845.config | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/arch/arm64/configs/sdm845.config b/arch/arm64/configs/sdm845.config
+index 0a6e82b..4a25cd7 100644
+--- a/arch/arm64/configs/sdm845.config
++++ b/arch/arm64/configs/sdm845.config
+@@ -69,6 +69,9 @@ CONFIG_I2C_HID_OF_ELAN=m
+ CONFIG_BACKLIGHT_PWM=y
+ CONFIG_LENOVO_YOGA_C630_EC=m
+ 
++# LG Judyln
++CONFIG_DRM_PANEL_LG_SW49410=y
++
+ # SOC
+ CONFIG_FORCE_NR_CPUS=y
+ CONFIG_NR_CPUS=8
