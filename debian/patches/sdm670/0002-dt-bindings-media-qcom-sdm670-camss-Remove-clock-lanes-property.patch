@@ -1,0 +1,76 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Tue, 13 Jan 2026 19:10:02 -0500
+Subject: [PATCH] dt-bindings: media: qcom,sdm670-camss: Remove clock-lanes
+ property
+
+The clock-lanes property has no effect on the hardware configuration, as
+of 336136e197e2 ("media: dt-bindings: media: camss: Remove clock-lane
+property"). Remove the clock-lanes property.
+
+Suggested-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Link: https://lore.kernel.org/r/bbf0dcd9-d0f2-49a6-a2f2-6ec9376f2f59@linaro.org
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ .../devicetree/bindings/media/qcom,sdm670-camss.yaml        | 13 -------------
+ 1 file changed, 13 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/media/qcom,sdm670-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sdm670-camss.yaml
+index 35c40fe..78b9e03 100644
+--- a/Documentation/devicetree/bindings/media/qcom,sdm670-camss.yaml
++++ b/Documentation/devicetree/bindings/media/qcom,sdm670-camss.yaml
+@@ -116,15 +116,11 @@ properties:
+             unevaluatedProperties: false
+ 
+             properties:
+-              clock-lanes:
+-                maxItems: 1
+-
+               data-lanes:
+                 minItems: 1
+                 maxItems: 4
+ 
+             required:
+-              - clock-lanes
+               - data-lanes
+ 
+       port@1:
+@@ -139,15 +135,11 @@ properties:
+             unevaluatedProperties: false
+ 
+             properties:
+-              clock-lanes:
+-                maxItems: 1
+-
+               data-lanes:
+                 minItems: 1
+                 maxItems: 4
+ 
+             required:
+-              - clock-lanes
+               - data-lanes
+ 
+       port@2:
+@@ -162,15 +154,11 @@ properties:
+             unevaluatedProperties: false
+ 
+             properties:
+-              clock-lanes:
+-                maxItems: 1
+-
+               data-lanes:
+                 minItems: 1
+                 maxItems: 4
+ 
+             required:
+-              - clock-lanes
+               - data-lanes
+ 
+ required:
+@@ -308,7 +296,6 @@ examples:
+                     reg = <0>;
+ 
+                     csiphy_ep0: endpoint {
+-                        clock-lanes = <7>;
+                         data-lanes = <0 1 2 3>;
+                         remote-endpoint = <&front_sensor_ep>;
+                     };
