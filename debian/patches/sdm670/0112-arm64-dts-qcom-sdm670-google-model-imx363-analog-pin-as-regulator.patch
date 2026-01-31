@@ -1,0 +1,60 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Tue, 11 Feb 2025 21:19:56 -0500
+Subject: [PATCH] arm64: dts: qcom: sdm670-google: model imx363 analog pin as
+ regulator
+
+The pin needs to be driven low when the camera is unused, and doesn't
+have any pin configuration outside of the output. Model it as a GPIO
+regulator.
+
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi | 20 +++++++++++---------
+ 1 file changed, 11 insertions(+), 9 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+index 16322e6..b9bf96c 100644
+--- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+@@ -404,9 +404,16 @@ cam_front_ldo: cam-front-ldo-regulator {
+ 		pinctrl-names = "default";
+ 	};
+ 
+-	cam_rear_ldo: cam-rear-ldo-regulator {
++	cam_rear_vana_ldo: cam-rear-vana-ldo-regulator {
+ 		compatible = "regulator-fixed";
+-		regulator-name = "cam_rear_ldo";
++		regulator-name = "cam_rear_vana_ldo";
++		gpios = <&tlmm 8 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++	};
++
++	cam_rear_vdig_ldo: cam-rear-vdig-ldo-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "cam_rear_vdig_ldo";
+ 		regulator-min-microvolt = <1352000>;
+ 		regulator-max-microvolt = <1352000>;
+ 		regulator-enable-ramp-delay = <233>;
+@@ -702,8 +709,8 @@ camera@1a {
+ 		reset-gpios = <&tlmm 127 GPIO_ACTIVE_HIGH>;
+ 
+ 		vif-supply = <&cam_vio_ldo>;
+-		vana-supply = <&cam_rear_ldo>;
+-		vdig-supply = <&cam_rear_ldo>;
++		vana-supply = <&cam_rear_vana_ldo>;
++		vdig-supply = <&cam_rear_vdig_ldo>;
+ 		vio-supply = <&cam_vio_ldo>;
+ 
+ 		pinctrl-names = "default";
+@@ -1210,11 +1217,6 @@ &tlmm {
+ 	gpio-reserved-ranges = <0 4>, <81 4>;
+ 
+ 	cam_rear_default: cam-rear-default-state {
+-		vana-pins {
+-			pins = "gpio8";
+-			output-high;
+-		};
+-
+ 		reset-pins {
+ 			pins = "gpio127";
+ 			function = "gpio";
