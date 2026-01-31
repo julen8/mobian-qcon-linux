@@ -1,0 +1,26 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Fri, 2 May 2025 19:35:42 -0400
+Subject: [PATCH] arm64: dts: qcom: sdm670-google: switch polarity for rear
+ camera reset
+
+The polarity just got inverted in the driver. Invert it again in DTS so
+the camera continues to work.
+
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+index 658a1cc..6b30f18 100644
+--- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+@@ -708,7 +708,7 @@ camera@1a {
+ 		assigned-clocks = <&camcc CAM_CC_MCLK0_CLK>;
+ 		assigned-clock-rates = <24000000>;
+ 
+-		reset-gpios = <&tlmm 127 GPIO_ACTIVE_HIGH>;
++		reset-gpios = <&tlmm 127 GPIO_ACTIVE_LOW>;
+ 
+ 		vif-supply = <&cam_vio_ldo>;
+ 		vana-supply = <&cam_rear_vana_ldo>;

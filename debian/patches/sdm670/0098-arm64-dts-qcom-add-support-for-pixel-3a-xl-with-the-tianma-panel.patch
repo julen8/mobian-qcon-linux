@@ -1,0 +1,63 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Fri, 9 Aug 2024 21:49:28 -0400
+Subject: [PATCH] arm64: dts: qcom: add support for pixel 3a xl with the
+ tianma panel
+
+Some Pixel 3a XL devices have a Tianma panel. Add the separate device
+tree for this to support these other devices.
+
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/Makefile                                 | 1 +
+ ...m670-google-bonito-sdc.dts => sdm670-google-bonito-tianma.dts} | 8 ++++----
+ 2 files changed, 5 insertions(+), 4 deletions(-)
+ copy arch/arm64/boot/dts/qcom/{sdm670-google-bonito-sdc.dts => sdm670-google-bonito-tianma.dts} (72%)
+
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 538e6565..0f0f46e 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -241,6 +241,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sdm636-sony-xperia-ganges-mermaid.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sdm660-xiaomi-lavender.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sdm670-google-sargo.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sdm670-google-bonito-sdc.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sdm670-google-bonito-tianma.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-db845c.dtb
+ 
+ sdm845-db845c-navigation-mezzanine-dtbs	:= sdm845-db845c.dtb sdm845-db845c-navigation-mezzanine.dtbo
+diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-bonito-sdc.dts b/arch/arm64/boot/dts/qcom/sdm670-google-bonito-tianma.dts
+similarity index 72%
+copy from arch/arm64/boot/dts/qcom/sdm670-google-bonito-sdc.dts
+copy to arch/arm64/boot/dts/qcom/sdm670-google-bonito-tianma.dts
+index 3131174..5e4b019 100644
+--- a/arch/arm64/boot/dts/qcom/sdm670-google-bonito-sdc.dts
++++ b/arch/arm64/boot/dts/qcom/sdm670-google-bonito-tianma.dts
+@@ -3,7 +3,7 @@
+  * Device tree for Google Pixel 3a XL with the panel connected to the Samsung
+  * Display Controller.
+  *
+- * Copyright (c) 2023, Richard Acayan. All rights reserved.
++ * Copyright (c) 2023-2024, Richard Acayan. All rights reserved.
+  */
+ 
+ /dts-v1/;
+@@ -11,8 +11,8 @@
+ #include "sdm670-google-common.dtsi"
+ 
+ / {
+-	model = "Google Pixel 3a XL (with SDC panel)";
+-	compatible = "google,bonito-sdc", "google,bonito", "qcom,sdm670";
++	model = "Google Pixel 3a XL (with Tianma panel)";
++	compatible = "google,bonito-tianma", "google,bonito", "qcom,sdm670";
+ };
+ 
+ &battery {
+@@ -32,7 +32,7 @@ &framebuffer {
+ };
+ 
+ &panel {
+-	compatible = "samsung,sofef00-bonito";
++	compatible = "novatek,nt37700f";
+ 	status = "okay";
+ };
+ 
