@@ -24,7 +24,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
 
 diff --git a/include/dt-bindings/sound/qcom,q6voice.h b/include/dt-bindings/sound/qcom,q6voice.h
 new file mode 100644
-index 00000000..fe5aa3a
+index 0000000..fe5aa3a
 --- /dev/null
 +++ b/include/dt-bindings/sound/qcom,q6voice.h
 @@ -0,0 +1,7 @@
@@ -67,7 +67,7 @@ index a953bbe..940b9ec 100644
  obj-$(CONFIG_SND_SOC_QDSP6_APM_DAI) += q6apm-dai.o
 diff --git a/sound/soc/qcom/qdsp6/q6voice-dai.c b/sound/soc/qcom/qdsp6/q6voice-dai.c
 new file mode 100644
-index 00000000..73401ed
+index 0000000..73401ed
 --- /dev/null
 +++ b/sound/soc/qcom/qdsp6/q6voice-dai.c
 @@ -0,0 +1,136 @@
