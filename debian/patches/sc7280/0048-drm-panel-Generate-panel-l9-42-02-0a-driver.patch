@@ -45,7 +45,7 @@ index ed0f913..b3f137e 100644
  obj-$(CONFIG_DRM_PANEL_XINPENG_XPP055C272) += panel-xinpeng-xpp055c272.o
 diff --git a/drivers/gpu/drm/panel/panel-l9-42-02-0a-dsc.c b/drivers/gpu/drm/panel/panel-l9-42-02-0a-dsc.c
 new file mode 100644
-index 00000000..5288699
+index 0000000..5288699
 --- /dev/null
 +++ b/drivers/gpu/drm/panel/panel-l9-42-02-0a-dsc.c
 @@ -0,0 +1,397 @@
