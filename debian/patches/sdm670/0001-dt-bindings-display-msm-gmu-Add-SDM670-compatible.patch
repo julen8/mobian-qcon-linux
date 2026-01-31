@@ -11,7 +11,7 @@ Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
  1 file changed, 1 insertion(+)
 
 diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
-index afc18793..2e850d1 100644
+index afc1879..2e850d1 100644
 --- a/Documentation/devicetree/bindings/display/msm/gmu.yaml
 +++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
 @@ -91,6 +91,7 @@ allOf:
