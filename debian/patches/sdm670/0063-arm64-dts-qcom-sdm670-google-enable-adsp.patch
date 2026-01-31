@@ -1,0 +1,27 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Fri, 24 Feb 2023 22:56:53 -0500
+Subject: [PATCH] arm64: dts: qcom: sdm670-google: enable adsp
+
+Enable the ADSP on the Pixel 3a in anticipation of audio support.
+
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+index da54909..b5dd967 100644
+--- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+@@ -234,6 +234,11 @@ cam_vio_ldo: cam-vio-ldo-regulator {
+ 	};
+ };
+ 
++&adsp_pas {
++	status = "okay";
++	firmware-name = "qcom/sdm670/sargo/adsp.mbn";
++};
++
+ &apps_rsc {
+ 	regulators-0 {
+ 		compatible = "qcom,pm660-rpmh-regulators";

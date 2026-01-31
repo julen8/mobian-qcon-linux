@@ -1,0 +1,58 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Mon, 5 Jan 2026 18:03:38 -0500
+Subject: [PATCH] arm64: dts: qcom: sdm670: label the camss ports instead of
+ endpoints
+
+Endpoints cannot be pre-defined since dcf6fb89e6f7 ("media: qcom: camss:
+remove a check for unavailable CAMSS endpoint") was applied, probing all
+endpoint nodes and requiring them to have a remote. There is no sensible
+remote in the SoC devicetree because camera sensors are board-specific.
+
+The ports are meant to be extended by a board devicetree in order to
+define fully configured endpoints and connect the ports to camera
+sensors. For nodes that are only meaningful if extended, labels are
+usually assigned. Label these ports so they can be extended directly.
+
+Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/sdm670.dtsi | 18 +++---------------
+ 1 file changed, 3 insertions(+), 15 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm670.dtsi b/arch/arm64/boot/dts/qcom/sdm670.dtsi
+index c33f3de7..f02b643 100644
+--- a/arch/arm64/boot/dts/qcom/sdm670.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm670.dtsi
+@@ -1766,28 +1766,16 @@ ports {
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 
+-				port@0 {
++				camss_port0: port@0 {
+ 					reg = <0>;
+-
+-					camss_endpoint0: endpoint {
+-						status = "disabled";
+-					};
+ 				};
+ 
+-				port@1 {
++				camss_port1: port@1 {
+ 					reg = <1>;
+-
+-					camss_endpoint1: endpoint {
+-						status = "disabled";
+-					};
+ 				};
+ 
+-				port@2 {
++				camss_port2: port@2 {
+ 					reg = <2>;
+-
+-					camss_endpoint2: endpoint {
+-						status = "disabled";
+-					};
+ 				};
+ 			};
+ 		};

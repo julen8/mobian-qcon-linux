@@ -1,0 +1,34 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Mon, 20 Oct 2025 18:00:05 -0400
+Subject: [PATCH] Revert "pmdomain: core: Leave powered-on genpds on until
+ sync_state"
+
+These commits prevent the pixel clock from turning on.
+
+This reverts commit 0e789b491ba04c31de5c71249487593e386baa67.
+
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ drivers/pmdomain/core.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
+index 61c2277..9380f9b 100644
+--- a/drivers/pmdomain/core.c
++++ b/drivers/pmdomain/core.c
+@@ -3502,7 +3502,6 @@ void of_genpd_sync_state(struct device_node *np)
+ 	list_for_each_entry(genpd, &gpd_list, gpd_list_node) {
+ 		if (genpd->provider == of_fwnode_handle(np)) {
+ 			genpd_lock(genpd);
+-			genpd->stay_on = false;
+ 			genpd_power_off(genpd, false, 0);
+ 			genpd_unlock(genpd);
+ 		}
+@@ -3530,7 +3529,6 @@ static void genpd_provider_sync_state(struct device *dev)
+ 
+ 	case GENPD_SYNC_STATE_SIMPLE:
+ 		genpd_lock(genpd);
+-		genpd->stay_on = false;
+ 		genpd_power_off(genpd, false, 0);
+ 		genpd_unlock(genpd);
+ 		break;
