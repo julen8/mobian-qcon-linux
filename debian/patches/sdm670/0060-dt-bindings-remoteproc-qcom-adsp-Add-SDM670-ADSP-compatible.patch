@@ -1,0 +1,40 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Tue, 27 Jan 2026 16:24:09 -0500
+Subject: [PATCH] dt-bindings: remoteproc: qcom: adsp: Add SDM670 ADSP
+ compatible
+
+Add the compatible for the Audio DSP on SDM670.
+
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml
+index 661c2b4..d84b8e0 100644
+--- a/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml
++++ b/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml
+@@ -24,6 +24,7 @@ properties:
+       - qcom,msm8998-adsp-pas
+       - qcom,msm8998-slpi-pas
+       - qcom,sdm660-adsp-pas
++      - qcom,sdm670-adsp-pas
+       - qcom,sdm845-adsp-pas
+       - qcom,sdm845-cdsp-pas
+       - qcom,sdm845-slpi-pas
+@@ -69,6 +70,7 @@ allOf:
+               - qcom,msm8996-slpi-pil
+               - qcom,msm8998-adsp-pas
+               - qcom,msm8998-slpi-pas
++              - qcom,sdm670-adsp-pas
+               - qcom,sdm845-adsp-pas
+               - qcom,sdm845-cdsp-pas
+               - qcom,sdm845-slpi-pas
+@@ -93,6 +95,7 @@ allOf:
+               - qcom,msm8996-slpi-pil
+               - qcom,msm8998-adsp-pas
+               - qcom,msm8998-slpi-pas
++              - qcom,sdm670-adsp-pas
+               - qcom,sdm845-adsp-pas
+               - qcom,sdm845-cdsp-pas
+               - qcom,sdm845-slpi-pas
