@@ -1,0 +1,42 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Thu, 22 Jan 2026 17:32:16 -0500
+Subject: [PATCH] media: i2c: imx355: Restrict data lanes to 4
+
+The IMX355 sensor driver currently supports having 4 data lanes. There
+can't be more or less, so check if the firmware specifies 4 lanes.
+
+Existing ACPI hardware descriptions may not have the data lanes defined
+so this check also accepts a placeholder of 0 lanes.
+
+Suggested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Link: https://lore.kernel.org/r/aW3uFcT1zmiF4GUP@kekkonen.localdomain
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ drivers/media/i2c/imx355.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
+index 9ca8748..0d6aabe 100644
+--- a/drivers/media/i2c/imx355.c
++++ b/drivers/media/i2c/imx355.c
+@@ -66,6 +66,9 @@
+ #define IMX355_EXT_CLK			19200000
+ #define IMX355_LINK_FREQ_INDEX		0
+ 
++/* number of data lanes */
++#define IMX355_DATA_LANES		4
++
+ struct imx355_reg {
+ 	u16 address;
+ 	u8 val;
+@@ -1705,6 +1708,10 @@ static struct imx355_hwcfg *imx355_get_hwcfg(struct device *dev)
+ 	if (!cfg)
+ 		goto out_err;
+ 
++	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 0
++	 && bus_cfg.bus.mipi_csi2.num_data_lanes != IMX355_DATA_LANES)
++		goto out_err;
++
+ 	ret = v4l2_link_freq_to_bitmap(dev, bus_cfg.link_frequencies,
+ 				       bus_cfg.nr_of_link_frequencies,
+ 				       link_freq_menu_items,
