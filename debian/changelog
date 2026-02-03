@@ -1,3 +1,9 @@
+linux-6.18-sc7280 (6.18.8-2) trixie; urgency=medium
+
+  * d/patches: add support for FP5 microphone
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Tue, 03 Feb 2026 16:39:41 +0100
+
 linux-6.18-sc7280 (6.18.8-1) trixie; urgency=medium
 
   * Rebase on 6.18.8
