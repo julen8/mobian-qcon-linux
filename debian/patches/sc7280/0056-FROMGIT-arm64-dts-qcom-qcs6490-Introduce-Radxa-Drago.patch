@@ -45,7 +45,7 @@ index 1a75113..0f040c2 100644
  qcs6490-rb3gen2-vision-mezzanine-dtbs := qcs6490-rb3gen2.dtb qcs6490-rb3gen2-vision-mezzanine.dtbo
 diff --git a/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts b/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
 new file mode 100644
-index 0000000..a63f79b
+index 00000000..a63f79b
 --- /dev/null
 +++ b/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
 @@ -0,0 +1,1095 @@
