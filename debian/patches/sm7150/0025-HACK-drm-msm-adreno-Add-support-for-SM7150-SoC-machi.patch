@@ -7,10 +7,10 @@ Subject: HACK: drm/msm/adreno: Add support for SM7150 SoC machine
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-index 2adbc19..fdfd829 100644
+index 31974a4..80b16b8 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-@@ -739,6 +739,7 @@ static const struct adreno_info a6xx_gpus[] = {
+@@ -737,6 +737,7 @@ static const struct adreno_info a6xx_gpus[] = {
  		.machine = "qcom,sm7150",
  		.chip_ids = ADRENO_CHIP_IDS(0x06010800),
  		.family = ADRENO_6XX_GEN1,
