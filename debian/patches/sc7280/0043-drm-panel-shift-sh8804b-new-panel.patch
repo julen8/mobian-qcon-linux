@@ -57,7 +57,7 @@ index 3615a76..ed0f913 100644
  obj-$(CONFIG_DRM_PANEL_SITRONIX_ST7789V) += panel-sitronix-st7789v.o
 diff --git a/drivers/gpu/drm/panel/panel-shift-sh8804b.c b/drivers/gpu/drm/panel/panel-shift-sh8804b.c
 new file mode 100644
-index 00000000..d6362a9
+index 0000000..d6362a9
 --- /dev/null
 +++ b/drivers/gpu/drm/panel/panel-shift-sh8804b.c
 @@ -0,0 +1,1270 @@
