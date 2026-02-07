@@ -1559,7 +1559,7 @@ index f41d7e1..df2511d 100644
  	.bcms = system_noc_bcms,
 diff --git a/drivers/interconnect/qcom/sm6350.h b/drivers/interconnect/qcom/sm6350.h
 deleted file mode 100644
-index 43cf293..00000000
+index 43cf293..0000000
 --- a/drivers/interconnect/qcom/sm6350.h
 +++ /dev/null
 @@ -1,139 +0,0 @@

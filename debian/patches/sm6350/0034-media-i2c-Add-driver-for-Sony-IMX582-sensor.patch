@@ -33,7 +33,7 @@ index 7ce787b..4cfa24a 100644
  	tristate
  
 diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index e3871d8..56a8d9b4 100644
+index e3871d8..56a8d9b 100644
 --- a/drivers/media/i2c/Makefile
 +++ b/drivers/media/i2c/Makefile
 @@ -61,6 +61,7 @@ obj-$(CONFIG_VIDEO_IMX355) += imx355.o
@@ -46,7 +46,7 @@ index e3871d8..56a8d9b4 100644
  obj-$(CONFIG_VIDEO_KS0127) += ks0127.o
 diff --git a/drivers/media/i2c/imx582.c b/drivers/media/i2c/imx582.c
 new file mode 100644
-index 00000000..d329528
+index 0000000..d329528
 --- /dev/null
 +++ b/drivers/media/i2c/imx582.c
 @@ -0,0 +1,1201 @@
