@@ -18,7 +18,7 @@ Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 
 diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
 new file mode 100644
-index 00000000..38db076
+index 0000000..38db076
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
 @@ -0,0 +1,88 @@
