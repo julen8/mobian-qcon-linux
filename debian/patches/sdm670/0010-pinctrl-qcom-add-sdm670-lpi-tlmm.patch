@@ -14,10 +14,10 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  create mode 100644 drivers/pinctrl/qcom/pinctrl-sdm670-lpass-lpi.c
 
 diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
-index c480e8b..a88f1db 100644
+index f565924..eb8ed3e 100644
 --- a/drivers/pinctrl/qcom/Kconfig
 +++ b/drivers/pinctrl/qcom/Kconfig
-@@ -88,6 +88,16 @@ config PINCTRL_SM4250_LPASS_LPI
+@@ -89,6 +89,16 @@ config PINCTRL_SM4250_LPASS_LPI
  	  Qualcomm Technologies Inc LPASS (Low Power Audio SubSystem) LPI
  	  (Low Power Island) found on the Qualcomm Technologies Inc SM4250 platform.
  
@@ -35,7 +35,7 @@ index c480e8b..a88f1db 100644
  	tristate "Qualcomm Technologies Inc SM6115 LPASS LPI pin controller driver"
  	depends on ARM64 || COMPILE_TEST
 diff --git a/drivers/pinctrl/qcom/Makefile b/drivers/pinctrl/qcom/Makefile
-index 567d305..3a547c8 100644
+index 9d7ada2..3781d9f 100644
 --- a/drivers/pinctrl/qcom/Makefile
 +++ b/drivers/pinctrl/qcom/Makefile
 @@ -47,6 +47,7 @@ obj-$(CONFIG_PINCTRL_SC8280XP)	+= pinctrl-sc8280xp.o
