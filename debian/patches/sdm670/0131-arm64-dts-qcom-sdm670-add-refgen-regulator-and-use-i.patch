@@ -1,0 +1,52 @@
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Sun, 21 Sep 2025 10:09:23 +0300
+Subject: arm64: dts: qcom: sdm670: add refgen regulator and use it for DSI
+
+Add the refgen regulator block and use it for the DSI controllers.
+
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20250921-refgen-v1-7-9d93e64133ea@oss.qualcomm.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+(cherry picked from commit 7223744176ef40969da0caa9dcc3588baa773b99)
+Link: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+Parent: Merge v6.18.5
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/sdm670.dtsi | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm670.dtsi b/arch/arm64/boot/dts/qcom/sdm670.dtsi
+index 4fca778..247621b 100644
+--- a/arch/arm64/boot/dts/qcom/sdm670.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm670.dtsi
+@@ -1595,6 +1595,12 @@ spi15: spi@a9c000 {
+ 			};
+ 		};
+ 
++		refgen: regulator@ff1000 {
++			compatible = "qcom,sdm670-refgen-regulator",
++				     "qcom,sdm845-refgen-regulator";
++			reg = <0x0 0x00ff1000 0x0 0x60>;
++		};
++
+ 		llcc: system-cache-controller@1100000 {
+ 			compatible = "qcom,sdm670-llcc";
+ 			reg = <0 0x01100000 0 0x50000>,
+@@ -2800,6 +2806,8 @@ mdss_dsi0: dsi@ae94000 {
+ 
+ 				phys = <&mdss_dsi0_phy>;
+ 
++				refgen-supply = <&refgen>;
++
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 
+@@ -2874,6 +2882,8 @@ mdss_dsi1: dsi@ae96000 {
+ 
+ 				phys = <&mdss_dsi1_phy>;
+ 
++				refgen-supply = <&refgen>;
++
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 

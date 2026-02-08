@@ -1,0 +1,26 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Mon, 2 Feb 2026 02:28:46 -0500
+Subject: ASoC: dt-bindings: qcom,sm8250: add SDM660 internal sound card
+
+On SDM660, the board has an option of three sound cards: tavil, tasha,
+and internal. The SDM660 internal sound card is defined like the SM8250
+card. Add the compatible for the SDM660 internal sound card.
+
+Parent: arm64: dts: qcom: sdm670-google: enable adsp
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+index b49a920..054e24d 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+@@ -42,6 +42,7 @@ properties:
+           - qcom,qrb5165-rb5-sndcard
+           - qcom,sc7180-qdsp6-sndcard
+           - qcom,sc8280xp-sndcard
++          - qcom,sdm660-internal-sndcard
+           - qcom,sdm845-sndcard
+           - qcom,sm8250-sndcard
+           - qcom,sm8450-sndcard
