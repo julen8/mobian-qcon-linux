@@ -1,0 +1,25 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Mon, 2 Feb 2026 09:36:42 -0500
+Subject: remoteproc: qcom: pas: Add SDM670 CDSP support
+
+The CDSP is used for compute operations via FastRPC. Add the compatible
+for the CDSP found on SDM670.
+
+Parent: dt-bindings: remoteproc: qcom: adsp: Add SDM670 CDSP compatible
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ drivers/remoteproc/qcom_q6v5_pas.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+index 266e806..7c7c66c 100644
+--- a/drivers/remoteproc/qcom_q6v5_pas.c
++++ b/drivers/remoteproc/qcom_q6v5_pas.c
+@@ -1489,6 +1489,7 @@ static const struct of_device_id qcom_pas_of_match[] = {
+ 	{ .compatible = "qcom,sc8280xp-nsp1-pas", .data = &sc8280xp_nsp1_resource},
+ 	{ .compatible = "qcom,sdm660-adsp-pas", .data = &adsp_resource_init},
+ 	{ .compatible = "qcom,sdm670-adsp-pas", .data = &sdm845_adsp_resource_init},
++	{ .compatible = "qcom,sdm670-cdsp-pas", .data = &sdm845_cdsp_resource_init},
+ 	{ .compatible = "qcom,sdm845-adsp-pas", .data = &sdm845_adsp_resource_init},
+ 	{ .compatible = "qcom,sdm845-cdsp-pas", .data = &sdm845_cdsp_resource_init},
+ 	{ .compatible = "qcom,sdm845-slpi-pas", .data = &sdm845_slpi_resource_init},
