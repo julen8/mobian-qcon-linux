@@ -1,0 +1,27 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Tue, 3 Feb 2026 21:22:40 -0500
+Subject: ASoC: dt-bindings: pm8916-analog-codec: Fix indentation
+
+Amends: ASoC: dt-bindings: pm8916-analog-codec: Add PM660L compatible
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ .../devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml     | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml b/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml
+index e00dc2d..c7424d7 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml
+@@ -16,9 +16,9 @@ properties:
+   compatible:
+     oneOf:
+       - items:
+-        - enum:
+-          - qcom,pm660l-wcd-analog-codec
+-        - const: qcom,pm8916-wcd-analog-codec
++          - enum:
++              - qcom,pm660l-wcd-analog-codec
++          - const: qcom,pm8916-wcd-analog-codec
+ 
+       - const: qcom,pm8916-wcd-analog-codec
+ 
