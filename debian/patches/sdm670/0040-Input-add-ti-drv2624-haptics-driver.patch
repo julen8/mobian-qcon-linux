@@ -57,7 +57,7 @@ index f5ebfa9..13223a6 100644
  obj-$(CONFIG_INPUT_GPIO_BEEPER)		+= gpio-beeper.o
 diff --git a/drivers/input/misc/drv2624.c b/drivers/input/misc/drv2624.c
 new file mode 100644
-index 0000000..4467cdc
+index 00000000..4467cdc
 --- /dev/null
 +++ b/drivers/input/misc/drv2624.c
 @@ -0,0 +1,951 @@
@@ -1014,7 +1014,7 @@ index 0000000..4467cdc
 +MODULE_LICENSE("GPL");
 diff --git a/drivers/input/misc/drv2624.h b/drivers/input/misc/drv2624.h
 new file mode 100644
-index 0000000..0e7beac
+index 00000000..0e7beac
 --- /dev/null
 +++ b/drivers/input/misc/drv2624.h
 @@ -0,0 +1,290 @@

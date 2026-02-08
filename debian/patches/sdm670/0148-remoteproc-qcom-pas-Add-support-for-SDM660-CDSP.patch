@@ -1,0 +1,32 @@
+From: Nickolay Goppen <setotau@mainlining.org>
+Date: Mon, 10 Nov 2025 21:29:45 +0300
+Subject: remoteproc: qcom: pas: Add support for SDM660 CDSP
+
+Compute DSP in SDM660 is compatible with generic cdsp_resource_init
+descriptor.
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Tested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> # ifc6560
+Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
+Link: https://lore.kernel.org/r/20251110-qcom-sdm660-cdsp-v3-3-cc3c37287e72@mainlining.org
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+(cherry picked from commit 950c74fd6cd80ae6773aa3bf4cb4321b83f194d2)
+Link: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+Parent: dt-bindings: remoteproc: qcom: adsp: Add SDM660 CDSP compatible
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ drivers/remoteproc/qcom_q6v5_pas.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+index 7c7c66c..755f7db 100644
+--- a/drivers/remoteproc/qcom_q6v5_pas.c
++++ b/drivers/remoteproc/qcom_q6v5_pas.c
+@@ -1488,6 +1488,7 @@ static const struct of_device_id qcom_pas_of_match[] = {
+ 	{ .compatible = "qcom,sc8280xp-nsp0-pas", .data = &sc8280xp_nsp0_resource},
+ 	{ .compatible = "qcom,sc8280xp-nsp1-pas", .data = &sc8280xp_nsp1_resource},
+ 	{ .compatible = "qcom,sdm660-adsp-pas", .data = &adsp_resource_init},
++	{ .compatible = "qcom,sdm660-cdsp-pas", .data = &cdsp_resource_init},
+ 	{ .compatible = "qcom,sdm670-adsp-pas", .data = &sdm845_adsp_resource_init},
+ 	{ .compatible = "qcom,sdm670-cdsp-pas", .data = &sdm845_cdsp_resource_init},
+ 	{ .compatible = "qcom,sdm845-adsp-pas", .data = &sdm845_adsp_resource_init},
