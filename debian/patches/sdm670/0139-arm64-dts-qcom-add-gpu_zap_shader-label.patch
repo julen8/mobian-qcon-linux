@@ -1,0 +1,55 @@
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Tue, 28 Oct 2025 23:00:06 +0200
+Subject: arm64: dts: qcom: add gpu_zap_shader label
+
+Patching existing DT nodes based on full path is error prone and
+generally not recommended. Follow the pattern introduced in the last
+platforms, add gpu_zap_shader label to the ZAP node and use it in the
+board files.
+
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: David Heidelberg <david@ixit.cz>
+Link: https://lore.kernel.org/r/20251028-dt-zap-shader-v1-7-7eccb823b986@oss.qualcomm.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+(cherry picked from commit 2377626fd216ebdf17294ac0cabc27614fff07d1)
+[richard: only pick sargo portion and apply to common devicetree include]
+Link: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+Parent: arm64: dts: qcom: sdm670: create common zap-shader node
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi | 6 +++---
+ arch/arm64/boot/dts/qcom/sdm670.dtsi               | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+index 42ae17c..51bcabc 100644
+--- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+@@ -849,10 +849,10 @@ &gpi_dma1 {
+ 
+ &gpu {
+ 	status = "okay";
++};
+ 
+-	zap-shader {
+-		firmware-name = "qcom/sdm670/sargo/a615_zap.mbn";
+-	};
++&gpu_zap_shader {
++	firmware-name = "qcom/sdm670/sargo/a615_zap.mbn";
+ };
+ 
+ &i2c3 {
+diff --git a/arch/arm64/boot/dts/qcom/sdm670.dtsi b/arch/arm64/boot/dts/qcom/sdm670.dtsi
+index c868c64..84e9e6d 100644
+--- a/arch/arm64/boot/dts/qcom/sdm670.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm670.dtsi
+@@ -2109,7 +2109,7 @@ gpu: gpu@5000000 {
+ 
+ 			status = "disabled";
+ 
+-			zap-shader {
++			gpu_zap_shader: zap-shader {
+ 				memory-region = <&gpu_mem>;
+ 			};
+ 

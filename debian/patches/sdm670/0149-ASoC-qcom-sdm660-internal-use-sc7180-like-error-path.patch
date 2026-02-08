@@ -1,0 +1,36 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Tue, 3 Feb 2026 21:05:53 -0500
+Subject: ASoC: qcom: sdm660-internal: use sc7180-like error path
+
+Amends: ASoC: qcom: add sdm660 internal sound card support
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ sound/soc/qcom/sdm660-internal.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/sound/soc/qcom/sdm660-internal.c b/sound/soc/qcom/sdm660-internal.c
+index 11faa68..98f5eaf 100644
+--- a/sound/soc/qcom/sdm660-internal.c
++++ b/sound/soc/qcom/sdm660-internal.c
+@@ -114,8 +114,9 @@ static int snd_sdm660_int_startup(struct snd_pcm_substream *stream)
+ 
+ 		break;
+ 	default:
+-		dev_err(cpu->dev, "unimplemented afe dai\n");
+-		return -ENOSYS;
++		dev_err(rtd->dev, "%s: invalid dai id 0x%x\n", __func__,
++			cpu_dai->id);
++		return -EINVAL;
+ 	}
+ 
+ 	return 0;
+@@ -161,7 +162,8 @@ static void snd_sdm660_int_shutdown(struct snd_pcm_substream *stream)
+ 
+ 		break;
+ 	default:
+-		dev_err(cpu->dev, "unimplemented afe dai\n");
++		dev_err(rtd->dev, "%s: invalid dai id 0x%x\n", __func__,
++			cpu_dai->id);
+ 		break;
+ 	}
+ }
