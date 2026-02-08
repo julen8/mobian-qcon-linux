@@ -1,0 +1,33 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Mon, 2 Feb 2026 08:59:57 -0500
+Subject: ASoC: dt-bindings: msm8916-digital-codec: Add SDM660 compatible
+
+The MSM8916 digital codec is also found on SDM660, typically connected to
+the SDM660 internal sound card. Provide a space
+for specific compatibles and add the compatible for SDM660.
+
+Parent: ASoC: dt-bindings: pm8916-analog-codec: Add PM660L compatible
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ .../devicetree/bindings/sound/qcom,msm8916-wcd-digital-codec.yaml | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/qcom,msm8916-wcd-digital-codec.yaml b/Documentation/devicetree/bindings/sound/qcom,msm8916-wcd-digital-codec.yaml
+index a899c4e..e56faed 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,msm8916-wcd-digital-codec.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,msm8916-wcd-digital-codec.yaml
+@@ -14,7 +14,13 @@ description:
+ 
+ properties:
+   compatible:
+-    const: qcom,msm8916-wcd-digital-codec
++    oneOf:
++      - items:
++        - enum:
++          - qcom,sdm660-wcd-digital-codec
++        - const: qcom,msm8916-wcd-digital-codec
++
++      - const: qcom,msm8916-wcd-digital-codec
+ 
+   reg:
+     maxItems: 1

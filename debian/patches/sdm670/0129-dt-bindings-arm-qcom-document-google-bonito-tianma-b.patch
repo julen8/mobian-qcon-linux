@@ -1,0 +1,25 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Mon, 2 Feb 2026 02:23:08 -0500
+Subject: dt-bindings: arm: qcom: document google,bonito-tianma board
+
+The google,bonito-sdc board compatible represents the Google Pixel 3a XL
+with a Tianma/Novatek NT37700F panel. Document it in the bindings.
+
+Parent: arm64: dts: qcom: sdm670-google: add bonito sdc
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index ace547f..bf01467 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -827,6 +827,7 @@ properties:
+       - items:
+           - enum:
+               - google,bonito-sdc
++              - google,bonito-tianma
+           - const: google,bonito
+           - const: qcom,sdm670
+ 

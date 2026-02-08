@@ -1,0 +1,49 @@
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Tue, 28 Oct 2025 23:00:00 +0200
+Subject: arm64: dts: qcom: sdm670: create common zap-shader node
+
+In order to reduce duplication, move common GPU memory configuration
+from individual board files to sdm670.dtsi.
+
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: David Heidelberg <david@ixit.cz>
+Link: https://lore.kernel.org/r/20251028-dt-zap-shader-v1-1-7eccb823b986@oss.qualcomm.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+(cherry picked from commit f85592223d5bf983b6c495f33cfa0344a9930d5b)
+[richard: apply to common devicetree]
+Link: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+Parent: arm64: dts: qcom: sdm670: add refgen regulator and use it for DSI
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi | 1 -
+ arch/arm64/boot/dts/qcom/sdm670.dtsi               | 4 ++++
+ 2 files changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+index 9955e01..42ae17c 100644
+--- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+@@ -851,7 +851,6 @@ &gpu {
+ 	status = "okay";
+ 
+ 	zap-shader {
+-		memory-region = <&gpu_mem>;
+ 		firmware-name = "qcom/sdm670/sargo/a615_zap.mbn";
+ 	};
+ };
+diff --git a/arch/arm64/boot/dts/qcom/sdm670.dtsi b/arch/arm64/boot/dts/qcom/sdm670.dtsi
+index 33e5f1d..c868c64 100644
+--- a/arch/arm64/boot/dts/qcom/sdm670.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm670.dtsi
+@@ -2109,6 +2109,10 @@ gpu: gpu@5000000 {
+ 
+ 			status = "disabled";
+ 
++			zap-shader {
++				memory-region = <&gpu_mem>;
++			};
++
+ 			gpu_opp_table: opp-table {
+ 				compatible = "operating-points-v2";
+ 

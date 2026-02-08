@@ -1,0 +1,45 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Mon, 2 Feb 2026 22:11:56 -0500
+Subject: Revert "media: i2c: imx355: Port imx258/imx363 stream startup fixes"
+
+As agreed with the contributor via chat (#sdm670-mainline), it would
+make sense to drop this after the power on sequence has been corrected.
+
+This reverts commit 888e69ca9b7aa0f81c06282fd97a0d5bb2f03e6c.
+
+Link: https://matrix.to/#/#sdm670-mainline:erebion.eu/$AKlS8SiDVtDQ3sMcV9t63w7oTla-jniPfcazrBwL-FQ
+Amends: media: i2c: imx355: Port imx258/imx363 stream startup fixes
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ drivers/media/i2c/imx355.c | 11 -----------
+ 1 file changed, 11 deletions(-)
+
+diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
+index 05d5077..0d6aabe 100644
+--- a/drivers/media/i2c/imx355.c
++++ b/drivers/media/i2c/imx355.c
+@@ -21,8 +21,6 @@
+ #define IMX355_MODE_STANDBY		0x00
+ #define IMX355_MODE_STREAMING		0x01
+ 
+-#define IMX355_REG_RESET		0x0103
+-
+ /* Chip ID */
+ #define IMX355_REG_CHIP_ID		0x0016
+ #define IMX355_CHIP_ID			0x0355
+@@ -1408,15 +1406,6 @@ static int imx355_start_streaming(struct imx355 *imx355)
+ 	const struct imx355_reg_list *reg_list;
+ 	int ret;
+ 
+-	ret = imx355_write_reg(imx355, IMX355_REG_RESET, 0x01, 0x01);
+-	if (ret) {
+-		dev_err(imx355->dev, "%s failed to reset sensor\n", __func__);
+-		return ret;
+-	}
+-
+-	/* 12ms is required from poweron to standby */
+-	fsleep(12000);
+-
+ 	/* Global Setting */
+ 	reg_list = &imx355_global_setting;
+ 	ret = imx355_write_regs(imx355, reg_list->regs, reg_list->num_of_regs);
