@@ -1,0 +1,48 @@
+From: Nickolay Goppen <setotau@mainlining.org>
+Date: Mon, 10 Nov 2025 21:29:43 +0300
+Subject: dt-bindings: remoteproc: qcom: adsp: Add missing constrains for
+ SDM660 ADSP
+
+Since SDM660 ADSP node uses "xo" clock, interrupts and "cx" power domain
+properties add corresponding constrains for SDM660 ADSP.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
+Link: https://lore.kernel.org/r/20251110-qcom-sdm660-cdsp-v3-1-cc3c37287e72@mainlining.org
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+(cherry picked from commit db03780e43781d48effef75c9b1960987f6751d4)
+Link: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+Parent: arm64: dts: qcom: add gpu_zap_shader label
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml
+index e9d12ad..4f1f33f 100644
+--- a/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml
++++ b/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml
+@@ -71,6 +71,7 @@ allOf:
+               - qcom,msm8996-slpi-pil
+               - qcom,msm8998-adsp-pas
+               - qcom,msm8998-slpi-pas
++              - qcom,sdm660-adsp-pas
+               - qcom,sdm670-adsp-pas
+               - qcom,sdm670-cdsp-pas
+               - qcom,sdm845-adsp-pas
+@@ -97,6 +98,7 @@ allOf:
+               - qcom,msm8996-slpi-pil
+               - qcom,msm8998-adsp-pas
+               - qcom,msm8998-slpi-pas
++              - qcom,sdm660-adsp-pas
+               - qcom,sdm670-adsp-pas
+               - qcom,sdm670-cdsp-pas
+               - qcom,sdm845-adsp-pas
+@@ -128,6 +130,7 @@ allOf:
+               - qcom,msm8953-adsp-pil
+               - qcom,msm8996-adsp-pil
+               - qcom,msm8998-adsp-pas
++              - qcom,sdm660-adsp-pas
+     then:
+       properties:
+         power-domains:

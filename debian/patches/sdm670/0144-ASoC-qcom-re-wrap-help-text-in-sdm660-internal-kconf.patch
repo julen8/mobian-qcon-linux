@@ -1,0 +1,25 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Tue, 3 Feb 2026 09:19:39 -0500
+Subject: ASoC: qcom: re-wrap help text in sdm660-internal kconfig option
+
+Amends: ASoC: qcom: add sdm660 internal sound card support
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ sound/soc/qcom/Kconfig | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
+index d161e60..603ac93c 100644
+--- a/sound/soc/qcom/Kconfig
++++ b/sound/soc/qcom/Kconfig
+@@ -183,8 +183,8 @@ config SND_SOC_SDM660_INT
+ 	select SND_SOC_QDSP6
+ 	select SND_SOC_QCOM_COMMON
+ 	help
+-	  This adds support for audio on Qualcomm Technologies Inc. SDM660
+-	  and SDM670 SoC-based systems.
++	  This adds support for audio on Qualcomm Technologies Inc.
++	  SDM660 and SDM670 SoC-based systems.
+ 	  Say Y if you want to use audio devices on these SoCs.
+ 
+ config SND_SOC_SDM845

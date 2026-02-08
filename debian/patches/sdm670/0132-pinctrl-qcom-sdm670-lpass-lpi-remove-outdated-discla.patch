@@ -1,0 +1,27 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Mon, 2 Feb 2026 03:23:19 -0500
+Subject: pinctrl: qcom: sdm670-lpass-lpi: remove outdated disclaimer from
+ comment
+
+Amends: pinctrl: qcom: add sdm670 lpi tlmm
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ drivers/pinctrl/qcom/pinctrl-sdm670-lpass-lpi.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/drivers/pinctrl/qcom/pinctrl-sdm670-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-sdm670-lpass-lpi.c
+index 7210fae..6902727 100644
+--- a/drivers/pinctrl/qcom/pinctrl-sdm670-lpass-lpi.c
++++ b/drivers/pinctrl/qcom/pinctrl-sdm670-lpass-lpi.c
+@@ -1,10 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ /*
+- * This driver is solely based on the limited information in downstream code.
+- * Any verification with schematics or SDM660 devices would be greatly
+- * appreciated.
+- *
+- * Copyright (c) 2023, Richard Acayan. All rights reserved.
++ * Copyright (c) 2023-2026, Richard Acayan. All rights reserved.
+  */
+ 
+ #include <linux/kernel.h>
