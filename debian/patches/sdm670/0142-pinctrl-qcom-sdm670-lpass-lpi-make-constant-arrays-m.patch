@@ -1,0 +1,51 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Tue, 3 Feb 2026 09:09:58 -0500
+Subject: pinctrl: qcom: sdm670-lpass-lpi: make constant arrays more const
+
+Amends: pinctrl: qcom: add sdm670 lpi tlmm
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ drivers/pinctrl/qcom/pinctrl-sdm670-lpass-lpi.c | 30 ++++++++++++-------------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/pinctrl/qcom/pinctrl-sdm670-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-sdm670-lpass-lpi.c
+index 6902727..604a445 100644
+--- a/drivers/pinctrl/qcom/pinctrl-sdm670-lpass-lpi.c
++++ b/drivers/pinctrl/qcom/pinctrl-sdm670-lpass-lpi.c
+@@ -67,21 +67,21 @@ static const struct pinctrl_pin_desc sdm670_lpi_pinctrl_pins[] = {
+ 	PINCTRL_PIN(31, "gpio31"),
+ };
+ 
+-static const char *sec_tdm_groups[] = { "gpio8", "gpio9" };
+-static const char *sec_tdm_din_groups[] = { "gpio10" };
+-static const char *sec_tdm_dout_groups[] = { "gpio11" };
+-
+-static const char *comp_rx_groups[] = { "gpio22", "gpio24" };
+-static const char *dmic1_clk_groups[] = { "gpio26" };
+-static const char *dmic1_data_groups[] = { "gpio27" };
+-static const char *dmic2_clk_groups[] = { "gpio28" };
+-static const char *dmic2_data_groups[] = { "gpio29" };
+-static const char *lpi_cdc_rst_groups[] = { "gpio29" };
+-static const char *mclk0_groups[] = { "gpio19" };
+-static const char *pdm_clk_groups[] = { "gpio18" };
+-static const char *pdm_rx_groups[] = { "gpio21", "gpio23", "gpio25" };
+-static const char *pdm_sync_groups[] = { "gpio19" };
+-static const char *pdm_tx_groups[] = { "gpio20" };
++static const char * const sec_tdm_groups[] = { "gpio8", "gpio9" };
++static const char * const sec_tdm_din_groups[] = { "gpio10" };
++static const char * const sec_tdm_dout_groups[] = { "gpio11" };
++
++static const char * const comp_rx_groups[] = { "gpio22", "gpio24" };
++static const char * const dmic1_clk_groups[] = { "gpio26" };
++static const char * const dmic1_data_groups[] = { "gpio27" };
++static const char * const dmic2_clk_groups[] = { "gpio28" };
++static const char * const dmic2_data_groups[] = { "gpio29" };
++static const char * const lpi_cdc_rst_groups[] = { "gpio29" };
++static const char * const mclk0_groups[] = { "gpio19" };
++static const char * const pdm_clk_groups[] = { "gpio18" };
++static const char * const pdm_rx_groups[] = { "gpio21", "gpio23", "gpio25" };
++static const char * const pdm_sync_groups[] = { "gpio19" };
++static const char * const pdm_tx_groups[] = { "gpio20" };
+ 
+ const struct lpi_pingroup sdm670_lpi_pinctrl_groups[] = {
+ 	LPI_PINGROUP(0, LPI_NO_SLEW, _, _, _, _),
