@@ -1,0 +1,23 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Mon, 2 Feb 2026 09:38:54 -0500
+Subject: arm64: dts: qcom: sdm670: use dedicated sdm670 cdsp compatible
+
+Amends: arm64: dts: qcom: sdm670: add cdsp
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/sdm670.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm670.dtsi b/arch/arm64/boot/dts/qcom/sdm670.dtsi
+index 247621b..33e5f1d 100644
+--- a/arch/arm64/boot/dts/qcom/sdm670.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm670.dtsi
+@@ -2257,7 +2257,7 @@ gpucc: clock-controller@5090000 {
+ 		};
+ 
+ 		cdsp_pas: remoteproc@8300000 {
+-			compatible = "qcom,sdm845-cdsp-pas";
++			compatible = "qcom,sdm670-cdsp-pas";
+ 			reg = <0 0x08300000 0 0x100000>;
+ 
+ 			interrupts-extended = <&intc GIC_SPI 578 IRQ_TYPE_EDGE_RISING>,

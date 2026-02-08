@@ -1,0 +1,23 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Tue, 3 Feb 2026 09:12:34 -0500
+Subject: dt-bindings: pinctrl: sdm670-lpass-lpi: remove fake maintainer entry
+
+Amends: dt-bindings: pinctrl: qcom: Add SDM670 LPI pinctrl
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ .../devicetree/bindings/pinctrl/qcom,sdm670-lpass-lpi-pinctrl.yaml      | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,sdm670-lpass-lpi-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,sdm670-lpass-lpi-pinctrl.yaml
+index 96d3f40..2b87cd6 100644
+--- a/Documentation/devicetree/bindings/pinctrl/qcom,sdm670-lpass-lpi-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/qcom,sdm670-lpass-lpi-pinctrl.yaml
+@@ -8,8 +8,6 @@ title: Qualcomm SDM670 SoC LPASS LPI TLMM
+ 
+ maintainers:
+   - Richard Acayan <mailingradian@gmail.com>
+-    # Maybe?
+-  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+ 
+ description:
+   Top Level Mode Multiplexer pin controller in the Low Power Audio SubSystem
