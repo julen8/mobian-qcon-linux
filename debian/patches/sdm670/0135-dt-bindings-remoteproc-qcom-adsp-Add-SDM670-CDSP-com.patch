@@ -1,0 +1,32 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Mon, 2 Feb 2026 09:35:23 -0500
+Subject: dt-bindings: remoteproc: qcom: adsp: Add SDM670 CDSP compatible
+
+Add the compatible for the Compute DSP on SDM670.
+
+Parent: power: supply: qcom_pmi8998_charger: increase default current to 3 Amps
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml
+index d84b8e0..aa0d7b8 100644
+--- a/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml
++++ b/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml
+@@ -25,6 +25,7 @@ properties:
+       - qcom,msm8998-slpi-pas
+       - qcom,sdm660-adsp-pas
+       - qcom,sdm670-adsp-pas
++      - qcom,sdm670-cdsp-pas
+       - qcom,sdm845-adsp-pas
+       - qcom,sdm845-cdsp-pas
+       - qcom,sdm845-slpi-pas
+@@ -71,6 +72,7 @@ allOf:
+               - qcom,msm8998-adsp-pas
+               - qcom,msm8998-slpi-pas
+               - qcom,sdm670-adsp-pas
++              - qcom,sdm670-cdsp-pas
+               - qcom,sdm845-adsp-pas
+               - qcom,sdm845-cdsp-pas
+               - qcom,sdm845-slpi-pas

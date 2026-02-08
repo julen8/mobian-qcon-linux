@@ -1,0 +1,62 @@
+From: Nickolay Goppen <setotau@mainlining.org>
+Date: Mon, 10 Nov 2025 21:29:44 +0300
+Subject: dt-bindings: remoteproc: qcom: adsp: Add SDM660 CDSP compatible
+
+Add compatible for the compute DSP remoteproc found in SDM660.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
+Link: https://lore.kernel.org/r/20251110-qcom-sdm660-cdsp-v3-2-cc3c37287e72@mainlining.org
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+(cherry picked from commit acd6c28a2503f1e53ef06fb3dc1b6cbf9cc6cec3)
+Link: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+Parent: dt-bindings: remoteproc: qcom: adsp: Add missing constrains for SDM660 ADSP
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml
+index 4f1f33f..34969ea 100644
+--- a/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml
++++ b/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml
+@@ -24,6 +24,7 @@ properties:
+       - qcom,msm8998-adsp-pas
+       - qcom,msm8998-slpi-pas
+       - qcom,sdm660-adsp-pas
++      - qcom,sdm660-cdsp-pas
+       - qcom,sdm670-adsp-pas
+       - qcom,sdm670-cdsp-pas
+       - qcom,sdm845-adsp-pas
+@@ -72,6 +73,7 @@ allOf:
+               - qcom,msm8998-adsp-pas
+               - qcom,msm8998-slpi-pas
+               - qcom,sdm660-adsp-pas
++              - qcom,sdm660-cdsp-pas
+               - qcom,sdm670-adsp-pas
+               - qcom,sdm670-cdsp-pas
+               - qcom,sdm845-adsp-pas
+@@ -99,6 +101,7 @@ allOf:
+               - qcom,msm8998-adsp-pas
+               - qcom,msm8998-slpi-pas
+               - qcom,sdm660-adsp-pas
++              - qcom,sdm660-cdsp-pas
+               - qcom,sdm670-adsp-pas
+               - qcom,sdm670-cdsp-pas
+               - qcom,sdm845-adsp-pas
+@@ -131,6 +134,7 @@ allOf:
+               - qcom,msm8996-adsp-pil
+               - qcom,msm8998-adsp-pas
+               - qcom,sdm660-adsp-pas
++              - qcom,sdm660-cdsp-pas
+     then:
+       properties:
+         power-domains:
+@@ -187,6 +191,7 @@ allOf:
+               - qcom,msm8998-adsp-pas
+               - qcom,msm8998-slpi-pas
+               - qcom,sdm660-adsp-pas
++              - qcom,sdm660-cdsp-pas
+     then:
+       properties:
+         qcom,qmp: false
