@@ -1,3 +1,9 @@
+linux-6.18-sdm670 (6.18.9-2) trixie; urgency=medium
+
+  * d/patches: import latest patches from sdm670-mainline
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Sun, 08 Feb 2026 12:25:03 +0100
+
 linux-6.18-sdm670 (6.18.9-1) trixie; urgency=medium
 
   * Rebase on 6.18.9
