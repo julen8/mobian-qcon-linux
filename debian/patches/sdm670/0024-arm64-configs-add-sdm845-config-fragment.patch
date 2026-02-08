@@ -155,7 +155,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
 
 diff --git a/arch/arm64/configs/sdm845.config b/arch/arm64/configs/sdm845.config
 new file mode 100644
-index 0000000..ad7c71b
+index 00000000..ad7c71b
 --- /dev/null
 +++ b/arch/arm64/configs/sdm845.config
 @@ -0,0 +1,1160 @@

@@ -1,0 +1,23 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Tue, 3 Feb 2026 13:44:15 -0500
+Subject: dt-bindings: remoteproc: qcom: adsp: Constrain interrupts on SDM670
+ CDSP
+
+Amends: dt-bindings: remoteproc: qcom: adsp: Add SDM670 CDSP compatible
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml
+index aa0d7b8..e9d12ad 100644
+--- a/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml
++++ b/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml
+@@ -98,6 +98,7 @@ allOf:
+               - qcom,msm8998-adsp-pas
+               - qcom,msm8998-slpi-pas
+               - qcom,sdm670-adsp-pas
++              - qcom,sdm670-cdsp-pas
+               - qcom,sdm845-adsp-pas
+               - qcom,sdm845-cdsp-pas
+               - qcom,sdm845-slpi-pas

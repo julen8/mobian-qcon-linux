@@ -1,0 +1,33 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Mon, 2 Feb 2026 08:53:18 -0500
+Subject: ASoC: dt-bindings: pm8916-analog-codec: Add PM660L compatible
+
+The PM8916 analog codec is also found on PM660L, typically connected to
+the SDM660 internal sound card via the digital codec. Provide a space
+for specific compatibles and add the compatible for PM660L.
+
+Parent: ASoC: dt-bindings: qcom: q6dsp: add internal mi2s support
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ .../devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml   | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml b/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml
+index 94e7a18..e00dc2d 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml
+@@ -14,7 +14,13 @@ description:
+ 
+ properties:
+   compatible:
+-    const: qcom,pm8916-wcd-analog-codec
++    oneOf:
++      - items:
++        - enum:
++          - qcom,pm660l-wcd-analog-codec
++        - const: qcom,pm8916-wcd-analog-codec
++
++      - const: qcom,pm8916-wcd-analog-codec
+ 
+   reg:
+     maxItems: 1
