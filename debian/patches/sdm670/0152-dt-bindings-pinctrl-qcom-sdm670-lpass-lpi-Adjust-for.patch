@@ -1,0 +1,24 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Tue, 3 Feb 2026 21:23:54 -0500
+Subject: dt-bindings: pinctrl: qcom: sdm670-lpass-lpi: Adjust for 1 address,
+ size cell
+
+Amends: dt-bindings: pinctrl: qcom: Add SDM670 LPI pinctrl
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ .../devicetree/bindings/pinctrl/qcom,sdm670-lpass-lpi-pinctrl.yaml      | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,sdm670-lpass-lpi-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,sdm670-lpass-lpi-pinctrl.yaml
+index 2b87cd6..125f365 100644
+--- a/Documentation/devicetree/bindings/pinctrl/qcom,sdm670-lpass-lpi-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/qcom,sdm670-lpass-lpi-pinctrl.yaml
+@@ -68,7 +68,7 @@ examples:
+   - |
+     lpi_tlmm: pinctrl@62b40000 {
+         compatible = "qcom,sdm670-lpass-lpi-pinctrl";
+-        reg = <0 0x62b40000 0 0x20000>;
++        reg = <0x62b40000 0x20000>;
+         gpio-controller;
+         #gpio-cells = <2>;
+         gpio-ranges = <&lpi_tlmm 0 0 32>;

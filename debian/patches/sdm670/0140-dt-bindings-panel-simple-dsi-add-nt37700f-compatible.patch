@@ -1,0 +1,25 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Mon, 2 Feb 2026 21:55:12 -0500
+Subject: dt-bindings: panel-simple-dsi: add nt37700f compatible
+
+Add the compatible for the NT37700F panel found on the Pixel 3a XL.
+
+Parent: dt-bindings: arm: qcom: document google,bonito-tianma board
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ Documentation/devicetree/bindings/display/panel/panel-simple-dsi.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/display/panel/panel-simple-dsi.yaml b/Documentation/devicetree/bindings/display/panel/panel-simple-dsi.yaml
+index 9b92a05..a647af4 100644
+--- a/Documentation/devicetree/bindings/display/panel/panel-simple-dsi.yaml
++++ b/Documentation/devicetree/bindings/display/panel/panel-simple-dsi.yaml
+@@ -48,6 +48,8 @@ properties:
+       - lg,lh500wx1-sd03
+         # Lincoln LCD197 5" 1080x1920 LCD panel
+       - lincolntech,lcd197
++        # Novatek NT37700F 1080x2160 AMOLED panel
++      - novatek,nt37700f
+         # One Stop Displays OSD101T2587-53TS 10.1" 1920x1200 panel
+       - osddisplays,osd101t2587-53ts
+         # Panasonic 10" WUXGA TFT LCD panel

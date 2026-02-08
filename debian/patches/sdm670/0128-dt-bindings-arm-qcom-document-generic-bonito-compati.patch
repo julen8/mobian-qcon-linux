@@ -1,0 +1,31 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Mon, 2 Feb 2026 02:21:28 -0500
+Subject: dt-bindings: arm: qcom: document generic bonito compatible
+
+Amends: dt-bindings: arm: qcom: document google,bonito-sdc board
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 26a2097..ace547f 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -821,10 +821,15 @@ properties:
+ 
+       - items:
+           - enum:
+-              - google,bonito-sdc
+               - google,sargo
+           - const: qcom,sdm670
+ 
++      - items:
++          - enum:
++              - google,bonito-sdc
++          - const: google,bonito
++          - const: qcom,sdm670
++
+       - items:
+           - enum:
+               - qcom,sdx55-mtp
