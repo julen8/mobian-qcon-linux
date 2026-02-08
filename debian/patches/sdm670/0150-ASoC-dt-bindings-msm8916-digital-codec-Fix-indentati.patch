@@ -1,0 +1,27 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Tue, 3 Feb 2026 21:22:11 -0500
+Subject: ASoC: dt-bindings: msm8916-digital-codec: Fix indentation
+
+Amends: ASoC: dt-bindings: msm8916-digital-codec: Add SDM660 compatible
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ .../devicetree/bindings/sound/qcom,msm8916-wcd-digital-codec.yaml   | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/qcom,msm8916-wcd-digital-codec.yaml b/Documentation/devicetree/bindings/sound/qcom,msm8916-wcd-digital-codec.yaml
+index e56faed..33bc23b 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,msm8916-wcd-digital-codec.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,msm8916-wcd-digital-codec.yaml
+@@ -16,9 +16,9 @@ properties:
+   compatible:
+     oneOf:
+       - items:
+-        - enum:
+-          - qcom,sdm660-wcd-digital-codec
+-        - const: qcom,msm8916-wcd-digital-codec
++          - enum:
++              - qcom,sdm660-wcd-digital-codec
++          - const: qcom,msm8916-wcd-digital-codec
+ 
+       - const: qcom,msm8916-wcd-digital-codec
+ 
