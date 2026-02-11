@@ -37,7 +37,7 @@ index 0f0f46e..b3c03ca 100644
  sdm845-db845c-navigation-mezzanine-dtbs	:= sdm845-db845c.dtb sdm845-db845c-navigation-mezzanine.dtbo
 diff --git a/arch/arm64/boot/dts/qcom/sdm710-xiaomi-pyxis.dts b/arch/arm64/boot/dts/qcom/sdm710-xiaomi-pyxis.dts
 new file mode 100644
-index 00000000..98fbc75
+index 0000000..98fbc75
 --- /dev/null
 +++ b/arch/arm64/boot/dts/qcom/sdm710-xiaomi-pyxis.dts
 @@ -0,0 +1,1131 @@
