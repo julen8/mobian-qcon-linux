@@ -15,7 +15,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
 
 diff --git a/Documentation/devicetree/bindings/power/supply/qcom,fg.yaml b/Documentation/devicetree/bindings/power/supply/qcom,fg.yaml
 new file mode 100644
-index 00000000..5ab8eb1
+index 0000000..5ab8eb1
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/power/supply/qcom,fg.yaml
 @@ -0,0 +1,103 @@
