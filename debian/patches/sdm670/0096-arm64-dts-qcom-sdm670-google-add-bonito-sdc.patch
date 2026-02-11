@@ -25,7 +25,7 @@ index 296688f..538e6565 100644
  sdm845-db845c-navigation-mezzanine-dtbs	:= sdm845-db845c.dtb sdm845-db845c-navigation-mezzanine.dtbo
 diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-bonito-sdc.dts b/arch/arm64/boot/dts/qcom/sdm670-google-bonito-sdc.dts
 new file mode 100644
-index 00000000..3131174
+index 0000000..3131174
 --- /dev/null
 +++ b/arch/arm64/boot/dts/qcom/sdm670-google-bonito-sdc.dts
 @@ -0,0 +1,42 @@
