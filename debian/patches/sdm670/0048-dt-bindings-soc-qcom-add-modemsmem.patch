@@ -14,7 +14,7 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
 
 diff --git a/Documentation/devicetree/bindings/soc/qcom/google,modemsmem.yaml b/Documentation/devicetree/bindings/soc/qcom/google,modemsmem.yaml
 new file mode 100644
-index 00000000..59fa8a9
+index 0000000..59fa8a9
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/soc/qcom/google,modemsmem.yaml
 @@ -0,0 +1,40 @@
