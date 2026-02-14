@@ -1,0 +1,46 @@
+From: erebion <erebion@erebion.eu>
+Date: Tue, 24 Mar 2026 23:18:42 +0100
+Subject: arm64: dts: qcom: sm6350-lena: Add qcom,rmtfs-mem node
+
+Adds the qcom,rmtfs-mem node required for the modem
+
+Signed-off-by: erebion <erebion@erebion.eu>
+---
+ .../boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+index 6530573..78965a3 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
++++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+@@ -11,6 +11,7 @@
+ /* PMK8350 (in reality a PMK8003) is configured to use SID6 instead of 0 */
+ #define PMK8350_SID 6
+ 
++#include <dt-bindings/firmware/qcom,scm.h>
+ #include <dt-bindings/iio/qcom,spmi-adc7-pmk8350.h>
+ #include <dt-bindings/leds/common.h>
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+@@ -176,6 +177,22 @@ touch_en_vreg: touch-en-regulator {
+ 
+ 		vin-supply = <&pm6350_l6>;
+ 	};
++
++	reserved-memory {
++		/*
++		 * The rmtfs memory region in downstream is 'dynamically allocated'
++		 * but given the same address every time. Hard code it as this address is
++		 * where the modem firmware expects it to be.
++		 */
++		rmtfs@fe901000 {
++			compatible = "qcom,rmtfs-mem";
++			reg = <0x0 0xfe901000 0x0 0x280000>;
++			no-map;
++
++			qcom,client-id = <1>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
++		};
++	};
+ };
+ 
+ &adsp {

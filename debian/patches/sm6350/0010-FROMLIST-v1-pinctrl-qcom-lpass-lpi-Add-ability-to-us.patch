@@ -1,0 +1,87 @@
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Wed, 28 Jan 2026 13:26:50 +0100
+Subject: FROMLIST v1 pinctrl: qcom: lpass-lpi: Add ability to use SPARE_1 for
+ slew control
+
+On some platforms like SM6350 (Bitra), some pins have their slew
+controlled with the SPARE_1 register - probably because they ran out of
+register space for an extra pin. Add support for that.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ drivers/pinctrl/qcom/pinctrl-lpass-lpi.c |  2 ++
+ drivers/pinctrl/qcom/pinctrl-lpass-lpi.h | 20 ++++++++++++++++++++
+ 2 files changed, 22 insertions(+)
+
+diff --git a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
+index 76aed32..15ced50 100644
+--- a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
++++ b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
+@@ -220,6 +220,8 @@ static int lpi_config_set_slew_rate(struct lpi_pinctrl *pctrl,
+ 
+ 	if (pctrl->data->flags & LPI_FLAG_SLEW_RATE_SAME_REG)
+ 		reg = pctrl->tlmm_base + LPI_TLMM_REG_OFFSET * group + LPI_GPIO_CFG_REG;
++	else if (g->slew_base_spare_1)
++		reg = pctrl->slew_base + LPI_SPARE_1_REG;
+ 	else
+ 		reg = pctrl->slew_base + LPI_SLEW_RATE_CTL_REG;
+ 
+diff --git a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
+index f483684..6ba0c4eb 100644
+--- a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
++++ b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
+@@ -16,6 +16,7 @@ struct platform_device;
+ struct pinctrl_pin_desc;
+ 
+ #define LPI_SLEW_RATE_CTL_REG	0xa000
++#define LPI_SPARE_1_REG		0xc000
+ #define LPI_TLMM_REG_OFFSET		0x1000
+ #define LPI_SLEW_RATE_MAX		0x03
+ #define LPI_SLEW_BITS_SIZE		0x02
+@@ -47,6 +48,7 @@ struct pinctrl_pin_desc;
+ 	{						\
+ 		.pin = id,				\
+ 		.slew_offset = soff,			\
++		.slew_base_spare_1 = false,		\
+ 		.funcs = (int[]){			\
+ 			LPI_MUX_gpio,			\
+ 			LPI_MUX_##f1,			\
+@@ -62,6 +64,7 @@ struct pinctrl_pin_desc;
+ 	{							\
+ 		.pin = id,					\
+ 		.slew_offset = soff,				\
++		.slew_base_spare_1 = false,			\
+ 		.funcs = (int[]){				\
+ 			LPI_MUX_gpio,				\
+ 			LPI_MUX_##f1,				\
+@@ -73,6 +76,22 @@ struct pinctrl_pin_desc;
+ 		.pin_offset = poff,				\
+ 	}
+ 
++#define LPI_PINGROUP_SLEW_SPARE_1(id, soff, f1, f2, f3, f4)	\
++	{							\
++		.pin = id,					\
++		.slew_offset = soff,				\
++		.slew_base_spare_1 = true,			\
++		.funcs = (int[]){				\
++			LPI_MUX_gpio,				\
++			LPI_MUX_##f1,				\
++			LPI_MUX_##f2,				\
++			LPI_MUX_##f3,				\
++			LPI_MUX_##f4,				\
++		},						\
++		.nfuncs = 5,					\
++		.pin_offset = 0,				\
++	}
++
+ /*
+  * Slew rate control is done in the same register as rest of the
+  * pin configuration.
+@@ -87,6 +106,7 @@ struct lpi_pingroup {
+ 	unsigned int *funcs;
+ 	unsigned int nfuncs;
+ 	unsigned int pin_offset;
++	bool slew_base_spare_1;
+ };
+ 
+ struct lpi_function {
