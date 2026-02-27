@@ -8,10 +8,10 @@ Signed-off-by: Jens Reidel <adrian@mainlining.org>
  1 file changed, 8 insertions(+)
 
 diff --git a/sound/soc/codecs/aw88261.c b/sound/soc/codecs/aw88261.c
-index 706419a..d79920c 100644
+index f3d37a3..c5d82e2 100644
 --- a/sound/soc/codecs/aw88261.c
 +++ b/sound/soc/codecs/aw88261.c
-@@ -1278,6 +1278,13 @@ static int aw88261_i2c_probe(struct i2c_client *i2c)
+@@ -1279,6 +1279,13 @@ static int aw88261_i2c_probe(struct i2c_client *i2c)
  	return ret;
  }
  
@@ -25,7 +25,7 @@ index 706419a..d79920c 100644
  static const struct i2c_device_id aw88261_i2c_id[] = {
  	{ AW88261_I2C_NAME },
  	{ }
-@@ -1287,6 +1294,7 @@ MODULE_DEVICE_TABLE(i2c, aw88261_i2c_id);
+@@ -1288,6 +1295,7 @@ MODULE_DEVICE_TABLE(i2c, aw88261_i2c_id);
  static struct i2c_driver aw88261_i2c_driver = {
  	.driver = {
  		.name = AW88261_I2C_NAME,
