@@ -9,10 +9,10 @@ Signed-off-by: Jens Reidel <adrian@travitia.xyz>
  2 files changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/sound/soc/codecs/aw88261.c b/sound/soc/codecs/aw88261.c
-index 21d5505..706419a 100644
+index 6bcc9a7..f3d37a3 100644
 --- a/sound/soc/codecs/aw88261.c
 +++ b/sound/soc/codecs/aw88261.c
-@@ -1205,8 +1205,8 @@ static int aw88261_init(struct aw88261 **aw88261, struct i2c_client *i2c, struct
+@@ -1206,8 +1206,8 @@ static int aw88261_init(struct aw88261 **aw88261, struct i2c_client *i2c, struct
  		dev_err(&i2c->dev, "%s read chipid error. ret = %d", __func__, ret);
  		return ret;
  	}
@@ -23,7 +23,7 @@ index 21d5505..706419a 100644
  		return -ENXIO;
  	}
  
-@@ -1220,7 +1220,7 @@ static int aw88261_init(struct aw88261 **aw88261, struct i2c_client *i2c, struct
+@@ -1221,7 +1221,7 @@ static int aw88261_init(struct aw88261 **aw88261, struct i2c_client *i2c, struct
  	aw_dev->i2c = i2c;
  	aw_dev->regmap = regmap;
  	aw_dev->dev = &i2c->dev;
