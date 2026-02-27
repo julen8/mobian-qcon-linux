@@ -8,7 +8,7 @@ This reverts commit 4eed047b76fa8f56af478ca7e6d56ca7e5330cf2.
  1 file changed, 15 insertions(+)
 
 diff --git a/sound/soc/codecs/aw88261.c b/sound/soc/codecs/aw88261.c
-index de11ae8..21d5505 100644
+index 124c0a5..6bcc9a7 100644
 --- a/sound/soc/codecs/aw88261.c
 +++ b/sound/soc/codecs/aw88261.c
 @@ -10,6 +10,7 @@
@@ -19,7 +19,7 @@ index de11ae8..21d5505 100644
  #include <linux/regmap.h>
  #include <sound/soc.h>
  #include "aw88261.h"
-@@ -1172,6 +1173,14 @@ static const struct snd_soc_component_driver soc_codec_dev_aw88261 = {
+@@ -1173,6 +1174,14 @@ static const struct snd_soc_component_driver soc_codec_dev_aw88261 = {
  	.remove = aw88261_codec_remove,
  };
  
@@ -34,7 +34,7 @@ index de11ae8..21d5505 100644
  static void aw88261_parse_channel_dt(struct aw88261 *aw88261)
  {
  	struct aw_device *aw_dev = aw88261->aw_pa;
-@@ -1243,6 +1252,12 @@ static int aw88261_i2c_probe(struct i2c_client *i2c)
+@@ -1244,6 +1253,12 @@ static int aw88261_i2c_probe(struct i2c_client *i2c)
  
  	i2c_set_clientdata(i2c, aw88261);
  
