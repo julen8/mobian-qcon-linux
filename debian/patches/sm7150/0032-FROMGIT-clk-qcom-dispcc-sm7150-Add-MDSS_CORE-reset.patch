@@ -10,7 +10,7 @@ Signed-off-by: Jens Reidel <adrian@mainlining.org>
  1 file changed, 7 insertions(+)
 
 diff --git a/drivers/clk/qcom/dispcc-sm7150.c b/drivers/clk/qcom/dispcc-sm7150.c
-index ddc7230..811d380 100644
+index 923f0f3..ed8e34f 100644
 --- a/drivers/clk/qcom/dispcc-sm7150.c
 +++ b/drivers/clk/qcom/dispcc-sm7150.c
 @@ -20,6 +20,7 @@
