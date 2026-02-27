@@ -8,10 +8,10 @@ Signed-off-by: Jens Reidel <adrian@mainlining.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backlight/qcom-wled.c
-index a63bb42..9cb90c3 100644
+index 8054e47..11ce1d89 100644
 --- a/drivers/video/backlight/qcom-wled.c
 +++ b/drivers/video/backlight/qcom-wled.c
-@@ -1598,7 +1598,7 @@ static int wled_configure_ovp_irq(struct wled *wled,
+@@ -1636,7 +1636,7 @@ static int wled_configure_ovp_irq(struct wled *wled,
  	}
  
  	rc = devm_request_threaded_irq(wled->dev, wled->ovp_irq, NULL,
