@@ -367,7 +367,7 @@ index 060c2d8..ff01a64 100644
  #endif /* __LINUX_FOCALTECH_COMMON_H__ */
 diff --git a/drivers/input/touchscreen/focaltech_touch/focaltech_config.h b/drivers/input/touchscreen/focaltech_touch/focaltech_config.h
 deleted file mode 100644
-index 7ebb414..00000000
+index 7ebb414..0000000
 --- a/drivers/input/touchscreen/focaltech_touch/focaltech_config.h
 +++ /dev/null
 @@ -1,307 +0,0 @@
@@ -4463,7 +4463,7 @@ index 6dfff38..70a8d81 100644
  void fts_release_all_finger(void);
 diff --git a/drivers/input/touchscreen/focaltech_touch/focaltech_esdcheck.c b/drivers/input/touchscreen/focaltech_touch/focaltech_esdcheck.c
 deleted file mode 100644
-index 4be3ced..00000000
+index 4be3ced..0000000
 --- a/drivers/input/touchscreen/focaltech_touch/focaltech_esdcheck.c
 +++ /dev/null
 @@ -1,449 +0,0 @@
@@ -10346,7 +10346,7 @@ index 85bf5dd..8260e39 100644
  #endif
 diff --git a/drivers/input/touchscreen/focaltech_touch/focaltech_gesture.c b/drivers/input/touchscreen/focaltech_touch/focaltech_gesture.c
 deleted file mode 100644
-index a679de7..00000000
+index a679de7..0000000
 --- a/drivers/input/touchscreen/focaltech_touch/focaltech_gesture.c
 +++ /dev/null
 @@ -1,578 +0,0 @@
@@ -10930,7 +10930,7 @@ index a679de7..00000000
 -}
 diff --git a/drivers/input/touchscreen/focaltech_touch/focaltech_point_report_check.c b/drivers/input/touchscreen/focaltech_touch/focaltech_point_report_check.c
 deleted file mode 100644
-index 8b117a8..00000000
+index 8b117a8..0000000
 --- a/drivers/input/touchscreen/focaltech_touch/focaltech_point_report_check.c
 +++ /dev/null
 @@ -1,185 +0,0 @@
@@ -11913,7 +11913,7 @@ index 004eeae..c9cc1f1 100644
 +}
 diff --git a/drivers/input/touchscreen/focaltech_touch/include/firmware/FT3680_WXN_M146_V02_D01_20211210_app.i b/drivers/input/touchscreen/focaltech_touch/include/firmware/FT3680_WXN_M146_V02_D01_20211210_app.i
 deleted file mode 100644
-index 44d2069..00000000
+index 44d2069..0000000
 --- a/drivers/input/touchscreen/focaltech_touch/include/firmware/FT3680_WXN_M146_V02_D01_20211210_app.i
 +++ /dev/null
 @@ -1,6634 +0,0 @@
@@ -18553,7 +18553,7 @@ index 44d2069..00000000
 -0x1f,0xff,0xff,0xff,0x0, 0xf, 0xff,0xff,0xf, 0xff,0xff,0xff,0x0, 0x0, 0x0, 0x0, 
 diff --git a/drivers/input/touchscreen/focaltech_touch/include/firmware/FT3680_WXN_M146_V13_D01_20220115_app.i b/drivers/input/touchscreen/focaltech_touch/include/firmware/FT3680_WXN_M146_V13_D01_20220115_app.i
 deleted file mode 100644
-index 4e76eed..00000000
+index 4e76eed..0000000
 --- a/drivers/input/touchscreen/focaltech_touch/include/firmware/FT3680_WXN_M146_V13_D01_20220115_app.i
 +++ /dev/null
 @@ -1,7077 +0,0 @@
@@ -25637,7 +25637,7 @@ index 4e76eed..00000000
 \ No newline at end of file
 diff --git a/drivers/input/touchscreen/focaltech_touch/include/firmware/FT3680_WXN_M146_V20_D01_20220218_app.i b/drivers/input/touchscreen/focaltech_touch/include/firmware/FT3680_WXN_M146_V20_D01_20220218_app.i
 deleted file mode 100644
-index f7786cb..00000000
+index f7786cb..0000000
 --- a/drivers/input/touchscreen/focaltech_touch/include/firmware/FT3680_WXN_M146_V20_D01_20220218_app.i
 +++ /dev/null
 @@ -1,8068 +0,0 @@
@@ -33712,7 +33712,7 @@ index f7786cb..00000000
 \ No newline at end of file
 diff --git a/drivers/input/touchscreen/focaltech_touch/include/firmware/FT3680_WXN_M146_V22_D01_20220314_app.i b/drivers/input/touchscreen/focaltech_touch/include/firmware/FT3680_WXN_M146_V22_D01_20220314_app.i
 deleted file mode 100644
-index d83f6d7..00000000
+index d83f6d7..0000000
 --- a/drivers/input/touchscreen/focaltech_touch/include/firmware/FT3680_WXN_M146_V22_D01_20220314_app.i
 +++ /dev/null
 @@ -1,7342 +0,0 @@
@@ -41061,7 +41061,7 @@ index d83f6d7..00000000
 \ No newline at end of file
 diff --git a/drivers/input/touchscreen/focaltech_touch/include/firmware/FT3680_WXN_M146_V23_D01_20220402_app.i b/drivers/input/touchscreen/focaltech_touch/include/firmware/FT3680_WXN_M146_V23_D01_20220402_app.i
 deleted file mode 100644
-index 4622895..00000000
+index 4622895..0000000
 --- a/drivers/input/touchscreen/focaltech_touch/include/firmware/FT3680_WXN_M146_V23_D01_20220402_app.i
 +++ /dev/null
 @@ -1,7339 +0,0 @@
@@ -48407,7 +48407,7 @@ index 4622895..00000000
 \ No newline at end of file
 diff --git a/drivers/input/touchscreen/focaltech_touch/include/firmware/FT3680_WXN_M146_V24_D01_20220420_app.i b/drivers/input/touchscreen/focaltech_touch/include/firmware/FT3680_WXN_M146_V24_D01_20220420_app.i
 deleted file mode 100644
-index 098a45d..00000000
+index 098a45d..0000000
 --- a/drivers/input/touchscreen/focaltech_touch/include/firmware/FT3680_WXN_M146_V24_D01_20220420_app.i
 +++ /dev/null
 @@ -1,7339 +0,0 @@
@@ -55753,7 +55753,7 @@ index 098a45d..00000000
 \ No newline at end of file
 diff --git a/drivers/input/touchscreen/focaltech_touch/include/firmware/FT3680_WXN_M146_V25_D01_20220516_app.i b/drivers/input/touchscreen/focaltech_touch/include/firmware/FT3680_WXN_M146_V25_D01_20220516_app.i
 deleted file mode 100644
-index c2a2f28..00000000
+index c2a2f28..0000000
 --- a/drivers/input/touchscreen/focaltech_touch/include/firmware/FT3680_WXN_M146_V25_D01_20220516_app.i
 +++ /dev/null
 @@ -1,7393 +0,0 @@
