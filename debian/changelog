@@ -1,3 +1,9 @@
+linux-6.18-sc7280 (6.18.14-2) trixie; urgency=medium
+
+  * d/patches: import latest fixes from sc7280-mainline
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Sat, 28 Feb 2026 10:06:29 +0100
+
 linux-6.18-sc7280 (6.18.14-1) trixie; urgency=medium
 
   * Rebase on 6.18.14
