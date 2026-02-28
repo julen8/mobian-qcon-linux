@@ -10,11 +10,11 @@ Co-developed-by: Bhushan Shah <bhushan.shah@machinesoul.in>
 Signed-off-by: Bhushan Shah <bhushan.shah@machinesoul.in>
 Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
- arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 198 +++++++++++++++++++++
- 1 file changed, 198 insertions(+)
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 196 +++++++++++++++++++++
+ 1 file changed, 196 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-index caf5383..b9f11df 100644
+index caf5383..dcfb009 100644
 --- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
 +++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
 @@ -35,6 +35,36 @@ aliases {
@@ -102,13 +102,11 @@ index caf5383..b9f11df 100644
  &mdss {
  	status = "okay";
  };
-@@ -1318,6 +1389,17 @@ &sound {
+@@ -1318,6 +1389,15 @@ &sound {
  	pinctrl-names = "default",
  			"sleep";
  
-+	audio-routing = "IN1_HPHL", "HPHL_OUT",
-+			"IN2_HPHR", "HPHR_OUT",
-+			"AMIC1", "MIC BIAS1",
++	audio-routing = "AMIC1", "MIC BIAS1",
 +			"AMIC2", "MIC BIAS2",
 +			"AMIC3", "MIC BIAS1",
 +			"AMIC4", "MIC BIAS3",
@@ -120,7 +118,7 @@ index caf5383..b9f11df 100644
  	mm1-dai-link {
  		link-name = "MultiMedia1";
  
-@@ -1326,6 +1408,22 @@ cpu {
+@@ -1326,6 +1406,22 @@ cpu {
  		};
  	};
  
@@ -143,7 +141,7 @@ index caf5383..b9f11df 100644
  	i2s-dai-link {
  		link-name = "Quinary MI2S Playback";
  
-@@ -1373,6 +1471,22 @@ platform {
+@@ -1373,6 +1469,22 @@ platform {
  			sound-dai = <&q6routing>;
  		};
  	};
@@ -166,7 +164,7 @@ index caf5383..b9f11df 100644
  };
  
  &spi13 {
-@@ -1391,6 +1505,26 @@ touchscreen@0 {
+@@ -1391,6 +1503,26 @@ touchscreen@0 {
  	};
  };
  
@@ -193,7 +191,7 @@ index caf5383..b9f11df 100644
  &tlmm {
  	/*
  	 * 32-33: SMB1394 (SPMI)
-@@ -1520,6 +1654,19 @@ aw86927_int_default: aw86927-int-default-state {
+@@ -1520,6 +1652,19 @@ aw86927_int_default: aw86927-int-default-state {
  		drive-strength = <2>;
  		bias-pull-up;
  	};
@@ -213,7 +211,7 @@ index caf5383..b9f11df 100644
  };
  
  &uart5 {
-@@ -1631,3 +1778,54 @@ &wifi {
+@@ -1631,3 +1776,54 @@ &wifi {
  	qcom,calibration-variant = "Fairphone_5";
  	status = "okay";
  };
