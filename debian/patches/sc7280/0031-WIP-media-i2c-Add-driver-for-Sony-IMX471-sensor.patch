@@ -46,7 +46,7 @@ index d5d3ad4..a25f302 100644
  obj-$(CONFIG_VIDEO_ISL7998X) += isl7998x.o
 diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
 new file mode 100644
-index 00000000..d5775cf
+index 0000000..d5775cf
 --- /dev/null
 +++ b/drivers/media/i2c/imx471.c
 @@ -0,0 +1,1219 @@
