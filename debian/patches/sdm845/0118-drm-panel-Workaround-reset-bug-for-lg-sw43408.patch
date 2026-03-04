@@ -36,7 +36,7 @@ index 31ad233..d1a1336 100644
  	};
  
 diff --git a/drivers/gpu/drm/panel/panel-lg-sw43408.c b/drivers/gpu/drm/panel/panel-lg-sw43408.c
-index 685cdd1..432fd39 100644
+index 0297b8d..29f2fb5 100644
 --- a/drivers/gpu/drm/panel/panel-lg-sw43408.c
 +++ b/drivers/gpu/drm/panel/panel-lg-sw43408.c
 @@ -22,6 +22,21 @@
