@@ -7,7 +7,7 @@ Subject: [PATCH] arm64: dts: qcom: sdm845-oneplus: use guard pages
  1 file changed, 3 insertions(+), 15 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index cc5f975..c255eff 100644
+index 297ff65..1dc8edc8 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 @@ -108,31 +108,19 @@ key-vol-up {

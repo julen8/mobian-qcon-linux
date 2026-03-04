@@ -9,7 +9,7 @@ Subject: [PATCH] arm64: dts: qcom: sdm845-oneplus: camera bringup
  3 files changed, 522 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index c255eff..954ac47 100644
+index 1dc8edc8..6949d69 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 @@ -7,8 +7,10 @@
@@ -137,7 +137,7 @@ index c255eff..954ac47 100644
  		vdda_mipi_dsi0_pll:
  		vdda_qlink_lv:
  		vdda_ufs1_core:
-@@ -316,6 +418,18 @@ vreg_l20a_2p95: ldo20 {
+@@ -317,6 +419,18 @@ vreg_l20a_2p95: ldo20 {
  			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
  		};
  
@@ -156,7 +156,7 @@ index c255eff..954ac47 100644
  		vreg_l23a_3p3: ldo23 {
  			regulator-min-microvolt = <3300000>;
  			regulator-max-microvolt = <3312000>;
-@@ -348,6 +462,13 @@ vreg_l28a_3p0: ldo28 {
+@@ -349,6 +463,13 @@ vreg_l28a_3p0: ldo28 {
  			regulator-max-microvolt = <3008000>;
  			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
  		};
@@ -170,7 +170,7 @@ index c255eff..954ac47 100644
  	};
  
  	regulators-1 {
-@@ -380,6 +501,157 @@ vreg_s3c_0p6: smps3 {
+@@ -381,6 +502,157 @@ vreg_s3c_0p6: smps3 {
  	};
  };
  
@@ -328,7 +328,7 @@ index c255eff..954ac47 100644
  &cdsp_pas {
  	status = "okay";
  	firmware-name = "qcom/sdm845/oneplus6/cdsp.mbn";
-@@ -897,6 +1169,214 @@ &usb_1_hsphy {
+@@ -898,6 +1170,214 @@ &usb_1_hsphy {
  &tlmm {
  	gpio-reserved-ranges = <0 4>, <81 4>;
  
