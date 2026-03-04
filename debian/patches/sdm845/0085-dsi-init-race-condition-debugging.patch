@@ -40,7 +40,7 @@ index 5fc37a7..d4e0d9c 100644
  		compatible = "gpio-keys";
  
 diff --git a/drivers/clk/qcom/dispcc-sdm845.c b/drivers/clk/qcom/dispcc-sdm845.c
-index e6139e8..cbefc20 100644
+index 1859c09..3436fdc 100644
 --- a/drivers/clk/qcom/dispcc-sdm845.c
 +++ b/drivers/clk/qcom/dispcc-sdm845.c
 @@ -816,6 +816,7 @@ static struct clk_regmap *disp_cc_sdm845_clocks[] = {

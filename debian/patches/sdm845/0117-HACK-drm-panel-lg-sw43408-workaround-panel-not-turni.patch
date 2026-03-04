@@ -14,7 +14,7 @@ Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/panel/panel-lg-sw43408.c b/drivers/gpu/drm/panel/panel-lg-sw43408.c
-index dd56bdd..685cdd1 100644
+index 66bac1c..0297b8d 100644
 --- a/drivers/gpu/drm/panel/panel-lg-sw43408.c
 +++ b/drivers/gpu/drm/panel/panel-lg-sw43408.c
 @@ -152,8 +152,8 @@ static int sw43408_prepare(struct drm_panel *panel)

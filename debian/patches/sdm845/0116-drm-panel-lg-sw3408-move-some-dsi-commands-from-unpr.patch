@@ -8,7 +8,7 @@ Subject: drm/panel: lg-sw3408: move some dsi commands from unprepare to
  1 file changed, 11 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/panel/panel-lg-sw43408.c b/drivers/gpu/drm/panel/panel-lg-sw43408.c
-index f3dcc39..dd56bdd 100644
+index 8109ded..66bac1c 100644
 --- a/drivers/gpu/drm/panel/panel-lg-sw43408.c
 +++ b/drivers/gpu/drm/panel/panel-lg-sw43408.c
 @@ -38,11 +38,10 @@ static inline struct sw43408_panel *to_panel_info(struct drm_panel *panel)
