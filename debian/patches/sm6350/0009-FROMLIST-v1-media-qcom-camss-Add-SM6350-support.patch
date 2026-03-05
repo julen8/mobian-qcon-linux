@@ -183,7 +183,7 @@ index dff8d0a..336838b 100644
  	case CAMSS_8250:
  	case CAMSS_8280XP:
 diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 2fbcd0e..3f6515d 100644
+index fc838b3..8e05ae4 100644
 --- a/drivers/media/platform/qcom/camss/camss.c
 +++ b/drivers/media/platform/qcom/camss/camss.c
 @@ -1318,6 +1318,241 @@ static const struct camss_subdev_resources vfe_res_845[] = {
@@ -428,7 +428,7 @@ index 2fbcd0e..3f6515d 100644
  static const struct camss_subdev_resources csiphy_res_8250[] = {
  	/* CSIPHY0 */
  	{
-@@ -4398,6 +4633,19 @@ static const struct camss_resources sdm845_resources = {
+@@ -4396,6 +4631,19 @@ static const struct camss_resources sdm845_resources = {
  	.vfe_num = ARRAY_SIZE(vfe_res_845),
  };
  
@@ -448,7 +448,7 @@ index 2fbcd0e..3f6515d 100644
  static const struct camss_resources sm8250_resources = {
  	.version = CAMSS_8250,
  	.pd_name = "top",
-@@ -4478,6 +4726,7 @@ static const struct of_device_id camss_dt_match[] = {
+@@ -4476,6 +4724,7 @@ static const struct of_device_id camss_dt_match[] = {
  	{ .compatible = "qcom,sdm660-camss", .data = &sdm660_resources },
  	{ .compatible = "qcom,sdm670-camss", .data = &sdm670_resources },
  	{ .compatible = "qcom,sdm845-camss", .data = &sdm845_resources },
