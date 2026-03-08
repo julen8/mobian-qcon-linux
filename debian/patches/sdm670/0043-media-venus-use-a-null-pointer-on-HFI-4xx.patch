@@ -27,15 +27,15 @@ Signed-off-by: Richard Acayan <mailingradian@gmail.com>
  2 files changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/media/platform/qcom/venus/vdec.c b/drivers/media/platform/qcom/venus/vdec.c
-index 55c2734..8a82515 100644
+index 27cb024..ae4fba0 100644
 --- a/drivers/media/platform/qcom/venus/vdec.c
 +++ b/drivers/media/platform/qcom/venus/vdec.c
-@@ -567,7 +567,8 @@ vdec_decoder_cmd(struct file *file, void *fh, struct v4l2_decoder_cmd *cmd)
+@@ -573,7 +573,8 @@ vdec_decoder_cmd(struct file *file, void *fh, struct v4l2_decoder_cmd *cmd)
+ 		 * avoids misapplying this quirk and breaking VP9 decode on SC7280.
+ 		 */
  
- 		fdata.buffer_type = HFI_BUFFER_INPUT;
- 		fdata.flags |= HFI_BUFFERFLAG_EOS;
--		if (IS_V6(inst->core) && is_fw_rev_or_older(inst->core, 1, 0, 87))
-+		if ((IS_V6(inst->core) && is_fw_rev_or_older(inst->core, 1, 0, 87))
+-		if (IS_IRIS2(inst->core) && is_fw_rev_or_older(inst->core, 1, 0, 87))
++		if ((IS_IRIS2(inst->core) && is_fw_rev_or_older(inst->core, 1, 0, 87))
 +		 || IS_V4(inst->core))
  			fdata.device_addr = 0;
  		else
