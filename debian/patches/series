@@ -153,4 +153,5 @@ sdm670/0152-dt-bindings-pinctrl-qcom-sdm670-lpass-lpi-Adjust-for.patch
 sdm670/0153-ASoC-qcom-sdm660-internal-correct-variable-name.patch
 sdm670/0154-arm64-dts-qcom-Add-Snapdragon-710-sdm710.patch
 sdm670/0155-arm64-dts-qcom-Add-Xiaomi-Mi-9-Lite-xiaomi-pyxis.patch
-debian/0156-wireless-Add-Debian-wireless-regdb-certificates.patch
+sdm670/0156-ASoC-qcom-qdsp6-q6asm-dai-Keep-stream-marked-running-on-stop.patch
+debian/0157-wireless-Add-Debian-wireless-regdb-certificates.patch
