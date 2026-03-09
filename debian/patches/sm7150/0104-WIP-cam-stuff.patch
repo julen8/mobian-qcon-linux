@@ -252,7 +252,7 @@ index 4843108..ebcc512 100644
  			status = "disabled";
  
 diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen2.c b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
-index 2a1746d..2cf657f 100644
+index 2a1746dc..2cf657f 100644
 --- a/drivers/media/platform/qcom/camss/camss-csid-gen2.c
 +++ b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
 @@ -355,6 +355,7 @@ static int csid_configure_testgen_pattern(struct csid_device *csid, s32 val)
@@ -272,7 +272,7 @@ index 2a1746d..2cf657f 100644
  	u32 val;
  
 diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
-index 5c0cc4d..c233291 100644
+index 5c0cc4d..c2332912 100644
 --- a/drivers/media/platform/qcom/camss/camss-csid.c
 +++ b/drivers/media/platform/qcom/camss/camss-csid.c
 @@ -7,6 +7,7 @@
@@ -557,7 +557,7 @@ index 831486e..33eafba 100644
  	ret = __video_try_fmt(video, f);
  	if (ret < 0)
 diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 1746213..786d6df 100644
+index 936dad0..ebfd3f5 100644
 --- a/drivers/media/platform/qcom/camss/camss.c
 +++ b/drivers/media/platform/qcom/camss/camss.c
 @@ -1321,103 +1321,89 @@ static const struct camss_subdev_resources vfe_res_845[] = {
@@ -782,7 +782,7 @@ index 1746213..786d6df 100644
  			.hw_ops = &vfe_ops_170, /* 175 */
  			.formats_rdi = &vfe_formats_rdi_845,
  			.formats_pix = &vfe_formats_pix_845
-@@ -4593,12 +4603,11 @@ static const struct camss_resources sm7150_resources = {
+@@ -4591,12 +4601,11 @@ static const struct camss_resources sm7150_resources = {
  	.csiphy_res = csiphy_res_7150,
  	.csid_res = csid_res_7150,
  	.vfe_res = vfe_res_7150,
