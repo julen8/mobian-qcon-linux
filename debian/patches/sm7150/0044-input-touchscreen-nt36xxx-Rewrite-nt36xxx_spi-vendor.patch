@@ -59,7 +59,7 @@ index 9bcb8f0..c958b18 100644
  obj-$(CONFIG_TOUCHSCREEN_IPAQ_MICRO)	+= ipaq-micro-ts.o
 diff --git a/drivers/input/touchscreen/nt36xxx.h b/drivers/input/touchscreen/nt36xxx.h
 new file mode 100644
-index 0000000..d953d4c
+index 00000000..d953d4c
 --- /dev/null
 +++ b/drivers/input/touchscreen/nt36xxx.h
 @@ -0,0 +1,136 @@
@@ -201,7 +201,7 @@ index 0000000..d953d4c
 +#endif
 diff --git a/drivers/input/touchscreen/nt36xxx_core.c b/drivers/input/touchscreen/nt36xxx_core.c
 new file mode 100644
-index 0000000..e8cb3e6
+index 00000000..e8cb3e6
 --- /dev/null
 +++ b/drivers/input/touchscreen/nt36xxx_core.c
 @@ -0,0 +1,1223 @@
@@ -1430,7 +1430,7 @@ index 0000000..e8cb3e6
 +MODULE_AUTHOR("99degree <www.github.com/99degree>");
 diff --git a/drivers/input/touchscreen/nt36xxx_spi.c b/drivers/input/touchscreen/nt36xxx_spi.c
 new file mode 100644
-index 0000000..a4fdf45
+index 00000000..a4fdf45
 --- /dev/null
 +++ b/drivers/input/touchscreen/nt36xxx_spi.c
 @@ -0,0 +1,204 @@
