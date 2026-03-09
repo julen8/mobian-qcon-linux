@@ -29,7 +29,7 @@ index 1dff8ba..54d6cdc 100644
  dtb-$(CONFIG_ARCH_QCOM)	+= sm7150-xiaomi-sweet.dtb
 diff --git a/arch/arm64/boot/dts/qcom/sm7150-xiaomi-davinci-samsung.dts b/arch/arm64/boot/dts/qcom/sm7150-xiaomi-davinci-samsung.dts
 new file mode 100644
-index 0000000..2ba7042
+index 00000000..2ba7042
 --- /dev/null
 +++ b/arch/arm64/boot/dts/qcom/sm7150-xiaomi-davinci-samsung.dts
 @@ -0,0 +1,21 @@
@@ -56,7 +56,7 @@ index 0000000..2ba7042
 +};
 diff --git a/arch/arm64/boot/dts/qcom/sm7150-xiaomi-davinci-visionox.dts b/arch/arm64/boot/dts/qcom/sm7150-xiaomi-davinci-visionox.dts
 new file mode 100644
-index 0000000..e749e73
+index 00000000..e749e73
 --- /dev/null
 +++ b/arch/arm64/boot/dts/qcom/sm7150-xiaomi-davinci-visionox.dts
 @@ -0,0 +1,26 @@

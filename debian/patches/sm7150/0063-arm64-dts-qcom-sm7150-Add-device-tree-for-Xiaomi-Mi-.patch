@@ -28,7 +28,7 @@ index fd46a3a..e4cb189 100644
  dtb-$(CONFIG_ARCH_QCOM)	+= sm7225-fairphone-fp4.dtb
 diff --git a/arch/arm64/boot/dts/qcom/sm7150-xiaomi-davinci.dts b/arch/arm64/boot/dts/qcom/sm7150-xiaomi-davinci.dts
 new file mode 100644
-index 0000000..8901aa1
+index 00000000..8901aa1
 --- /dev/null
 +++ b/arch/arm64/boot/dts/qcom/sm7150-xiaomi-davinci.dts
 @@ -0,0 +1,371 @@
