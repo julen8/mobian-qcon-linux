@@ -7,7 +7,7 @@ Subject: fixup! camss
  1 file changed, 35 insertions(+), 35 deletions(-)
 
 diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 931e5e8..1746213 100644
+index 4576402..936dad0 100644
 --- a/drivers/media/platform/qcom/camss/camss.c
 +++ b/drivers/media/platform/qcom/camss/camss.c
 @@ -1324,9 +1324,9 @@ static const struct camss_subdev_resources csiphy_res_7150[] = {
@@ -139,7 +139,7 @@ index 931e5e8..1746213 100644
  		.reg = { "vfe_lite" },
  		.interrupt = { "vfe_lite" },
  		.vfe = {
-@@ -4593,8 +4593,8 @@ static const struct camss_resources sm7150_resources = {
+@@ -4591,8 +4591,8 @@ static const struct camss_resources sm7150_resources = {
  	.csiphy_res = csiphy_res_7150,
  	.csid_res = csid_res_7150,
  	.vfe_res = vfe_res_7150,
