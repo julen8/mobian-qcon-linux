@@ -44,7 +44,7 @@ index 8de6cfb..94061f3 100644
  obj-$(CONFIG_DRM_PANEL_VISIONOX_VTDR6130) += panel-visionox-vtdr6130.o
 diff --git a/drivers/gpu/drm/panel/panel-visionox-g1639fp106.c b/drivers/gpu/drm/panel/panel-visionox-g1639fp106.c
 new file mode 100644
-index 0000000..9d6fb67
+index 00000000..9d6fb67
 --- /dev/null
 +++ b/drivers/gpu/drm/panel/panel-visionox-g1639fp106.c
 @@ -0,0 +1,289 @@
