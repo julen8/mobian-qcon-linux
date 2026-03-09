@@ -14,7 +14,7 @@ Signed-off-by: Jens Reidel <adrian@travitia.xyz>
 
 diff --git a/arch/arm64/configs/efi.config b/arch/arm64/configs/efi.config
 new file mode 100644
-index 0000000..ba9452d9
+index 00000000..ba9452d9
 --- /dev/null
 +++ b/arch/arm64/configs/efi.config
 @@ -0,0 +1,5 @@
@@ -25,7 +25,7 @@ index 0000000..ba9452d9
 +CONFIG_FB_EFI=n
 diff --git a/arch/arm64/configs/lto.config b/arch/arm64/configs/lto.config
 new file mode 100644
-index 0000000..b0bdffe
+index 00000000..b0bdffe
 --- /dev/null
 +++ b/arch/arm64/configs/lto.config
 @@ -0,0 +1,2 @@
@@ -33,7 +33,7 @@ index 0000000..b0bdffe
 +CONFIG_LTO_CLANG_THIN=y
 diff --git a/arch/arm64/configs/sm7150.config b/arch/arm64/configs/sm7150.config
 new file mode 100644
-index 0000000..e398009
+index 00000000..e398009
 --- /dev/null
 +++ b/arch/arm64/configs/sm7150.config
 @@ -0,0 +1,1256 @@

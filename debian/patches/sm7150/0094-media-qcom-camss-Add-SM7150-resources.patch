@@ -16,7 +16,7 @@ Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
  1 file changed, 204 insertions(+)
 
 diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 2fbcd0e..931e5e8 100644
+index fc838b3..4576402 100644
 --- a/drivers/media/platform/qcom/camss/camss.c
 +++ b/drivers/media/platform/qcom/camss/camss.c
 @@ -1318,6 +1318,194 @@ static const struct camss_subdev_resources vfe_res_845[] = {
@@ -214,7 +214,7 @@ index 2fbcd0e..931e5e8 100644
  static const struct camss_subdev_resources csiphy_res_8250[] = {
  	/* CSIPHY0 */
  	{
-@@ -4398,6 +4586,21 @@ static const struct camss_resources sdm845_resources = {
+@@ -4396,6 +4584,21 @@ static const struct camss_resources sdm845_resources = {
  	.vfe_num = ARRAY_SIZE(vfe_res_845),
  };
  
@@ -236,7 +236,7 @@ index 2fbcd0e..931e5e8 100644
  static const struct camss_resources sm8250_resources = {
  	.version = CAMSS_8250,
  	.pd_name = "top",
-@@ -4478,6 +4681,7 @@ static const struct of_device_id camss_dt_match[] = {
+@@ -4476,6 +4679,7 @@ static const struct of_device_id camss_dt_match[] = {
  	{ .compatible = "qcom,sdm660-camss", .data = &sdm660_resources },
  	{ .compatible = "qcom,sdm670-camss", .data = &sdm670_resources },
  	{ .compatible = "qcom,sdm845-camss", .data = &sdm845_resources },
