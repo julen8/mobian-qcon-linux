@@ -1,3 +1,10 @@
+linux-6.18-sdm670 (6.18.16-1) trixie; urgency=medium
+
+  * Rebase on 6.18.16
+  * Refresh patch from sdm670-mainline, fixes #42
+
+ -- Marco Mattiolo <marco.mattiolo@hotmail.it>  Tue, 10 Mar 2026 22:28:51 +0100
+
 linux-6.18-sdm670 (6.18.15-1) trixie; urgency=medium
 
   * Rebase on 6.18.15
