@@ -252,7 +252,7 @@ index 4843108..ebcc512 100644
  			status = "disabled";
  
 diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen2.c b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
-index 2a1746dc..2cf657f 100644
+index 2a1746d..2cf657f 100644
 --- a/drivers/media/platform/qcom/camss/camss-csid-gen2.c
 +++ b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
 @@ -355,6 +355,7 @@ static int csid_configure_testgen_pattern(struct csid_device *csid, s32 val)
@@ -272,7 +272,7 @@ index 2a1746dc..2cf657f 100644
  	u32 val;
  
 diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
-index 5c0cc4d..c2332912 100644
+index 5c0cc4d..c233291 100644
 --- a/drivers/media/platform/qcom/camss/camss-csid.c
 +++ b/drivers/media/platform/qcom/camss/camss-csid.c
 @@ -7,6 +7,7 @@
