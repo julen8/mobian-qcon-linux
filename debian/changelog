@@ -1,3 +1,9 @@
+linux-6.12-sdm845 (6.12.77-2) trixie; urgency=medium
+
+  * Fix d/p/sdm845/0125-Assign-i2c3-and-pins-12-62-63-to-NFC.patch
+
+ -- Marco Mattiolo <marco.mattiolo@hotmail.it> Sat, 14 Mar 2026 16:56:47 +0100
+
 linux-6.12-sdm845 (6.12.77-1) trixie; urgency=medium
 
   * Rebase on 6.12.77
