@@ -30,7 +30,7 @@ index e24f5b2..b8489a4 100644
  M:	Maxim Levitsky <maximlevitsky@gmail.com>
  M:	Alex Dubov <oakad@yahoo.com>
 diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index a9ba6a3..1a40826 100644
+index 78663ac..8a2b8384 100644
 --- a/drivers/media/i2c/Kconfig
 +++ b/drivers/media/i2c/Kconfig
 @@ -295,6 +295,20 @@ config VIDEO_IMX415
