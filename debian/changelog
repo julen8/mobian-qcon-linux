@@ -1,3 +1,9 @@
+linux-6.18-sm7150 (6.18.19-1) unstable; urgency=medium
+
+  * Rebase on 6.18.19
+
+ -- Mobot <group_9279_bot_3d620cd42b5548cd487aa9eaff458c11@noreply.salsa.debian.org>  Thu, 19 Mar 2026 20:37:56 +0000
+
 linux-6.18-sm7150 (6.18.18-1) unstable; urgency=medium
 
   * Rebase on 6.18.18
