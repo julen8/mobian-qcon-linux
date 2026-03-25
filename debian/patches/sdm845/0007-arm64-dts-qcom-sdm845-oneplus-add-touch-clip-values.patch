@@ -12,10 +12,10 @@ Signed-off-by: methanal <baclofen@tuta.io>
  3 files changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index 161d423..4bd90b8 100644
+index f2243c3..a5b3bbd 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-@@ -432,7 +432,7 @@ rmi4-f01@1 {
+@@ -431,7 +431,7 @@ rmi4-f01@1 {
  		rmi4_f12: rmi4-f12@12 {
  			reg = <0x12>;
  			touchscreen-x-mm = <68>;
