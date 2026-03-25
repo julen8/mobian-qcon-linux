@@ -1,3 +1,9 @@
+linux-6.12-sdm845 (6.12.78-1) trixie; urgency=medium
+
+  * Rebase on 6.12.78
+
+ -- Mobot <group_9279_bot_3d620cd42b5548cd487aa9eaff458c11@noreply.salsa.debian.org>  Wed, 25 Mar 2026 15:47:27 +0000
+
 linux-6.12-sdm845 (6.12.77-2) trixie; urgency=medium
 
   * Fix d/p/sdm845/0125-Assign-i2c3-and-pins-12-62-63-to-NFC.patch
