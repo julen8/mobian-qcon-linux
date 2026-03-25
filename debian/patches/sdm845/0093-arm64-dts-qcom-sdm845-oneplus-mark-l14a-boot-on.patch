@@ -11,10 +11,10 @@ Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
  1 file changed, 1 insertion(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index ddaab71..92f3ac8 100644
+index 0593345..f9122b37 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-@@ -290,6 +290,7 @@ vreg_l14a_1p88: ldo14 {
+@@ -289,6 +289,7 @@ vreg_l14a_1p88: ldo14 {
  			regulator-min-microvolt = <1800000>;
  			regulator-max-microvolt = <1800000>;
  			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;

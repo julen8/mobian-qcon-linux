@@ -11,10 +11,10 @@ Signed-off-by: Caleb Connolly <caleb@connolly.tech>
  1 file changed, 6 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index d91f58c..08020c2 100644
+index e7ee126..bf6874f 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-@@ -544,6 +544,12 @@ led-1 {
+@@ -543,6 +543,12 @@ led-1 {
  	};
  };
  

@@ -8,10 +8,10 @@ Signed-off-by: David Heidelberg <david@ixit.cz>
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index 6949d69..3777d63 100644
+index 17271b9..e182312 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-@@ -553,7 +553,7 @@ rear_cam: camera@1a {
+@@ -552,7 +552,7 @@ rear_cam: camera@1a {
  		compatible = "sony,imx519";
  		reg = <0x1a>;
  
@@ -20,7 +20,7 @@ index 6949d69..3777d63 100644
  		pinctrl-names = "default", "sleep";
  		pinctrl-0 = <&main_cam_default>;
  		pinctrl-1 = <&main_cam_sleep>;
-@@ -588,7 +588,7 @@ front_cam: camera@10 {
+@@ -587,7 +587,7 @@ front_cam: camera@10 {
  		compatible = "sony,imx371";
  		reg = <0x10>;
  
@@ -29,7 +29,7 @@ index 6949d69..3777d63 100644
  		pinctrl-names = "default", "sleep";
  		pinctrl-0 = <&front_cam_default>;
  		pinctrl-1 = <&front_cam_sleep>;
-@@ -623,7 +623,7 @@ sub_cam: camera@10 {
+@@ -622,7 +622,7 @@ sub_cam: camera@10 {
  		compatible = "sony,imx376k";
  		reg = <0x10>;
  
