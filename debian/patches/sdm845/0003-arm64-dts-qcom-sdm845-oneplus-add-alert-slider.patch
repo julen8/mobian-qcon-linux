@@ -17,7 +17,7 @@ Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
  1 file changed, 35 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index 934bf9c..161d423 100644
+index 56840b6..f2243c3 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 @@ -21,6 +21,41 @@

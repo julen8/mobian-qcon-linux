@@ -10,7 +10,7 @@ Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
  1 file changed, 20 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index 08020c2..f769566 100644
+index bf6874f..4fda64d 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 @@ -12,6 +12,7 @@
@@ -21,7 +21,7 @@ index 08020c2..f769566 100644
  
  #include "sdm845.dtsi"
  #include "sdm845-wcd9340.dtsi"
-@@ -550,6 +551,18 @@ &pmi8998_haptics {
+@@ -549,6 +550,18 @@ &pmi8998_haptics {
  	qcom,wave-play-rate-us = <4255>;
  };
  
@@ -40,7 +40,7 @@ index 08020c2..f769566 100644
  &q6afedai {
  	dai@22 {
  		reg = <QUATERNARY_MI2S_RX>;
-@@ -669,6 +682,13 @@ cpu {
+@@ -668,6 +681,13 @@ cpu {
  		};
  	};
  
