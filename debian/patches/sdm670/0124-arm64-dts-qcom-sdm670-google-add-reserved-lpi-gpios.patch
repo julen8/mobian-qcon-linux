@@ -1,0 +1,27 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Mon, 2 Mar 2026 15:42:23 -0500
+Subject: [PATCH] arm64: dts: qcom: sdm670-google: add reserved lpi gpios
+
+Some of the GPIOs are reserved for sensors since the ADSP also handles
+sensors on SDM670. Add the reserved GPIOs for the LPI pin controller.
+
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+index dca6e1c..0bafb9d 100644
+--- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+@@ -1044,6 +1044,10 @@ dout-pins {
+ 	};
+ };
+ 
++&lpi_tlmm {
++	gpio-reserved-ranges = <0 8>, <12 6>;
++};
++
+ &mdss {
+ 	status = "okay";
+ };
