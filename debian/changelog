@@ -1,3 +1,9 @@
+linux-6.12-sdm670 (6.12.79-2) trixie; urgency=medium
+
+  * Import gpio-reserved-ranges patches from sdm670-mainline and renumber
+
+ -- Marco Mattiolo <marco.mattiolo@hotmail.it>  Fri, 27 Mar 2026 23:09:23 +0100
+
 linux-6.12-sdm670 (6.12.79-1) trixie; urgency=medium
 
   * Rebase on 6.12.79
