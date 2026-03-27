@@ -120,5 +120,7 @@ sdm670/0119-arm64-dts-qcom-pm660-add-cooling-for-charger.patch
 sdm670/0120-arm64-dts-qcom-sdm670-google-add-battery-thermal-zones.patch
 sdm670/0121-power-supply-qcom_pmi8998_charger-increase-default-current-to-3-Amps.patch
 sdm670/0122-power-supply-qcom_fg-invert-charging-current.patch
-debian/0123-wireless-Add-Debian-wireless-regdb-certificates.patch
-mobian/0124-arm64-configs-add-sdm670_defconfig.patch
+sdm670/0123-dt-bindings-qcom-lpass-lpi-common-add-reserved-GPIOs-property.patch
+sdm670/0124-arm64-dts-qcom-sdm670-google-add-reserved-lpi-gpios.patch
+debian/0125-wireless-Add-Debian-wireless-regdb-certificates.patch
+mobian/0126-arm64-configs-add-sdm670_defconfig.patch
