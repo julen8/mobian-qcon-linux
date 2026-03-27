@@ -12,3 +12,9 @@ Following patch was backported from the sdm670-mainline/linux-patches
 repository when it was based on top of 6.15:
 
   * debian/patches/sdm670/0122-power-supply-qcom_fg-invert-charging-current.patch
+
+Following patches were backported from the sdm670-mainline/linux-patches
+repository when it was based on top of 6.19:
+
+  * debian/patches/sdm670/0123-dt-bindings-qcom-lpass-lpi-common-add-reserved-GPIOs-property.patch
+  * debian/patches/sdm670/0124-arm64-dts-qcom-sdm670-google-add-reserved-lpi-gpios.patch
