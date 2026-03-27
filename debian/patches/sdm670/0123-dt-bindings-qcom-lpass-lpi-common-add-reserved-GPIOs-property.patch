@@ -1,0 +1,35 @@
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Tue, 3 Mar 2026 13:10:20 -0500
+Subject: [PATCH] dt-bindings: qcom: lpass-lpi-common: add reserved GPIOs
+ property
+
+There can be reserved GPIOs on the LPASS LPI pin controller to possibly
+control sensors. Add the property for reserved GPIOs so they can be
+avoided appropriately.
+
+Adapted from the same entry in qcom,tlmm-common.yaml.
+
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ .../devicetree/bindings/pinctrl/qcom,lpass-lpi-common.yaml        | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,lpass-lpi-common.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,lpass-lpi-common.yaml
+index 3b50457..02a87e8 100644
+--- a/Documentation/devicetree/bindings/pinctrl/qcom,lpass-lpi-common.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/qcom,lpass-lpi-common.yaml
+@@ -27,6 +27,14 @@ properties:
+   gpio-ranges:
+     maxItems: 1
+ 
++  gpio-reserved-ranges:
++    minItems: 1
++    maxItems: 30
++    description:
++      Pins can be reserved for trusted applications or for LPASS, thereby
++      inaccessible from the OS. This property can be used to mark the pins
++      which resources should not be accessed by the OS.
++
+ required:
+   - gpio-controller
+   - "#gpio-cells"
