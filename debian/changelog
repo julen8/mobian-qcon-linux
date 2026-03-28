@@ -1,3 +1,17 @@
+linux-6.18-sdm845 (6.18.20-1) trixie; urgency=medium
+
+  [ Marco Mattiolo ]
+  * d/patches: import sdm845-mainline patches for 6.18
+  * debian: switch to fragment-based kconfig
+
+  [ Arnaud Ferraris ]
+  * d/patches: add Mobian patches
+
+  [ Mobot ]
+  * Rebase on 6.18.20
+
+ -- Mobot <group_9279_bot_3d620cd42b5548cd487aa9eaff458c11@noreply.salsa.debian.org>  Sat, 28 Mar 2026 16:56:24 +0000
+
 linux-6.18-sdm845 (6.18.18-1) trixie; urgency=medium
 
   * Initial 6.18 release
