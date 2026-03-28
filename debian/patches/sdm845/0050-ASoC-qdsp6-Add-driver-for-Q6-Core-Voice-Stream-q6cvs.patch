@@ -32,7 +32,7 @@ index 07bac41..4856fc0 100644
  obj-$(CONFIG_SND_SOC_QDSP6_APM_DAI) += q6apm-dai.o
 diff --git a/sound/soc/qcom/qdsp6/q6cvs.c b/sound/soc/qcom/qdsp6/q6cvs.c
 new file mode 100644
-index 00000000..4407158
+index 0000000..4407158
 --- /dev/null
 +++ b/sound/soc/qcom/qdsp6/q6cvs.c
 @@ -0,0 +1,36 @@
@@ -74,7 +74,7 @@ index 00000000..4407158
 +MODULE_LICENSE("GPL v2");
 diff --git a/sound/soc/qcom/qdsp6/q6cvs.h b/sound/soc/qcom/qdsp6/q6cvs.h
 new file mode 100644
-index 00000000..5c20468
+index 0000000..5c20468
 --- /dev/null
 +++ b/sound/soc/qcom/qdsp6/q6cvs.h
 @@ -0,0 +1,9 @@
