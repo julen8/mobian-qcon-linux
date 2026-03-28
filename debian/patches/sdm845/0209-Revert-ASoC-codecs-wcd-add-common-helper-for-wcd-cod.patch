@@ -84,7 +84,7 @@ index d36c065..92eafb5 100644
  obj-$(CONFIG_SND_SOC_WCD934X)	+= snd-soc-wcd934x.o
 diff --git a/sound/soc/codecs/wcd-common.c b/sound/soc/codecs/wcd-common.c
 deleted file mode 100644
-index 6f832e0..00000000
+index 6f832e0..0000000
 --- a/sound/soc/codecs/wcd-common.c
 +++ /dev/null
 @@ -1,71 +0,0 @@
@@ -161,7 +161,7 @@ index 6f832e0..00000000
 -MODULE_LICENSE("GPL");
 diff --git a/sound/soc/codecs/wcd-common.h b/sound/soc/codecs/wcd-common.h
 deleted file mode 100644
-index 611f06c..00000000
+index 611f06c..0000000
 --- a/sound/soc/codecs/wcd-common.h
 +++ /dev/null
 @@ -1,27 +0,0 @@

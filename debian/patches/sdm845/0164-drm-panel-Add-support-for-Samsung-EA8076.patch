@@ -47,7 +47,7 @@ index 8669596..1317559 100644
  obj-$(CONFIG_DRM_PANEL_SAMSUNG_S6D27A1) += panel-samsung-s6d27a1.o
 diff --git a/drivers/gpu/drm/panel/panel-samsung-ea8076.c b/drivers/gpu/drm/panel/panel-samsung-ea8076.c
 new file mode 100644
-index 00000000..479b9d7
+index 0000000..479b9d7
 --- /dev/null
 +++ b/drivers/gpu/drm/panel/panel-samsung-ea8076.c
 @@ -0,0 +1,267 @@

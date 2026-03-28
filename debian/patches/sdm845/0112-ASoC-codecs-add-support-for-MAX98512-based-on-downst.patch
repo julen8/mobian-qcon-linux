@@ -91,7 +91,7 @@ index f6c211d..d6a11a6 100644
  obj-$(CONFIG_SND_SOC_MC13783)	+= snd-soc-mc13783.o
 diff --git a/sound/soc/codecs/max98512-downstream/max98512.c b/sound/soc/codecs/max98512-downstream/max98512.c
 new file mode 100644
-index 00000000..5bc24a3
+index 0000000..5bc24a3
 --- /dev/null
 +++ b/sound/soc/codecs/max98512-downstream/max98512.c
 @@ -0,0 +1,2573 @@
@@ -2670,7 +2670,7 @@ index 00000000..5bc24a3
 +MODULE_LICENSE("GPL");
 diff --git a/sound/soc/codecs/max98512-downstream/max98512.h b/sound/soc/codecs/max98512-downstream/max98512.h
 new file mode 100644
-index 00000000..2326494
+index 0000000..2326494
 --- /dev/null
 +++ b/sound/soc/codecs/max98512-downstream/max98512.h
 @@ -0,0 +1,492 @@
@@ -3168,7 +3168,7 @@ index 00000000..2326494
 +
 diff --git a/sound/soc/codecs/max98512-downstream/maxim_dsm.c b/sound/soc/codecs/max98512-downstream/maxim_dsm.c
 new file mode 100644
-index 00000000..40b7141
+index 0000000..40b7141
 --- /dev/null
 +++ b/sound/soc/codecs/max98512-downstream/maxim_dsm.c
 @@ -0,0 +1,3292 @@
@@ -6466,7 +6466,7 @@ index 00000000..40b7141
 +MODULE_LICENSE("GPL");
 diff --git a/sound/soc/codecs/max98512-downstream/maxim_dsm.h b/sound/soc/codecs/max98512-downstream/maxim_dsm.h
 new file mode 100644
-index 00000000..cdce995
+index 0000000..cdce995
 --- /dev/null
 +++ b/sound/soc/codecs/max98512-downstream/maxim_dsm.h
 @@ -0,0 +1,615 @@
@@ -7087,7 +7087,7 @@ index 00000000..cdce995
 +#endif /* __SOUND_MAXIM_DSM_H__ */
 diff --git a/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.c b/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.c
 new file mode 100644
-index 00000000..af9e0a1
+index 0000000..af9e0a1
 --- /dev/null
 +++ b/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.c
 @@ -0,0 +1,1096 @@
@@ -8189,7 +8189,7 @@ index 00000000..af9e0a1
 +MODULE_LICENSE("GPL");
 diff --git a/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.h b/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.h
 new file mode 100644
-index 00000000..c421058
+index 0000000..c421058
 --- /dev/null
 +++ b/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.h
 @@ -0,0 +1,97 @@
@@ -8292,7 +8292,7 @@ index 00000000..c421058
 +#endif /* __SOUND_MAXIM_DSM_CAL_H__ */
 diff --git a/sound/soc/codecs/max98512-downstream/maxim_dsm_power.c b/sound/soc/codecs/max98512-downstream/maxim_dsm_power.c
 new file mode 100644
-index 00000000..2f2dbb1
+index 0000000..2f2dbb1
 --- /dev/null
 +++ b/sound/soc/codecs/max98512-downstream/maxim_dsm_power.c
 @@ -0,0 +1,702 @@
@@ -9000,7 +9000,7 @@ index 00000000..2f2dbb1
 +MODULE_LICENSE("GPL");
 diff --git a/sound/soc/codecs/max98512-downstream/maxim_dsm_power.h b/sound/soc/codecs/max98512-downstream/maxim_dsm_power.h
 new file mode 100644
-index 00000000..7942d00
+index 0000000..7942d00
 --- /dev/null
 +++ b/sound/soc/codecs/max98512-downstream/maxim_dsm_power.h
 @@ -0,0 +1,84 @@

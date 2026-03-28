@@ -56,7 +56,7 @@ index 7ab318c..64d6859 100644
  obj-$(CONFIG_DRM_PANEL_WIDECHIPS_WS2401) += panel-widechips-ws2401.o
 diff --git a/drivers/gpu/drm/panel/panel-visionox-rm69299-shift.c b/drivers/gpu/drm/panel/panel-visionox-rm69299-shift.c
 new file mode 100644
-index 00000000..c9d760d
+index 0000000..c9d760d
 --- /dev/null
 +++ b/drivers/gpu/drm/panel/panel-visionox-rm69299-shift.c
 @@ -0,0 +1,757 @@
