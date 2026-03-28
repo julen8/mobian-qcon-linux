@@ -49,7 +49,7 @@ index 15f562d..32feb96 100644
  obj-$(CONFIG_VIDEO_CS3308) += cs3308.o
 diff --git a/drivers/media/i2c/bu64748.c b/drivers/media/i2c/bu64748.c
 new file mode 100644
-index 00000000..182f84a
+index 0000000..182f84a
 --- /dev/null
 +++ b/drivers/media/i2c/bu64748.c
 @@ -0,0 +1,299 @@

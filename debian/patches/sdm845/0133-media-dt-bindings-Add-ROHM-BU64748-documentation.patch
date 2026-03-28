@@ -12,7 +12,7 @@ Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
 
 diff --git a/Documentation/devicetree/bindings/media/i2c/rohm,bu64748.yaml b/Documentation/devicetree/bindings/media/i2c/rohm,bu64748.yaml
 new file mode 100644
-index 00000000..1afd332
+index 0000000..1afd332
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/media/i2c/rohm,bu64748.yaml
 @@ -0,0 +1,57 @@

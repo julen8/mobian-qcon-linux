@@ -68,7 +68,7 @@ index 3615a76..780eb6d 100644
  obj-$(CONFIG_DRM_PANEL_SHARP_LS037V7DW01) += panel-sharp-ls037v7dw01.o
 diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3fc2x01.c b/drivers/gpu/drm/panel/panel-samsung-s6e3fc2x01.c
 new file mode 100644
-index 00000000..7afe077
+index 0000000..7afe077
 --- /dev/null
 +++ b/drivers/gpu/drm/panel/panel-samsung-s6e3fc2x01.c
 @@ -0,0 +1,395 @@

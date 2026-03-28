@@ -49,7 +49,7 @@ index 780eb6d..7ab318c 100644
  obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672A) += panel-novatek-nt36672a.o
 diff --git a/drivers/gpu/drm/panel/panel-novatek-nt35596s.c b/drivers/gpu/drm/panel/panel-novatek-nt35596s.c
 new file mode 100644
-index 00000000..3a3f6f7
+index 0000000..3a3f6f7
 --- /dev/null
 +++ b/drivers/gpu/drm/panel/panel-novatek-nt35596s.c
 @@ -0,0 +1,560 @@

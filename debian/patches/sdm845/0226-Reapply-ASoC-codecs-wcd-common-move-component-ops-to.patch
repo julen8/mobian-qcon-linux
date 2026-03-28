@@ -68,7 +68,7 @@ index d94e887..0d4e9f8 100644
  int wcd_dt_parse_micbias_info(struct wcd_common *common);
  
 diff --git a/sound/soc/codecs/wcd937x-sdw.c b/sound/soc/codecs/wcd937x-sdw.c
-index 8f281916..59c353c 100644
+index 8f28191..59c353c 100644
 --- a/sound/soc/codecs/wcd937x-sdw.c
 +++ b/sound/soc/codecs/wcd937x-sdw.c
 @@ -983,31 +983,6 @@ static const struct sdw_slave_ops wcd9370_slave_ops = {

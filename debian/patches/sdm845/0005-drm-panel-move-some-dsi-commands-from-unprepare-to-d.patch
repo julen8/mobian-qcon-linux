@@ -51,7 +51,7 @@ index fb9f9f4..2c45c89 100644
  	.get_modes = ebbg_ft8719_get_modes,
  };
 diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-index 29e1f6ae..45345c5 100644
+index 29e1f6a..45345c5 100644
 --- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
 +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
 @@ -112,7 +112,7 @@ static int nt36672a_panel_power_off(struct drm_panel *panel)
