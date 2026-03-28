@@ -41,7 +41,7 @@ index 611f06c..d94e887 100644
  	struct device *dev;
  	int max_bias;
 diff --git a/sound/soc/codecs/wcd937x-sdw.c b/sound/soc/codecs/wcd937x-sdw.c
-index e7cc699..8f281916 100644
+index e7cc699..8f28191 100644
 --- a/sound/soc/codecs/wcd937x-sdw.c
 +++ b/sound/soc/codecs/wcd937x-sdw.c
 @@ -19,7 +19,7 @@
