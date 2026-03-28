@@ -1,0 +1,63 @@
+From: Alexandre Ferrieux <alexandre.ferrieux@orange.com>
+Date: Sun, 21 Dec 2025 19:16:38 +0530
+Subject: ASoC: qcom: q6asm-dai: Advertise S32 format to ALSA while sending
+ 24-bits
+
+Solve the ALSA/ADSP misunderstanding about S24, by advertising S32 to
+ALSA, while still sending to ADSP as usual (24 bits + padding)
+
+This is required because when using, asm_multi_channel_pcm_fmt_blk_v2
+expectation from DSP is that we send 24 bits data packed to significant
+bits packet on 32 bits (pcm_s32le).
+
+Signed-off-by: Alexandre Ferrieux <alexandre.ferrieux@orange.com>
+---
+ sound/soc/qcom/qdsp6/q6asm-dai.c | 7 ++++---
+ sound/soc/qcom/qdsp6/q6routing.c | 2 ++
+ 2 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
+index 709b4f3..b2637370 100644
+--- a/sound/soc/qcom/qdsp6/q6asm-dai.c
++++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
+@@ -113,7 +113,8 @@ static const struct snd_pcm_hardware q6asm_dai_hardware_playback = {
+ 				SNDRV_PCM_INFO_INTERLEAVED |
+ 				SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME),
+ 	.formats =              (SNDRV_PCM_FMTBIT_S16_LE |
+-				SNDRV_PCM_FMTBIT_S24_LE),
++				SNDRV_PCM_FMTBIT_S24_LE |
++				SNDRV_PCM_FMTBIT_S32_LE),
+ 	.rates =                SNDRV_PCM_RATE_8000_192000,
+ 	.rate_min =             8000,
+ 	.rate_max =             192000,
+@@ -138,8 +139,7 @@ static const struct snd_pcm_hardware q6asm_dai_hardware_playback = {
+ 				  SNDRV_PCM_RATE_96000 |		\
+ 				  SNDRV_PCM_RATE_176400 |		\
+ 				  SNDRV_PCM_RATE_192000),		\
+-			.formats = (SNDRV_PCM_FMTBIT_S16_LE |		\
+-					SNDRV_PCM_FMTBIT_S24_LE),	\
++			.formats = (SNDRV_PCM_FMTBIT_S32_LE),		\
+ 			.channels_min = 1,				\
+ 			.channels_max = 8,				\
+ 			.rate_min =     8000,				\
+@@ -501,6 +501,7 @@ static int q6asm_dai_hw_params(struct snd_soc_component *component,
+ 	case SNDRV_PCM_FORMAT_S16_LE:
+ 		prtd->bits_per_sample = 16;
+ 		break;
++	case SNDRV_PCM_FORMAT_S32_LE:
+ 	case SNDRV_PCM_FORMAT_S24_LE:
+ 		prtd->bits_per_sample = 24;
+ 		break;
+diff --git a/sound/soc/qcom/qdsp6/q6routing.c b/sound/soc/qcom/qdsp6/q6routing.c
+index aaa3af9..8217d35 100644
+--- a/sound/soc/qcom/qdsp6/q6routing.c
++++ b/sound/soc/qcom/qdsp6/q6routing.c
+@@ -1083,6 +1083,8 @@ static int routing_hw_params(struct snd_soc_component *component,
+ 	case SNDRV_PCM_FORMAT_S24_LE:
+ 			session->bits_per_sample = 24;
+ 		break;
++	case SNDRV_PCM_FORMAT_S32_LE:
++			session->bits_per_sample = 24;
+ 	default:
+ 		break;
+ 	}
