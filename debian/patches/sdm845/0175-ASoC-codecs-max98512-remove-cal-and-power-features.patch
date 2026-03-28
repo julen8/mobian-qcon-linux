@@ -191,7 +191,7 @@ index 40b7141..0fa2f09d 100644
  
 diff --git a/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.c b/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.c
 deleted file mode 100644
-index af9e0a1..00000000
+index af9e0a1..0000000
 --- a/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.c
 +++ /dev/null
 @@ -1,1096 +0,0 @@
@@ -1293,7 +1293,7 @@ index af9e0a1..00000000
 -MODULE_LICENSE("GPL");
 diff --git a/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.h b/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.h
 deleted file mode 100644
-index c421058..00000000
+index c421058..0000000
 --- a/sound/soc/codecs/max98512-downstream/maxim_dsm_cal.h
 +++ /dev/null
 @@ -1,97 +0,0 @@
@@ -1396,7 +1396,7 @@ index c421058..00000000
 -#endif /* __SOUND_MAXIM_DSM_CAL_H__ */
 diff --git a/sound/soc/codecs/max98512-downstream/maxim_dsm_power.c b/sound/soc/codecs/max98512-downstream/maxim_dsm_power.c
 deleted file mode 100644
-index 2f2dbb1..00000000
+index 2f2dbb1..0000000
 --- a/sound/soc/codecs/max98512-downstream/maxim_dsm_power.c
 +++ /dev/null
 @@ -1,702 +0,0 @@
@@ -2104,7 +2104,7 @@ index 2f2dbb1..00000000
 -MODULE_LICENSE("GPL");
 diff --git a/sound/soc/codecs/max98512-downstream/maxim_dsm_power.h b/sound/soc/codecs/max98512-downstream/maxim_dsm_power.h
 deleted file mode 100644
-index 7942d00..00000000
+index 7942d00..0000000
 --- a/sound/soc/codecs/max98512-downstream/maxim_dsm_power.h
 +++ /dev/null
 @@ -1,84 +0,0 @@

@@ -53,7 +53,7 @@ index 64d6859..8669596 100644
  obj-$(CONFIG_DRM_PANEL_NEWVISION_NV3051D) += panel-newvision-nv3051d.o
 diff --git a/drivers/gpu/drm/panel/panel-lg-sw49410.c b/drivers/gpu/drm/panel/panel-lg-sw49410.c
 new file mode 100644
-index 00000000..0a408a0
+index 0000000..0a408a0
 --- /dev/null
 +++ b/drivers/gpu/drm/panel/panel-lg-sw49410.c
 @@ -0,0 +1,447 @@

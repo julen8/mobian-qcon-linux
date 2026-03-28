@@ -7,7 +7,7 @@ Subject: Assign i2c3 and pins 12,62,63 to NFC
  1 file changed, 31 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index 2f3135a..88859ea9 100644
+index 2f3135a..458e40b 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 @@ -417,6 +417,25 @@ zap-shader {
