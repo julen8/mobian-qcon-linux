@@ -13,7 +13,7 @@ Signed-off-by: Xilin Wu <sophon@radxa.com>
  1 file changed, 7 insertions(+)
 
 diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c b/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
-index 8a28043..da41b07 100644
+index dda8775..ecae157 100644
 --- a/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
 +++ b/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
 @@ -570,6 +570,13 @@ static const struct qmp_phy_init_tbl sm8150_ufsphy_pcs[] = {
