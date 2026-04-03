@@ -1,3 +1,9 @@
+linux-6.18-sm6350 (6.18.21-1) trixie; urgency=medium
+
+  * Rebase on 6.18.21
+
+ -- Mobot <group_9279_bot_3d620cd42b5548cd487aa9eaff458c11@noreply.salsa.debian.org>  Fri, 03 Apr 2026 06:37:04 +0000
+
 linux-6.18-sm6350 (6.18.20-1) trixie; urgency=medium
 
   * Rebase on 6.18.20
