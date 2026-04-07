@@ -1,3 +1,10 @@
+linux-6.18-sdm845 (6.18.21-1) trixie; urgency=medium
+
+  * Fix patches after upstream commit 6ab27f2d , drop upstreamed patch, renumber
+  * Rebase on 6.18.21 upstream release
+
+ -- Marco Mattiolo <marco.mattiolo@hotmail.it>  Tue, 07 Apr 2026 15:38:41 +0200
+
 linux-6.18-sdm845 (6.18.20-1) trixie; urgency=medium
 
   [ Marco Mattiolo ]
