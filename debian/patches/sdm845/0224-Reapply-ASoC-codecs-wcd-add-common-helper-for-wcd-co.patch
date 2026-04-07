@@ -275,7 +275,7 @@ index ed53043..40e5f24 100644
 -					     "qcom,micbias3-microvolt", NULL);
 -	vout_ctl_4 = wcd934x_get_micbias_val(comp->dev,
 -					     "qcom,micbias4-microvolt", NULL);
-+	ret = wcd_dt_parse_mbhc_data(comp->dev, &wcd->mbhc_cfg);
++	ret = wcd_dt_parse_micbias_info(&wcd->common);
 +	if (ret)
 +		return ret;
  

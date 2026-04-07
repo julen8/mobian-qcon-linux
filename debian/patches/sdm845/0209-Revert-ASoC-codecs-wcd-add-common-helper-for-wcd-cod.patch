@@ -266,7 +266,7 @@ index 40e5f24..ed53043 100644
  	u32 def_dmic_rate, dmic_clk_drv;
 -	int ret;
  
--	ret = wcd_dt_parse_mbhc_data(comp->dev, &wcd->mbhc_cfg);
+-	ret = wcd_dt_parse_micbias_info(&wcd->common);
 -	if (ret)
 -		return ret;
 +	vout_ctl_1 = wcd934x_get_micbias_val(comp->dev,
