@@ -12,8 +12,7 @@ Link: https://patch.msgid.link/20251022143349.1081513-5-srinivas.kandagatla@oss.
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
  sound/soc/qcom/sc7280.c | 67 +++----------------------------------------------
- sound/soc/qcom/sdw.c    | 11 ++++++++
- 2 files changed, 14 insertions(+), 64 deletions(-)
+ 1 file changed, 3 insertions(+), 64 deletions(-)
 
 diff --git a/sound/soc/qcom/sc7280.c b/sound/soc/qcom/sc7280.c
 index c444dae..abdd58c 100644
@@ -136,32 +135,3 @@ index c444dae..abdd58c 100644
  }
  
  static int sc7280_snd_startup(struct snd_pcm_substream *substream)
-diff --git a/sound/soc/qcom/sdw.c b/sound/soc/qcom/sdw.c
-index c44659d..6576b47 100644
---- a/sound/soc/qcom/sdw.c
-+++ b/sound/soc/qcom/sdw.c
-@@ -2,6 +2,7 @@
- // Copyright (c) 2018-2023, Linaro Limited.
- // Copyright (c) 2018, The Linux Foundation. All rights reserved.
- 
-+#include <dt-bindings/sound/qcom,lpass.h>
- #include <dt-bindings/sound/qcom,q6afe.h>
- #include <linux/module.h>
- #include <sound/soc.h>
-@@ -35,6 +36,16 @@ static bool qcom_snd_is_sdw_dai(int id)
- 		break;
- 	}
- 
-+	/* DSP Bypass usecase, cpu dai index overlaps with DSP dai ids,
-+	 * DO NOT MERGE into top switch case */
-+	switch (id) {
-+	case LPASS_CDC_DMA_TX3:
-+	case LPASS_CDC_DMA_RX0:
-+		return true;
-+	default:
-+		break;
-+	}
-+
- 	return false;
- }
- 
