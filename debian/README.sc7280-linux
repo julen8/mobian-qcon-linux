@@ -7,3 +7,10 @@ community-maintained kernel forks:
 
 Those patchsets were last synced on the following dates:
   * sc7280: 2026-02-28
+
+Patch sc7280/0082-PATCH-drm-msm-dpu-don-t-try-using-2-LMs-if-only-one-DSC-is-available.patch
+was taken from the kernel's mailing list discussion (it was accepted upstream,
+expected to be in mainline 7.1 then backported to stable branches)
+https://lore.kernel.org/linux-arm-msm/20260317-fix-3d-dsc-v1-1-88b54f62f659@oss.qualcomm.com/
+because it fixes panel being filled with purple static noise
+ref. https://salsa.debian.org/Mobian-team/devices/kernels/qcom-linux/-/issues/41
