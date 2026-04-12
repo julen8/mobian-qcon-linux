@@ -193,7 +193,7 @@ index 0000000..611f06c
 +
 +#endif /* __WCD_COMMON_H__  */
 diff --git a/sound/soc/codecs/wcd934x.c b/sound/soc/codecs/wcd934x.c
-index ed53043..40e5f24 100644
+index ed53043..903bba1 100644
 --- a/sound/soc/codecs/wcd934x.c
 +++ b/sound/soc/codecs/wcd934x.c
 @@ -21,6 +21,7 @@

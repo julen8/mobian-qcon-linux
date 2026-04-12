@@ -7,7 +7,7 @@ Subject: ASoC: codecs: wcd934x: fix wcd->micb2_mv being read before assigned
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/sound/soc/codecs/wcd934x.c b/sound/soc/codecs/wcd934x.c
-index 3c22f71..40e5f24 100644
+index c1a796b..903bba1 100644
 --- a/sound/soc/codecs/wcd934x.c
 +++ b/sound/soc/codecs/wcd934x.c
 @@ -2950,6 +2950,7 @@ static int wcd934x_mbhc_init(struct snd_soc_component *component)
