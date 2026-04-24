@@ -1,0 +1,81 @@
+name: Kernel Build CI
+
+on:
+  push:
+    branches:
+      - "**"
+    tags:
+      - "v*"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kernel-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build Kernel Deb Packages
+    runs-on: ubuntu-latest
+    container:
+      image: debian:13
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Show environment
+        run: |
+          cat /etc/os-release
+          uname -a
+          pwd
+
+      - name: Install build dependencies
+        run: |
+          export DEBIAN_FRONTEND=noninteractive
+          apt-get update
+          apt-get install -y binfmt-support qemu-user-static gcc-aarch64-linux-gnu \
+            build-essential git debootstrap u-boot-tools device-tree-compiler \
+            libncurses-dev flex bison libssl-dev rsync kmod fakeroot git-buildpackage \
+            debhelper
+
+      - name: Build kernel deb packages
+        run: |
+          set -e
+          set -x
+
+          git config --global --add safe.directory "$(pwd)"
+
+          gbp pq import
+
+          env ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- debian/rules .config
+
+          fakeroot env ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- DEB_HOST_ARCH=arm64 \
+            debian/rules binary -j"$(($(grep -c processor < /proc/cpuinfo)*2))"
+
+          mkdir -p artifacts
+          mv ../linux-image-*.deb ../linux-headers-*.deb artifacts/
+
+      - name: Verify artifacts
+        run: |
+          ls -lah artifacts
+          ls -lah artifacts/*.deb
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-debs-${{ github.sha }}
+          path: artifacts/*.deb
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Publish to GitHub Release (tag only)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/*.deb
