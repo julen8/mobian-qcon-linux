@@ -31,7 +31,8 @@ jobs:
           apt-get install -y binfmt-support qemu-user-static gcc-aarch64-linux-gnu \
             build-essential git debootstrap u-boot-tools device-tree-compiler \
             libncurses-dev flex bison libssl-dev rsync kmod fakeroot git-buildpackage \
-            debhelper ca-certificates
+            debhelper ca-certificates \
+            lsb-release libelf-dev bc cpio coreutils curl xz-utils tar mkbootimg util-linux
 
       - name: Checkout source
         uses: actions/checkout@v4
