@@ -24,17 +24,6 @@ jobs:
       image: debian:13
 
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Show environment
-        run: |
-          cat /etc/os-release
-          uname -a
-          pwd
-
       - name: Install build dependencies
         run: |
           export DEBIAN_FRONTEND=noninteractive
@@ -42,7 +31,24 @@ jobs:
           apt-get install -y binfmt-support qemu-user-static gcc-aarch64-linux-gnu \
             build-essential git debootstrap u-boot-tools device-tree-compiler \
             libncurses-dev flex bison libssl-dev rsync kmod fakeroot git-buildpackage \
-            debhelper
+            debhelper ca-certificates
+
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate git repository
+        run: |
+          test -d .git
+          git rev-parse --is-inside-work-tree
+          git log -1 --oneline
+
+      - name: Show environment
+        run: |
+          cat /etc/os-release
+          uname -a
+          pwd
 
       - name: Build kernel deb packages
         run: |
