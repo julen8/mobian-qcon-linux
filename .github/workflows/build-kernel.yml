@@ -35,14 +35,9 @@ jobs:
 
       - name: Checkout source
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Validate git repository
-        run: |
-          test -d .git
-          git rev-parse --is-inside-work-tree
-          git log -1 --oneline
+      - name: Prepare repository
+        run: git config --global --add safe.directory "$(pwd)"
 
       - name: Show environment
         run: |
@@ -54,8 +49,6 @@ jobs:
         run: |
           set -e
           set -x
-
-          git config --global --add safe.directory "$(pwd)"
 
           gbp pq import
 
