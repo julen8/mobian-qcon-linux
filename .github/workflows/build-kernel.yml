@@ -58,6 +58,9 @@ jobs:
 
           env ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- debian/rules .config
 
+          scripts/config --disable CONFIG_HID_PLAYSTATION
+          env ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- make olddefconfig
+
           fakeroot env ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- DEB_HOST_ARCH=arm64 \
             debian/rules binary -j"$(($(grep -c processor < /proc/cpuinfo)*2))"
 
